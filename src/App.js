@@ -5,6 +5,7 @@ import LoginAdmin from './Components/Admin/Registration/Login';
 import LoginAssessor from './Components/Teacher/Registration/Login';
 import LoginStudent from './Components/Student/Registration/Login';
 import LoginProctorer from './Components/Proctorer/Registration/Login';
+import DashboardAdmin from './Components/Admin/Index';
 
 function App() {
   return (
@@ -16,6 +17,7 @@ function App() {
           <Route path="/loginAssessor" element={<LoginAssessor/>} exact/>
           <Route path="/loginStudent" element={<LoginStudent/>} exact/>
           <Route path="/loginProctorer" element={<LoginProctorer/>} exact/>
+          <Route path="/dashboardAdmin" element={<DashboardAdmin/>} exact/>
         </Routes>
       </Router>
     </div>
