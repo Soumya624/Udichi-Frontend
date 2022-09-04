@@ -78,6 +78,7 @@ export default function Signup() {
                 <Button
                   variant="contained"
                   style={{ backgroundColor: "#7882BD", width: "50%" }}
+                  href='/dashboardStudent'
                 >
                   Continue
                 </Button>

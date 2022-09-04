@@ -6,6 +6,9 @@ import LoginAssessor from './Components/Teacher/Registration/Login';
 import LoginStudent from './Components/Student/Registration/Login';
 import LoginProctorer from './Components/Proctorer/Registration/Login';
 import DashboardAdmin from './Components/Admin/Index';
+import DashboardProctorer from './Components/Proctorer/Index';
+import DashboardAssessor from './Components/Teacher/Index';
+import DashboardStudent from './Components/Student/Index';
 
 function App() {
   return (
@@ -18,6 +21,9 @@ function App() {
           <Route path="/loginStudent" element={<LoginStudent/>} exact/>
           <Route path="/loginProctorer" element={<LoginProctorer/>} exact/>
           <Route path="/dashboardAdmin" element={<DashboardAdmin/>} exact/>
+          <Route path="/dashboardProctorer" element={<DashboardProctorer/>} exact/>
+          <Route path="/dashboardAssessor" element={<DashboardAssessor/>} exact/>
+          <Route path="/dashboardStudent" element={<DashboardStudent/>} exact/>
         </Routes>
       </Router>
     </div>
