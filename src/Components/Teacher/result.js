@@ -9,45 +9,45 @@ import Paper from "@mui/material/Paper";
 import Navbar from "./../../Common/Navbar_Admin";
 import Footer from "../../Common/Footer";
 
-function createData(name, candidates, group, username, action) {
-  return { name, candidates, group, username, action };
+function createData(name, candidates, test, submitted, action) {
+  return { name, candidates, test, submitted, action };
 }
 
 const rows = [
   createData(
     "A Bose",
     159,
-    "JBL Tailoring@04.08.2022",
-    "user@001",
-    "View Details"
+    "Test 001",
+    "Yes",
+    "Download"
   ),
   createData(
     "Sudip Nayak",
     237,
-    "JBL Tailoring@04.08.2022",
-    "user@002",
-    "View Details"
+    "Test 001",
+    "Yes",
+    "Download"
   ),
   createData(
     "B M Kumar",
     262,
-    "JBL Tailoring@04.08.2022",
-    "user@003",
-    "View Details"
+    "Test 001",
+    "Yes",
+    "Download"
   ),
   createData(
     "P Chetri",
     305,
-    "JBL Tailoring@04.08.2022",
-    "user@004",
-    "View Details"
+    "Test 001",
+    "Yes",
+    "Download"
   ),
   createData(
     "P K Das",
     356,
-    "JBL Tailoring@04.08.2022",
-    "user@005",
-    "View Details"
+    "Test 001",
+    "No",
+    "Download"
   ),
 ];
 
@@ -60,12 +60,12 @@ export default function BasicTable() {
         <br />
         <br />
         <h4 style={{ textAlign: "left", fontSize: "28px", lineHeight: "1px" }}>
-          Total Candidates
+          View Results
         </h4>
         <p style={{ lineHeight: "1px" }}>
-          Want to Add a{" "}
+          Want to View{" "}
           <a href="#" style={{ textDecoration: "none" }}>
-            New Candidate?
+            Your Account?
           </a>
         </p>
         <br />
@@ -81,10 +81,10 @@ export default function BasicTable() {
                   <b>ID of Candidates</b>
                 </TableCell>
                 <TableCell align="right">
-                  <b>Group</b>
+                  <b>Test Name</b>
                 </TableCell>
                 <TableCell align="right">
-                  <b>Username</b>
+                  <b>Submitted</b>
                 </TableCell>
                 <TableCell align="right">
                   <b>Action</b>
@@ -101,8 +101,8 @@ export default function BasicTable() {
                     {row.name}
                   </TableCell>
                   <TableCell align="right">{row.candidates}</TableCell>
-                  <TableCell align="right">{row.group}</TableCell>
-                  <TableCell align="right">{row.username}</TableCell>
+                  <TableCell align="right">{row.test}</TableCell>
+                  <TableCell align="right">{row.submitted}</TableCell>
                   <TableCell align="right">{row.action}</TableCell>
                 </TableRow>
               ))}

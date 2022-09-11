@@ -63,9 +63,9 @@ export default function BasicTable() {
           Total Questions
         </h4>
         <p style={{ lineHeight: "1px" }}>
-          Want to View{" "}
+          Want to Add{" "}
           <a href="#" style={{ textDecoration: "none" }}>
-            Your Account?
+            New Questions?
           </a>
         </p>
         <br />

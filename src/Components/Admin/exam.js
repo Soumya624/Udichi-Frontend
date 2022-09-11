@@ -33,9 +33,9 @@ export default function BasicTable() {
           Upcoming Exams
         </h4>
         <p style={{ lineHeight: "1px" }}>
-          Want to View{" "}
+          Want to Create{" "}
           <a href="#" style={{ textDecoration: "none" }}>
-            Your Account?
+            New Exams?
           </a>
         </p>
         <br />

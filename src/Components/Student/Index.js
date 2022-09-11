@@ -31,6 +31,8 @@ export default function Index() {
       <Navbar />
       <div style={{ padding: "5%" }}>
         <br />
+        <br />
+        <br />
         <h4 style={{ textAlign: "left", fontSize: "28px", lineHeight: "1px" }}>
           Welcome!
         </h4>

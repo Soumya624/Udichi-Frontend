@@ -13,6 +13,10 @@ import ExamAdmin from './Components/Admin/exam';
 import CandidateAdmin from './Components/Admin/candidates';
 import QuestionAdmin from './Components/Admin/questions';
 import StatisticsAdmin from './Components/Admin/statistics';
+import ResultAssessor from './Components/Teacher/result';
+import PresenceAssessor from './Components/Teacher/presence';
+import VivaAssessor from './Components/Teacher/viva';
+import VivalinkAssessor from './Components/Teacher/vivalink';
 
 function App() {
   return (
@@ -32,6 +36,10 @@ function App() {
           <Route path="/candidateAdmin" element={<CandidateAdmin/>}  exact/>
           <Route path="/questionAdmin" element={<QuestionAdmin/>} exact/>
           <Route path="/statisticsAdmin" element={<StatisticsAdmin/>} exact/>
+          <Route path="/resultAssessor" element={<ResultAssessor/>} exact/>
+          <Route path="/presenceAssessor" element={<PresenceAssessor/>} exact/>
+          <Route path="/vivaAssessor" element={<VivaAssessor/>} exact/>
+          <Route path="/VivalinkAssessor" element={<VivalinkAssessor/>} exact/>
         </Routes>
       </Router>
     </div>
