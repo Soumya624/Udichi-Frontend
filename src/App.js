@@ -17,6 +17,10 @@ import ResultAssessor from './Components/Teacher/result';
 import PresenceAssessor from './Components/Teacher/presence';
 import VivaAssessor from './Components/Teacher/viva';
 import VivalinkAssessor from './Components/Teacher/vivalink';
+import MonitorProctorer from './Components/Proctorer/monitor';
+import StarttestStudent from './Components/Student/starttest';
+import SubmittestStudent from './Components/Student/submittest';
+import TestStudent from './Components/Student/test';
 
 function App() {
   return (
@@ -39,7 +43,11 @@ function App() {
           <Route path="/resultAssessor" element={<ResultAssessor/>} exact/>
           <Route path="/presenceAssessor" element={<PresenceAssessor/>} exact/>
           <Route path="/vivaAssessor" element={<VivaAssessor/>} exact/>
-          <Route path="/VivalinkAssessor" element={<VivalinkAssessor/>} exact/>
+          <Route path="/vivalinkAssessor" element={<VivalinkAssessor/>} exact/>
+          <Route path="/monitorProctorer" element={<MonitorProctorer/>} exact/>
+          <Route path="/starttestStudent" element={<StarttestStudent/>} exact/>
+          <Route path="/submittestStudent" element={<SubmittestStudent/>} exact/>
+          <Route path="testStudent" element={<TestStudent/>} exact/>
         </Routes>
       </Router>
     </div>

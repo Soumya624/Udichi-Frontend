@@ -15,14 +15,14 @@ import Checkbox from "@mui/material/Checkbox";
 export default function Footer() {
   return (
     <div>
-        <Grid
+      <Grid
         container
         spacing={2}
         style={{ backgroundColor: "#7882BD", color: "white", padding: "2%" }}
       >
         <Grid item sm={9}>
           <h4>Footer Text</h4>
-          <p>
+          <p style={{ textAlign: "justify" }}>
             Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
             eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim
             ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut
@@ -33,12 +33,12 @@ export default function Footer() {
         </Grid>
         <Grid item sm={3}>
           <h4>Footer Subtext</h4>
-          <p>
+          <p style={{ textAlign: "justify" }}>
             Duis aute irure dolor in reprehenderit in voluptate velit esse
             cillum dolore eu fugiat nulla pariatur
           </p>
         </Grid>
       </Grid>
     </div>
-  )
+  );
 }
