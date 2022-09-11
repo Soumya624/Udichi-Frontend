@@ -1,5 +1,5 @@
 import React from "react";
-import Navbar from "./../../Common/Navbar_Admin";
+import Navbar from "./../../Common/Navbar_Student";
 import Chart from "./../../Common/Chart";
 import Card from "@mui/material/Card";
 import CardActions from "@mui/material/CardActions";
