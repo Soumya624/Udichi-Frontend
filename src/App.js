@@ -9,6 +9,10 @@ import DashboardAdmin from './Components/Admin/Index';
 import DashboardProctorer from './Components/Proctorer/Index';
 import DashboardAssessor from './Components/Teacher/Index';
 import DashboardStudent from './Components/Student/Index';
+import ExamAdmin from './Components/Admin/exam';
+import CandidateAdmin from './Components/Admin/candidates';
+import QuestionAdmin from './Components/Admin/questions';
+import StatisticsAdmin from './Components/Admin/statistics';
 
 function App() {
   return (
@@ -24,6 +28,10 @@ function App() {
           <Route path="/dashboardProctorer" element={<DashboardProctorer/>} exact/>
           <Route path="/dashboardAssessor" element={<DashboardAssessor/>} exact/>
           <Route path="/dashboardStudent" element={<DashboardStudent/>} exact/>
+          <Route path="/examAdmin" element={<ExamAdmin/>} exact/>
+          <Route path="/candidateAdmin" element={<CandidateAdmin/>}  exact/>
+          <Route path="/questionAdmin" element={<QuestionAdmin/>} exact/>
+          <Route path="/statisticsAdmin" element={<StatisticsAdmin/>} exact/>
         </Routes>
       </Router>
     </div>

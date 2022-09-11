@@ -20,7 +20,7 @@ export default function Footer() {
         spacing={2}
         style={{ backgroundColor: "#7882BD", color: "white", padding: "2%" }}
       >
-        <Grid item xs={9}>
+        <Grid item sm={9}>
           <h4>Footer Text</h4>
           <p>
             Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
@@ -31,7 +31,7 @@ export default function Footer() {
             pariatur
           </p>
         </Grid>
-        <Grid item xs={3}>
+        <Grid item sm={3}>
           <h4>Footer Subtext</h4>
           <p>
             Duis aute irure dolor in reprehenderit in voluptate velit esse
