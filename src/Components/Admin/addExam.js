@@ -16,9 +16,13 @@ import InputLabel from "@mui/material/InputLabel";
 import MenuItem from "@mui/material/MenuItem";
 import FormControl from "@mui/material/FormControl";
 import Select from "@mui/material/Select";
+import Radio from "@mui/material/Radio";
+import RadioGroup from "@mui/material/RadioGroup";
+import FormLabel from "@mui/material/FormLabel";
 
 export default function AddCandidate() {
   const [age, setAge] = useState("");
+  const [flag, setFlag] = useState(true);
 
   const handleChange = (event) => {
     setAge(event.target.value);
@@ -44,65 +48,22 @@ export default function AddCandidate() {
                 component="div"
                 style={{ marginBottom: "0", fontWeight: "bold" }}
               >
-                Add Candidate
+                Add Exam
               </Typography>
               <br />
-              <Typography variant="body2" color="text.secondary">
-                <Grid container spacing={1} style={{ marginTop: "0.5%" }}>
-                  <Grid item xs={6}>
-                    <TextField
-                      id="outlined-basic"
-                      label="First Name"
-                      variant="outlined"
-                      size="small"
-                    />
-                  </Grid>
-                  <Grid item xs={6}>
-                    <TextField
-                      id="outlined-basic"
-                      label="Last Name"
-                      variant="outlined"
-                      size="small"
-                    />
-                  </Grid>
-                </Grid>
 
-                <Grid container spacing={1} style={{ marginTop: "0.5%" }}>
-                  <Grid item xs={6}>
-                    <TextField
-                      id="outlined-basic"
-                      label="Email"
-                      variant="outlined"
-                      size="small"
-                    />
-                  </Grid>
-                  <Grid item xs={6}>
-                    <TextField
-                      id="outlined-basic"
-                      label="Username"
-                      variant="outlined"
-                      size="small"
-                    />
-                  </Grid>
-                </Grid>
-                <Grid container spacing={1} style={{ marginTop: "0.5%" }}>
-                  <Grid item xs={12}>
-                    <center>
-                      <TextField
-                        id="outlined-basic"
-                        label="Password"
-                        variant="outlined"
-                        size="small"
-                        style={{ width: "98.5%" }}
-                      />
-                    </center>
-                  </Grid>
-                </Grid>
+              <Typography variant="body2" color="text.secondary">
+                <br />
+                <p
+                  style={{ borderBottom: "1px solid grey", textAlign: "left" }}
+                >
+                  <b>Enter Exam Information</b>
+                </p>
                 <Grid container spacing={1} style={{ marginTop: "0.5%" }}>
                   <Grid item xs={12}>
                     <TextField
                       id="outlined-basic"
-                      label="Mobile Number"
+                      label="Exam Name"
                       variant="outlined"
                       size="small"
                       style={{ width: "98.5%" }}
@@ -113,7 +74,7 @@ export default function AddCandidate() {
                   <Grid item xs={6}>
                     <TextField
                       id="outlined-basic"
-                      label="Aadhar Number"
+                      label="Duration"
                       variant="outlined"
                       size="small"
                     />
@@ -121,57 +82,101 @@ export default function AddCandidate() {
                   <Grid item xs={6}>
                     <TextField
                       id="outlined-basic"
-                      label="Reference Number"
+                      label="Negetive Marks"
                       variant="outlined"
                       size="small"
                     />
                   </Grid>
                 </Grid>
-                <Grid container spacing={1} style={{ marginTop: "0.5%" }}>
-                  <Grid item xs={12}>
-                    <center>
-                      <FormControl fullWidth>
-                        <InputLabel
-                          id="demo-simple-select-label"
-                          style={{ marginBottom: "10%" }}
-                        >
-                          Candidate Group
-                        </InputLabel>
-                        <center>
-                          <Select
-                            labelId="demo-simple-select-label"
-                            id="demo-simple-select"
-                            value={age}
-                            label="Candidate Group"
-                            onChange={handleChange}
-                            size="small"
-                            style={{ width: "98.5%", padding: "1.2%" }}
-                          >
-                            <MenuItem value={1}>Group One</MenuItem>
-                            <MenuItem value={2}>Group Two</MenuItem>
-                            <MenuItem value={3}>Group Three</MenuItem>
-                          </Select>
-                        </center>
-                      </FormControl>
-                    </center>
+                <br />
+                <FormControl>
+                  <RadioGroup row name="row-radio-buttons-group">
+                    <FormControlLabel
+                      value="Always Available"
+                      control={<Radio />}
+                      label="Always Available"
+                    />
+                    <FormControlLabel
+                      value="Available On Specific Time"
+                      control={<Radio/>}
+                      label="Available On Specific Time"
+                    />
+                  </RadioGroup>
+                </FormControl>
+                <br />
+                <Grid
+                  container
+                  spacing={1}
+                  style={{ marginTop: "0.5%", display: flag ? "" : "none" }}
+                >
+                  <Grid item xs={6}>
+                    <TextField
+                      id="outlined-basic"
+                      label="Start Date & Time"
+                      variant="outlined"
+                      size="small"
+                    />
+                  </Grid>
+                  <Grid item xs={6}>
+                    <TextField
+                      id="outlined-basic"
+                      label="End Date & Time"
+                      variant="outlined"
+                      size="small"
+                    />
                   </Grid>
                 </Grid>
                 <br />
-                <FormControlLabel
-                  control={<Checkbox />}
-                  label="Enable Special Needs"
-                />
-                <FormControlLabel
-                  control={<Checkbox />}
-                  label="Save as Inactive"
-                />
+                <p
+                  style={{ borderBottom: "1px solid grey", textAlign: "left" }}
+                >
+                  <b>Specify Who Can Take This Exam</b>
+                </p>
+                <Grid container spacing={1} style={{ marginTop: "0.5%" }}>
+                  <Grid item xs={6}>
+                    <Button
+                      variant="contained"
+                      style={{ backgroundColor: "#7882BD", width: "100%" }}
+                      href="#"
+                    >
+                      Assign Groups
+                    </Button>
+                  </Grid>
+                  <Grid item xs={6}>
+                    <Button
+                      variant="contained"
+                      style={{ backgroundColor: "#7882BD", width: "100%" }}
+                      href="#"
+                    >
+                      Assign Candidates
+                    </Button>
+                  </Grid>
+                </Grid>
+                <br />
+                <p
+                  style={{ borderBottom: "1px solid grey", textAlign: "left" }}
+                >
+                  <b>Specify Number of Questions</b>
+                </p>
+                <Grid container spacing={1} style={{ marginTop: "0.5%" }}>
+                  <Grid item xs={6}>
+                    <Button
+                      variant="contained"
+                      style={{ backgroundColor: "#7882BD", width: "100%" }}
+                      href="#"
+                    >
+                      Specify & Add
+                    </Button>
+                  </Grid>
+                </Grid>
                 <br />
                 <br />
                 <br />
+                <p>(Specify Start & End Date/Time, If The Exam is Not Always Available)</p>
                 <Button
                   variant="contained"
                   style={{ backgroundColor: "#7882BD", width: "50%" }}
-                  href="/candidateAdmin"
+                  href="/examAdmin"
                 >
                   Continue
                 </Button>

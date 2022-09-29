@@ -34,7 +34,7 @@ export default function BasicTable() {
         </h4>
         <p style={{ lineHeight: "1px" }}>
           Want to Create{" "}
-          <a href="#" style={{ textDecoration: "none" }}>
+          <a href="/addexamAdmin" style={{ textDecoration: "none" }}>
             New Exams?
           </a>
         </p>
