@@ -21,6 +21,9 @@ import MonitorProctorer from './Components/Proctorer/monitor';
 import StarttestStudent from './Components/Student/starttest';
 import SubmittestStudent from './Components/Student/submittest';
 import TestStudent from './Components/Student/test';
+import AddcandidateAdmin from './Components/Admin/addCandidate';
+import AddexamAdmin from './Components/Admin/addExam';
+import AddquestionAdmin from './Components/Admin/addQuestion';
 
 function App() {
   return (
@@ -47,7 +50,10 @@ function App() {
           <Route path="/monitorProctorer" element={<MonitorProctorer/>} exact/>
           <Route path="/starttestStudent" element={<StarttestStudent/>} exact/>
           <Route path="/submittestStudent" element={<SubmittestStudent/>} exact/>
-          <Route path="testStudent" element={<TestStudent/>} exact/>
+          <Route path="/testStudent" element={<TestStudent/>} exact/>
+          <Route path="/addcandidateAdmin" element={<AddcandidateAdmin/>} exact/>
+          <Route path="/addexamAdmin" element={<AddexamAdmin/>} exact/>
+          <Route path="/addquestionAdmin" element={<AddquestionAdmin/>} exact/>
         </Routes>
       </Router>
     </div>

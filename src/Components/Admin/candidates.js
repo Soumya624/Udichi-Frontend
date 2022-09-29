@@ -64,7 +64,7 @@ export default function BasicTable() {
         </h4>
         <p style={{ lineHeight: "1px" }}>
           Want to Add a{" "}
-          <a href="#" style={{ textDecoration: "none" }}>
+          <a href="/addcandidateAdmin" style={{ textDecoration: "none" }}>
             New Candidate?
           </a>
         </p>
@@ -103,7 +103,7 @@ export default function BasicTable() {
                   <TableCell align="right">{row.candidates}</TableCell>
                   <TableCell align="right">{row.group}</TableCell>
                   <TableCell align="right">{row.username}</TableCell>
-                  <TableCell align="right">{row.action}</TableCell>
+                  <TableCell align="right" style={{cursor:"pointer"}}>{row.action}</TableCell>
                 </TableRow>
               ))}
             </TableBody>

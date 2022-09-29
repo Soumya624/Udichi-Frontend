@@ -73,7 +73,7 @@ export default function BasicTable() {
                   <TableCell align="right">{row.candidates}</TableCell>
                   <TableCell align="right">{row.duration}</TableCell>
                   <TableCell align="right">{row.questions}</TableCell>
-                  <TableCell align="right">{row.action}</TableCell>
+                  <TableCell align="right" style={{cursor:"pointer"}}>{row.action}</TableCell>
                 </TableRow>
               ))}
             </TableBody>
