@@ -37,6 +37,7 @@ export default function BasicTable() {
           <a href="/addexamAdmin" style={{ textDecoration: "none" }}>
             New Exams?
           </a>
+          &nbsp;Or <input type="file" />
         </p>
         <br />
         <br />

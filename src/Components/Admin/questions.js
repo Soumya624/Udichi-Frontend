@@ -67,6 +67,7 @@ export default function BasicTable() {
           <a href="/addquestionAdmin" style={{ textDecoration: "none" }}>
             New Questions?
           </a>
+          &nbsp;Or <input type="file" />
         </p>
         <br />
         <br />

@@ -67,6 +67,7 @@ export default function BasicTable() {
           <a href="/addcandidateAdmin" style={{ textDecoration: "none" }}>
             New Candidate?
           </a>
+          &nbsp;Or <input type="file" />
         </p>
         <br />
         <br />
@@ -103,7 +104,9 @@ export default function BasicTable() {
                   <TableCell align="right">{row.candidates}</TableCell>
                   <TableCell align="right">{row.group}</TableCell>
                   <TableCell align="right">{row.username}</TableCell>
-                  <TableCell align="right" style={{cursor:"pointer"}}>{row.action}</TableCell>
+                  <TableCell align="right" style={{ cursor: "pointer" }}>
+                    {row.action}
+                  </TableCell>
                 </TableRow>
               ))}
             </TableBody>
