@@ -64,14 +64,23 @@ export default function Index() {
                   4 Hours
                 </Box>
                 <Box gridColumn="span 3">June'21 to July'21</Box>
-                <Box gridColumn="span 3" style={{ color: "red" }}>
+                <Box gridColumn="span 3" style={{ color: "red", cursor:"pointer" }}>
                   View Results
                 </Box>
                 <Box
                   gridColumn="span 3"
-                  style={{ textAlign: "right", color: "#7882bd" }}
+                  style={{
+                    textAlign: "right",
+                    color: "#7882bd",
+                    cursor: "pointer",
+                  }}
                 >
-                  Monitor Exam
+                  <a
+                    href="/monitorProctorer"
+                    style={{ textDecoration: "none" }}
+                  >
+                    Monitor Exam
+                  </a>
                 </Box>
               </Box>
             </Item>
@@ -89,14 +98,23 @@ export default function Index() {
                   4 Hours
                 </Box>
                 <Box gridColumn="span 3">June'21 to July'21</Box>
-                <Box gridColumn="span 3" style={{ color: "red" }}>
+                <Box gridColumn="span 3" style={{ color: "red", cursor:"pointer" }}>
                   View Results
                 </Box>
                 <Box
                   gridColumn="span 3"
-                  style={{ textAlign: "right", color: "#7882bd" }}
+                  style={{
+                    textAlign: "right",
+                    color: "#7882bd",
+                    cursor: "pointer",
+                  }}
                 >
-                  Monitor Exam
+                  <a
+                    href="/monitorProctorer"
+                    style={{ textDecoration: "none" }}
+                  >
+                    Monitor Exam
+                  </a>
                 </Box>
               </Box>
             </Item>

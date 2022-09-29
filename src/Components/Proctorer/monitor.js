@@ -1,5 +1,5 @@
 import React from "react";
-import Navbar from "./../../Common/Navbar_Assessor";
+import Navbar from "./../../Common/Navbar_Proctorer";
 import Card from "@mui/material/Card";
 import CardActions from "@mui/material/CardActions";
 import CardContent from "@mui/material/CardContent";
@@ -88,8 +88,8 @@ export default function Confirmpresence() {
                           {row.name}
                         </TableCell>
                         <TableCell align="right">{row.candidates}</TableCell>
-                        <TableCell align="right">{row.terminate}</TableCell>
-                        <TableCell align="right">{row.action}</TableCell>
+                        <TableCell align="right" style={{cursor:"pointer"}}>{row.terminate}</TableCell>
+                        <TableCell align="right" style={{cursor:"pointer"}}>{row.action}</TableCell>
                       </TableRow>
                     ))}
                   </TableBody>
@@ -103,7 +103,7 @@ export default function Confirmpresence() {
                 <Button
                   variant="contained"
                   style={{ backgroundColor: "#7882BD", width: "50%" }}
-                  href="#"
+                  href="/dashboardProctorer"
                 >
                   Close
                 </Button>

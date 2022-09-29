@@ -64,21 +64,45 @@ export default function Index() {
                   4 Hours
                 </Box>
                 <Box gridColumn="span 3">June'21 to July'21</Box>
-                <Box gridColumn="span 3" style={{ color: "red" }}>
-                  View Results
+                <Box
+                  gridColumn="span 3"
+                  style={{ color: "red", cursor: "pointer" }}
+                >
+                  <a
+                    href="/resultAssessor"
+                    style={{ textDecoration: "none", color: "red" }}
+                  >
+                    View Result
+                  </a>
                 </Box>
                 <Box
                   gridColumn="span 3"
-                  style={{ textAlign: "right", color: "#7882bd" }}
+                  style={{
+                    textAlign: "right",
+                    color: "#7882bd",
+                    cursor: "pointer",
+                  }}
                 >
-                  Confirm Presence
+                  <a
+                    href="/presenceAssessor"
+                    style={{ textDecoration: "none" }}
+                  >
+                    Confirm Presence
+                  </a>
                 </Box>
               </Box>
             </Item>
           </Box>
           <Box gridColumn="span 12">
             <Item style={{ padding: "1.5%", borderLeft: "2rem solid #ffb2b2" }}>
-              <h3 style={{ textAlign: "left" }}>Exam Title</h3>
+              <h3 style={{ textAlign: "left", cursor: "pointer" }}>
+                <a
+                  href="/vivaAssessor"
+                  style={{ textDecoration: "none", color: "grey" }}
+                >
+                  Viva Exam Title
+                </a>
+              </h3>
               <Box
                 display="grid"
                 gridTemplateColumns="repeat(12, 1fr)"
@@ -89,14 +113,31 @@ export default function Index() {
                   4 Hours
                 </Box>
                 <Box gridColumn="span 3">June'21 to July'21</Box>
-                <Box gridColumn="span 3" style={{ color: "red" }}>
-                  View Results
+                <Box
+                  gridColumn="span 3"
+                  style={{ color: "red", cursor: "pointer" }}
+                >
+                  <a
+                    href="/resultAssessor"
+                    style={{ textDecoration: "none", color: "red" }}
+                  >
+                    View Result
+                  </a>
                 </Box>
                 <Box
                   gridColumn="span 3"
-                  style={{ textAlign: "right", color: "#7882bd" }}
+                  style={{
+                    textAlign: "right",
+                    color: "#7882bd",
+                    cursor: "pointer",
+                  }}
                 >
-                  Confirm Presence
+                  <a
+                    href="/presenceAssessor"
+                    style={{ textDecoration: "none" }}
+                  >
+                    Confirm Presence
+                  </a>
                 </Box>
               </Box>
             </Item>

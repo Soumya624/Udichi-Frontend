@@ -6,7 +6,7 @@ import TableContainer from "@mui/material/TableContainer";
 import TableHead from "@mui/material/TableHead";
 import TableRow from "@mui/material/TableRow";
 import Paper from "@mui/material/Paper";
-import Navbar from "./../../Common/Navbar_Admin";
+import Navbar from "./../../Common/Navbar_Assessor";
 import Footer from "../../Common/Footer";
 
 function createData(name, candidates, test, submitted, action) {
@@ -103,7 +103,7 @@ export default function BasicTable() {
                   <TableCell align="right">{row.candidates}</TableCell>
                   <TableCell align="right">{row.test}</TableCell>
                   <TableCell align="right">{row.submitted}</TableCell>
-                  <TableCell align="right">{row.action}</TableCell>
+                  <TableCell align="right" style={{cursor:"pointer"}}>{row.action}</TableCell>
                 </TableRow>
               ))}
             </TableBody>

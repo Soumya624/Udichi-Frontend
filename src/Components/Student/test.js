@@ -1,5 +1,5 @@
 import React from "react";
-import Navbar from "./../../Common/Navbar_Assessor";
+import Navbar from "./../../Common/Navbar_Student";
 import Card from "@mui/material/Card";
 import CardActions from "@mui/material/CardActions";
 import CardContent from "@mui/material/CardContent";
@@ -122,6 +122,7 @@ export default function Confirmpresence() {
                           width: "100%",
                           border: "1px solid black",
                         }}
+                        href="/submittestStudent"
                       >
                         Submit
                       </Button>

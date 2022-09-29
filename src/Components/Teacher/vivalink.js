@@ -89,7 +89,7 @@ export default function Confirmpresence() {
                         </TableCell>
                         <TableCell align="right">{row.candidates}</TableCell>
                         <TableCell align="right">{row.completed}</TableCell>
-                        <TableCell align="right">{row.action}</TableCell>
+                        <TableCell align="right" style={{cursor:"pointer"}}>{row.action}</TableCell>
                       </TableRow>
                     ))}
                   </TableBody>
@@ -103,7 +103,7 @@ export default function Confirmpresence() {
                 <Button
                   variant="contained"
                   style={{ backgroundColor: "#7882BD", width: "50%" }}
-                  href="#"
+                  href="/dashboardAssessor"
                 >
                   Close
                 </Button>

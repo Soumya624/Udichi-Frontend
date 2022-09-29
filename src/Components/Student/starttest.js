@@ -1,5 +1,5 @@
 import React from "react";
-import Navbar from "./../../Common/Navbar_Assessor";
+import Navbar from "./../../Common/Navbar_Student";
 import Card from "@mui/material/Card";
 import CardActions from "@mui/material/CardActions";
 import CardContent from "@mui/material/CardContent";
@@ -54,7 +54,7 @@ export default function Confirmpresence() {
                 <Button
                   variant="contained"
                   style={{ backgroundColor: "#7882BD", width: "50%" }}
-                  href="#"
+                  href="/testStudent"
                 >
                   Start Exam
                 </Button>

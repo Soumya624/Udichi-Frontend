@@ -64,20 +64,32 @@ export default function Index() {
                   4 Hours
                 </Box>
                 <Box gridColumn="span 3">June'21 to July'21</Box>
-                <Box gridColumn="span 3" style={{ color: "red" }}>
+                <Box
+                  gridColumn="span 3"
+                  style={{ color: "red", cursor: "pointer" }}
+                >
                   View Results
                 </Box>
                 <Box
                   gridColumn="span 3"
-                  style={{ textAlign: "right", color: "#7882bd" }}
+                  style={{
+                    textAlign: "right",
+                    color: "#7882bd",
+                    cursor: "pointer",
+                  }}
                 >
-                  Attempt Now
+                  <a
+                    href="/starttestStudent"
+                    style={{ textDecoration: "none" }}
+                  >
+                    Attempt Now
+                  </a>
                 </Box>
               </Box>
             </Item>
           </Box>
           <Box gridColumn="span 12">
-            <Item style={{ padding: "1.5%", borderLeft: "2rem solid #ffb2b2" }}>
+            <Item style={{ padding: "1.5%", borderLeft: "2rem solid #7882bd" }}>
               <h3 style={{ textAlign: "left" }}>Exam Title</h3>
               <Box
                 display="grid"
@@ -89,14 +101,26 @@ export default function Index() {
                   4 Hours
                 </Box>
                 <Box gridColumn="span 3">June'21 to July'21</Box>
-                <Box gridColumn="span 3" style={{ color: "red" }}>
+                <Box
+                  gridColumn="span 3"
+                  style={{ color: "red", cursor: "pointer" }}
+                >
                   View Results
                 </Box>
                 <Box
                   gridColumn="span 3"
-                  style={{ textAlign: "right", color: "#7882bd" }}
+                  style={{
+                    textAlign: "right",
+                    color: "#7882bd",
+                    cursor: "pointer",
+                  }}
                 >
-                  Attempt Now
+                  <a
+                    href="/starttestStudent"
+                    style={{ textDecoration: "none" }}
+                  >
+                    Attempt Now
+                  </a>
                 </Box>
               </Box>
             </Item>

@@ -54,7 +54,7 @@ export default function Confirmpresence() {
                 <Button
                   variant="contained"
                   style={{ backgroundColor: "#7882BD", width: "50%" }}
-                  href="#"
+                  href="/vivalinkAssessor"
                 >
                   Start Meeting
                 </Button>
