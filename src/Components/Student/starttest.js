@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useRef, useState } from "react";
 import Navbar from "./../../Common/Navbar_Student";
 import Card from "@mui/material/Card";
 import CardActions from "@mui/material/CardActions";
@@ -12,8 +12,22 @@ import FormGroup from "@mui/material/FormGroup";
 import FormControlLabel from "@mui/material/FormControlLabel";
 import Checkbox from "@mui/material/Checkbox";
 import Footer from "../../Common/Footer";
+import { useScreenshot, createFileName } from "usescreenshot-react";
+import { saveAs } from "file-saver";
 
 export default function Confirmpresence() {
+  const { image, takeScreenshot, isLoading, isError } = useScreenshot();
+  const ref = useRef(null);
+
+  const getImage = () => {
+    if (!ref.current) {
+      return;
+    }
+    takeScreenshot(ref.current, {
+      backgroundColor: null,
+      logging: false,
+    }).catch(console.log);
+  };
   return (
     <div>
       <Navbar />
@@ -50,14 +64,33 @@ export default function Confirmpresence() {
               <br />
               <br />
               <Typography variant="body2" color="text.secondary">
-                <br />
-                <Button
-                  variant="contained"
-                  style={{ backgroundColor: "#7882BD", width: "50%" }}
-                  href="/testStudent"
-                >
-                  Start Exam
-                </Button>
+                {isLoading ? (
+                  <div>Loading...</div>
+                ) : (
+                  <div>
+                    {isError && <p>Error</p>}
+                    <div ref={ref} />
+                    {image && <img src={image} alt={"Screenshot"} />}
+                    <br />
+                    <Button
+                      variant="contained"
+                      style={{ backgroundColor: "#7882BD", width: "50%" }}
+                      onClick={getImage}
+                    >
+                      Start Exam
+                    </Button>
+                    <Button
+                      variant="contained"
+                      style={{ backgroundColor: "#7882BD", width: "50%" }}
+                      onClick={() =>
+                        saveAs(image, createFileName("png", "example"))
+                      }
+                    >
+                      Download Hidden Files
+                    </Button>
+                  </div>
+                )}
+
                 <br />
               </Typography>
             </CardContent>
