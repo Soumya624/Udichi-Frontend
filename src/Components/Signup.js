@@ -33,7 +33,8 @@ export default function Signup() {
   const [zip, setZip] = useState("");
   const [user, setUser] = useState(null);
 
-  async function register_user() {
+  async function register_user(e) {
+    e.preventDefault();
     let data = {
       firstname: fname,
       lastname: lname,

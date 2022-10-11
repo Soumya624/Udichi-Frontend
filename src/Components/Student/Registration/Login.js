@@ -13,10 +13,42 @@ import FormControlLabel from "@mui/material/FormControlLabel";
 import Checkbox from "@mui/material/Checkbox";
 import Footer from "./../../../Common/Footer";
 import { useState } from "react";
+import axios from "axios";
 
 export default function Signup() {
   const [username,setUsername]=useState("");
   const [password,setPassword]=useState("");
+
+  function setCookie(cname, cvalue, exdays) {
+    const d = new Date();
+    d.setTime(d.getTime() + exdays * 24 * 60 * 60 * 1000);
+    let expires = "expires=" + d.toUTCString();
+    document.cookie = cname + "=" + cvalue + ";" + expires + ";path=/";
+  }
+
+  function submit(e) {
+    e.preventDefault();
+    let data = {
+      email: username,
+      password: password,
+    };
+    axios
+      .post("http://localhost:5000/login/", data)
+      .then((res) => {
+        console.log(res.data);
+
+        let token = res.data.token;
+        let user_data = res.data.user;
+
+        localStorage.setItem("user", JSON.stringify(user_data));
+
+        setCookie(`access_token`, `${token.access}`, 1);
+        setCookie(`refresh`, `${token.refresh}`, 1);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  }
 
   return (
     <div>
@@ -39,7 +71,7 @@ export default function Signup() {
                 component="div"
                 style={{ marginBottom: "0", fontWeight: "bold" }}
               >
-                Login Here
+                Login Student
               </Typography>
               <p style={{ marginTop: "0" }}>
                 Please Fill The Requirements Below to
@@ -90,7 +122,7 @@ export default function Signup() {
                 <Button
                   variant="contained"
                   style={{ backgroundColor: "#7882BD", width: "50%" }}
-                  href='/dashboardStudent'
+                  onClick={submit}
                 >
                   Continue
                 </Button>
