@@ -12,8 +12,12 @@ import FormGroup from "@mui/material/FormGroup";
 import FormControlLabel from "@mui/material/FormControlLabel";
 import Checkbox from "@mui/material/Checkbox";
 import Footer from "./../../../Common/Footer";
+import { useState } from "react";
 
 export default function Signup() {
+  const [username,setUsername]=useState("");
+  const [password,setPassword]=useState("");
+
   return (
     <div>
       <Navbar />
@@ -53,6 +57,10 @@ export default function Signup() {
                         variant="outlined"
                         size="small"
                         style={{ width: "98.5%" }}
+                        onChange={(e)=>{
+                          e.preventDefault();
+                          setUsername(e.target.value);
+                        }}
                       />
                     </center>
                   </Grid>
@@ -67,6 +75,10 @@ export default function Signup() {
                         variant="outlined"
                         size="small"
                         style={{ width: "98.5%" }}
+                        onChange={(e)=>{
+                          e.preventDefault();
+                          setPassword(e.target.value);
+                        }}
                       />
                     </center>
                   </Grid>
