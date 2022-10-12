@@ -79,11 +79,13 @@ export default function Signup() {
                 Get Connected
               </p>
               <br />
+              <form onSubmit={submit}>
               <Typography variant="body2" color="text.secondary">
                 <Grid container spacing={1} style={{ marginTop: "0.5%" }}>
                   <Grid item xs={12}>
                     <center>
                       <TextField
+                        required
                         id="outlined-basic"
                         label="Username"
                         variant="outlined"
@@ -102,6 +104,7 @@ export default function Signup() {
                   <Grid item xs={12}>
                     <center>
                       <TextField
+                        required
                         id="outlined-basic"
                         label="Password"
                         variant="outlined"
@@ -122,7 +125,7 @@ export default function Signup() {
                 <Button
                   variant="contained"
                   style={{ backgroundColor: "#7882BD", width: "50%" }}
-                  onClick={submit}
+                  type = "submit"
                 >
                   Continue
                 </Button>
@@ -134,6 +137,7 @@ export default function Signup() {
                   </a>
                 </p>
               </Typography>
+              </form>
             </CardContent>
             {/* <CardActions>
           <Button size="small">Share</Button>

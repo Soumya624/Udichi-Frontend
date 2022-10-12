@@ -1,21 +1,18 @@
 import React from "react";
 import Navbar from "./../../../Common/Navbar";
 import Card from "@mui/material/Card";
-import CardActions from "@mui/material/CardActions";
 import CardContent from "@mui/material/CardContent";
-import CardMedia from "@mui/material/CardMedia";
 import Button from "@mui/material/Button";
 import Typography from "@mui/material/Typography";
 import TextField from "@mui/material/TextField";
 import Grid from "@mui/material/Grid";
-import FormGroup from "@mui/material/FormGroup";
 import FormControlLabel from "@mui/material/FormControlLabel";
 import Checkbox from "@mui/material/Checkbox";
 import Footer from "./../../../Common/Footer";
 import { useState } from "react";
 import axios from "axios";
 
-export default function Signup() {
+export default function LoginAssessor() {
   const [username,setUsername]=useState("");
   const [password,setPassword]=useState("");
 
@@ -79,11 +76,13 @@ export default function Signup() {
                 Get Connected
               </p>
               <br />
+              <form onSubmit={submit}>
               <Typography variant="body2" color="text.secondary">
                 <Grid container spacing={1} style={{ marginTop: "0.5%" }}>
                   <Grid item xs={12}>
                     <center>
                       <TextField
+                        required
                         id="outlined-basic"
                         label="Username"
                         variant="outlined"
@@ -102,6 +101,7 @@ export default function Signup() {
                   <Grid item xs={12}>
                     <center>
                       <TextField
+                        required
                         id="outlined-basic"
                         label="Password"
                         variant="outlined"
@@ -120,9 +120,9 @@ export default function Signup() {
                 <br />
                 <br />
                 <Button
+                  type = "submit"
                   variant="contained"
                   style={{ backgroundColor: "#7882BD", width: "50%" }}
-                  onClick={submit}
                 >
                   Continue
                 </Button>
@@ -134,6 +134,7 @@ export default function Signup() {
                   </a>
                 </p>
               </Typography>
+              </form>
             </CardContent>
             {/* <CardActions>
           <Button size="small">Share</Button>
