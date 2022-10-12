@@ -26,8 +26,12 @@ export default function Confirmpresence() {
     takeScreenshot(ref.current, {
       backgroundColor: null,
       logging: false,
-    }).catch(console.log);
+    }).catch(e=>{
+      console.log(e)
+    });
   };
+
+  console.log(image)
   return (
     <div>
       <Navbar />

@@ -37,7 +37,7 @@ export default function Signup() {
 			fathername: fathername,
 			aadharnumber: aadhar,
 			email: email,
-			username: username,
+			username: email,
 			password: password,
 			mobile: mobile,
 			telephone: telephone,

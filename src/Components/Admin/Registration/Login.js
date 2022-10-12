@@ -34,13 +34,13 @@ export default function LoginAdmin() {
 			.then((res) => {
 				console.log(res.data);
 
-				let token = res.data.token;
+				let token = res.data.access_token;
 				let user_data = res.data.user;
 
 				localStorage.setItem("user", JSON.stringify(user_data));
 
-				setCookie(`access_token`, `${token.access}`, 1);
-				setCookie(`refresh`, `${token.refresh}`, 1);
+				setCookie(`access_token`, `${token}`, 1);
+				// setCookie(`refresh`, `${token.refresh}`, 1);
 			})
 			.catch((err) => {
 				console.log(err);
