@@ -18,7 +18,7 @@ import FormControl from "@mui/material/FormControl";
 import Select from "@mui/material/Select";
 import axios from "axios";
 
-arrayOption = [];
+var arrayOption = [];
 
 const Input = () => {
   const [opt, setOpt] = useState("");
