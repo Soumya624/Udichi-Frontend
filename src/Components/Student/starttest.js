@@ -98,7 +98,7 @@ export default function Confirmpresence() {
 								)}
 								<br />
 								<div>
-									<p>{status}</p>
+									{/* <p>{status}</p> */}
 									<button onClick={startRecording}>Start Recording</button>
 									<button onClick={stopRecording}>Stop Recording</button>
 									<video style={{width : "30em"}} src={mediaBlobUrl} controls autoPlay loop />
