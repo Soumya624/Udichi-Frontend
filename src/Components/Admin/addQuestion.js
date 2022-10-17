@@ -16,8 +16,14 @@ import InputLabel from "@mui/material/InputLabel";
 import MenuItem from "@mui/material/MenuItem";
 import FormControl from "@mui/material/FormControl";
 import Select from "@mui/material/Select";
+import axios from "axios";
+
+arrayOption = [];
 
 const Input = () => {
+  const [opt, setOpt] = useState("");
+  const [iscorrect, setIscorrect] = useState(false);
+
   return (
     <Grid container spacing={1} style={{ marginTop: "0.5%" }}>
       <Grid item xs={8}>
@@ -27,6 +33,10 @@ const Input = () => {
           variant="outlined"
           size="small"
           style={{ width: "98.5%" }}
+          onChange={(e) => {
+            e.preventDefault();
+            setOpt(e.target.value);
+          }}
         />
       </Grid>
       <Grid item xs={4}>
@@ -40,6 +50,11 @@ export default function AddCandidate() {
   const [type, setType] = useState("");
   const [section, setSection] = useState("");
   const [inputList, setInputList] = useState([]);
+  const [title, setTitle] = useState("");
+  const [positive, setPositive] = useState("");
+  const [negetive, setNegetive] = useState("");
+  const [qstype, setQstype] = useState("");
+  const [option,setOption] = useState([]);
 
   const onAddBtnClick = (event) => {
     setInputList(inputList.concat(<Input key={inputList.length} />));
@@ -51,6 +66,26 @@ export default function AddCandidate() {
   const handleChange1 = (event) => {
     setSection(event.target.value);
   };
+
+  async function create_ques(e) {
+    e.preventDefault();
+    let data = {
+      title:title,
+      is_objective:qstype,
+      positive_marks:positive,
+      negetive_marks:negetive,
+      options:option
+    }
+    console.log(data);
+    axios
+    .post("http://localhost:5000/questions/", data)
+    .then(res=>{
+      console.log(res);
+    })
+    .catch(err=>{
+      console.log(err);
+    })
+  }
   return (
     <div>
       <Navbar />
@@ -84,27 +119,48 @@ export default function AddCandidate() {
                       variant="outlined"
                       size="small"
                       style={{ width: "98.5%" }}
-                    />
-                  </Grid>
-                </Grid>
-                <Grid container spacing={1} style={{ marginTop: "0.5%" }}>
-                  <Grid item xs={12}>
-                    <TextField
-                      id="outlined-basic"
-                      label="Marks"
-                      variant="outlined"
-                      size="small"
-                      style={{ width: "98.5%" }}
+                      onChange={(e)=>{
+                        e.preventDefault();
+                        setTitle(e.target.value);
+                      }}
                     />
                   </Grid>
                 </Grid>
                 <Grid container spacing={1} style={{ marginTop: "0.5%" }}>
                   <Grid item xs={6}>
+                    <TextField
+                      id="outlined-basic"
+                      label="Positive Marks"
+                      variant="outlined"
+                      size="small"
+                      style={{ width: "98.5%" }}
+                      onChange={(e)=>{
+                        e.preventDefault();
+                        setPositive(e.target.value);
+                      }}
+                    />
+                  </Grid>
+                  <Grid item xs={6}>
+                    <TextField
+                      id="outlined-basic"
+                      label="Negetive Marks"
+                      variant="outlined"
+                      size="small"
+                      style={{ width: "98.5%" }}
+                      onChange={(e)=>{
+                        e.preventDefault();
+                        setNegetive(e.target.value);
+                      }}
+                    />
+                  </Grid>
+                </Grid>
+                <Grid container spacing={1} style={{ marginTop: "0.5%" }}>
+                  <Grid item xs={12}>
                     <center>
                       <FormControl fullWidth>
                         <InputLabel
                           id="demo-simple-select-label"
-                          style={{ marginBottom: "10%" }}
+                          // style={{ marginBottom: "10%" }}
                         >
                           Question Type
                         </InputLabel>
@@ -113,16 +169,16 @@ export default function AddCandidate() {
                             labelId="demo-simple-select-label"
                             id="demo-simple-select"
                             value={type}
-                            label="Candidate Group"
+                            label="Question Type"
                             onChange={handleChange}
                             size="small"
-                            style={{ width: "98.5%", padding: "2.5%" }}
+                            style={{ width: "98.5%", paddingBottom: "2%" }}
                           ></Select>
                         </center>
                       </FormControl>
                     </center>
                   </Grid>
-                  <Grid item xs={6}>
+                  {/* <Grid item xs={6}>
                     <center>
                       <FormControl fullWidth>
                         <InputLabel
@@ -144,9 +200,9 @@ export default function AddCandidate() {
                         </center>
                       </FormControl>
                     </center>
-                  </Grid>
+                  </Grid> */}
                 </Grid>
-                <Grid container spacing={1} style={{ marginTop: "0.5%" }}>
+                {/* <Grid container spacing={1} style={{ marginTop: "0.5%" }}>
                   <Grid item xs={12}>
                     <TextField
                       id="outlined-basic"
@@ -156,18 +212,24 @@ export default function AddCandidate() {
                       style={{ width: "98.5%" }}
                     />
                   </Grid>
-                </Grid>
+                </Grid> */}
                 <br />
                 <Grid container spacing={1} style={{ marginLeft: "1%" }}>
                   <Button
                     variant="contained"
-                    style={{ backgroundColor: "#7882BD" }}
+                    style={{ backgroundColor: "#7882BD", margin: "1%" }}
                     onClick={onAddBtnClick}
                   >
                     Add Option
                   </Button>
+                  <Button
+                    variant="contained"
+                    style={{ backgroundColor: "#7882BD", margin: "1%" }}
+                  >
+                    Set Options
+                  </Button>
                 </Grid>
-                <br/>
+                <br />
                 <div>{inputList}</div>
                 <br />
                 <br />
@@ -175,7 +237,7 @@ export default function AddCandidate() {
                 <Button
                   variant="contained"
                   style={{ backgroundColor: "#7882BD", width: "50%" }}
-                  href="/questionAdmin"
+                  onClick={create_ques}
                 >
                   Continue
                 </Button>
