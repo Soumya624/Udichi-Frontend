@@ -33,14 +33,15 @@ export default function LoginAssessor() {
       .post("http://localhost:5000/login/", data)
       .then((res) => {
         console.log(res.data);
+        
+        let token = res.data.access_token;
+				let user_data = res.data.user;
 
-        let token = res.data.token;
-        let user_data = res.data.user;
+				localStorage.setItem("user", JSON.stringify(user_data));
+        
+        setCookie(`access_token`, `${token}`, 1);
+        //setCookie(`refresh`, `${token.refresh}`, 1);
 
-        localStorage.setItem("user", JSON.stringify(user_data));
-
-        setCookie(`access_token`, `${token.access}`, 1);
-        setCookie(`refresh`, `${token.refresh}`, 1);
       })
       .catch((err) => {
         console.log(err);
