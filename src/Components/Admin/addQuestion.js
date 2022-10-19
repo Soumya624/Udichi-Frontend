@@ -17,6 +17,19 @@ import MenuItem from "@mui/material/MenuItem";
 import FormControl from "@mui/material/FormControl";
 import Select from "@mui/material/Select";
 import axios from "axios";
+import Box from "@mui/material/Box";
+import Modal from "@mui/material/Modal";
+
+const style = {
+  position: "absolute",
+  top: "50%",
+  left: "50%",
+  transform: "translate(-50%, -50%)",
+  width: 400,
+  bgcolor: "background.paper",
+  boxShadow: 24,
+  p: 4,
+};
 
 var arrayOption = [];
 
@@ -24,9 +37,28 @@ const Input = () => {
   const [opt, setOpt] = useState("");
   const [iscorrect, setIscorrect] = useState(false);
 
+  async function add_option(e) {
+    e.preventDefault();
+    let data = {
+      title: opt,
+      is_correct: iscorrect,
+    };
+    axios
+      .post("http://localhost:5000/options/", data)
+      .then((res) => {
+        console.log(res);
+        if (res.status === 200) {
+          arrayOption.push(res.data.data._id);
+        }
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  }
+
   return (
     <Grid container spacing={1} style={{ marginTop: "0.5%" }}>
-      <Grid item xs={8}>
+      <Grid item xs={5}>
         <TextField
           id="outlined-basic"
           label="Type Option"
@@ -40,13 +72,29 @@ const Input = () => {
         />
       </Grid>
       <Grid item xs={4}>
-        <FormControlLabel control={<Checkbox />} label="Is Correct" />
+        <FormControlLabel
+          control={<Checkbox />}
+          label="Is Correct"
+          onClick={(e) => {
+            setIscorrect(!iscorrect);
+          }}
+        />
+      </Grid>
+      <Grid item xs={3}>
+        <Button
+          variant="contained"
+          style={{ backgroundColor: "#7882BD", width: "50%" }}
+          onClick={add_option}
+        >
+          Add
+        </Button>
       </Grid>
     </Grid>
   );
 };
 
 export default function AddCandidate() {
+  const [group, setGroup] = useState("");
   const [type, setType] = useState("");
   const [section, setSection] = useState("");
   const [inputList, setInputList] = useState([]);
@@ -54,8 +102,15 @@ export default function AddCandidate() {
   const [positive, setPositive] = useState("");
   const [negetive, setNegetive] = useState("");
   const [qstype, setQstype] = useState("");
-  const [option,setOption] = useState([]);
-
+  const [option, setOption] = useState([]);
+  const [assign, setAssign] = useState(false);
+  const [create, setCreate] = useState(false);
+  const [grptitle, setGrptitle] = useState("");
+  const [questionid, setQuestionid] = useState("");
+  const [quesgroup, setQuesgroup] = useState([]);
+  const [open, setOpen] = useState(false);
+  const handleOpen = () => setOpen(true);
+  const handleClose = () => setOpen(false);
   const onAddBtnClick = (event) => {
     setInputList(inputList.concat(<Input key={inputList.length} />));
   };
@@ -67,25 +122,113 @@ export default function AddCandidate() {
     setSection(event.target.value);
   };
 
+  const handleChange2 = (event) => {
+    setGroup(event.target.value);
+  };
+
   async function create_ques(e) {
     e.preventDefault();
-    let data = {
-      title:title,
-      is_objective:qstype,
-      positive_marks:positive,
-      negetive_marks:negetive,
-      options:option
+    if (type == "Des") {
+      let data = {
+        title: title,
+        is_objective: false,
+        positive_marks: positive,
+        negative_marks: negetive,
+      };
+      axios
+        .post("http://localhost:5000/questions/", data)
+        .then((res) => {
+          console.log(res);
+          if (res.status === 200) {
+            handleOpen();
+            setQuestionid(res.data.data._id);
+          }
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+    } else {
+      let data = {
+        title: title,
+        is_objective: true,
+        positive_marks: positive,
+        negative_marks: negetive,
+        options: arrayOption,
+      };
+      axios
+        .post("http://localhost:5000/questions/", data)
+        .then((res) => {
+          console.log(res);
+          if (res.status === 200) {
+            handleOpen();
+            setQuestionid(res.data.data._id);
+          }
+        })
+        .catch((err) => {
+          console.log(err);
+        });
     }
-    console.log(data);
-    axios
-    .post("http://localhost:5000/questions/", data)
-    .then(res=>{
-      console.log(res);
-    })
-    .catch(err=>{
-      console.log(err);
-    })
   }
+
+  async function create_questiongroup(e) {
+    e.preventDefault();
+    let data = {
+      title: grptitle,
+      questions: questionid,
+    };
+    axios
+      .post("http://localhost:5000/question-group/", data)
+      .then((res) => {
+        console.log(res);
+        handleClose();
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  }
+
+  function assign_group() {
+    setAssign(true);
+    setCreate(false);
+    getQuestions();
+  }
+
+  function create_group() {
+    setCreate(true);
+    setAssign(false);
+  }
+
+  function getQuestions() {
+    axios
+      .get("http://localhost:5000/question-group/")
+      .then((res) => {
+        console.log(res);
+        if (res.status === 200) {
+          setQuesgroup(res.data);
+        }
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  }
+
+  async function assign_questiongroup(e) {
+    e.preventDefault();
+    let data = {
+      title: group,
+      questions: questionid,
+    };
+    axios
+      .post("http://localhost:5000/question-group/", data)
+      .then((res) => {
+        console.log(res);
+        handleClose();
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  }
+
   return (
     <div>
       <Navbar />
@@ -119,7 +262,7 @@ export default function AddCandidate() {
                       variant="outlined"
                       size="small"
                       style={{ width: "98.5%" }}
-                      onChange={(e)=>{
+                      onChange={(e) => {
                         e.preventDefault();
                         setTitle(e.target.value);
                       }}
@@ -134,7 +277,7 @@ export default function AddCandidate() {
                       variant="outlined"
                       size="small"
                       style={{ width: "98.5%" }}
-                      onChange={(e)=>{
+                      onChange={(e) => {
                         e.preventDefault();
                         setPositive(e.target.value);
                       }}
@@ -147,7 +290,7 @@ export default function AddCandidate() {
                       variant="outlined"
                       size="small"
                       style={{ width: "98.5%" }}
-                      onChange={(e)=>{
+                      onChange={(e) => {
                         e.preventDefault();
                         setNegetive(e.target.value);
                       }}
@@ -173,7 +316,12 @@ export default function AddCandidate() {
                             onChange={handleChange}
                             size="small"
                             style={{ width: "98.5%", paddingBottom: "2%" }}
-                          ></Select>
+                          >
+                            <MenuItem value={"Obj"}>Single/Miltiple Correct</MenuItem>
+                            <MenuItem value={"Des"}>
+                              Fill in The Blanks
+                            </MenuItem>
+                          </Select>
                         </center>
                       </FormControl>
                     </center>
@@ -214,24 +362,21 @@ export default function AddCandidate() {
                   </Grid>
                 </Grid> */}
                 <br />
-                <Grid container spacing={1} style={{ marginLeft: "1%" }}>
-                  <Button
-                    variant="contained"
-                    style={{ backgroundColor: "#7882BD", margin: "1%" }}
-                    onClick={onAddBtnClick}
-                  >
-                    Add Option
-                  </Button>
-                  <Button
-                    variant="contained"
-                    style={{ backgroundColor: "#7882BD", margin: "1%" }}
-                  >
-                    Set Options
-                  </Button>
-                </Grid>
+                {type === "Obj" ? (
+                  <Grid container spacing={1} style={{ marginLeft: "1%" }}>
+                    <Button
+                      variant="contained"
+                      style={{ backgroundColor: "#7882BD", margin: "1%" }}
+                      onClick={onAddBtnClick}
+                    >
+                      Add Option
+                    </Button>
+                  </Grid>
+                ) : (
+                  <center></center>
+                )}
                 <br />
                 <div>{inputList}</div>
-                <br />
                 <br />
                 <br />
                 <Button
@@ -256,6 +401,107 @@ export default function AddCandidate() {
         <br />
       </div>
       <Footer />
+      <Modal
+        open={open}
+        onClose={handleClose}
+        aria-labelledby="modal-modal-title"
+        aria-describedby="modal-modal-description"
+      >
+        <Box sx={style}>
+          <center>
+            <p>
+              You Can Assign This Question To a Group{" "}
+              <a
+                onClick={assign_group}
+                style={{
+                  textDecoration: "none",
+                  color: "blue",
+                  cursor: "pointer",
+                }}
+              >
+                From Here
+              </a>{" "}
+              Or You Can{" "}
+              <a
+                onClick={create_group}
+                style={{
+                  textDecoration: "none",
+                  color: "blue",
+                  cursor: "pointer",
+                }}
+              >
+                Create New
+              </a>{" "}
+              Group
+            </p>
+            {assign === true ? (
+              <div>
+                <Grid container spacing={1} style={{ marginTop: "0.5%" }}>
+                  <Grid item xs={12}>
+                    <FormControl fullWidth style={{ width: "98.5%" }}>
+                      <InputLabel id="demo-simple-select-label">
+                        Question Group
+                      </InputLabel>
+                      <Select
+                        labelId="demo-simple-select-label"
+                        id="demo-simple-select"
+                        value={group}
+                        label="Question Group"
+                        onChange={handleChange2}
+                      >
+                        {quesgroup.map((key) => {
+                          return (
+                            <MenuItem value={key._id}>{key.title}</MenuItem>
+                          );
+                        })}
+                      </Select>
+                    </FormControl>
+                  </Grid>
+                </Grid>
+                <br />
+                <Button
+                  variant="contained"
+                  style={{ backgroundColor: "#7882BD", width: "50%" }}
+                  onClick={assign_questiongroup}
+                >
+                  Continue
+                </Button>{" "}
+              </div>
+            ) : (
+              <center></center>
+            )}
+            {create === true ? (
+              <div>
+                <Grid container spacing={1} style={{ marginTop: "0.5%" }}>
+                  <Grid item xs={12}>
+                    <TextField
+                      id="outlined-basic"
+                      label="Specify Question Group"
+                      variant="outlined"
+                      size="small"
+                      style={{ width: "98.5%" }}
+                      onChange={(e) => {
+                        e.preventDefault();
+                        setGrptitle(e.target.value);
+                      }}
+                    />
+                  </Grid>
+                </Grid>
+                <br />
+                <Button
+                  variant="contained"
+                  style={{ backgroundColor: "#7882BD", width: "50%" }}
+                  onClick={create_questiongroup}
+                >
+                  Continue
+                </Button>
+              </div>
+            ) : (
+              <center></center>
+            )}
+          </center>
+        </Box>
+      </Modal>
     </div>
   );
 }
