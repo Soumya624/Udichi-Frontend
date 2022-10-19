@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useRef } from "react";
 import Navbar from "./../../Common/Navbar_Student";
 import Card from "@mui/material/Card";
 import CardActions from "@mui/material/CardActions";
@@ -13,8 +13,29 @@ import FormControlLabel from "@mui/material/FormControlLabel";
 import Checkbox from "@mui/material/Checkbox";
 import Footer from "../../Common/Footer";
 import Fab from "@mui/material/Fab";
+import { useScreenshot } from "use-screenshot-hook";
+import { useReactMediaRecorder } from "react-media-recorder";
 
 export default function Confirmpresence() {
+  const { isLoading, image, takeScreenshot, clear } = useScreenshot();
+  const { status, startRecording, stopRecording, mediaBlobUrl } =
+    useReactMediaRecorder({ screen: true });
+  const ref = useRef(null);
+
+  const getImage = () => {
+    clear();
+    takeScreenshot("jpg", {
+      backgroundColor: "white",
+    });
+  };
+
+  const downloadImage = () => {
+    let a = document.createElement("a");
+    a.href = image;
+    a.download = "Screenshot.png";
+    a.click();
+  };
+
   return (
     <div>
       <Navbar />
@@ -122,7 +143,13 @@ export default function Confirmpresence() {
                           width: "100%",
                           border: "1px solid black",
                         }}
-                        href="/submittestStudent"
+                        // onClick={() => {
+                        //   image && downloadImage();
+                        // }}
+                        onClick={stopRecording}
+                        href={mediaBlobUrl}
+                        download
+                        target="_blank"
                       >
                         Submit
                       </Button>
@@ -139,11 +166,14 @@ export default function Confirmpresence() {
                           border: "1px solid black",
                           boxShadow: "none",
                         }}
+                        // onClick={getImage}
+                        onClick={startRecording}
                       >
                         01
                       </Fab>
                     </Grid>
                   </Grid>
+                  {/* <video style={{width : "30em"}} src={mediaBlobUrl} controls autoPlay loop /> */}
                 </Grid>
               </Grid>
             </CardContent>

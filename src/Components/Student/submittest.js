@@ -1,4 +1,4 @@
-import React from "react";
+import React, {useRef} from "react";
 import Navbar from "../../Common/Navbar_Student";
 import Card from "@mui/material/Card";
 import CardActions from "@mui/material/CardActions";
@@ -12,8 +12,28 @@ import FormGroup from "@mui/material/FormGroup";
 import FormControlLabel from "@mui/material/FormControlLabel";
 import Checkbox from "@mui/material/Checkbox";
 import Footer from "../../Common/Footer";
+import { useScreenshot } from "use-screenshot-hook";
+import { useReactMediaRecorder } from "react-media-recorder";
 
 export default function Confirmpresence() {
+  const { isLoading, image, takeScreenshot, clear } = useScreenshot();
+	const { status, startRecording, stopRecording, mediaBlobUrl } =
+		useReactMediaRecorder({ screen : true});
+	const ref = useRef(null);
+
+	const getImage = () => {
+		clear();
+		takeScreenshot("jpg", {
+			backgroundColor: "white",
+		});
+	};
+
+	const downloadImage = () => {
+		let a = document.createElement("a");
+		a.href = image;
+		a.download = "Screenshot.png";
+		a.click();
+	};
   return (
     <div>
       <Navbar />
@@ -54,10 +74,10 @@ export default function Confirmpresence() {
                 <Button
                   variant="contained"
                   style={{ backgroundColor: "#7882BD", width: "50%" }}
-                  href="/dashboardStudent"
                 >
                   Submit Exam
                 </Button>
+                {/* <video style={{width : "30em"}} src={mediaBlobUrl} controls autoPlay loop /> */}
                 <br />
               </Typography>
             </CardContent>

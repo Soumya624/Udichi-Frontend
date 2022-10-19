@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import Card from "@mui/material/Card";
 import CardActions from "@mui/material/CardActions";
 import CardContent from "@mui/material/CardContent";
@@ -17,6 +17,20 @@ import MenuItem from "@mui/material/MenuItem";
 import FormControl from "@mui/material/FormControl";
 import Select from "@mui/material/Select";
 import axios from "axios";
+import { InputBase } from "@mui/material";
+import Box from "@mui/material/Box";
+import Modal from "@mui/material/Modal";
+
+const style = {
+  position: "absolute",
+  top: "50%",
+  left: "50%",
+  transform: "translate(-50%, -50%)",
+  width: 400,
+  bgcolor: "background.paper",
+  boxShadow: 24,
+  p: 4,
+};
 
 export default function AddCandidate() {
   const [group, setGroup] = useState("");
@@ -28,6 +42,15 @@ export default function AddCandidate() {
   const [password, setPassword] = useState("");
   const [telephone, setTelephone] = useState("");
   const [email, setEmail] = useState("");
+  const [candigroup, setCandigroup] = useState([]);
+  const [grptitle, setGrptitle] = useState("");
+  const [open, setOpen] = useState(false);
+  const handleOpen = () => setOpen(true);
+  const handleClose = () => setOpen(false);
+
+  useEffect(() => {
+    getCandidates();
+  }, []);
 
   const handleChange = (event) => {
     setGroup(event.target.value);
@@ -36,26 +59,56 @@ export default function AddCandidate() {
   async function add_candidate(e) {
     e.preventDefault();
     let data = {
-      firstname:fname,
-      lastname:lname,
-      aadharnumber:aadhar,
-      email:email,
-      username:username,
-      password:password,
-      mobile:mobile,
-      telephone:telephone,
-      candidate_group:group,
-    }
+      firstname: fname,
+      lastname: lname,
+      aadharnumber: aadhar,
+      email: email,
+      username: username,
+      password: password,
+      mobile: mobile,
+      telephone: telephone,
+      candidate_group: group,
+    };
 
     console.log(data);
     axios
-    .post("http://localhost:5000/candidate/", data)
-    .then(res=>{
-      console.log(res);
-    })
-    .catch(err=>{
-      console.log(err);
-    })
+      .post("http://localhost:5000/candidate/", data)
+      .then((res) => {
+        console.log(res);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  }
+
+  async function add_candidategroup(e) {
+    e.preventDefault();
+    let data = {
+      title: grptitle,
+    };
+    axios
+      .post("http://localhost:5000/candidate_group/", data)
+      .then((res) => {
+        console.log(res);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  }
+
+  // get Candidates Group
+  function getCandidates() {
+    axios
+      .get("http://localhost:5000/candidate_group/all/")
+      .then((res) => {
+        console.log(res);
+        if (res.status === 200) {
+          setCandigroup(res.data);
+        }
+      })
+      .catch((err) => {
+        console.log(err);
+      });
   }
   return (
     <div>
@@ -145,9 +198,9 @@ export default function AddCandidate() {
                         size="small"
                         style={{ width: "98.5%" }}
                         onChange={(e) => {
-													e.preventDefault();
-													setPassword(e.target.value);
-												}}
+                          e.preventDefault();
+                          setPassword(e.target.value);
+                        }}
                       />
                     </center>
                   </Grid>
@@ -195,40 +248,34 @@ export default function AddCandidate() {
                 </Grid>
                 <Grid container spacing={1} style={{ marginTop: "0.5%" }}>
                   <Grid item xs={12}>
-                    <center>
-                      <FormControl fullWidth>
-                        <InputLabel
-                          id="demo-simple-select-label"
-                          style={{ marginBottom: "10%" }}
-                        >
-                          Candidate Group
-                        </InputLabel>
-                        <center>
-                          <Select
-                            labelId="demo-simple-select-label"
-                            id="demo-simple-select"
-                            value={group}
-                            label="Candidate Group"
-                            onChange={handleChange}
-                            size="small"
-                            style={{ width: "98.5%", padding: "1.2%" }}
-                          >
-                          </Select>
-                        </center>
-                      </FormControl>
-                    </center>
+                    <FormControl fullWidth style={{ width: "98.5%" }}>
+                      <InputLabel id="demo-simple-select-label">
+                        Candidate Group
+                      </InputLabel>
+                      <Select
+                        labelId="demo-simple-select-label"
+                        id="demo-simple-select"
+                        value={group}
+                        label="Candidate Group"
+                        onChange={handleChange}
+                      >
+                        {candigroup.map((key) => {
+                          return <MenuItem value={key._id}>{key.title}</MenuItem>;
+                        })}
+                      </Select>
+                    </FormControl>
                   </Grid>
                 </Grid>
                 <br />
-                <FormControlLabel
-                  control={<Checkbox />}
-                  label="Enable Special Needs"
-                />
-                <FormControlLabel
-                  control={<Checkbox />}
-                  label="Save as Inactive"
-                />
-                <br />
+                <p>
+                  Want to Create a New{" "}
+                  <a
+                    onClick={handleOpen}
+                    style={{ textDecoration: "none", cursor: "pointer" }}
+                  >
+                    Candidate Group?
+                  </a>
+                </p>
                 <br />
                 <br />
                 <Button
@@ -253,6 +300,40 @@ export default function AddCandidate() {
         <br />
       </div>
       <Footer />
+      <Modal
+        open={open}
+        onClose={handleClose}
+        aria-labelledby="modal-modal-title"
+        aria-describedby="modal-modal-description"
+      >
+        <Box sx={style}>
+          <center>
+            <Grid container spacing={1} style={{ marginTop: "0.5%" }}>
+              <Grid item xs={12}>
+                <TextField
+                  id="outlined-basic"
+                  label="Specify Candidate Group"
+                  variant="outlined"
+                  size="small"
+                  style={{ width: "98.5%" }}
+                  onChange={(e) => {
+                    e.preventDefault();
+                    setGrptitle(e.target.value);
+                  }}
+                />
+              </Grid>
+            </Grid>
+            <br/>
+            <Button
+              variant="contained"
+              style={{ backgroundColor: "#7882BD", width: "50%" }}
+              onClick={add_candidategroup}
+            >
+              Continue
+            </Button>
+          </center>
+        </Box>
+      </Modal>
     </div>
   );
 }

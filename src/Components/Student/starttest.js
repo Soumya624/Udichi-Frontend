@@ -77,15 +77,16 @@ export default function Confirmpresence() {
 												alt={"Screenshot"}
 											/>
 										)}
-										<br />
 										<Button
 											variant="contained"
 											style={{ backgroundColor: "#7882BD", margin: "1em" }}
-											onClick={getImage}
+											// onClick={getImage}
+											// onClick={startRecording}
+											href='./testStudent'
 										>
 											Start Exam
 										</Button>
-										<Button
+										{/* <Button
 											variant="contained"
 											style={{ backgroundColor: "#7882BD", margin: "1em" }}
 											onClick={() => {
@@ -93,15 +94,15 @@ export default function Confirmpresence() {
 											}}
 										>
 											Download Image
-										</Button>
+										</Button> */}
 									</div>
 								)}
 								<br />
 								<div>
 									{/* <p>{status}</p> */}
-									<button onClick={startRecording}>Start Recording</button>
-									<button onClick={stopRecording}>Stop Recording</button>
-									<video style={{width : "30em"}} src={mediaBlobUrl} controls autoPlay loop />
+									{/* <button onClick={startRecording}>Start Recording</button> */}
+									{/* <button onClick={stopRecording}>Stop Recording</button>
+									<video style={{width : "30em"}} src={mediaBlobUrl} controls autoPlay loop /> */}
 								</div>
 							</Typography>
 						</CardContent>
