@@ -24,12 +24,13 @@ import TestStudent from './Components/Student/test';
 import AddcandidateAdmin from './Components/Admin/addCandidate';
 import AddexamAdmin from './Components/Admin/addExam';
 import AddquestionAdmin from './Components/Admin/addQuestion';
-
+import Test from './test';
 function App() {
   return (
     <div>
       <Router>
         <Routes>
+          <Route path="/testing-page" element={<Test/>} exact />
           <Route path="/" element={<Signup/>} exact />
           <Route path="/loginAdmin" element={<LoginAdmin/>} exact/>
           <Route path="/loginAssessor" element={<LoginAssessor/>} exact/>
@@ -54,6 +55,7 @@ function App() {
           <Route path="/addcandidateAdmin" element={<AddcandidateAdmin/>} exact/>
           <Route path="/addexamAdmin" element={<AddexamAdmin/>} exact/>
           <Route path="/addquestionAdmin" element={<AddquestionAdmin/>} exact/>
+          
         </Routes>
       </Router>
     </div>
