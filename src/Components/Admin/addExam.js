@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import Card from "@mui/material/Card";
 import CardActions from "@mui/material/CardActions";
 import CardContent from "@mui/material/CardContent";
@@ -19,14 +19,65 @@ import Select from "@mui/material/Select";
 import Radio from "@mui/material/Radio";
 import RadioGroup from "@mui/material/RadioGroup";
 import FormLabel from "@mui/material/FormLabel";
+import axios from "axios";
 
 export default function AddCandidate() {
-  const [age, setAge] = useState("");
+  const [group, setGroup] = useState();
+  const [type, setType] = useState("");
   const [flag, setFlag] = useState(true);
+  const [title, setTitle] = useState("");
+  const [startdate, setStartdate] = useState("");
+  const [duration, setDuration] = useState("");
+  const [fullmarks, setFullmarks] = useState("");
+  const [candigroup, setCandigroup] = useState([]);
+
+  useEffect(() => {
+    getCandidates();
+  }, []);
 
   const handleChange = (event) => {
-    setAge(event.target.value);
+    setType(event.target.value);
   };
+
+  const handleChange1 = (event) => {
+    setGroup(event.target.value);
+  };
+
+async function add_exam(e) {
+  e.preventDefault();
+  let data = {
+    title: title,
+    type_of_test: type,
+    starting_date: startdate,
+    total_number: fullmarks,
+    available_window: duration,
+    candidates_groups: group
+  }
+  console.log(data);
+  // axios
+  // .post('http://localhost:5000/test/', data)
+  // .then(res=>{
+  //   console.log(res);
+  // })
+  // .catch(err=>{
+  //   console.log(err);
+  // })
+}
+
+function getCandidates() {
+  axios
+    .get("http://localhost:5000/candidate_group/all/")
+    .then((res) => {
+      console.log(res);
+      if (res.status === 200) {
+        setCandigroup(res.data);
+      }
+    })
+    .catch((err) => {
+      console.log(err);
+    });
+}
+
   return (
     <div>
       <Navbar />
@@ -67,6 +118,30 @@ export default function AddCandidate() {
                       variant="outlined"
                       size="small"
                       style={{ width: "98.5%" }}
+                      onChange = {(e)=>{
+                        e.preventDefault();
+                        setTitle(e.target.value);
+                      }}
+                    />
+                  </Grid>
+                </Grid>
+                <Grid
+                  container
+                  spacing={1}
+                  style={{ marginTop: "0.5%", display: flag ? "" : "none" }}
+                >
+                  <Grid item xs={12}>
+                    <TextField
+                      id="outlined-basic"
+                      // label="Start Date & Time"
+                      variant="outlined"
+                      size="small"
+                      type="datetime-local"
+                      style={{ width: "98.5%" }}
+                      onChange = {(e)=>{
+                        e.preventDefault();
+                        setStartdate(e.target.value);
+                      }}
                     />
                   </Grid>
                 </Grid>
@@ -77,18 +152,54 @@ export default function AddCandidate() {
                       label="Duration"
                       variant="outlined"
                       size="small"
+                      onChange = {(e)=>{
+                        e.preventDefault();
+                        setDuration(e.target.value);
+                      }}
                     />
                   </Grid>
                   <Grid item xs={6}>
                     <TextField
                       id="outlined-basic"
-                      label="Negetive Marks"
+                      label="Full Marks"
                       variant="outlined"
                       size="small"
+                      onChange = {(e)=>{
+                        e.preventDefault();
+                        setFullmarks(e.target.value);
+                      }}
                     />
                   </Grid>
                 </Grid>
-                <br />
+                <Grid container spacing={1} style={{ marginTop: "0.5%" }}>
+                  <Grid item xs={12}>
+                    <center>
+                      <FormControl fullWidth>
+                        <InputLabel
+                          id="demo-simple-select-label"
+                          // style={{ marginBottom: "10%" }}
+                        >
+                          Exam Type
+                        </InputLabel>
+                        <center>
+                          <Select
+                            labelId="demo-simple-select-label"
+                            id="demo-simple-select"
+                            value={type}
+                            label="Exam Type"
+                            onChange={handleChange}
+                            size="small"
+                            style={{ width: "98.5%", paddingBottom: "2%" }}
+                          >
+                            <MenuItem value={"written"}>Written</MenuItem>
+                            <MenuItem value={"viva"}>Viva</MenuItem>
+                          </Select>
+                        </center>
+                      </FormControl>
+                    </center>
+                  </Grid>
+                </Grid>
+                {/* <br />
                 <FormControl>
                   <RadioGroup row name="row-radio-buttons-group">
                     <FormControlLabel
@@ -103,36 +214,15 @@ export default function AddCandidate() {
                     />
                   </RadioGroup>
                 </FormControl>
-                <br />
-                <Grid
-                  container
-                  spacing={1}
-                  style={{ marginTop: "0.5%", display: flag ? "" : "none" }}
-                >
-                  <Grid item xs={6}>
-                    <TextField
-                      id="outlined-basic"
-                      label="Start Date & Time"
-                      variant="outlined"
-                      size="small"
-                    />
-                  </Grid>
-                  <Grid item xs={6}>
-                    <TextField
-                      id="outlined-basic"
-                      label="End Date & Time"
-                      variant="outlined"
-                      size="small"
-                    />
-                  </Grid>
-                </Grid>
+                <br /> */}
+
                 <br />
                 <p
                   style={{ borderBottom: "1px solid grey", textAlign: "left" }}
                 >
                   <b>Specify Who Can Take This Exam</b>
                 </p>
-                <Grid container spacing={1} style={{ marginTop: "0.5%" }}>
+                {/* <Grid container spacing={1} style={{ marginTop: "0.5%" }}>
                   <Grid item xs={6}>
                     <Button
                       variant="contained"
@@ -151,8 +241,28 @@ export default function AddCandidate() {
                       Assign Candidates
                     </Button>
                   </Grid>
+                </Grid> */}
+                <Grid container spacing={1} style={{ marginTop: "0.5%" }}>
+                  <Grid item xs={12}>
+                    <FormControl fullWidth style={{ width: "98.5%" }}>
+                      <InputLabel id="demo-simple-select-label">
+                        Candidate Group
+                      </InputLabel>
+                      <Select
+                        labelId="demo-simple-select-label"
+                        id="demo-simple-select"
+                        value={group}
+                        label="Candidate Group"
+                        onChange={handleChange1}
+                      >
+                        {candigroup.map((key) => {
+                          return <MenuItem value={key._id}>{key.title}</MenuItem>;
+                        })}
+                      </Select>
+                    </FormControl>
+                  </Grid>
                 </Grid>
-                <br />
+                {/* <br />
                 <p
                   style={{ borderBottom: "1px solid grey", textAlign: "left" }}
                 >
@@ -169,14 +279,17 @@ export default function AddCandidate() {
                     </Button>
                   </Grid>
                 </Grid>
+                <br /> */}
                 <br />
-                <br />
-                <br />
-                <p>(Specify Start & End Date/Time, If The Exam is Not Always Available)</p>
+                {/* <br />
+                <p>
+                  (Specify Start & End Date/Time, If The Exam is Not Always
+                  Available)
+                </p> */}
                 <Button
                   variant="contained"
                   style={{ backgroundColor: "#7882BD", width: "50%" }}
-                  href="/examAdmin"
+                  onClick={add_exam}
                 >
                   Continue
                 </Button>
