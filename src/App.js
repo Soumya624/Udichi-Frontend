@@ -49,9 +49,9 @@ function App() {
           <Route path="/vivaAssessor" element={<VivaAssessor/>} exact/>
           <Route path="/vivalinkAssessor" element={<VivalinkAssessor/>} exact/>
           <Route path="/monitorProctorer" element={<MonitorProctorer/>} exact/>
-          <Route path="/starttestStudent" element={<StarttestStudent/>} exact/>
+          <Route path="/starttestStudent/:id" element={<StarttestStudent/>} exact/>
           <Route path="/submittestStudent" element={<SubmittestStudent/>} exact/>
-          <Route path="/testStudent" element={<TestStudent/>} exact/>
+          <Route path="/testStudent/:id" element={<TestStudent/>} exact/>
           <Route path="/addcandidateAdmin" element={<AddcandidateAdmin/>} exact/>
           <Route path="/addexamAdmin" element={<AddexamAdmin/>} exact/>
           <Route path="/addquestionAdmin" element={<AddquestionAdmin/>} exact/>

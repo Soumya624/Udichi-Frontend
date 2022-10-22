@@ -2,8 +2,10 @@ import React, { useEffect } from "react";
 import JSZip from "jszip";
 import FileSaver from "file-saver";
 import { useReactMediaRecorder } from "react-media-recorder";
+import { useState } from "react";
 
 export default function Test() {
+	const [n,setN] = useState(0)
 	const { startRecording, stopRecording, mediaBlobUrl, resumeRecording, pauseRecording } =
 		useReactMediaRecorder({ screen: true, audio : true });
 	useEffect(() => {}, []);
@@ -23,6 +25,9 @@ export default function Test() {
 	return (
 		<>
 			<div>
+				<button onClick={(e)=>{
+					setN(n+1)
+				}}>TEST</button>
 				<button onClick={startRecording}>Start Recording</button>
 				<button onClick={stopRecording}>Stop Recording</button>
 				<button onClick={pauseRecording}>Pause Recording</button>
