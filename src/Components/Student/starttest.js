@@ -14,8 +14,8 @@ export default function Confirmpresence() {
 	const { id } = useParams();
 	const [alloted_test, setAllotedTest] = useState(null);
 	const [is_attempted, setIsAttempted] = useState(false);
-	const [previous_submission,setPreviousSubmission] = useState(null)
-	const [number_of_attempts, setNumberOfAttempts] = useState(0)
+	const [previous_submission, setPreviousSubmission] = useState(null);
+	const [number_of_attempts, setNumberOfAttempts] = useState(0);
 
 	useEffect(() => {
 		axios
@@ -47,14 +47,30 @@ export default function Confirmpresence() {
 			.then((res) => {
 				console.log(res);
 				if (res.status === 200) {
-					setNumberOfAttempts(res.data.attempts_submitted.length)
+					setNumberOfAttempts(res.data.attempts_submitted.length);
 					setIsAttempted(true);
-					setPreviousSubmission(res.data)
+					setPreviousSubmission(res.data);
 				}
 			})
 			.catch((err) => {
 				console.log(err);
 			});
+	}, []);
+
+	useEffect(() => {
+		let user = JSON.parse(localStorage.getItem("user_id"));
+		let attempt_id = JSON.parse(localStorage.getItem("attempt_id"));
+		if (attempt_id) {
+			axios
+				.get(`http://localhost:5000/attempts/attempt/${attempt_id}/${user}`)
+				.then((res) => {
+					console.log("kjbjb");
+					console.log(res);
+				})
+				.catch((err) => {
+					console.log(err);
+				});
+		}
 	}, []);
 
 	const { isLoading, image, takeScreenshot, clear } = useScreenshot();
@@ -76,37 +92,42 @@ export default function Confirmpresence() {
 		a.click();
 	};
 
-	const startExam = async() => {
+	const startExam = async () => {
 		let data = {
 			test: id,
 			candidate: JSON.parse(localStorage.getItem("user_id")),
 			number_of_attempts_left: alloted_test.number_of_attempts,
 		};
 
-		
-
 		// console.log(previous_submission._id)
 
 		// check whether there is any
 		if (is_attempted) {
-			await axios.patch(`/attempts/groups/${previous_submission._id}`,data)
-			.then((res)=>{
-				console.log(res)
-				if(res.status === 201){
-					localStorage.setItem("attempted_group_id",JSON.stringify(res.data._id))
-					// window.location = "/testStudent/1"
-				}
-			})
-			.catch((err)=>{
-				console.log(err)
-			})
+			await axios
+				.patch(`/attempts/groups/${previous_submission._id}`, data)
+				.then((res) => {
+					console.log(res);
+					if (res.status === 201) {
+						localStorage.setItem(
+							"attempted_group_id",
+							JSON.stringify(res.data._id),
+						);
+						// window.location = "/testStudent/1"
+					}
+				})
+				.catch((err) => {
+					console.log(err);
+				});
 		} else {
 			await axios
 				.post("/attempts/create-group", data)
 				.then((res) => {
 					console.log(res);
-					if(res.status === 200){
-						localStorage.setItem("attempted_group_id",JSON.stringify(res.data._id))
+					if (res.status === 200) {
+						localStorage.setItem(
+							"attempted_group_id",
+							JSON.stringify(res.data._id),
+						);
 						// window.location = "/testStudent/1"
 					}
 				})
@@ -114,36 +135,43 @@ export default function Confirmpresence() {
 					console.log(err);
 				});
 		}
-		let submitted_question = JSON.parse(localStorage.getItem("submitted_questions_id"))
+		let submitted_question = JSON.parse(
+			localStorage.getItem("submitted_questions_id"),
+		);
 		let test = JSON.parse(localStorage.getItem("test_id"));
 		let user = JSON.parse(localStorage.getItem("user_id"));
+		let attempt_id = JSON.parse(localStorage.getItem("attempt_id"));
 
 		let d = {
-			test : test,
-			candidate : user,
-			questions_submitted : submitted_question
+			test: test,
+			candidate: user,
+			questions_submitted: submitted_question,
+		};
+
+		if (attempt_id === null) {
+			await axios
+				.post("http://localhost:5000/attempts", d)
+				.then((res) => {
+					if (res.status === 200) {
+						console.log(res.data);
+						window.location = "/testStudent/1";
+						localStorage.setItem("attempt_id", JSON.stringify(res.data._id));
+					}
+				})
+				.catch((err) => {
+					console.log(err);
+				});
+		}else{
+			console.log("sdfkjsk")
+			window.location = "/testStudent/1";
 		}
-
-		await axios.post("http://localhost:5000/attempts",d)
-		.then((res)=>{
-			if(res.status === 200){
-				console.log(res.data)
-				window.location = "/testStudent/1"
-				localStorage.setItem("attempt_id",JSON.stringify(res.data._id))
-			}
-		})
-		.catch((err)=>{
-			console.log(err)
-		})
-		// axios.post("/attempts",)
-
 	};
 
 	if (alloted_test === null) {
 		return <h1>Loading...</h1>;
 	}
 
-	let left_attempts = alloted_test.number_of_attempts - number_of_attempts
+	let left_attempts = alloted_test.number_of_attempts - number_of_attempts;
 
 	return (
 		<div>
@@ -197,12 +225,16 @@ export default function Confirmpresence() {
 										)}
 										<Button
 											variant="contained"
-											style={{ backgroundColor: left_attempts <= 0 ? "#aaaaaa" : "#7882BD", margin: "1em" }}
+											style={{
+												backgroundColor:
+													left_attempts <= 0 ? "#aaaaaa" : "#7882BD",
+												margin: "1em",
+											}}
 											// onClick={getImage}
 											// onClick={startRecording}
 											// href='/testStudent/1'
 											onClick={startExam}
-											disabled = {left_attempts <= 0}
+											disabled={left_attempts <= 0}
 										>
 											Start Exam
 										</Button>

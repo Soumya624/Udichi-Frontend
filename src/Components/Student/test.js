@@ -18,23 +18,33 @@ import { useReactMediaRecorder } from "react-media-recorder";
 import { Link, useParams, useNavigate } from "react-router-dom";
 import { useState } from "react";
 import axios from "axios";
-import { FormLabel } from "@mui/material";
-
+import { Box, FormLabel, Modal } from "@mui/material";
+const style = {
+	position: 'absolute',
+	top: '50%',
+	left: '50%',
+	transform: 'translate(-50%, -50%)',
+	width: 400,
+	bgcolor: 'background.paper',
+	border: '2px solid #000',
+	boxShadow: 24,
+	p: 4,
+  };
 export default function Confirmpresence() {
 	const navigate = useNavigate();
+	let submitted_questions_id = JSON.parse(localStorage.getItem("submitted_questions_id"))
+	let questions_id = JSON.parse(localStorage.getItem("questions_id"))
 
 	let question_stored = JSON.parse(localStorage.getItem("questions"));
 	const { id } = useParams();
-	console.log(id);
+	const [open, setOpen ] = useState(false)
 	const [questions, setQuestion] = useState(question_stored);
 	const [submitted_options, setSubmittedOptions] = useState([]);
 	const [submission_id, setSubmissionId] = useState(null);
 	const [is_attempted, setIsAttempted] = useState(false);
 	const [subjective_ans, setSubjectAnswer] = useState("");
 
-	console.log("asdmnaskdjnajsdn");
-	console.log(submitted_options);
-
+	let attempt_id = JSON.parse(localStorage.getItem("attempt_id"));
 	useEffect(() => {
 		let questions = JSON.parse(localStorage.getItem("questions"));
 		setQuestion(questions);
@@ -52,9 +62,7 @@ export default function Confirmpresence() {
 			)
 			.then((res) => {
 				if (res.status === 200) {
-					console.log(res.data);
-
-					setSubjectAnswer(res.data.subjective_answer)
+					setSubjectAnswer(res.data.subjective_answer);
 					setIsAttempted(true);
 					setSubmissionId(res.data._id);
 					setSubmittedOptions(res.data.options_marked);
@@ -94,6 +102,9 @@ export default function Confirmpresence() {
 	// if (!questions) return <h1>Loading..</h1>;
 	const question_data = questions[qId - 1];
 
+	const handleOpen = () => setOpen(true);
+  	const handleClose = () => setOpen(false);
+
 	const saveAndNext = () => {
 		let test = JSON.parse(localStorage.getItem("test_id"));
 		let user = JSON.parse(localStorage.getItem("user_id"));
@@ -104,9 +115,8 @@ export default function Confirmpresence() {
 			candidate: user,
 			options_marked: submitted_options,
 			subjective_answer: subjective_ans,
-			attempt_id : attempt_id
+			attempt_id: attempt_id,
 		};
-		console.log(data);
 		if (is_attempted) {
 			axios
 				.patch(
@@ -116,7 +126,7 @@ export default function Confirmpresence() {
 				.then((res) => {
 					console.log(res);
 					if (res.status === 201) {
-						setSubjectAnswer("")
+						setSubjectAnswer("");
 						navigate(`/testStudent/${(qId % questions.length) + 1}`);
 					}
 				})
@@ -132,6 +142,18 @@ export default function Confirmpresence() {
 						let submitted_qs = JSON.parse(
 							localStorage.getItem("submitted_questions_id"),
 						);
+						let qs = JSON.parse(localStorage.getItem("questions_id"))
+						if (qs) {
+							localStorage.setItem(
+								"questions_id",
+								JSON.stringify(qs.concat([res.data.question])),
+							);
+						} else {
+							localStorage.setItem(
+								"questions_id",
+								JSON.stringify([res.data.question]),
+							);
+						}
 						if (submitted_qs) {
 							localStorage.setItem(
 								"submitted_questions_id",
@@ -143,58 +165,59 @@ export default function Confirmpresence() {
 								JSON.stringify([res.data._id]),
 							);
 						}
-						setSubjectAnswer("")
+						setSubjectAnswer("");
 						navigate(`/testStudent/${(qId % questions.length) + 1}`);
 					}
 				})
 				.catch((err) => {
-					console.log(err);
 				});
 		}
 	};
 
-
 	const submittedTest = async () => {
-		let submitted_question = JSON.parse(localStorage.getItem("submitted_questions_id"))
+		let submitted_question = JSON.parse(
+			localStorage.getItem("submitted_questions_id"),
+		);
 		let test = JSON.parse(localStorage.getItem("test_id"));
 		let user = JSON.parse(localStorage.getItem("user_id"));
 
 		let data = {
-			test : test,
-			candidate : user,
-			questions_submitted : submitted_question
-		}
+			test: test,
+			candidate: user,
+			questions_submitted: submitted_question,
+		};
 
 		let attempt_id = JSON.parse(localStorage.getItem("attempt_id"));
-		await axios.patch(`http://localhost:5000/attempts/${attempt_id}`,data)
-		.then((res)=>{
-			if(res.status === 200){
-				console.log(res)
-			}
-		})
-		.catch((err)=>{
-			console.log(err)
-		})
+		await axios
+			.patch(`http://localhost:5000/attempts/${attempt_id}`, data)
+			.then((res) => {
+				if (res.status === 200) {
+				}
+			})
+			.catch((err) => {
+			});
 
 		let d = {
-			attempts_submitted : attempt_id
-		}
-		let attempt_group = JSON.parse(localStorage.getItem("attempted_group_id"))
-		await axios.patch(`http://localhost:5000/attempts/add/${attempt_group}`,d)
-		.then((res)=>{
-			console.log(res)
-			if(res.status === 201){
-				localStorage.removeItem("submitted_questions_id")
-				window.location = `/starttestStudent/${test}`
-			}
-		})
-		.catch((err)=>{
-			console.log(err)
-		})
+			attempts_submitted: attempt_id,
+		};
+		let attempt_group = JSON.parse(localStorage.getItem("attempted_group_id"));
+		await axios
+			.patch(`http://localhost:5000/attempts/add/${attempt_group}`, d)
+			.then((res) => {
+				console.log(res);
+				if (res.status === 201) {
+					localStorage.removeItem("submitted_questions_id");
+					localStorage.removeItem("questions_id")
+					localStorage.removeItem("attempt_id");
+					window.location = `/starttestStudent/${test}`;
+				}
+			})
+			.catch((err) => {
+				console.log(err);
+			});
 
-
-		console.log(attempt_id)
-	};
+		};
+		console.log("SUbsdfsfd",questions_id);
 
 	return (
 		<div>
@@ -287,7 +310,7 @@ export default function Confirmpresence() {
 													boxShadow: "none",
 													fontSize: "10px",
 													width: "100%",
-													border: "1px solid black",
+													// border: "1px solid black",
 												}}
 												onClick={saveAndNext}
 											>
@@ -317,7 +340,7 @@ export default function Confirmpresence() {
 													boxShadow: "none",
 													fontSize: "10px",
 													width: "100%",
-													border: "1px solid black",
+													border: "1px solid #bcbcbc",
 												}}
 											>
 												Clear Response
@@ -326,22 +349,24 @@ export default function Confirmpresence() {
 										<Grid item sm={2}>
 											<Button
 												style={{
-													backgroundColor: "#70ff00",
-													color: "black",
+													backgroundColor: "rgb(120 130 189)",
+													color: "white",
 													boxShadow: "none",
 													fontSize: "10px",
 													width: "100%",
-													border: "1px solid black",
+													// border: "1px solid black",
 												}}
-												onClick={() => {
-													submittedTest();
+												onClick={async () => {
+													await saveAndNext();
+													handleOpen()
+													// await submittedTest();
 												}}
 												// onClick={() => {
 												//   image && downloadImage();
 												// }}
 												// onClick={stopRecording}
 												// href={mediaBlobUrl}
-												download
+												// download
 												target="_blank"
 											>
 												Submit
@@ -349,16 +374,41 @@ export default function Confirmpresence() {
 										</Grid>
 									</Grid>
 								</Grid>
+								<Modal
+									open={open}
+									onClose={handleClose}
+									aria-labelledby="modal-modal-title"
+									aria-describedby="modal-modal-description"
+								>
+									<Box sx={style} >
+										<Typography
+											id="modal-modal-title"
+											variant="h6"
+											component="h2"
+										>
+											{attempt_id ? "CONTINUE THE TEST" : "SUBMIT THE TEST"}
+										</Typography>
+										<Typography id="modal-modal-description" sx={{ mt: 2 }}>
+											Do you want to submit the test?
+										</Typography>
+										<Button onClick={handleClose} >Cancel</Button>
+										<Button onClick={submittedTest}>Confirm</Button>
+									</Box>
+								</Modal>
 								<Grid item sm={3}>
-									<Grid container spacing={1} style={{ padding: "1%" }}>
-										<Grid item sm={4}>
+									<Grid container spacing={3} style={{ padding: "1%" }}>
+										<Grid item sx={4}>
 											{questions.map((ques, ind) => (
 												<Fab
+													// color = {}
+													title ={ques._id}
+													size = "small"
 													style={{
-														backgroundColor: "white",
+														backgroundColor: (questions_id && questions_id.indexOf(ques._id) !== -1) ? "#6bff6b" : "white",
 														color: "black",
 														border: "1px solid black",
 														boxShadow: "none",
+														margin : "5px"
 													}}
 													// onClick={getImage}
 													// onClick={startRecording}
