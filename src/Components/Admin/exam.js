@@ -8,6 +8,23 @@ import TableRow from "@mui/material/TableRow";
 import Paper from "@mui/material/Paper";
 import Navbar from "./../../Common/Navbar_Admin";
 import Footer from "../../Common/Footer";
+import ListSubheader from "@mui/material/ListSubheader";
+import List from "@mui/material/List";
+import ListItemButton from "@mui/material/ListItemButton";
+import ListItemIcon from "@mui/material/ListItemIcon";
+import ListItemText from "@mui/material/ListItemText";
+import Collapse from "@mui/material/Collapse";
+import InboxIcon from "@mui/icons-material/MoveToInbox";
+import DraftsIcon from "@mui/icons-material/Drafts";
+import SendIcon from "@mui/icons-material/Send";
+import ExpandLess from "@mui/icons-material/ExpandLess";
+import ExpandMore from "@mui/icons-material/ExpandMore";
+import StarBorder from "@mui/icons-material/StarBorder";
+import axios from "axios";
+import { useEffect } from "react";
+import { useState } from "react";
+import Collapsible from "react-collapsible";
+import "./style.css";
 
 function createData(name, candidates, duration, questions, action) {
   return { name, candidates, duration, questions, action };
@@ -22,6 +39,25 @@ const rows = [
 ];
 
 export default function BasicTable() {
+  const [examgroup, setExamgroup] = useState([]);
+
+  useEffect(() => {
+    getExams();
+  }, []);
+
+  function getExams() {
+    axios
+      .get("http://localhost:5000/test/all")
+      .then((res) => {
+        console.log(res);
+        if (res.status === 200) {
+          setExamgroup(res.data);
+        }
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  }
   return (
     <div>
       <Navbar />
@@ -41,6 +77,7 @@ export default function BasicTable() {
         </p>
         <br />
         <br />
+
         <TableContainer component={Paper}>
           <Table sx={{ minWidth: 650 }} aria-label="simple table">
             <TableHead>
@@ -49,13 +86,13 @@ export default function BasicTable() {
                   <b>Exam Name</b>
                 </TableCell>
                 <TableCell align="right">
-                  <b>No. of Candidates</b>
+                  <b>Start Date/Time</b>
                 </TableCell>
                 <TableCell align="right">
-                  <b>Duration</b>
+                  <b>Full Marks</b>
                 </TableCell>
                 <TableCell align="right">
-                  <b>Questions</b>
+                  <b>Question Groups</b>
                 </TableCell>
                 <TableCell align="right">
                   <b>Action</b>
@@ -63,23 +100,51 @@ export default function BasicTable() {
               </TableRow>
             </TableHead>
             <TableBody>
-              {rows.map((row) => (
-                <TableRow
-                  key={row.name}
-                  sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
-                >
-                  <TableCell component="th" scope="row">
-                    {row.name}
-                  </TableCell>
-                  <TableCell align="right">{row.candidates}</TableCell>
-                  <TableCell align="right">{row.duration}</TableCell>
-                  <TableCell align="right">{row.questions}</TableCell>
-                  <TableCell align="right" style={{cursor:"pointer"}}>{row.action}</TableCell>
-                </TableRow>
-              ))}
+              {/* {rows.map((row) => (
+                    <TableRow
+                      key={row.name}
+                      sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
+                    >
+                      <TableCell component="th" scope="row">
+                        {row.name}
+                      </TableCell>
+                      <TableCell align="right">{row.candidates}</TableCell>
+                      <TableCell align="right">{row.duration}</TableCell>
+                      <TableCell align="right">{row.questions}</TableCell>
+                      <TableCell align="right" style={{ cursor: "pointer", color:"red" }}>
+                        Delete
+                      </TableCell>
+                    </TableRow>
+                  ))} */}
+              {examgroup.map((key) => {
+                return (
+                  <TableRow
+                    key={key._id}
+                    sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
+                  >
+                    <TableCell component="th" scope="row">
+                      {key.title}
+                    </TableCell>
+                    <TableCell align="right">{key.starting_date}</TableCell>
+                    <TableCell align="right">{key.total_number}</TableCell>
+                    <TableCell align="right">
+                      {key.question_groups.map((x) => {
+                        return x.title + " ";
+                      })}
+                    </TableCell>
+                    <TableCell
+                      align="right"
+                      style={{ cursor: "pointer", color: "red" }}
+                    >
+                      Delete
+                    </TableCell>
+                  </TableRow>
+                );
+              })}
             </TableBody>
           </Table>
         </TableContainer>
+
         <br />
         <br />
       </div>
