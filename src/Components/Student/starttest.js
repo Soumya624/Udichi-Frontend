@@ -15,6 +15,7 @@ export default function Confirmpresence() {
 	const [alloted_test, setAllotedTest] = useState(null);
 	const [is_attempted, setIsAttempted] = useState(false);
 	const [previous_submission,setPreviousSubmission] = useState(null)
+	const [number_of_attempts, setNumberOfAttempts] = useState(0)
 
 	useEffect(() => {
 		axios
@@ -46,6 +47,7 @@ export default function Confirmpresence() {
 			.then((res) => {
 				console.log(res);
 				if (res.status === 200) {
+					setNumberOfAttempts(res.data.attempts_submitted.length)
 					setIsAttempted(true);
 					setPreviousSubmission(res.data)
 				}
@@ -141,6 +143,8 @@ export default function Confirmpresence() {
 		return <h1>Loading...</h1>;
 	}
 
+	let left_attempts = alloted_test.number_of_attempts - number_of_attempts
+
 	return (
 		<div>
 			<Navbar />
@@ -173,7 +177,7 @@ export default function Confirmpresence() {
 								in reprehenderit in voluptate velit esse cillum dolore eu fugiat
 								nulla pariatur
 							</p>
-							<h4>Number of Attempts: {alloted_test.number_of_attempts}</h4>
+							<h4>Number of Attempts: {left_attempts}</h4>
 							<br />
 							<br />
 							<br />
@@ -193,11 +197,12 @@ export default function Confirmpresence() {
 										)}
 										<Button
 											variant="contained"
-											style={{ backgroundColor: "#7882BD", margin: "1em" }}
+											style={{ backgroundColor: left_attempts <= 0 ? "#aaaaaa" : "#7882BD", margin: "1em" }}
 											// onClick={getImage}
 											// onClick={startRecording}
 											// href='/testStudent/1'
 											onClick={startExam}
+											disabled = {left_attempts <= 0}
 										>
 											Start Exam
 										</Button>

@@ -30,9 +30,7 @@ export default function Confirmpresence() {
 	const [submitted_options, setSubmittedOptions] = useState([]);
 	const [submission_id, setSubmissionId] = useState(null);
 	const [is_attempted, setIsAttempted] = useState(false);
-	const [subjective_ans, setSubjectAnswer] = useState(
-		question_stored.subjective_answer,
-	);
+	const [subjective_ans, setSubjectAnswer] = useState("");
 
 	console.log("asdmnaskdjnajsdn");
 	console.log(submitted_options);
@@ -55,6 +53,8 @@ export default function Confirmpresence() {
 			.then((res) => {
 				if (res.status === 200) {
 					console.log(res.data);
+
+					setSubjectAnswer(res.data.subjective_answer)
 					setIsAttempted(true);
 					setSubmissionId(res.data._id);
 					setSubmittedOptions(res.data.options_marked);
@@ -116,6 +116,7 @@ export default function Confirmpresence() {
 				.then((res) => {
 					console.log(res);
 					if (res.status === 201) {
+						setSubjectAnswer("")
 						navigate(`/testStudent/${(qId % questions.length) + 1}`);
 					}
 				})
@@ -142,6 +143,7 @@ export default function Confirmpresence() {
 								JSON.stringify([res.data._id]),
 							);
 						}
+						setSubjectAnswer("")
 						navigate(`/testStudent/${(qId % questions.length) + 1}`);
 					}
 				})
