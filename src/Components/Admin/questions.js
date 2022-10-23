@@ -8,6 +8,23 @@ import TableRow from "@mui/material/TableRow";
 import Paper from "@mui/material/Paper";
 import Navbar from "./../../Common/Navbar_Admin";
 import Footer from "../../Common/Footer";
+import ListSubheader from "@mui/material/ListSubheader";
+import List from "@mui/material/List";
+import ListItemButton from "@mui/material/ListItemButton";
+import ListItemIcon from "@mui/material/ListItemIcon";
+import ListItemText from "@mui/material/ListItemText";
+import Collapse from "@mui/material/Collapse";
+import InboxIcon from "@mui/icons-material/MoveToInbox";
+import DraftsIcon from "@mui/icons-material/Drafts";
+import SendIcon from "@mui/icons-material/Send";
+import ExpandLess from "@mui/icons-material/ExpandLess";
+import ExpandMore from "@mui/icons-material/ExpandMore";
+import StarBorder from "@mui/icons-material/StarBorder";
+import axios from "axios";
+import { useEffect } from "react";
+import { useState } from "react";
+import Collapsible from "react-collapsible";
+import "./style.css";
 
 function createData(name, identity, section, type, action) {
   return { name, identity, section, type, action };
@@ -52,6 +69,26 @@ const rows = [
 ];
 
 export default function BasicTable() {
+  const [quesgroup, setQuesgroup] = useState([]);
+
+  useEffect(() => {
+    getQuestions();
+  }, []);
+
+  function getQuestions() {
+    axios
+      .get("http://localhost:5000/question-group/")
+      .then((res) => {
+        console.log(res);
+        if (res.status === 200) {
+          setQuesgroup(res.data);
+        }
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  }
+
   return (
     <div>
       <Navbar />
@@ -71,45 +108,56 @@ export default function BasicTable() {
         </p>
         <br />
         <br />
-        <TableContainer component={Paper}>
-          <Table sx={{ minWidth: 650 }} aria-label="simple table">
-            <TableHead>
-              <TableRow>
-                <TableCell>
-                  <b>Question Text</b>
-                </TableCell>
-                <TableCell align="right">
-                  <b>ID of Question</b>
-                </TableCell>
-                <TableCell align="right">
-                  <b>Section</b>
-                </TableCell>
-                <TableCell align="right">
-                  <b>Type</b>
-                </TableCell>
-                <TableCell align="right">
-                  <b>Action</b>
-                </TableCell>
-              </TableRow>
-            </TableHead>
-            <TableBody>
-              {rows.map((row) => (
-                <TableRow
-                  key={row.name}
-                  sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
-                >
-                  <TableCell component="th" scope="row">
-                    {row.name}
-                  </TableCell>
-                  <TableCell align="right">{row.identity}</TableCell>
-                  <TableCell align="right">{row.section}</TableCell>
-                  <TableCell align="right">{row.type}</TableCell>
-                  <TableCell align="right" style={{cursor:"pointer"}}>{row.action}</TableCell>
-                </TableRow>
-              ))}
-            </TableBody>
-          </Table>
-        </TableContainer>
+        {quesgroup.map((key) => {
+          return (
+            <Collapsible trigger={key.title} style={{ padding: "2px" }}>
+              <TableContainer component={Paper}>
+                <Table sx={{ minWidth: 650 }} aria-label="simple table">
+                  <TableHead>
+                    <TableRow>
+                      <TableCell>
+                        <b>Title</b>
+                      </TableCell>
+                      <TableCell align="right">
+                        <b>ID of Question</b>
+                      </TableCell>
+
+                      <TableCell align="right">
+                        <b>Type</b>
+                      </TableCell>
+                      <TableCell align="right">
+                        <b>Action</b>
+                      </TableCell>
+                    </TableRow>
+                  </TableHead>
+                  <TableBody>
+                    {key.questions.map((x) => (
+                      <TableRow
+                        key={x._id}
+                        sx={{
+                          "&:last-child td, &:last-child th": { border: 0 },
+                        }}
+                      >
+                        <TableCell component="th" scope="row">
+                          {x.title}
+                        </TableCell>
+                        <TableCell align="right">{x._id}</TableCell>
+
+                        <TableCell align="right">{x.is_objective === false? "Fill in the Blanks" : "MCQ"}</TableCell>
+                        <TableCell
+                          align="right"
+                          style={{ cursor: "pointer", color: "red" }}
+                        >
+                          Delete
+                        </TableCell>
+                      </TableRow>
+                    ))}
+                  </TableBody>
+                </Table>
+              </TableContainer>
+            </Collapsible>
+          );
+        })}
         <br />
         <br />
       </div>
