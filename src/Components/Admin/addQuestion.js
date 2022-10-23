@@ -576,7 +576,7 @@ export default function AddCandidate() {
                   style={{ backgroundColor: "#7882BD", width: "50%" }}
                   onClick={create_questiongroup}
                 >
-                  Continues afds
+                  Continue
                 </Button>
               </div>
             ) : (

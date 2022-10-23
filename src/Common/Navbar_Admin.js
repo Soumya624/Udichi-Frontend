@@ -92,12 +92,12 @@ function DrawerAppBar(props) {
             <Button sx={{ color: "#fff" }} href="/questionAdmin">
               Questions
             </Button>
-            <Button sx={{ color: "#fff" }} href="/statisticsAdmin">
+            {/* <Button sx={{ color: "#fff" }} href="/statisticsAdmin">
               Statistics
             </Button>
             <Button sx={{ color: "#fff" }} href="/dashboardAdmin">
               Notifications
-            </Button>
+            </Button> */}
             <Button sx={{ color: "#fff" }} href="/loginAdmin">
               Logout
             </Button>
