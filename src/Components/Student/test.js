@@ -30,7 +30,8 @@ const style = {
 	boxShadow: 24,
 	p: 4,
   };
-export default function Confirmpresence() {
+export default function Confirmpresence({screeShare,cameraShare,stopScreenSharing,stopCamera,setClicked}) {
+	console.log(screeShare,cameraShare)
 	const navigate = useNavigate();
 	let submitted_questions_id = JSON.parse(localStorage.getItem("submitted_questions_id"))
 	let questions_id = JSON.parse(localStorage.getItem("questions_id"))
@@ -175,6 +176,7 @@ export default function Confirmpresence() {
 	};
 
 	const submittedTest = async () => {
+		setClicked(true)
 		let submitted_question = JSON.parse(
 			localStorage.getItem("submitted_questions_id"),
 		);
@@ -208,8 +210,9 @@ export default function Confirmpresence() {
 				if (res.status === 201) {
 					localStorage.removeItem("submitted_questions_id");
 					localStorage.removeItem("questions_id")
-					localStorage.removeItem("attempt_id");
-					window.location = `/starttestStudent/${test}`;
+					// localStorage.removeItem("attempt_id");
+					// window.location = `/starttestStudent/${test}`;
+					navigate(`/starttestStudent/${test}`);
 				}
 			})
 			.catch((err) => {

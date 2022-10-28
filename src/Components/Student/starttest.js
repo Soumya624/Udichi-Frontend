@@ -232,8 +232,8 @@ export default function Confirmpresence() {
 											}}
 											// onClick={getImage}
 											// onClick={startRecording}
-											// href='/testStudent/1'
-											onClick={startExam}
+											href={`/shareScreen/${id}`}
+											// onClick={startExam}
 											disabled={left_attempts <= 0}
 										>
 											Start Exam
