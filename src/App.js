@@ -30,7 +30,8 @@ import Container from "./Components/ShareContainer/Container";
 import { useReactMediaRecorder } from "react-media-recorder";
 import { useEffect, useState } from "react";
 import JSZip from "jszip";
-import FileSaver from "file-saver";
+// import FileSaver from "file-saver";
+import axios from "axios";
 function App() {
 	const [isClicked, setClicked] = useState(false);
 	const [screeShare, setScreenShare] = useState(null);
@@ -38,18 +39,22 @@ function App() {
 	const screen = useReactMediaRecorder({ screen: true, audio: true });
 
 	const camera = useReactMediaRecorder({ video: true, audio: true });
-  useEffect(()=>{
-    console.log("Hk")
-    if(isClicked){
-      console.log("nk")
-      camera.stopRecording()
-      screen.stopRecording()
-      console.log(camera,screen)
-      if( camera.mediaBlobUrl !== undefined && screen.mediaBlobUrl !== undefined ) zipfile(camera.mediaBlobUrl,screen.mediaBlobUrl)
-    }
-  },[camera,screen,cameraShare,screeShare])
+	useEffect(() => {
+		console.log("Hk");
+		if (isClicked) {
+			console.log("nk");
+			camera.stopRecording();
+			screen.stopRecording();
+			console.log(camera, screen);
+			if (
+				camera.mediaBlobUrl !== undefined &&
+				screen.mediaBlobUrl !== undefined
+			)
+				zipfile(camera.mediaBlobUrl, screen.mediaBlobUrl);
+		}
+	}, [camera, screen, cameraShare, screeShare]);
 
-	async function zipfile(cameraShare,screeShare) {
+	async function zipfile(cameraShare, screeShare) {
 		console.log("Stopped....");
 		console.log(screeShare, cameraShare);
 		console.log("Stopped....");
@@ -57,23 +62,36 @@ function App() {
 		let video = zip.folder("Recording");
 		let blob_screen = await fetch(screeShare).then((r) => r.blob());
 		let blob_camera = await fetch(cameraShare).then((r) => r.blob());
-    camera.clearBlobUrl()
-    screen.clearBlobUrl()
+		camera.clearBlobUrl();
+		screen.clearBlobUrl();
 		console.log(blob_camera, blob_screen);
 		video.file("screen.mp4", blob_screen);
 		video.file("camera.mp4", blob_camera);
-		await zip.generateAsync({ type: "blob" }).then(function (content) {
-      console.log(content)
-      // blob to file with extension zip
-      // path request let attempt_id = JSON.parse(localStorage.getItem("attempt_id"));
-      //await axios
-			// .patch(`http://localhost:5000/attempts/${attempt_id}`, data)
+		await zip.generateAsync({ type: "blob" }).then(async function (content) {
+			console.log(content);
+			const file = new File([content], "upload_zip.zip");
+			console.log(file);
+			let form = new FormData()
+			form.append("zip_files",file)
+			// blob to file with extension zip
+			let attempt_id = JSON.parse(localStorage.getItem("attempt_id"));
+			  await axios
+					.patch(`http://localhost:5000/attempts/${attempt_id}`, form)
+					.then((res)=>{
+						console.log(res)
+						if(res.status === 200){
+							localStorage.removeItem("attempt_id")
+						}
+					})
+					.catch((err)=>{
+						console.log(err)
+					})
 
 			// FileSaver.saveAs(content, "download.zip");
-      setCameraShare(null)
-      setScreenShare(null)
+			setCameraShare(null);
+			setScreenShare(null);
 		});
-	} 
+	}
 	console.log(screeShare, cameraShare);
 	return (
 		<div>

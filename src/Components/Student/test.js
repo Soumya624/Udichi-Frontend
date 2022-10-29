@@ -210,8 +210,6 @@ export default function Confirmpresence({screeShare,cameraShare,stopScreenSharin
 				if (res.status === 201) {
 					localStorage.removeItem("submitted_questions_id");
 					localStorage.removeItem("questions_id")
-					// localStorage.removeItem("attempt_id");
-					// window.location = `/starttestStudent/${test}`;
 					navigate(`/starttestStudent/${test}`);
 				}
 			})
@@ -220,7 +218,6 @@ export default function Confirmpresence({screeShare,cameraShare,stopScreenSharin
 			});
 
 		};
-		console.log("SUbsdfsfd",questions_id);
 
 	return (
 		<div>

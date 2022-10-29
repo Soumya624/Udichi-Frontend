@@ -16,14 +16,14 @@ export default function Index({
 	setCameraShare,
 	cameraStatus,
 	screeStatus,
-	isClicked
+	isClicked,
 }) {
-	console.log(screeStatus,cameraStatus)
+	console.log(screeStatus, cameraStatus);
 	const navigate = useNavigate();
 	const [alloted_test, setAllotedTest] = useState(null);
 	const [is_attempted, setIsAttempted] = useState(false);
 	const [previous_submission, setPreviousSubmission] = useState(null);
-
+	const [number_of_attempts, setNumberOfAttempts] = useState(0);
 	const { id } = useParams();
 	// const [screeShare, setScreenShare] = useState(null);
 	// const [cameraShare, setCameraShare] = useState(null);
@@ -53,6 +53,7 @@ export default function Index({
 
 	useEffect(() => {
 		let user = JSON.parse(localStorage.getItem("user_id"));
+		console.log(user);
 		axios
 			.get(`http://localhost:5000/attempts/group/${user}/${id}`)
 			.then((res) => {
@@ -60,13 +61,13 @@ export default function Index({
 				if (res.status === 200) {
 					setIsAttempted(true);
 					setPreviousSubmission(res.data);
+					setNumberOfAttempts(res.data.attempts_submitted.length);
 				}
 			})
 			.catch((err) => {
 				console.log(err);
 			});
 	}, []);
-
 
 	const startExam = async () => {
 		let data = {
@@ -143,29 +144,15 @@ export default function Index({
 			navigate("/testStudent/1");
 		}
 	};
-	// async function zipfile() {
-	// 	stopScreenSharing();
-	// 	stopCamera();
-	// 	console.log("Stopped....");
-	// 	console.log(screeShare, cameraShare);
-	// 	console.log("Stopped....");
-	// 	const zip = new JSZip();
-	// 	let video = zip.folder("Recording");
-	// 	let blob_screen = await fetch(screeShare).then((r) => r.blob());
-	// 	let blob_camera = await fetch(cameraShare).then((r) => r.blob());
-	// 	console.log(blob_camera,blob_screen)
-	// 	video.file("screen.mp4", blob_screen);
-	// 	video.file("camera.mp4", blob_camera);
-	// 	await zip.generateAsync({ type: "blob" }).then(function (content) {
-	// 		FileSaver.saveAs(content, "download.zip");
-	// 	});
-	// }
-	// useState(()=>{
-	// 	if(isClicked){
-	// 		console.log("kjfbk")
-	// 		zipfile()
-	// 	}
-	// },[isClicked])
+	if (alloted_test === null) {
+		return <h1>Loading...</h1>;
+	}
+
+	const left_attempts = alloted_test.number_of_attempts - number_of_attempts;
+	if (left_attempts <= 0) {
+		window.location = "/dashboardStudent";
+	}
+
 	return (
 		<>
 			<div
@@ -219,7 +206,7 @@ export default function Index({
 								mediaBlobUrl={mediaScreenBlob}
 								stopRecording={stopScreenSharing}
 								isClicked={isClicked}
-								enable = {screeStatus === "acquiring_media"}
+								enable={screeStatus === "acquiring_media"}
 							/>
 							<Camera
 								startRecording={startCameraRecording}
@@ -227,15 +214,19 @@ export default function Index({
 								mediaBlobUrl={mediaCameraBlob}
 								stopRecording={stopCamera}
 								isClicked={isClicked}
-								enable = {cameraStatus === "acquiring_media"}
+								enable={cameraStatus === "acquiring_media"}
 							/>
 							<Button
 								variant="contained"
 								onClick={() => {
-									startExam()
-									
+									if(screeStatus === "recording" && cameraStatus === "recording"){
+										console.log("Recording....")
+										startExam();
+									}
 								}}
-								disabled = {screeStatus !== "recording" && cameraStatus !== "recording"}
+								// enabled={
+								// 	screeStatus !== "recording" && cameraStatus !== "recording"
+								// }
 							>
 								Continue Exam
 							</Button>
