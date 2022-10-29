@@ -16,6 +16,20 @@ import Box from "@mui/material/Box";
 import { styled } from "@mui/material/styles";
 import Paper from "@mui/material/Paper";
 import Footer from "../../Common/Footer";
+import { useEffect, useState } from "react";
+import axios from "axios";
+import Modal from "@mui/material/Modal";
+
+const style = {
+  position: "absolute",
+  top: "50%",
+  left: "50%",
+  transform: "translate(-50%, -50%)",
+  width: 400,
+  bgcolor: "background.paper",
+  boxShadow: 24,
+  p: 4,
+};
 
 const Item = styled(Paper)(({ theme }) => ({
   backgroundColor: theme.palette.mode === "dark" ? "#1A2027" : "#fff",
@@ -26,6 +40,26 @@ const Item = styled(Paper)(({ theme }) => ({
 }));
 
 export default function Index() {
+  const [alltest, setAlltest] = useState([]);
+  const [open, setOpen ] = useState(false);
+
+  useEffect(() => {
+    axios
+      .get("http://localhost:5000/test/all")
+      .then((res) => {
+        if (res.status === 200) {
+          console.log(res.data);
+          setAlltest(res.data);
+        }
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  }, []);
+
+  const handleOpen = () => setOpen(true);
+  const handleClose = () => setOpen(false);
+
   return (
     <div>
       <Navbar />
@@ -45,82 +79,64 @@ export default function Index() {
         <br />
         <br />
         <br />
-        <Box
-          display="grid"
-          gridTemplateColumns="repeat(12, 1fr)"
-          gap={2}
-          style={{ alignItems: "center", justifyContent: "center" }}
-        >
-          <Box gridColumn="span 12">
-            <Item style={{ padding: "1.5%", borderLeft: "2rem solid #7882bd" }}>
-              <h3 style={{ textAlign: "left" }}>Exam Title</h3>
+        {alltest.map((altst) => {
+          return (
+            <div>
               <Box
                 display="grid"
                 gridTemplateColumns="repeat(12, 1fr)"
-                gap={1}
+                gap={2}
                 style={{ alignItems: "center", justifyContent: "center" }}
               >
-                <Box gridColumn="span 3" style={{ textAlign: "left" }}>
-                  4 Hours
-                </Box>
-                <Box gridColumn="span 3">June'21 to July'21</Box>
-                <Box gridColumn="span 3" style={{ color: "red", cursor:"pointer" }}>
-                  View Results
-                </Box>
-                <Box
-                  gridColumn="span 3"
-                  style={{
-                    textAlign: "right",
-                    color: "#7882bd",
-                    cursor: "pointer",
-                  }}
-                >
-                  <a
-                    href="/monitorProctorer"
-                    style={{ textDecoration: "none" }}
+                <Box gridColumn="span 12">
+                  <Item
+                    style={{
+                      padding: "1.5%",
+                      borderLeft: "2rem solid #7882bd",
+                    }}
                   >
-                    Monitor Exam
-                  </a>
+                    <h3 style={{ textAlign: "left" }}>{altst.title}</h3>
+                    <Box
+                      display="grid"
+                      gridTemplateColumns="repeat(12, 1fr)"
+                      gap={1}
+                      style={{ alignItems: "center", justifyContent: "center" }}
+                    >
+                      <Box gridColumn="span 3" style={{ textAlign: "left" }}>
+                        {altst.available_window}
+                      </Box>
+                      <Box gridColumn="span 3">{altst.starting_date}</Box>
+                      <Box
+                        gridColumn="span 3"
+                        style={{ color: "red", cursor: "pointer" }}
+                      >
+                        View Results
+                      </Box>
+                      <Box
+                        gridColumn="span 3"
+                        style={{
+                          textAlign: "right",
+                          color: "#7882bd",
+                          cursor: "pointer",
+                        }}
+                      >
+                        <a
+                          href={`/monitorProctorer/${altst._id}`}
+                          style={{ textDecoration: "none" }}
+                        >
+                          Monitor Exam
+                        </a>
+                      </Box>
+                    </Box>
+                  </Item>
                 </Box>
               </Box>
-            </Item>
-          </Box>
-          <Box gridColumn="span 12">
-            <Item style={{ padding: "1.5%", borderLeft: "2rem solid #ffb2b2" }}>
-              <h3 style={{ textAlign: "left" }}>Exam Title</h3>
-              <Box
-                display="grid"
-                gridTemplateColumns="repeat(12, 1fr)"
-                gap={1}
-                style={{ alignItems: "center", justifyContent: "center" }}
-              >
-                <Box gridColumn="span 3" style={{ textAlign: "left" }}>
-                  4 Hours
-                </Box>
-                <Box gridColumn="span 3">June'21 to July'21</Box>
-                <Box gridColumn="span 3" style={{ color: "red", cursor:"pointer" }}>
-                  View Results
-                </Box>
-                <Box
-                  gridColumn="span 3"
-                  style={{
-                    textAlign: "right",
-                    color: "#7882bd",
-                    cursor: "pointer",
-                  }}
-                >
-                  <a
-                    href="/monitorProctorer"
-                    style={{ textDecoration: "none" }}
-                  >
-                    Monitor Exam
-                  </a>
-                </Box>
-              </Box>
-            </Item>
-          </Box>
-        </Box>
+              <br />
+            </div>
+          );
+        })}
       </div>
+
       <br />
       <br />
       <br />

@@ -141,7 +141,7 @@ function App() {
 							exact
 						/>
 						<Route
-							path="/monitorProctorer"
+							path="/monitorProctorer/:id"
 							element={<MonitorProctorer />}
 							exact
 						/>

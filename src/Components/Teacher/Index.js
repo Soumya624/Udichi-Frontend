@@ -16,6 +16,9 @@ import Box from "@mui/material/Box";
 import { styled } from "@mui/material/styles";
 import Paper from "@mui/material/Paper";
 import Footer from "../../Common/Footer";
+import { useState } from "react";
+import { useEffect } from "react";
+import axios from "axios";
 
 const Item = styled(Paper)(({ theme }) => ({
   backgroundColor: theme.palette.mode === "dark" ? "#1A2027" : "#fff",
@@ -26,6 +29,20 @@ const Item = styled(Paper)(({ theme }) => ({
 }));
 
 export default function Index() {
+  const [alltest, setAlltest] = useState([]);
+  useEffect(() => {
+    axios
+      .get("http://localhost:5000/test/all")
+      .then((res) => {
+        if (res.status === 200) {
+          console.log(res.data);
+          setAlltest(res.data);
+        }
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  }, []);
   return (
     <div>
       <Navbar />
@@ -45,104 +62,62 @@ export default function Index() {
         <br />
         <br />
         <br />
-        <Box
-          display="grid"
-          gridTemplateColumns="repeat(12, 1fr)"
-          gap={2}
-          style={{ alignItems: "center", justifyContent: "center" }}
-        >
-          <Box gridColumn="span 12">
-            <Item style={{ padding: "1.5%", borderLeft: "2rem solid #7882bd" }}>
-              <h3 style={{ textAlign: "left" }}>Exam Title</h3>
+        {alltest.map((altst) => {
+          return (
+            <div>
               <Box
                 display="grid"
                 gridTemplateColumns="repeat(12, 1fr)"
-                gap={1}
+                gap={2}
                 style={{ alignItems: "center", justifyContent: "center" }}
               >
-                <Box gridColumn="span 3" style={{ textAlign: "left" }}>
-                  4 Hours
-                </Box>
-                <Box gridColumn="span 3">June'21 to July'21</Box>
-                <Box
-                  gridColumn="span 3"
-                  style={{ color: "red", cursor: "pointer" }}
-                >
-                  <a
-                    href="/resultAssessor"
-                    style={{ textDecoration: "none", color: "red" }}
+                <Box gridColumn="span 12">
+                  <Item
+                    style={{
+                      padding: "1.5%",
+                      borderLeft: "2rem solid #7882bd",
+                    }}
                   >
-                    View Result
-                  </a>
-                </Box>
-                <Box
-                  gridColumn="span 3"
-                  style={{
-                    textAlign: "right",
-                    color: "#7882bd",
-                    cursor: "pointer",
-                  }}
-                >
-                  <a
-                    href="/presenceAssessor"
-                    style={{ textDecoration: "none" }}
-                  >
-                    Confirm Presence
-                  </a>
+                    <h3 style={{ textAlign: "left" }}>{altst.title}</h3>
+                    <Box
+                      display="grid"
+                      gridTemplateColumns="repeat(12, 1fr)"
+                      gap={1}
+                      style={{ alignItems: "center", justifyContent: "center" }}
+                    >
+                      <Box gridColumn="span 3" style={{ textAlign: "left" }}>
+                        {altst.available_window}
+                      </Box>
+                      <Box gridColumn="span 3">{altst.starting_date}</Box>
+                      <Box
+                        gridColumn="span 3"
+                        style={{ color: "red", cursor: "pointer" }}
+                      >
+                        View Results
+                      </Box>
+                      <Box
+                        gridColumn="span 3"
+                        style={{
+                          textAlign: "right",
+                          color: "#7882bd",
+                          cursor: "pointer",
+                        }}
+                      >
+                        <a
+                          href="#"
+                          style={{ textDecoration: "none" }}
+                        >
+                          Confirm Presence
+                        </a>
+                      </Box>
+                    </Box>
+                  </Item>
                 </Box>
               </Box>
-            </Item>
-          </Box>
-          <Box gridColumn="span 12">
-            <Item style={{ padding: "1.5%", borderLeft: "2rem solid #ffb2b2" }}>
-              <h3 style={{ textAlign: "left", cursor: "pointer" }}>
-                <a
-                  href="/vivaAssessor"
-                  style={{ textDecoration: "none", color: "grey" }}
-                >
-                  Viva Exam Title
-                </a>
-              </h3>
-              <Box
-                display="grid"
-                gridTemplateColumns="repeat(12, 1fr)"
-                gap={1}
-                style={{ alignItems: "center", justifyContent: "center" }}
-              >
-                <Box gridColumn="span 3" style={{ textAlign: "left" }}>
-                  4 Hours
-                </Box>
-                <Box gridColumn="span 3">June'21 to July'21</Box>
-                <Box
-                  gridColumn="span 3"
-                  style={{ color: "red", cursor: "pointer" }}
-                >
-                  <a
-                    href="/resultAssessor"
-                    style={{ textDecoration: "none", color: "red" }}
-                  >
-                    View Result
-                  </a>
-                </Box>
-                <Box
-                  gridColumn="span 3"
-                  style={{
-                    textAlign: "right",
-                    color: "#7882bd",
-                    cursor: "pointer",
-                  }}
-                >
-                  <a
-                    href="/presenceAssessor"
-                    style={{ textDecoration: "none" }}
-                  >
-                    Confirm Presence
-                  </a>
-                </Box>
-              </Box>
-            </Item>
-          </Box>
-        </Box>
+              <br />
+            </div>
+          );
+        })}
       </div>
       <br />
       <br />
