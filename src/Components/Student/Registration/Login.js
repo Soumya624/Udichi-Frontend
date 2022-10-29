@@ -33,7 +33,7 @@ export default function Signup() {
       password: password,
     };
     axios
-      .post("http://localhost:5000/login/", data)
+      .post("http://localhost:5000/candidate/login/", data)
       .then((res) => {
         console.log(res.data);
 

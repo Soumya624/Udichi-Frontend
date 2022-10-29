@@ -50,7 +50,7 @@ export default function Confirmpresence() {
               <Typography variant="body2" color="text.secondary">
                 <Grid container spacing={1} style={{ marginTop: "0.5%" }}>
                   <Grid item xs={12}>
-                    <center>
+                    {/* <center>
                       <TextField
                         id="outlined-basic"
                         label="Upload Supporting Documents"
@@ -58,7 +58,8 @@ export default function Confirmpresence() {
                         size="small"
                         style={{ width: "98.5%" }}
                       />
-                    </center>
+                    </center> */}
+                    <input type="file"/>
                   </Grid>
                 </Grid>
                 <br />

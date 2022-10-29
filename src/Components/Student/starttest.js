@@ -172,6 +172,7 @@ export default function Confirmpresence() {
 	}
 
 	let left_attempts = alloted_test.number_of_attempts - number_of_attempts;
+	let attempt_id = JSON.parse(localStorage.getItem("attempt_id"));
 
 	return (
 		<div>
@@ -236,7 +237,7 @@ export default function Confirmpresence() {
 											// onClick={startExam}
 											disabled={left_attempts <= 0}
 										>
-											Start Exam
+											{attempt_id?"Continue":"Start"} Exam
 										</Button>
 										{/* <Button
 											variant="contained"
