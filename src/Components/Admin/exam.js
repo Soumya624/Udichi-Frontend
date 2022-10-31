@@ -26,6 +26,7 @@ import { useState } from "react";
 import Collapsible from "react-collapsible";
 import "./style.css";
 import axiosInstance from "../../axiosInstance";
+import getCookie from "../../getCookie";
 
 function createData(name, candidates, duration, questions, action) {
   return { name, candidates, duration, questions, action };
@@ -39,6 +40,12 @@ const rows = [
   createData("Algorithms III", 356, 16.0, 49, "View Details"),
 ];
 
+let token = getCookie("access_token")
+
+const config = {
+	headers: { Authorization: `Bearer ${token}` },
+};
+
 export default function BasicTable() {
   const [examgroup, setExamgroup] = useState([]);
 
@@ -48,7 +55,7 @@ export default function BasicTable() {
 
   function getExams() {
     axiosInstance
-      .get("/test/all")
+      .get("/test/all",config)
       .then((res) => {
         console.log(res);
         if (res.status === 200) {

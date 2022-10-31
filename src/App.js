@@ -31,9 +31,18 @@ import { useReactMediaRecorder } from "react-media-recorder";
 import { useEffect, useState } from "react";
 import JSZip from "jszip";
 // import FileSaver from "file-saver";
-import axios from "axios";
-import axiosInstance from './axiosInstance';
+import axiosInstance from "./axiosInstance";
+import getCookie from "./getCookie";
+import ProtectedRoute from "./ProtectedRoute";
 function App() {
+	let token = getCookie("access_token");
+	let user = JSON.parse(localStorage.getItem("user"));
+
+	let config = null;
+	if (user && token)
+		config = {
+			headers: { Authorization: `Bearer ${token}`, "user-type": user.usertype },
+		};
 	const [isClicked, setClicked] = useState(false);
 	const [screeShare, setScreenShare] = useState(null);
 	const [cameraShare, setCameraShare] = useState(null);
@@ -72,21 +81,21 @@ function App() {
 			console.log(content);
 			const file = new File([content], "upload_zip.zip");
 			console.log(file);
-			let form = new FormData()
-			form.append("zip_files",file)
+			let form = new FormData();
+			form.append("zip_files", file);
 			// blob to file with extension zip
 			let attempt_id = JSON.parse(localStorage.getItem("attempt_id"));
-			  await axiosInstance
-					.patch(`/attempts/${attempt_id}`, form)
-					.then((res)=>{
-						console.log(res)
-						if(res.status === 200){
-							localStorage.removeItem("attempt_id")
-						}
-					})
-					.catch((err)=>{
-						console.log(err)
-					})
+			await axiosInstance
+				.patch(`/attempts/${attempt_id}`, form, config)
+				.then((res) => {
+					console.log(res);
+					if (res.status === 200) {
+						localStorage.removeItem("attempt_id");
+					}
+				})
+				.catch((err) => {
+					console.log(err);
+				});
 
 			// FileSaver.saveAs(content, "download.zip");
 			setCameraShare(null);
@@ -105,100 +114,170 @@ function App() {
 						<Route path="/loginAssessor" element={<LoginAssessor />} exact />
 						<Route path="/loginStudent" element={<LoginStudent />} exact />
 						<Route path="/loginProctorer" element={<LoginProctorer />} exact />
-						<Route path="/dashboardAdmin" element={<DashboardAdmin />} exact />
+						<Route path="/dashboardAdmin" element={<ProtectedRoute />} exact>
+							<Route
+								path="/dashboardAdmin"
+								element={<DashboardAdmin />}
+								exact
+							/>
+						</Route>
 						<Route
 							path="/dashboardProctorer"
-							element={<DashboardProctorer />}
+							element={<ProtectedRoute />}
 							exact
-						/>
-						<Route
-							path="/dashboardAssessor"
-							element={<DashboardAssessor />}
-							exact
-						/>
-						<Route
-							path="/dashboardStudent"
-							element={<DashboardStudent />}
-							exact
-						/>
-						<Route path="/examAdmin" element={<ExamAdmin />} exact />
-						<Route path="/candidateAdmin" element={<CandidateAdmin />} exact />
-						<Route path="/questionAdmin" element={<QuestionAdmin />} exact />
-						<Route
-							path="/statisticsAdmin"
-							element={<StatisticsAdmin />}
-							exact
-						/>
-						<Route path="/resultAssessor" element={<ResultAssessor />} exact />
-						<Route
-							path="/presenceAssessor"
-							element={<PresenceAssessor />}
-							exact
-						/>
-						<Route path="/vivaAssessor" element={<VivaAssessor />} exact />
-						<Route
-							path="/vivalinkAssessor"
-							element={<VivalinkAssessor />}
-							exact
-						/>
+						>
+							<Route
+								path="/dashboardProctorer"
+								element={<DashboardProctorer />}
+								exact
+							/>
+						</Route>
+						<Route path="/dashboardAssessor" element={<ProtectedRoute />} exact>
+							<Route
+								path="/dashboardAssessor"
+								element={<DashboardAssessor />}
+								exact
+							/>
+						</Route>
+						<Route path="/dashboardStudent" element={<ProtectedRoute />} exact>
+							<Route
+								path="/dashboardStudent"
+								element={<DashboardStudent />}
+								exact
+							/>
+						</Route>
+						<Route path="/examAdmin" element={<ProtectedRoute />} exact>
+							<Route path="/examAdmin" element={<ExamAdmin />} exact />
+						</Route>
+
+						<Route path="/candidateAdmin" element={<ProtectedRoute />} exact>
+							<Route
+								path="/candidateAdmin"
+								element={<CandidateAdmin />}
+								exact
+							/>
+						</Route>
+
+						<Route path="/questionAdmin" element={<ProtectedRoute />} exact>
+							<Route path="/questionAdmin" element={<QuestionAdmin />} exact />
+						</Route>
+						<Route path="/statisticsAdmin" element={<ProtectedRoute />} exact>
+							<Route
+								path="/statisticsAdmin"
+								element={<StatisticsAdmin />}
+								exact
+							/>
+						</Route>
+						<Route path="/resultAssessor" element={<ProtectedRoute />} exact>
+							<Route
+								path="/resultAssessor"
+								element={<ResultAssessor />}
+								exact
+							/>
+						</Route>
+						<Route path="/presenceAssessor" element={<ProtectedRoute />} exact>
+							<Route
+								path="/presenceAssessor"
+								element={<PresenceAssessor />}
+								exact
+							/>
+						</Route>
+						<Route path="/vivaAssessor" element={<ProtectedRoute />} exact>
+							<Route path="/vivaAssessor" element={<VivaAssessor />} exact />
+						</Route>
+
+						<Route path="/vivalinkAssessor" element={<ProtectedRoute />} exact>
+							<Route
+								path="/vivalinkAssessor"
+								element={<VivalinkAssessor />}
+								exact
+							/>
+						</Route>
 						<Route
 							path="/monitorProctorer/:id"
-							element={<MonitorProctorer />}
+							element={<ProtectedRoute />}
 							exact
-						/>
+						>
+							<Route
+								path="/monitorProctorer/:id"
+								element={<MonitorProctorer />}
+								exact
+							/>
+						</Route>
+
 						<Route
 							path="/starttestStudent/:id"
-							element={<StarttestStudent />}
+							element={<ProtectedRoute />}
 							exact
-						/>
-						<Route
-							path="/submittestStudent"
-							element={<SubmittestStudent />}
-							exact
-						/>
-						<Route
-							path="/testStudent/:id"
-							element={
-								<TestStudent
-									cameraShare={cameraShare}
-									screeShare={screeShare}
-									stopScreenSharing={screen.stopRecording}
-									stopCamera={camera.stopRecording}
-									setClicked={setClicked}
-								/>
-							}
-							exact
-						/>
-						<Route
-							path="/addcandidateAdmin"
-							element={<AddcandidateAdmin />}
-							exact
-						/>
-						<Route path="/addexamAdmin" element={<AddexamAdmin />} exact />
-						<Route
-							path="/addquestionAdmin"
-							element={<AddquestionAdmin />}
-							exact
-						/>
-						<Route
-							path="/shareScreen/:id"
-							element={
-								<ShareContainer
-									startScreenRecording={screen.startRecording}
-									startCameraRecording={camera.startRecording}
-									mediaCameraBlob={camera.mediaBlobUrl}
-									mediaScreenBlob={screen.mediaBlobUrl}
-									stopScreenSharing={screen.stopRecording}
-									stopCamera={camera.stopRecording}
-									setScreenShare={setScreenShare}
-									setCameraShare={setCameraShare}
-									cameraStatus={camera.status}
-									screeStatus={screen.status}
-									isClicked={isClicked}
-								/>
-							}
-							exact
-						/>
+						>
+							<Route
+								path="/starttestStudent/:id"
+								element={<StarttestStudent />}
+								exact
+							/>
+						</Route>
+						<Route path="/submittestStudent" element={<ProtectedRoute />} exact>
+							<Route
+								path="/submittestStudent"
+								element={<SubmittestStudent />}
+								exact
+							/>
+						</Route>
+						<Route path="/testStudent/:id" element={<ProtectedRoute />} exact>
+							<Route
+								path="/testStudent/:id"
+								element={
+									<TestStudent
+										cameraShare={cameraShare}
+										screeShare={screeShare}
+										stopScreenSharing={screen.stopRecording}
+										stopCamera={camera.stopRecording}
+										setClicked={setClicked}
+									/>
+								}
+								exact
+							/>
+						</Route>
+
+						<Route path="/addcandidateAdmin" element={<ProtectedRoute />} exact>
+							<Route
+								path="/addcandidateAdmin"
+								element={<AddcandidateAdmin />}
+								exact
+							/>
+						</Route>
+						<Route path="/addexamAdmin" element={<ProtectedRoute />} exact>
+							<Route path="/addexamAdmin" element={<AddexamAdmin />} exact />
+						</Route>
+
+						<Route path="/addquestionAdmin" element={<ProtectedRoute />} exact>
+							<Route
+								path="/addquestionAdmin"
+								element={<AddquestionAdmin />}
+								exact
+							/>
+						</Route>
+						<Route path="/shareScreen/:id" element={<ProtectedRoute />} exact>
+							<Route
+								path="/shareScreen/:id"
+								element={
+									<ShareContainer
+										startScreenRecording={screen.startRecording}
+										startCameraRecording={camera.startRecording}
+										mediaCameraBlob={camera.mediaBlobUrl}
+										mediaScreenBlob={screen.mediaBlobUrl}
+										stopScreenSharing={screen.stopRecording}
+										stopCamera={camera.stopRecording}
+										setScreenShare={setScreenShare}
+										setCameraShare={setCameraShare}
+										cameraStatus={camera.status}
+										screeStatus={screen.status}
+										isClicked={isClicked}
+									/>
+								}
+								exact
+							/>
+						</Route>
 					</Routes>
 				</Router>
 			</Container>

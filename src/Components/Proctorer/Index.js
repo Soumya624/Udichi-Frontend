@@ -20,6 +20,7 @@ import { useEffect, useState } from "react";
 import axios from "axios";
 import Modal from "@mui/material/Modal";
 import axiosInstance from "../../axiosInstance";
+import getCookie from "../../getCookie";
 
 const style = {
   position: "absolute",
@@ -41,12 +42,18 @@ const Item = styled(Paper)(({ theme }) => ({
 }));
 
 export default function Index() {
+  let token = getCookie("access_token");
+	let user = JSON.parse(localStorage.getItem("user"));
+
+	const config = {
+		headers: { Authorization: `Bearer ${token}`, "user-type": user.usertype },
+	};
   const [alltest, setAlltest] = useState([]);
   const [open, setOpen ] = useState(false);
 
   useEffect(() => {
     axiosInstance
-      .get("/test/all")
+      .get("/test/all",config)
       .then((res) => {
         if (res.status === 200) {
           console.log(res.data);

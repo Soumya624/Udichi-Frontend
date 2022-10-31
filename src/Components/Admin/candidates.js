@@ -26,6 +26,7 @@ import { useState } from "react";
 import Collapsible from "react-collapsible";
 import "./style.css";
 import axiosInstance from '../../axiosInstance';
+import getCookie from "../../getCookie";
 
 function createData(name, candidates, group, username, action) {
   return { name, candidates, group, username, action };
@@ -69,6 +70,13 @@ const rows = [
   ),
 ];
 
+let token = getCookie("access_token")
+let user = JSON.parse(localStorage.getItem("user"));
+
+const config = {
+	headers: { Authorization: `Bearer ${token}`, "user-type" : user.usertype },
+};
+
 export default function BasicTable() {
   const [open, setOpen] = useState(true);
   const [candigroup, setCandigroup] = useState([]);
@@ -83,7 +91,7 @@ export default function BasicTable() {
 
   function getCandidates() {
     axiosInstance
-      .get("/candidate_group/all/")
+      .get("/candidate_group/all/",config)
       .then((res) => {
         console.log(res);
         if (res.status === 200) {

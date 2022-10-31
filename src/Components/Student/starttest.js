@@ -10,8 +10,15 @@ import { useReactMediaRecorder } from "react-media-recorder";
 import { Link, useParams } from "react-router-dom";
 import axios from "axios";
 import axiosInstance from "../../axiosInstance";
+import getCookie from "../../getCookie";
 
 export default function Confirmpresence() {
+	let token = getCookie("access_token");
+	let user = JSON.parse(localStorage.getItem("user"));
+
+	const config = {
+		headers: { Authorization: `Bearer ${token}`, "user-type": user.usertype },
+	};
 	const { id } = useParams();
 	const [alloted_test, setAllotedTest] = useState(null);
 	const [is_attempted, setIsAttempted] = useState(false);
@@ -20,7 +27,7 @@ export default function Confirmpresence() {
 
 	useEffect(() => {
 		axiosInstance
-			.get(`/test/${id}`)
+			.get(`/test/${id}`, config)
 			.then((res) => {
 				console.log(res);
 				if (res.status === 200) {
@@ -44,7 +51,7 @@ export default function Confirmpresence() {
 	useEffect(() => {
 		let user = JSON.parse(localStorage.getItem("user_id"));
 		axiosInstance
-			.get(`/attempts/group/${user}/${id}`)
+			.get(`/attempts/group/${user}/${id}`,config)
 			.then((res) => {
 				console.log(res);
 				if (res.status === 200) {
@@ -63,15 +70,15 @@ export default function Confirmpresence() {
 		let attempt_id = JSON.parse(localStorage.getItem("attempt_id"));
 		if (attempt_id && user) {
 			axiosInstance
-				.get(`/attempts/attempt/${attempt_id}/${user}`)
+				.get(`/attempts/attempt/${attempt_id}/${user}`,config)
 				.then((res) => {
 					console.log(res);
 				})
 				.catch((err) => {
 					console.log(err);
 				});
-		}else{
-			console.log("Not possible")
+		} else {
+			console.log("Not possible");
 		}
 	}, []);
 

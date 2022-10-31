@@ -20,6 +20,7 @@ import { useState } from "react";
 import axios from "axios";
 import { Box, FormLabel, Modal } from "@mui/material";
 import axiosInstance from "../../axiosInstance";
+import getCookie from "../../getCookie";
 const style = {
 	position: 'absolute',
 	top: '50%',
@@ -32,6 +33,12 @@ const style = {
 	p: 4,
   };
 export default function Confirmpresence({screeShare,cameraShare,stopScreenSharing,stopCamera,setClicked}) {
+	let token = getCookie("access_token");
+	let user = JSON.parse(localStorage.getItem("user"));
+
+	const config = {
+		headers: { Authorization: `Bearer ${token}`, "user-type": user.usertype },
+	};
 	console.log(screeShare,cameraShare)
 	const navigate = useNavigate();
 	let submitted_questions_id = JSON.parse(localStorage.getItem("submitted_questions_id"))
@@ -60,7 +67,7 @@ export default function Confirmpresence({screeShare,cameraShare,stopScreenSharin
 		// /check/:test/:question/:candidate
 		axiosInstance
 			.get(
-				`/question_submission/check/${test}/${question_data._id}/${user}/${attempt_id}`,
+				`/question_submission/check/${test}/${question_data._id}/${user}/${attempt_id}`,config
 			)
 			.then((res) => {
 				if (res.status === 200) {
@@ -123,7 +130,7 @@ export default function Confirmpresence({screeShare,cameraShare,stopScreenSharin
 			axiosInstance
 				.patch(
 					`/question_submission/${submission_id}`,
-					data,
+					data,config
 				)
 				.then((res) => {
 					console.log(res);
@@ -137,7 +144,7 @@ export default function Confirmpresence({screeShare,cameraShare,stopScreenSharin
 				});
 		} else {
 			axiosInstance
-				.post("/question_submission", data)
+				.post("/question_submission", data,config)
 				.then((res) => {
 					console.log(res);
 					if (res.status === 200) {
@@ -192,7 +199,7 @@ export default function Confirmpresence({screeShare,cameraShare,stopScreenSharin
 
 		let attempt_id = JSON.parse(localStorage.getItem("attempt_id"));
 		await axiosInstance
-			.patch(`/attempts/${attempt_id}`, data)
+			.patch(`/attempts/${attempt_id}`, data,config)
 			.then((res) => {
 				if (res.status === 200) {
 				}
@@ -205,7 +212,7 @@ export default function Confirmpresence({screeShare,cameraShare,stopScreenSharin
 		};
 		let attempt_group = JSON.parse(localStorage.getItem("attempted_group_id"));
 		await axiosInstance
-			.patch(`/attempts/add/${attempt_group}`, d)
+			.patch(`/attempts/add/${attempt_group}`, d,config)
 			.then((res) => {
 				console.log(res);
 				if (res.status === 201) {

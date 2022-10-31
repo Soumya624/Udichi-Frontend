@@ -18,7 +18,7 @@ import Paper from "@mui/material/Paper";
 import Footer from "../../Common/Footer";
 import { useState } from "react";
 import { useEffect } from "react";
-import axios from "axios";
+import getCookie from "../../getCookie";
 import axiosInstance from "../../axiosInstance";
 
 const Item = styled(Paper)(({ theme }) => ({
@@ -30,10 +30,16 @@ const Item = styled(Paper)(({ theme }) => ({
 }));
 
 export default function Index() {
+  let token = getCookie("access_token");
+	let user = JSON.parse(localStorage.getItem("user"));
+
+	const config = {
+		headers: { Authorization: `Bearer ${token}`, "user-type": user.usertype },
+	};
   const [alltest, setAlltest] = useState([]);
   useEffect(() => {
     axiosInstance
-      .get("/test/all")
+      .get("/test/all",config)
       .then((res) => {
         if (res.status === 200) {
           console.log(res.data);

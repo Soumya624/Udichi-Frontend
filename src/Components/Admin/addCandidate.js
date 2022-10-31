@@ -21,6 +21,7 @@ import { InputBase } from "@mui/material";
 import Box from "@mui/material/Box";
 import Modal from "@mui/material/Modal";
 import axiosInstance from "../../axiosInstance";
+import getCookie from "../../getCookie";
 
 const style = {
   position: "absolute",
@@ -33,7 +34,16 @@ const style = {
   p: 4,
 };
 
+
 export default function AddCandidate() {
+
+  let token = getCookie("access_token");
+	let user = JSON.parse(localStorage.getItem("user"))
+
+	const config = {
+		headers: { Authorization: `Bearer ${token}`, "user-type": user.usertype },
+  }
+
   const [group, setGroup] = useState("");
   const [fname, setFname] = useState("");
   const [lname, setLname] = useState("");
@@ -73,9 +83,12 @@ export default function AddCandidate() {
 
     console.log(data);
     axiosInstance
-      .post("/candidate/", data)
+      .post("/candidate/", data,config)
       .then((res) => {
         console.log(res);
+        if(res.status === 201){
+          window.location = "/candidateAdmin"
+        }
       })
       .catch((err) => {
         console.log(err);
@@ -88,7 +101,7 @@ export default function AddCandidate() {
       title: grptitle,
     };
     axiosInstance
-      .post("/candidate_group/", data)
+      .post("/candidate_group/", data,config)
       .then((res) => {
         console.log(res);
       })
@@ -100,7 +113,7 @@ export default function AddCandidate() {
   // get Candidates Group
   function getCandidates() {
     axiosInstance
-      .get("/candidate_group/all/")
+      .get("/candidate_group/all/",config)
       .then((res) => {
         console.log(res);
         if (res.status === 200) {

@@ -26,6 +26,7 @@ import { useState } from "react";
 import Modal from "@mui/material/Modal";
 import Box from "@mui/material/Box";
 import axiosInstance from "../../axiosInstance";
+import getCookie from "../../getCookie";
 
 const style = {
   position: "absolute",
@@ -51,6 +52,12 @@ const rows = [
 ];
 
 export default function Confirmpresence() {
+  let token = getCookie("access_token");
+	let user = JSON.parse(localStorage.getItem("user"));
+
+	const config = {
+		headers: { Authorization: `Bearer ${token}`, "user-type": user.usertype },
+	};
   const [open, setOpen] = useState(false);
 
   const [list, setList] = useState([]);
@@ -59,7 +66,7 @@ export default function Confirmpresence() {
 
   useEffect(() => {
     axiosInstance
-      .get(`/attempts/attempts_group/${id}`)
+      .get(`/attempts/attempts_group/${id}`,config)
       .then((res) => {
         if (res.status === 200) {
           console.log(res.data);
@@ -106,7 +113,7 @@ export default function Confirmpresence() {
 
     axiosInstance.get(`/attempts/download/${id}`,{
       responseType : "blob"
-    })
+    },config)
     .then((res)=>{
       console.log(res)
       if(res.status === 200){

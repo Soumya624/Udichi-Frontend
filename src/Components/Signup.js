@@ -328,7 +328,7 @@ export default function Signup() {
 											setUser(e.target.value);
 										}}
 									/>
-									<FormControlLabel
+									{/* <FormControlLabel
 										control={<Checkbox />}
 										label="Student"
 										value="student"
@@ -336,7 +336,7 @@ export default function Signup() {
 											e.preventDefault();
 											setUser(e.target.value);
 										}}
-									/>
+									/> */}
 									<FormControlLabel
 										control={<Checkbox />}
 										label="Proctorer"

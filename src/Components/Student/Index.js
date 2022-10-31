@@ -4,9 +4,9 @@ import Box from "@mui/material/Box";
 import { styled } from "@mui/material/styles";
 import Paper from "@mui/material/Paper";
 import Footer from "../../Common/Footer";
-import axios from "axios";
 import { useState } from "react";
 import axiosInstance from "../../axiosInstance";
+import getCookie from "../../getCookie";
 // 6352ac7eee578c61f13ec293
 
 const Item = styled(Paper)(({ theme }) => ({
@@ -17,14 +17,13 @@ const Item = styled(Paper)(({ theme }) => ({
 	color: theme.palette.text.secondary,
 }));
 
-let token = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJjYW5kaWRhdGUiOnsiX2lkIjoiNjM1NTQwZGI2YTcxOGZmYmUzOTQwNjdhIiwiZmlyc3RuYW1lIjoiamhmc2RqZmhqIiwibGFzdG5hbWUiOiJhbmRiZndlIiwiYWFkaGFybnVtYmVyIjoiJDJiJDEwJGN6TW9PZGNrNC44QkFSSWNTWFM5MWVJMUs3THlzWnRBS0d3R2VOV01sTWpUZERUTC9JZFpXIiwiZW1haWwiOiIxMjM0QGcuY29tIiwidXNlcm5hbWUiOiIxMjM0QGcuY29tIiwicGFzc3dvcmQiOiIkMmIkMTAkY3pNb09kY2s0LjhCQVJJY1NYUzkxZWtCTllHMnlEQ3dhaVluR3Z2ay9vVGlnbkRWcll4QWUiLCJtb2JpbGUiOiIxNzM3Njk3MzY5IiwidGVsZXBob25lIjoiNjQ3MTQ5MTc0NjkxNCIsInVzZXJ0eXBlIjoiQ2FuZGlkYXRlIiwiY2FuZGlkYXRlX2dyb3VwIjoiNjM1MDM2MjFmY2RkMzBmNWVmYTA5ZTliIiwiYWxsb3RlZF90ZXN0IjpbIjYzNTU0MjdmNmE3MThmZmJlMzk0MDY4MiIsIjYzNTU0NWIxNmE3MThmZmJlMzk0MDcyZSIsIjYzNTU4YThmNmE3MThmZmJlMzk0MGE2ZiJdLCJhdHRlbXB0ZWRfdGVzdCI6W10sIl9fdiI6MH0sImlhdCI6MTY2NzAzNTg1NywiZXhwIjoxNjY3MDM5NDU3fQ.w6E2AIoV8YuRYUCDCQHGZy9y0nlVgmaBWKpoehBgL8c"
-let user_id = "635540db6a718ffbe394067a";
-
-const config = {
-	headers: { Authorization: `Bearer ${token} ${user_id}` },
-};
-
 export default function Index() {
+	let token = getCookie("access_token");
+	let user_id = JSON.parse(localStorage.getItem("user"))._id;
+
+	const config = {
+		headers: { Authorization: `Bearer ${token} ${user_id}` },
+	};
 	const [alloted_tests, setAllotedTest] = useState([]);
 
 	useEffect(() => {
@@ -32,8 +31,8 @@ export default function Index() {
 			.get("/candidate/alloted_test/", config)
 			.then((res) => {
 				if (res.status === 200) {
-					console.log(res.data)
-					localStorage.setItem("user_id",JSON.stringify(res.data._id))
+					console.log(res.data);
+					localStorage.setItem("user_id", JSON.stringify(res.data._id));
 					setAllotedTest(res.data.alloted_test);
 				}
 			})
@@ -67,7 +66,11 @@ export default function Index() {
 							display="grid"
 							gridTemplateColumns="repeat(12, 1fr)"
 							gap={2}
-							style={{ alignItems: "center", justifyContent: "center", margin : "10px 0" }}
+							style={{
+								alignItems: "center",
+								justifyContent: "center",
+								margin: "10px 0",
+							}}
 						>
 							<Box gridColumn="span 12">
 								<Item
