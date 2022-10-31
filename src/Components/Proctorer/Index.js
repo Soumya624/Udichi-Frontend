@@ -19,6 +19,7 @@ import Footer from "../../Common/Footer";
 import { useEffect, useState } from "react";
 import axios from "axios";
 import Modal from "@mui/material/Modal";
+import axiosInstance from "../../axiosInstance";
 
 const style = {
   position: "absolute",
@@ -44,8 +45,8 @@ export default function Index() {
   const [open, setOpen ] = useState(false);
 
   useEffect(() => {
-    axios
-      .get("http://localhost:5000/test/all")
+    axiosInstance
+      .get("/test/all")
       .then((res) => {
         if (res.status === 200) {
           console.log(res.data);

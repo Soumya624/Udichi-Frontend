@@ -19,6 +19,7 @@ import Footer from "../../Common/Footer";
 import { useState } from "react";
 import { useEffect } from "react";
 import axios from "axios";
+import axiosInstance from "../../axiosInstance";
 
 const Item = styled(Paper)(({ theme }) => ({
   backgroundColor: theme.palette.mode === "dark" ? "#1A2027" : "#fff",
@@ -31,8 +32,8 @@ const Item = styled(Paper)(({ theme }) => ({
 export default function Index() {
   const [alltest, setAlltest] = useState([]);
   useEffect(() => {
-    axios
-      .get("http://localhost:5000/test/all")
+    axiosInstance
+      .get("/test/all")
       .then((res) => {
         if (res.status === 200) {
           console.log(res.data);

@@ -32,6 +32,7 @@ import { useEffect, useState } from "react";
 import JSZip from "jszip";
 // import FileSaver from "file-saver";
 import axios from "axios";
+import axiosInstance from './axiosInstance';
 function App() {
 	const [isClicked, setClicked] = useState(false);
 	const [screeShare, setScreenShare] = useState(null);
@@ -75,8 +76,8 @@ function App() {
 			form.append("zip_files",file)
 			// blob to file with extension zip
 			let attempt_id = JSON.parse(localStorage.getItem("attempt_id"));
-			  await axios
-					.patch(`http://localhost:5000/attempts/${attempt_id}`, form)
+			  await axiosInstance
+					.patch(`/attempts/${attempt_id}`, form)
 					.then((res)=>{
 						console.log(res)
 						if(res.status === 200){

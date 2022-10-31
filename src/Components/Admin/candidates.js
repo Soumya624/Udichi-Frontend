@@ -25,6 +25,7 @@ import { useEffect } from "react";
 import { useState } from "react";
 import Collapsible from "react-collapsible";
 import "./style.css";
+import axiosInstance from '../../axiosInstance';
 
 function createData(name, candidates, group, username, action) {
   return { name, candidates, group, username, action };
@@ -81,8 +82,8 @@ export default function BasicTable() {
   }, []);
 
   function getCandidates() {
-    axios
-      .get("http://localhost:5000/candidate_group/all/")
+    axiosInstance
+      .get("/candidate_group/all/")
       .then((res) => {
         console.log(res);
         if (res.status === 200) {

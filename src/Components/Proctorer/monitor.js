@@ -25,6 +25,7 @@ import axios from "axios";
 import { useState } from "react";
 import Modal from "@mui/material/Modal";
 import Box from "@mui/material/Box";
+import axiosInstance from "../../axiosInstance";
 
 const style = {
   position: "absolute",
@@ -57,8 +58,8 @@ export default function Confirmpresence() {
   const { id } = useParams();
 
   useEffect(() => {
-    axios
-      .get(`http://localhost:5000/attempts/attempts_group/${id}`)
+    axiosInstance
+      .get(`/attempts/attempts_group/${id}`)
       .then((res) => {
         if (res.status === 200) {
           console.log(res.data);
@@ -103,7 +104,7 @@ export default function Confirmpresence() {
   const downloadZip = (id) =>{
     console.log(id)
 
-    axios.get(`http://localhost:5000/attempts/download/${id}`,{
+    axiosInstance.get(`/attempts/download/${id}`,{
       responseType : "blob"
     })
     .then((res)=>{

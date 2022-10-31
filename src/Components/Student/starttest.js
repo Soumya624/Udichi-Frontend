@@ -9,6 +9,7 @@ import { useScreenshot } from "use-screenshot-hook";
 import { useReactMediaRecorder } from "react-media-recorder";
 import { Link, useParams } from "react-router-dom";
 import axios from "axios";
+import axiosInstance from "../../axiosInstance";
 
 export default function Confirmpresence() {
 	const { id } = useParams();
@@ -18,8 +19,8 @@ export default function Confirmpresence() {
 	const [number_of_attempts, setNumberOfAttempts] = useState(0);
 
 	useEffect(() => {
-		axios
-			.get(`http://localhost:5000/test/${id}`)
+		axiosInstance
+			.get(`/test/${id}`)
 			.then((res) => {
 				console.log(res);
 				if (res.status === 200) {
@@ -42,8 +43,8 @@ export default function Confirmpresence() {
 
 	useEffect(() => {
 		let user = JSON.parse(localStorage.getItem("user_id"));
-		axios
-			.get(`http://localhost:5000/attempts/group/${user}/${id}`)
+		axiosInstance
+			.get(`/attempts/group/${user}/${id}`)
 			.then((res) => {
 				console.log(res);
 				if (res.status === 200) {
@@ -61,8 +62,8 @@ export default function Confirmpresence() {
 		let user = JSON.parse(localStorage.getItem("user_id"));
 		let attempt_id = JSON.parse(localStorage.getItem("attempt_id"));
 		if (attempt_id && user) {
-			axios
-				.get(`http://localhost:5000/attempts/attempt/${attempt_id}/${user}`)
+			axiosInstance
+				.get(`/attempts/attempt/${attempt_id}/${user}`)
 				.then((res) => {
 					console.log(res);
 				})

@@ -11,6 +11,7 @@ import Checkbox from "@mui/material/Checkbox";
 import Footer from "./../Common/Footer";
 import { useState } from "react";
 import axios from "axios";
+import axiosInstance from "../axiosInstance";
 
 export default function Signup() {
 	const [fname, setFname] = useState("");
@@ -49,8 +50,8 @@ export default function Signup() {
 			usertype: user,
 		};
 		console.log(data);
-		axios
-			.post("http://localhost:5000/signup/", data)
+		axiosInstance
+			.post("/signup/", data)
 			.then((res) => {
 				console.log(res.data);
 			})

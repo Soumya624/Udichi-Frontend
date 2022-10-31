@@ -19,6 +19,7 @@ import { Link, useParams, useNavigate } from "react-router-dom";
 import { useState } from "react";
 import axios from "axios";
 import { Box, FormLabel, Modal } from "@mui/material";
+import axiosInstance from "../../axiosInstance";
 const style = {
 	position: 'absolute',
 	top: '50%',
@@ -57,9 +58,9 @@ export default function Confirmpresence({screeShare,cameraShare,stopScreenSharin
 		let qId = parseInt(id);
 		const question_data = questions[qId - 1];
 		// /check/:test/:question/:candidate
-		axios
+		axiosInstance
 			.get(
-				`http://localhost:5000/question_submission/check/${test}/${question_data._id}/${user}/${attempt_id}`,
+				`/question_submission/check/${test}/${question_data._id}/${user}/${attempt_id}`,
 			)
 			.then((res) => {
 				if (res.status === 200) {
@@ -119,9 +120,9 @@ export default function Confirmpresence({screeShare,cameraShare,stopScreenSharin
 			attempt_id: attempt_id,
 		};
 		if (is_attempted) {
-			axios
+			axiosInstance
 				.patch(
-					`http://localhost:5000/question_submission/${submission_id}`,
+					`/question_submission/${submission_id}`,
 					data,
 				)
 				.then((res) => {
@@ -135,8 +136,8 @@ export default function Confirmpresence({screeShare,cameraShare,stopScreenSharin
 					console.log(err);
 				});
 		} else {
-			axios
-				.post("http://localhost:5000/question_submission", data)
+			axiosInstance
+				.post("/question_submission", data)
 				.then((res) => {
 					console.log(res);
 					if (res.status === 200) {
@@ -190,8 +191,8 @@ export default function Confirmpresence({screeShare,cameraShare,stopScreenSharin
 		};
 
 		let attempt_id = JSON.parse(localStorage.getItem("attempt_id"));
-		await axios
-			.patch(`http://localhost:5000/attempts/${attempt_id}`, data)
+		await axiosInstance
+			.patch(`/attempts/${attempt_id}`, data)
 			.then((res) => {
 				if (res.status === 200) {
 				}
@@ -203,8 +204,8 @@ export default function Confirmpresence({screeShare,cameraShare,stopScreenSharin
 			attempts_submitted: attempt_id,
 		};
 		let attempt_group = JSON.parse(localStorage.getItem("attempted_group_id"));
-		await axios
-			.patch(`http://localhost:5000/attempts/add/${attempt_group}`, d)
+		await axiosInstance
+			.patch(`/attempts/add/${attempt_group}`, d)
 			.then((res) => {
 				console.log(res);
 				if (res.status === 201) {

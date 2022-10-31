@@ -22,6 +22,7 @@ import FormLabel from "@mui/material/FormLabel";
 import axios from "axios";
 import Box from "@mui/material/Box";
 import Modal from "@mui/material/Modal";
+import axiosInstance from "../../axiosInstance";
 
 const style = {
   position: "absolute",
@@ -88,8 +89,8 @@ export default function AddCandidate() {
       question_groups: quesgrp,
     };
     console.log(data);
-    axios
-      .post("http://localhost:5000/test/", data)
+    axiosInstance
+      .post("/test/", data)
       .then((res) => {
         console.log(res);
         if (res.status === 200) {
@@ -103,8 +104,8 @@ export default function AddCandidate() {
   }
 
   function getCandidates() {
-    axios
-      .get("http://localhost:5000/candidate_group/all/")
+    axiosInstance
+      .get("/candidate_group/all/")
       .then((res) => {
         console.log(res);
         if (res.status === 200) {
@@ -117,8 +118,8 @@ export default function AddCandidate() {
   }
 
   function getQuestions() {
-    axios
-      .get("http://localhost:5000/question-group/")
+    axiosInstance
+      .get("/question-group/")
       .then((res) => {
         console.log(res);
         if (res.status === 200) {

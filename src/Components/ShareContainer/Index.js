@@ -4,6 +4,7 @@ import Screen from "./Screen";
 import { Card, CardContent, Typography, Button } from "@mui/material";
 import { useNavigate, useParams } from "react-router-dom";
 import axios from "axios";
+import axiosInstance from "../../axiosInstance";
 
 export default function Index({
 	startScreenRecording,
@@ -29,8 +30,8 @@ export default function Index({
 	// const [cameraShare, setCameraShare] = useState(null);
 	// const [isClicked, setClicked] = useState(false);
 	useEffect(() => {
-		axios
-			.get(`http://localhost:5000/test/${id}`)
+		axiosInstance
+			.get(`/test/${id}`)
 			.then((res) => {
 				console.log(res);
 				if (res.status === 200) {
@@ -54,8 +55,8 @@ export default function Index({
 	useEffect(() => {
 		let user = JSON.parse(localStorage.getItem("user_id"));
 		console.log(user);
-		axios
-			.get(`http://localhost:5000/attempts/group/${user}/${id}`)
+		axiosInstance
+			.get(`/attempts/group/${user}/${id}`)
 			.then((res) => {
 				console.log(res);
 				if (res.status === 200) {
@@ -80,7 +81,7 @@ export default function Index({
 
 		// check whether there is any
 		if (is_attempted) {
-			await axios
+			await axiosInstance
 				.patch(`/attempts/groups/${previous_submission._id}`, data)
 				.then((res) => {
 					console.log(res);
@@ -97,7 +98,7 @@ export default function Index({
 					console.log(err);
 				});
 		} else {
-			await axios
+			await axiosInstance
 				.post("/attempts/create-group", data)
 				.then((res) => {
 					console.log(res);
@@ -127,8 +128,8 @@ export default function Index({
 		};
 
 		if (attempt_id === null) {
-			await axios
-				.post("http://localhost:5000/attempts", d)
+			await axiosInstance
+				.post("/attempts", d)
 				.then((res) => {
 					if (res.status === 200) {
 						console.log(res.data);

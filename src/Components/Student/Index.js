@@ -6,6 +6,7 @@ import Paper from "@mui/material/Paper";
 import Footer from "../../Common/Footer";
 import axios from "axios";
 import { useState } from "react";
+import axiosInstance from "../../axiosInstance";
 // 6352ac7eee578c61f13ec293
 
 const Item = styled(Paper)(({ theme }) => ({
@@ -27,8 +28,8 @@ export default function Index() {
 	const [alloted_tests, setAllotedTest] = useState([]);
 
 	useEffect(() => {
-		axios
-			.get("http://localhost:5000/candidate/alloted_test/", config)
+		axiosInstance
+			.get("/candidate/alloted_test/", config)
 			.then((res) => {
 				if (res.status === 200) {
 					console.log(res.data)

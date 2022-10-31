@@ -20,6 +20,7 @@ import axios from "axios";
 import { InputBase } from "@mui/material";
 import Box from "@mui/material/Box";
 import Modal from "@mui/material/Modal";
+import axiosInstance from "../../axiosInstance";
 
 const style = {
   position: "absolute",
@@ -71,8 +72,8 @@ export default function AddCandidate() {
     };
 
     console.log(data);
-    axios
-      .post("http://localhost:5000/candidate/", data)
+    axiosInstance
+      .post("/candidate/", data)
       .then((res) => {
         console.log(res);
       })
@@ -86,8 +87,8 @@ export default function AddCandidate() {
     let data = {
       title: grptitle,
     };
-    axios
-      .post("http://localhost:5000/candidate_group/", data)
+    axiosInstance
+      .post("/candidate_group/", data)
       .then((res) => {
         console.log(res);
       })
@@ -98,8 +99,8 @@ export default function AddCandidate() {
 
   // get Candidates Group
   function getCandidates() {
-    axios
-      .get("http://localhost:5000/candidate_group/all/")
+    axiosInstance
+      .get("/candidate_group/all/")
       .then((res) => {
         console.log(res);
         if (res.status === 200) {

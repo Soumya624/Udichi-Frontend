@@ -19,6 +19,7 @@ import Select from "@mui/material/Select";
 import axios from "axios";
 import Box from "@mui/material/Box";
 import Modal from "@mui/material/Modal";
+import axiosInstance from "../../axiosInstance";
 
 const style = {
   position: "absolute",
@@ -162,8 +163,8 @@ export default function AddCandidate() {
   // 			positive_marks: positive,
   // 			negative_marks: negetive,
   // 		};
-  // 		axios
-  // 			.post("http://localhost:5000/questions/", data)
+  // 		axiosInstance
+  // 			.post("/questions/", data)
   // 			.then((res) => {
   // 				console.log(res);
   // 				if (res.status === 200) {
@@ -182,8 +183,8 @@ export default function AddCandidate() {
   // 			negative_marks: negetive,
   // 			options: arrayOption,
   // 		};
-  // 		axios
-  // 			.post("http://localhost:5000/questions/", data)
+  // 		axiosInstance
+  // 			.post("/questions/", data)
   // 			.then((res) => {
   // 				console.log(res);
   // 				if (res.status === 200) {
@@ -203,8 +204,8 @@ export default function AddCandidate() {
       title: grptitle,
       questions: [],
     };
-    axios
-      .post("http://localhost:5000/question-group/", data)
+    axiosInstance
+      .post("/question-group/", data)
       .then((res) => {
         console.log(res);
         let ques = quesgroup;
@@ -234,8 +235,8 @@ export default function AddCandidate() {
   }
 
   function getQuestionsGroup() {
-    axios
-      .get("http://localhost:5000/question-group/")
+    axiosInstance
+      .get("/question-group/")
       .then((res) => {
         console.log(res);
         if (res.status === 200) {
@@ -261,8 +262,8 @@ export default function AddCandidate() {
     };
 
     console.log(data);
-    axios
-      .post(`http://localhost:5000/question-group/create/${group}`, data)
+    axiosInstance
+      .post(`/question-group/create/${group}`, data)
       .then((res) => {
         console.log(res);
         if (res.status === 201) {
