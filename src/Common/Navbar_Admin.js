@@ -14,6 +14,7 @@ import Toolbar from "@mui/material/Toolbar";
 import Typography from "@mui/material/Typography";
 import Button from "@mui/material/Button";
 import deleteAllCookies from "../deleteAllCookies";
+import logout from "../logout";
 
 const drawerWidth = 240;
 const navItems = [
@@ -99,10 +100,13 @@ function DrawerAppBar(props) {
             <Button sx={{ color: "#fff" }} href="/dashboardAdmin">
               Notifications
             </Button> */}
-            <Button sx={{ color: "#fff" }} onClick={()=>{
-              // deleteAllCookies()
-              console.log("Condole")
-            }}>
+            <Button
+              sx={{ color: "#fff" }}
+              onClick={() => {
+                // deleteAllCookies()
+              }}
+              href="/loginAdmin"
+            >
               Logout
             </Button>
           </Box>

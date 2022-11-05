@@ -20,6 +20,7 @@ import { useState } from "react";
 import { useEffect } from "react";
 import getCookie from "../../getCookie";
 import axiosInstance from "../../axiosInstance";
+import moment from "moment";
 
 const Item = styled(Paper)(({ theme }) => ({
   backgroundColor: theme.palette.mode === "dark" ? "#1A2027" : "#fff",
@@ -31,15 +32,15 @@ const Item = styled(Paper)(({ theme }) => ({
 
 export default function Index() {
   let token = getCookie("access_token");
-	let user = JSON.parse(localStorage.getItem("user"));
+  let user = JSON.parse(localStorage.getItem("user"));
 
-	const config = {
-		headers: { Authorization: `Bearer ${token}`, "user-type": user.usertype },
-	};
+  const config = {
+    headers: { Authorization: `Bearer ${token}`, "user-type": user.usertype },
+  };
   const [alltest, setAlltest] = useState([]);
   useEffect(() => {
     axiosInstance
-      .get("/test/all",config)
+      .get("/test/all", config)
       .then((res) => {
         if (res.status === 200) {
           console.log(res.data);
@@ -50,6 +51,11 @@ export default function Index() {
         console.log(err);
       });
   }, []);
+
+  function confirmation() {
+    alert("Presence Confirmed!");
+  }
+
   return (
     <div>
       <Navbar />
@@ -70,6 +76,7 @@ export default function Index() {
         <br />
         <br />
         {alltest.map((altst) => {
+          let momentDate =  moment.utc(altst.starting_date).format('MM/DD/YY, h:mm:ss a')
           return (
             <div>
               <Box
@@ -93,9 +100,9 @@ export default function Index() {
                       style={{ alignItems: "center", justifyContent: "center" }}
                     >
                       <Box gridColumn="span 3" style={{ textAlign: "left" }}>
-                        {altst.available_window}
+                        Duration: {altst.available_window} mins
                       </Box>
-                      <Box gridColumn="span 3">{altst.starting_date}</Box>
+                      <Box gridColumn="span 3">{momentDate}</Box>
                       <Box
                         gridColumn="span 3"
                         style={{ color: "red", cursor: "pointer" }}
@@ -111,8 +118,8 @@ export default function Index() {
                         }}
                       >
                         <a
-                          href="#"
                           style={{ textDecoration: "none" }}
+                          onClick={confirmation}
                         >
                           Confirm Presence
                         </a>

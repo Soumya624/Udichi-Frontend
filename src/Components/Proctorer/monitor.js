@@ -58,6 +58,7 @@ export default function Confirmpresence() {
 	const config = {
 		headers: { Authorization: `Bearer ${token}`, "user-type": user.usertype },
 	};
+  console.log(config);
   const [open, setOpen] = useState(false);
 
   const [list, setList] = useState([]);
@@ -112,7 +113,8 @@ export default function Confirmpresence() {
     console.log(id)
 
     axiosInstance.get(`/attempts/download/${id}`,{
-      responseType : "blob"
+      responseType : "blob",
+      headers: config.headers
     },config)
     .then((res)=>{
       console.log(res)
@@ -187,7 +189,7 @@ export default function Confirmpresence() {
                           </TableCell>
                           <TableCell
                             align="right"
-                            style={{ cursor: "pointer" }}
+                            style={{ cursor: "pointer", color:"red" }}
                           >
                             Yes
                           </TableCell>

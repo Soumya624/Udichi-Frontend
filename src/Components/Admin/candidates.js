@@ -25,7 +25,7 @@ import { useEffect } from "react";
 import { useState } from "react";
 import Collapsible from "react-collapsible";
 import "./style.css";
-import axiosInstance from '../../axiosInstance';
+import axiosInstance from "../../axiosInstance";
 import getCookie from "../../getCookie";
 
 function createData(name, candidates, group, username, action) {
@@ -70,14 +70,13 @@ const rows = [
   ),
 ];
 
-let token = getCookie("access_token")
-let user = JSON.parse(localStorage.getItem("user"));
-
-const config = {
-	headers: { Authorization: `Bearer ${token}`, "user-type" : user.usertype },
-};
-
 export default function BasicTable() {
+  let token = getCookie("access_token");
+  let user = JSON.parse(localStorage.getItem("user"));
+
+  const config = {
+    headers: { Authorization: `Bearer ${token}`, "user-type": user.usertype },
+  };
   const [open, setOpen] = useState(true);
   const [candigroup, setCandigroup] = useState([]);
 
@@ -91,7 +90,7 @@ export default function BasicTable() {
 
   function getCandidates() {
     axiosInstance
-      .get("/candidate_group/all/",config)
+      .get("/candidate_group/all/", config)
       .then((res) => {
         console.log(res);
         if (res.status === 200) {
@@ -114,7 +113,7 @@ export default function BasicTable() {
           Total Candidates
         </h4>
         <p style={{ lineHeight: "1px" }}>
-          Want to Add a{" "}
+          Want to Add{" "}
           <a href="/addcandidateAdmin" style={{ textDecoration: "none" }}>
             New Candidate?
           </a>
@@ -217,7 +216,10 @@ export default function BasicTable() {
                         <TableCell align="right">{x._id}</TableCell>
 
                         <TableCell align="right">{x.username}</TableCell>
-                        <TableCell align="right" style={{ cursor: "pointer", color:"red" }}>
+                        <TableCell
+                          align="right"
+                          style={{ cursor: "pointer", color: "red" }}
+                        >
                           Delete
                         </TableCell>
                       </TableRow>

@@ -21,6 +21,7 @@ import axios from "axios";
 import Modal from "@mui/material/Modal";
 import axiosInstance from "../../axiosInstance";
 import getCookie from "../../getCookie";
+import moment from "moment/moment";
 
 const style = {
   position: "absolute",
@@ -88,6 +89,7 @@ export default function Index() {
         <br />
         <br />
         {alltest.map((altst) => {
+          let momentDate =  moment.utc(altst.starting_date).format('MM/DD/YY, h:mm:ss a')
           return (
             <div>
               <Box
@@ -111,15 +113,15 @@ export default function Index() {
                       style={{ alignItems: "center", justifyContent: "center" }}
                     >
                       <Box gridColumn="span 3" style={{ textAlign: "left" }}>
-                        {altst.available_window}
+                        Duration: {altst.available_window} mins
                       </Box>
-                      <Box gridColumn="span 3">{altst.starting_date}</Box>
-                      <Box
+                      <Box gridColumn="span 6">{momentDate}</Box>
+                      {/* <Box
                         gridColumn="span 3"
                         style={{ color: "red", cursor: "pointer" }}
                       >
                         View Results
-                      </Box>
+                      </Box> */}
                       <Box
                         gridColumn="span 3"
                         style={{

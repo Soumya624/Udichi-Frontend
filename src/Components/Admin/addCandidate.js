@@ -34,15 +34,13 @@ const style = {
   p: 4,
 };
 
-
 export default function AddCandidate() {
-
   let token = getCookie("access_token");
-	let user = JSON.parse(localStorage.getItem("user"))
+  let user = JSON.parse(localStorage.getItem("user"));
 
-	const config = {
-		headers: { Authorization: `Bearer ${token}`, "user-type": user.usertype },
-  }
+  const config = {
+    headers: { Authorization: `Bearer ${token}`, "user-type": user.usertype },
+  };
 
   const [group, setGroup] = useState("");
   const [fname, setFname] = useState("");
@@ -83,11 +81,11 @@ export default function AddCandidate() {
 
     console.log(data);
     axiosInstance
-      .post("/candidate/", data,config)
+      .post("/candidate/", data, config)
       .then((res) => {
         console.log(res);
-        if(res.status === 201){
-          window.location = "/candidateAdmin"
+        if (res.status === 201) {
+          window.location = "/candidateAdmin";
         }
       })
       .catch((err) => {
@@ -101,7 +99,7 @@ export default function AddCandidate() {
       title: grptitle,
     };
     axiosInstance
-      .post("/candidate_group/", data,config)
+      .post("/candidate_group/", data, config)
       .then((res) => {
         console.log(res);
       })
@@ -113,7 +111,7 @@ export default function AddCandidate() {
   // get Candidates Group
   function getCandidates() {
     axiosInstance
-      .get("/candidate_group/all/",config)
+      .get("/candidate_group/all/", config)
       .then((res) => {
         console.log(res);
         if (res.status === 200) {
@@ -149,6 +147,14 @@ export default function AddCandidate() {
               </Typography>
               <br />
               <Typography variant="body2" color="text.secondary">
+                <p
+                  style={{
+                    borderBottom: "1px solid grey",
+                    textAlign: "left",
+                  }}
+                >
+                  <b>Enter Basic Details</b>
+                </p>
                 <Grid container spacing={1} style={{ marginTop: "0.5%" }}>
                   <Grid item xs={6}>
                     <TextField
@@ -260,6 +266,15 @@ export default function AddCandidate() {
                     />
                   </Grid>
                 </Grid>
+                <br />
+                <p
+                  style={{
+                    borderBottom: "1px solid grey",
+                    textAlign: "left",
+                  }}
+                >
+                  <b>Specify Candidate Group</b>
+                </p>
                 <Grid container spacing={1} style={{ marginTop: "0.5%" }}>
                   <Grid item xs={12}>
                     <FormControl fullWidth style={{ width: "98.5%" }}>
@@ -271,26 +286,20 @@ export default function AddCandidate() {
                         id="demo-simple-select"
                         value={group}
                         label="Candidate Group"
+                        style={{ width: "98.5%" }}
                         onChange={handleChange}
                       >
                         {candigroup.map((key) => {
-                          return <MenuItem value={key._id}>{key.title}</MenuItem>;
+                          return (
+                            <MenuItem value={key._id}>{key.title}</MenuItem>
+                          );
                         })}
                       </Select>
                     </FormControl>
                   </Grid>
                 </Grid>
                 <br />
-                <p>
-                  Want to Create a New{" "}
-                  <a
-                    onClick={handleOpen}
-                    style={{ textDecoration: "none", cursor: "pointer" }}
-                  >
-                    Candidate Group?
-                  </a>
-                </p>
-                <br />
+
                 <br />
                 <Button
                   variant="contained"
@@ -299,6 +308,16 @@ export default function AddCandidate() {
                 >
                   Continue
                 </Button>
+                <p>
+                  Want to Create a Candidate Group?{" "}
+                  <a
+                    href="#"
+                    onClick={handleOpen}
+                    style={{ textDecoration: "none", cursor: "pointer" }}
+                  >
+                    Click Here
+                  </a>
+                </p>
               </Typography>
             </CardContent>
             {/* <CardActions>
@@ -337,7 +356,7 @@ export default function AddCandidate() {
                 />
               </Grid>
             </Grid>
-            <br/>
+            <br />
             <Button
               variant="contained"
               style={{ backgroundColor: "#7882BD", width: "50%" }}

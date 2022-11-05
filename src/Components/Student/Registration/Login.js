@@ -113,6 +113,7 @@ export default function Signup() {
 													label="Password"
 													variant="outlined"
 													size="small"
+													type="password"
 													style={{ width: "98.5%" }}
 													onChange={(e) => {
 														e.preventDefault();

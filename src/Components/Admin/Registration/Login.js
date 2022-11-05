@@ -106,6 +106,7 @@ export default function LoginAdmin() {
 													required
 													id="outlined-basic"
 													label="Password"
+													type="password"
 													variant="outlined"
 													size="small"
 													style={{ width: "98.5%" }}

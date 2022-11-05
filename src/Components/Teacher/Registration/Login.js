@@ -106,6 +106,7 @@ export default function LoginAssessor() {
                         required
                         id="outlined-basic"
                         label="Password"
+                        type="password"
                         variant="outlined"
                         size="small"
                         style={{ width: "98.5%" }}
@@ -125,6 +126,7 @@ export default function LoginAssessor() {
                   type = "submit"
                   variant="contained"
                   style={{ backgroundColor: "#7882BD", width: "50%" }}
+                  href="/dashboardAssessor"
                 >
                   Continue
                 </Button>

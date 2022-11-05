@@ -21,6 +21,7 @@ import axios from "axios";
 import { Box, FormLabel, Modal } from "@mui/material";
 import axiosInstance from "../../axiosInstance";
 import getCookie from "../../getCookie";
+import Countdown from 'react-countdown';
 const style = {
 	position: 'absolute',
 	top: '50%',
@@ -61,9 +62,11 @@ export default function Confirmpresence({screeShare,cameraShare,stopScreenSharin
 		let test = JSON.parse(localStorage.getItem("test_id"));
 		let user = JSON.parse(localStorage.getItem("user_id"));
 		let attempt_id = JSON.parse(localStorage.getItem("attempt_id"));
+		console.log(attempt_id);
 		// let questions = JSON.parse(localStorage.getItem("questions"));
 		let qId = parseInt(id);
 		const question_data = questions[qId - 1];
+		console.log(question_data)
 		// /check/:test/:question/:candidate
 		axiosInstance
 			.get(
@@ -75,6 +78,7 @@ export default function Confirmpresence({screeShare,cameraShare,stopScreenSharin
 					setIsAttempted(true);
 					setSubmissionId(res.data._id);
 					setSubmittedOptions(res.data.options_marked);
+					console.log(res);
 				}
 			})
 			.catch((err) => {
@@ -251,7 +255,7 @@ export default function Confirmpresence({screeShare,cameraShare,stopScreenSharin
 									</p>
 								</Grid>
 								<Grid item xs={4} style={{ textAlign: "center" }}>
-									<p>01:59:01</p>
+									<p><Countdown date={Date.now() + 10000} /></p>
 								</Grid>
 								<Grid item xs={4} style={{ textAlign: "right" }}>
 									<p>
@@ -389,18 +393,20 @@ export default function Confirmpresence({screeShare,cameraShare,stopScreenSharin
 									aria-describedby="modal-modal-description"
 								>
 									<Box sx={style} >
+										<center>
 										<Typography
 											id="modal-modal-title"
 											variant="h6"
 											component="h2"
 										>
-											{attempt_id ? "CONTINUE THE TEST" : "SUBMIT THE TEST"}
+											{/* {attempt_id ? "CONTINUE THE TEST" : "SUBMIT THE TEST"} */}
 										</Typography>
 										<Typography id="modal-modal-description" sx={{ mt: 2 }}>
-											Do you want to submit the test?
+											Do You Want to Submit The Test?
 										</Typography>
 										<Button onClick={handleClose} >Cancel</Button>
 										<Button onClick={submittedTest}>Confirm</Button>
+										</center>
 									</Box>
 								</Modal>
 								<Grid item sm={3}>

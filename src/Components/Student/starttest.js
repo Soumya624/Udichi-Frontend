@@ -141,8 +141,6 @@ export default function Confirmpresence() {
 							</p>
 							<h4>Number of Attempts: {left_attempts}</h4>
 							<br />
-							<br />
-							<br />
 							<Typography variant="body2" color="text.secondary">
 								{isLoading ? (
 									<div>Loading...</div>
@@ -169,7 +167,7 @@ export default function Confirmpresence() {
 											href={`/shareScreen/${id}`}
 											disabled={left_attempts <= 0}
 										>
-											Start Exam
+											Continue
 										</Button>
 										{/* <Button
 											variant="contained"
