@@ -90,6 +90,7 @@ export default function AddCandidate() {
       })
       .catch((err) => {
         console.log(err);
+        alert("candidate Not Added!");
       });
   }
 

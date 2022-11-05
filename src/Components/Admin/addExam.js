@@ -113,6 +113,7 @@ export default function AddCandidate() {
       })
       .catch((err) => {
         console.log(err);
+		alert("Test Not Created!");
       });
   }
 

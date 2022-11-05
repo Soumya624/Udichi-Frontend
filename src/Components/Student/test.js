@@ -53,9 +53,16 @@ export default function Confirmpresence({screeShare,cameraShare,stopScreenSharin
 	const [submission_id, setSubmissionId] = useState(null);
 	const [is_attempted, setIsAttempted] = useState(false);
 	const [subjective_ans, setSubjectAnswer] = useState("");
+	const [duration, setDuration] = useState(0);
 
 	let attempt_id = JSON.parse(localStorage.getItem("attempt_id"));
 	useEffect(() => {
+		let available_window = JSON.parse(localStorage.getItem("available_window"));
+		console.log(available_window);
+		setDuration(available_window);
+		console.log(typeof(duration));
+		// Number(duration);
+		// console.log(typeof(duration));
 		let questions = JSON.parse(localStorage.getItem("questions"));
 		setQuestion(questions);
 
@@ -232,6 +239,7 @@ export default function Confirmpresence({screeShare,cameraShare,stopScreenSharin
 		};
 
 	return (
+		
 		<div>
 			<Navbar />
 			<div style={{ padding: "1%" }}>
@@ -255,7 +263,7 @@ export default function Confirmpresence({screeShare,cameraShare,stopScreenSharin
 									</p>
 								</Grid>
 								<Grid item xs={4} style={{ textAlign: "center" }}>
-									<p><Countdown date={Date.now() + 10000} /></p>
+									<p><Countdown date={Date.now() + duration} /></p>
 								</Grid>
 								<Grid item xs={4} style={{ textAlign: "right" }}>
 									<p>

@@ -294,10 +294,12 @@ export default function AddCandidate() {
           setOptionList([]);
           setInputList([]);
           handleClose();
+		  window.location = "/questionAdmin";
         }
       })
       .catch((err) => {
         console.log(err);
+		alert("Question Not Formed!");
       });
   }
 

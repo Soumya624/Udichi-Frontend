@@ -33,6 +33,8 @@ export default function Confirmpresence() {
 				if (res.status === 200) {
 					let data = res.data;
 					let question_groups = data.question_groups;
+					console.log(res.data.available_window);
+					let available_window = res.data.available_window;
 					let questions = [];
 					for (let ques of question_groups) {
 						console.log(ques.questions);
@@ -40,6 +42,7 @@ export default function Confirmpresence() {
 					}
 					localStorage.setItem("questions", JSON.stringify(questions));
 					localStorage.setItem("test_id", JSON.stringify(id));
+					localStorage.setItem("available_window", JSON.stringify(available_window));
 					setAllotedTest(res.data);
 				}
 			})

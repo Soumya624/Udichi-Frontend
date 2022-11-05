@@ -53,7 +53,7 @@ export default function Index() {
   }, []);
 
   function confirmation() {
-    alert("Presence Confirmed!");
+    alert("Please Send The Supporting Documents to The Given Email");
   }
 
   return (
@@ -118,6 +118,7 @@ export default function Index() {
                         }}
                       >
                         <a
+                          href="#"
                           style={{ textDecoration: "none" }}
                           onClick={confirmation}
                         >
