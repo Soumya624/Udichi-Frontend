@@ -27,6 +27,7 @@ import Collapsible from "react-collapsible";
 import "./style.css";
 import axiosInstance from "../../axiosInstance";
 import getCookie from "../../getCookie";
+import moment from "moment";
 
 function createData(name, candidates, duration, questions, action) {
   return { name, candidates, duration, questions, action };
@@ -125,6 +126,7 @@ export default function BasicTable() {
                     </TableRow>
                   ))} */}
               {examgroup.map((key) => {
+                let momentDate =  moment.utc(key.starting_date).format('MM/DD/YY, h:mm:ss a')
                 return (
                   <TableRow
                     key={key._id}
@@ -133,7 +135,7 @@ export default function BasicTable() {
                     <TableCell component="th" scope="row">
                       {key.title}
                     </TableCell>
-                    <TableCell align="right">{key.starting_date}</TableCell>
+                    <TableCell align="right">{momentDate}</TableCell>
                     <TableCell align="right">{key.total_number}</TableCell>
                     <TableCell align="right">
                       {key.question_groups.map((x) => {

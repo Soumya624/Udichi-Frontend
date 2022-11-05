@@ -17,6 +17,10 @@ import { styled } from "@mui/material/styles";
 import Paper from "@mui/material/Paper";
 import Footer from "../../Common/Footer";
 import Circle from "react-circle";
+import getCookie from "../../getCookie";
+import axiosInstance from "../../axiosInstance";
+import { useEffect } from "react";
+import { useState } from "react";
 
 const Item = styled(Paper)(({ theme }) => ({
   backgroundColor: theme.palette.mode === "dark" ? "#1A2027" : "#fff",
@@ -26,7 +30,52 @@ const Item = styled(Paper)(({ theme }) => ({
   color: theme.palette.text.secondary,
 }));
 
+let token = getCookie("access_token");
+
+const config = {
+  headers: { Authorization: `Bearer ${token}` },
+};
+
 export default function Index() {
+  const [exams, setExams] = useState(0);
+  const [noti, setNoti] = useState(0);
+  const [candigroup, setCandigroup] = useState(0);
+
+  useEffect(() => {
+    getExams();
+    // getCandidates();
+  }, []);
+
+  function getExams() {
+    axiosInstance
+      .get("/test/all", config)
+      .then((res) => {
+        console.log(res.data);
+        if (res.status === 200) {
+          setExams(res.data.length);
+          console.log(exams);
+        }
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  }
+
+  // function getCandidates() {
+  //   axiosInstance
+  //     .get("/candidate_group/all/", config)
+  //     .then((res) => {
+  //       console.log(res);
+  //       if (res.status === 200) {
+  //         setCandigroup(res.data.length);
+  //         console.log(candigroup);
+  //       }
+  //     })
+  //     .catch((err) => {
+  //       console.log(err);
+  //     });
+  // }
+
   return (
     <div>
       <Navbar />
@@ -197,7 +246,7 @@ export default function Index() {
               responsive={true}
               size={50}
               lineWidth={14}
-              progress={"24 Exams"}
+              progress={exams + " " + "Exams"}
               progressColor="#7882bd"
               bgColor="whitesmoke"
               textColor="#7882bd"
@@ -217,7 +266,7 @@ export default function Index() {
               responsive={true}
               size={50}
               lineWidth={14}
-              progress={"0 Notifications"}
+              progress={noti + " " + "Notifications"}
               progressColor="#7882bd"
               bgColor="whitesmoke"
               textColor="#7882bd"
@@ -237,7 +286,7 @@ export default function Index() {
               responsive={true}
               size={50}
               lineWidth={14}
-              progress={"68 Groups"}
+              progress={candigroup + " " + "Groups"}
               progressColor="#7882bd"
               bgColor="whitesmoke"
               textColor="#7882bd"
