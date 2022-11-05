@@ -127,6 +127,7 @@ export default function Signup() {
 										variant="contained"
 										style={{ backgroundColor: "#7882BD", width: "50%" }}
 										// onClick={submit}
+										href="/dashboardProctorer"
 									>
 										Continue
 									</Button>
