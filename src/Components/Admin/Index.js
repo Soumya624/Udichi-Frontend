@@ -31,9 +31,11 @@ const Item = styled(Paper)(({ theme }) => ({
 }));
 
 let token = getCookie("access_token");
+let user_type = getCookie("user_type")
 
 const config = {
-  headers: { Authorization: `Bearer ${token}` },
+  headers: { Authorization: `Bearer ${token}`, "user-type" : user_type },
+  
 };
 
 export default function Index() {
@@ -43,7 +45,7 @@ export default function Index() {
 
   useEffect(() => {
     getExams();
-    // getCandidates();
+    getCandidates();
   }, []);
 
   function getExams() {
@@ -61,20 +63,20 @@ export default function Index() {
       });
   }
 
-  // function getCandidates() {
-  //   axiosInstance
-  //     .get("/candidate_group/all/", config)
-  //     .then((res) => {
-  //       console.log(res);
-  //       if (res.status === 200) {
-  //         setCandigroup(res.data.length);
-  //         console.log(candigroup);
-  //       }
-  //     })
-  //     .catch((err) => {
-  //       console.log(err);
-  //     });
-  // }
+  function getCandidates() {
+    axiosInstance
+      .get("/candidate_group/all/", config)
+      .then((res) => {
+        console.log(res);
+        if (res.status === 200) {
+          setCandigroup(res.data.length);
+          console.log(candigroup);
+        }
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  }
 
   return (
     <div>

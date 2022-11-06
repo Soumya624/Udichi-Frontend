@@ -271,10 +271,11 @@ export default function AddCandidate() {
     e.preventDefault();
     let q_data = {
       title: title,
-      is_objective: false,
+      is_objective: type === "Obj",
       positive_marks: positive,
       negative_marks: negetive,
       options: option_list,
+      type_question : type
     };
     let data = {
       question: q_data,
