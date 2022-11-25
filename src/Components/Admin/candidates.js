@@ -70,7 +70,7 @@ const rows = [
 	),
 ];
 
-export default function BasicTable() {
+export default function BasicTable({ error, setError }) {
 	let token = getCookie("access_token");
 	let user = JSON.parse(localStorage.getItem("user"));
 
@@ -89,7 +89,7 @@ export default function BasicTable() {
 		getCandidates();
 	}, []);
 
-	function getCandidates({ error, setError }) {
+	function getCandidates() {
 		axiosInstance
 			.get("/candidate_group/all/", config)
 			.then((res) => {
