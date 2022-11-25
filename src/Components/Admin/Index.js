@@ -197,7 +197,7 @@ export default function Index() {
               responsive={true}
               size={50}
               lineWidth={14}
-              progress={"24 Exams"}
+              progress={"Coming Soon"}
               progressColor="#7882bd"
               bgColor="whitesmoke"
               textColor="#7882bd"
@@ -217,7 +217,7 @@ export default function Index() {
               responsive={true}
               size={50}
               lineWidth={14}
-              progress={"0 Notifications"}
+              progress={"Coming Soon"}
               progressColor="#7882bd"
               bgColor="whitesmoke"
               textColor="#7882bd"
@@ -237,7 +237,7 @@ export default function Index() {
               responsive={true}
               size={50}
               lineWidth={14}
-              progress={"68 Groups"}
+              progress={"Coming Soon"}
               progressColor="#7882bd"
               bgColor="whitesmoke"
               textColor="#7882bd"
@@ -257,7 +257,7 @@ export default function Index() {
               responsive={true}
               size={50}
               lineWidth={14}
-              progress={"54 Candidates"}
+              progress={"Coming Soon"}
               progressColor="#7882bd"
               bgColor="whitesmoke"
               textColor="#7882bd"
@@ -277,7 +277,7 @@ export default function Index() {
               responsive={true}
               size={50}
               lineWidth={14}
-              progress={"21 Sections"}
+              progress={"Coming Soon"}
               progressColor="#7882bd"
               bgColor="whitesmoke"
               textColor="#7882bd"
@@ -297,7 +297,7 @@ export default function Index() {
               responsive={true}
               size={50}
               lineWidth={14}
-              progress={"89 Questions"}
+              progress={"Coming Soon"}
               progressColor="#7882bd"
               bgColor="whitesmoke"
               textColor="#7882bd"
