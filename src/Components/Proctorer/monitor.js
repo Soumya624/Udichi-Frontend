@@ -51,7 +51,7 @@ const rows = [
   createData("P K Das", 356, "Yes", "Download"),
 ];
 
-export default function Confirmpresence() {
+export default function Confirmpresence({error,setError}) {
   let token = getCookie("access_token");
 	let user = JSON.parse(localStorage.getItem("user"));
 
@@ -76,6 +76,10 @@ export default function Confirmpresence() {
       })
       .catch((err) => {
         console.log(err);
+        setError("Error occurred! Please Try Again.....");
+				setTimeout(() => {
+					setError(null);
+				}, 1000);
       });
   }, []);
 

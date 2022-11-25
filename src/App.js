@@ -30,12 +30,14 @@ import Container from "./Components/ShareContainer/Container";
 import { useReactMediaRecorder } from "react-media-recorder";
 import { useEffect, useState } from "react";
 import JSZip from "jszip";
+import Alert from "@mui/material/Alert";
 // import FileSaver from "file-saver";
 import axiosInstance from "./axiosInstance";
 import getCookie from "./getCookie";
 import ProtectedRoute from "./ProtectedRoute";
 function App() {
 	let token = getCookie("access_token");
+	const [error, setError] = useState(null);
 	let user = JSON.parse(localStorage.getItem("user"));
 
 	let config = null;
@@ -106,18 +108,42 @@ function App() {
 	return (
 		<div>
 			<Container>
+				<div
+					style={{
+						position: "absolute",
+						top: "6em",
+						display: "flex",
+						alignItems: "center",
+						justifyContent: "center",
+						width: "100vw",
+					}}
+				>
+					{error && (
+						<Alert severity="error">
+							This is an error alert — check it out!
+						</Alert>
+					)}
+				</div>
 				<Router>
 					<Routes>
 						<Route path="/testing-page" element={<Test />} exact />
-						<Route path="/" element={<Signup />} exact />
-						<Route path="/loginAdmin" element={<LoginAdmin />} exact />
-						<Route path="/loginAssessor" element={<LoginAssessor />} exact />
-						<Route path="/loginStudent" element={<LoginStudent />} exact />
-						<Route path="/loginProctorer" element={<LoginProctorer />} exact />
+						<Route path="/" element={<Signup setError={setError} />} exact />
+						<Route
+							path="/loginAdmin"
+							element={<LoginAdmin setError={setError} />}
+							exact
+						/>
+						<Route
+							path="/loginAssessor"
+							element={<LoginAssessor setError={setError} />}
+							exact
+						/>
+						<Route path="/loginStudent" element={<LoginStudent setError={setError}/>} exact />
+						<Route path="/loginProctorer" element={<LoginProctorer setError={setError}/>} exact />
 						<Route path="/dashboardAdmin" element={<ProtectedRoute />} exact>
 							<Route
 								path="/dashboardAdmin"
-								element={<DashboardAdmin />}
+								element={<DashboardAdmin setError={setError}/>}
 								exact
 							/>
 						</Route>
@@ -128,68 +154,68 @@ function App() {
 						>
 							<Route
 								path="/dashboardProctorer"
-								element={<DashboardProctorer />}
+								element={<DashboardProctorer setError={setError}/>}
 								exact
 							/>
 						</Route>
 						<Route path="/dashboardAssessor" element={<ProtectedRoute />} exact>
 							<Route
 								path="/dashboardAssessor"
-								element={<DashboardAssessor />}
+								element={<DashboardAssessor setError={setError}/>}
 								exact
 							/>
 						</Route>
 						<Route path="/dashboardStudent" element={<ProtectedRoute />} exact>
 							<Route
 								path="/dashboardStudent"
-								element={<DashboardStudent />}
+								element={<DashboardStudent setError={setError}/>}
 								exact
 							/>
 						</Route>
 						<Route path="/examAdmin" element={<ProtectedRoute />} exact>
-							<Route path="/examAdmin" element={<ExamAdmin />} exact />
+							<Route path="/examAdmin" element={<ExamAdmin setError={setError}/>} exact />
 						</Route>
 
 						<Route path="/candidateAdmin" element={<ProtectedRoute />} exact>
 							<Route
 								path="/candidateAdmin"
-								element={<CandidateAdmin />}
+								element={<CandidateAdmin setError={setError} />}
 								exact
 							/>
 						</Route>
 
 						<Route path="/questionAdmin" element={<ProtectedRoute />} exact>
-							<Route path="/questionAdmin" element={<QuestionAdmin />} exact />
+							<Route path="/questionAdmin" element={<QuestionAdmin setError={setError} />} exact />
 						</Route>
 						<Route path="/statisticsAdmin" element={<ProtectedRoute />} exact>
 							<Route
 								path="/statisticsAdmin"
-								element={<StatisticsAdmin />}
+								element={<StatisticsAdmin setError={setError} />}
 								exact
 							/>
 						</Route>
 						<Route path="/resultAssessor" element={<ProtectedRoute />} exact>
 							<Route
 								path="/resultAssessor"
-								element={<ResultAssessor />}
+								element={<ResultAssessor setError={setError} />}
 								exact
 							/>
 						</Route>
 						<Route path="/presenceAssessor" element={<ProtectedRoute />} exact>
 							<Route
 								path="/presenceAssessor"
-								element={<PresenceAssessor />}
+								element={<PresenceAssessor setError={setError} />}
 								exact
 							/>
 						</Route>
 						<Route path="/vivaAssessor" element={<ProtectedRoute />} exact>
-							<Route path="/vivaAssessor" element={<VivaAssessor />} exact />
+							<Route path="/vivaAssessor" element={<VivaAssessor setError={setError} />} exact />
 						</Route>
 
 						<Route path="/vivalinkAssessor" element={<ProtectedRoute />} exact>
 							<Route
 								path="/vivalinkAssessor"
-								element={<VivalinkAssessor />}
+								element={<VivalinkAssessor setError={setError} />}
 								exact
 							/>
 						</Route>
@@ -200,7 +226,7 @@ function App() {
 						>
 							<Route
 								path="/monitorProctorer/:id"
-								element={<MonitorProctorer />}
+								element={<MonitorProctorer setError={setError}/>}
 								exact
 							/>
 						</Route>
@@ -212,14 +238,14 @@ function App() {
 						>
 							<Route
 								path="/starttestStudent/:id"
-								element={<StarttestStudent />}
+								element={<StarttestStudent setError={setError}/>}
 								exact
 							/>
 						</Route>
 						<Route path="/submittestStudent" element={<ProtectedRoute />} exact>
 							<Route
 								path="/submittestStudent"
-								element={<SubmittestStudent />}
+								element={<SubmittestStudent setError={setError}/>}
 								exact
 							/>
 						</Route>
@@ -233,6 +259,7 @@ function App() {
 										stopScreenSharing={screen.stopRecording}
 										stopCamera={camera.stopRecording}
 										setClicked={setClicked}
+										setError={setError}
 									/>
 								}
 								exact
@@ -242,18 +269,18 @@ function App() {
 						<Route path="/addcandidateAdmin" element={<ProtectedRoute />} exact>
 							<Route
 								path="/addcandidateAdmin"
-								element={<AddcandidateAdmin />}
+								element={<AddcandidateAdmin setError={setError}/>}
 								exact
 							/>
 						</Route>
 						<Route path="/addexamAdmin" element={<ProtectedRoute />} exact>
-							<Route path="/addexamAdmin" element={<AddexamAdmin />} exact />
+							<Route path="/addexamAdmin" element={<AddexamAdmin setError={setError}/>} exact />
 						</Route>
 
 						<Route path="/addquestionAdmin" element={<ProtectedRoute />} exact>
 							<Route
 								path="/addquestionAdmin"
-								element={<AddquestionAdmin />}
+								element={<AddquestionAdmin setError={setError}/>}
 								exact
 							/>
 						</Route>
@@ -273,6 +300,7 @@ function App() {
 										cameraStatus={camera.status}
 										screeStatus={screen.status}
 										isClicked={isClicked}
+										setError={setError}
 									/>
 								}
 								exact

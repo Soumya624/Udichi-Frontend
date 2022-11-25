@@ -36,9 +36,9 @@ const style = {
 	p: 4,
 };
 
-export default function AddCandidate() {
+export default function AddCandidate({ error, setError }) {
 	let token = getCookie("access_token");
-	let user = JSON.parse(localStorage.getItem("user"))
+	let user = JSON.parse(localStorage.getItem("user"));
 
 	const config = {
 		headers: { Authorization: `Bearer ${token}`, "user-type": user.usertype },
@@ -113,6 +113,10 @@ export default function AddCandidate() {
 			})
 			.catch((err) => {
 				console.log(err);
+				setError("Error occurred! Please Try Again.....");
+				setTimeout(() => {
+					setError(null);
+				}, 1000);
 			});
 	}
 
@@ -127,6 +131,10 @@ export default function AddCandidate() {
 			})
 			.catch((err) => {
 				console.log(err);
+				setError("Error occurred! Please Try Again.....");
+				setTimeout(() => {
+					setError(null);
+				}, 1000);
 			});
 	}
 
@@ -141,6 +149,10 @@ export default function AddCandidate() {
 			})
 			.catch((err) => {
 				console.log(err);
+				setError("Error occurred! Please Try Again.....");
+				setTimeout(() => {
+					setError(null);
+				}, 1000);
 			});
 	}
 

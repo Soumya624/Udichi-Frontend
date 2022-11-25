@@ -14,7 +14,8 @@ import axios from "axios";
 import axiosInstance from "../../../axiosInstance";
 import setCookie from "../../../setCookie";
 
-export default function LoginAdmin() {
+export default function LoginAdmin({error, setError}) {
+	console.log(setError)
 	const [username, setUsername] = useState("");
 	const [password, setPassword] = useState("");
 
@@ -30,6 +31,7 @@ export default function LoginAdmin() {
 				console.log(res);
 
 				if (res.status === 200) {
+					
 					let token = res.data.access_token;
 					let user_data = res.data.user;
 
@@ -47,6 +49,10 @@ export default function LoginAdmin() {
 			})
 			.catch((err) => {
 				console.log(err);
+				setError("Error occurred! Please Try Again.....");
+				setTimeout(() => {
+					setError(null);
+				}, 1000);
 			});
 	}
 

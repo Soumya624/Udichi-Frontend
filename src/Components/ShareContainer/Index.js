@@ -19,8 +19,9 @@ export default function Index({
 	cameraStatus,
 	screeStatus,
 	isClicked,
+	error,
+	setError,
 }) {
-
 	let token = getCookie("access_token");
 	let user = JSON.parse(localStorage.getItem("user"));
 
@@ -40,7 +41,7 @@ export default function Index({
 	// const [isClicked, setClicked] = useState(false);
 	useEffect(() => {
 		axiosInstance
-			.get(`/test/${id}`,config)
+			.get(`/test/${id}`, config)
 			.then((res) => {
 				console.log(res);
 				if (res.status === 200) {
@@ -58,6 +59,10 @@ export default function Index({
 			})
 			.catch((err) => {
 				console.log(err);
+				setError("Error occurred! Please Try Again.....");
+				setTimeout(() => {
+					setError(null);
+				}, 1000);
 			});
 	}, [id]);
 
@@ -65,7 +70,7 @@ export default function Index({
 		let user = JSON.parse(localStorage.getItem("user_id"));
 		console.log(user);
 		axiosInstance
-			.get(`/attempts/group/${user}/${id}`,config)
+			.get(`/attempts/group/${user}/${id}`, config)
 			.then((res) => {
 				console.log(res);
 				if (res.status === 200) {
@@ -76,6 +81,10 @@ export default function Index({
 			})
 			.catch((err) => {
 				console.log(err);
+				setError("Error occurred! Please Try Again.....");
+				setTimeout(() => {
+					setError(null);
+				}, 1000);
 			});
 	}, []);
 
@@ -91,7 +100,7 @@ export default function Index({
 		// check whether there is any
 		if (is_attempted) {
 			await axiosInstance
-				.patch(`/attempts/groups/${previous_submission._id}`, data,config)
+				.patch(`/attempts/groups/${previous_submission._id}`, data, config)
 				.then((res) => {
 					console.log(res);
 					if (res.status === 201) {
@@ -105,10 +114,14 @@ export default function Index({
 				})
 				.catch((err) => {
 					console.log(err);
+					setError("Error occurred! Please Try Again.....");
+					setTimeout(() => {
+						setError(null);
+					}, 1000);
 				});
 		} else {
 			await axiosInstance
-				.post("/attempts/create-group", data,config)
+				.post("/attempts/create-group", data, config)
 				.then((res) => {
 					console.log(res);
 					if (res.status === 200) {
@@ -121,6 +134,10 @@ export default function Index({
 				})
 				.catch((err) => {
 					console.log(err);
+					setError("Error occurred! Please Try Again.....");
+					setTimeout(() => {
+						setError(null);
+					}, 1000);
 				});
 		}
 		let submitted_question = JSON.parse(
@@ -138,7 +155,7 @@ export default function Index({
 
 		if (attempt_id === null) {
 			await axiosInstance
-				.post("/attempts", d,config)
+				.post("/attempts", d, config)
 				.then((res) => {
 					if (res.status === 200) {
 						console.log(res.data);
@@ -148,6 +165,10 @@ export default function Index({
 				})
 				.catch((err) => {
 					console.log(err);
+					setError("Error occurred! Please Try Again.....");
+					setTimeout(() => {
+						setError(null);
+					}, 1000);
 				});
 		} else {
 			console.log("sdfkjsk");
@@ -227,11 +248,16 @@ export default function Index({
 								enable={cameraStatus === "acquiring_media"}
 							/>
 							<Button
-								disabled = {!(screeStatus === "recording" && cameraStatus === "recording")}
+								disabled={
+									!(screeStatus === "recording" && cameraStatus === "recording")
+								}
 								variant="contained"
 								onClick={() => {
-									if(screeStatus === "recording" && cameraStatus === "recording"){
-										console.log("Recording....")
+									if (
+										screeStatus === "recording" &&
+										cameraStatus === "recording"
+									) {
+										console.log("Recording....");
 										startExam();
 									}
 								}}

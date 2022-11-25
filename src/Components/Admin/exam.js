@@ -46,7 +46,7 @@ const config = {
 	headers: { Authorization: `Bearer ${token}` },
 };
 
-export default function BasicTable() {
+export default function BasicTable({error, setError}) {
   const [examgroup, setExamgroup] = useState([]);
 
   useEffect(() => {
@@ -64,6 +64,10 @@ export default function BasicTable() {
       })
       .catch((err) => {
         console.log(err);
+        setError("Error occurred! Please Try Again.....");
+				setTimeout(() => {
+					setError(null);
+				}, 1000);
       });
   }
   return (

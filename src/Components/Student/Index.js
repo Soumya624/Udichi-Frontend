@@ -17,7 +17,7 @@ const Item = styled(Paper)(({ theme }) => ({
 	color: theme.palette.text.secondary,
 }));
 
-export default function Index() {
+export default function Index({error,setError}) {
 	let token = getCookie("access_token");
 	let user_id = JSON.parse(localStorage.getItem("user"))._id;
 
@@ -38,6 +38,10 @@ export default function Index() {
 			})
 			.catch((err) => {
 				console.log(err);
+				setError("Error occurred! Please Try Again.....");
+				setTimeout(() => {
+					setError(null);
+				}, 1000);
 			});
 	}, []);
 

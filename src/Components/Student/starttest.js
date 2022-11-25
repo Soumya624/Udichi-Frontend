@@ -12,7 +12,7 @@ import axios from "axios";
 import axiosInstance from "../../axiosInstance";
 import getCookie from "../../getCookie";
 
-export default function Confirmpresence() {
+export default function Confirmpresence({ error, setError }) {
 	let token = getCookie("access_token");
 	let user = JSON.parse(localStorage.getItem("user"));
 
@@ -45,13 +45,17 @@ export default function Confirmpresence() {
 			})
 			.catch((err) => {
 				console.log(err);
+				setError("Error occurred! Please Try Again.....");
+				setTimeout(() => {
+					setError(null);
+				}, 1000);
 			});
 	}, [id]);
 
 	useEffect(() => {
 		let user = JSON.parse(localStorage.getItem("user_id"));
 		axiosInstance
-			.get(`/attempts/group/${user}/${id}`,config)
+			.get(`/attempts/group/${user}/${id}`, config)
 			.then((res) => {
 				console.log(res);
 				if (res.status === 200) {
@@ -62,6 +66,10 @@ export default function Confirmpresence() {
 			})
 			.catch((err) => {
 				console.log(err);
+				setError("Error occurred! Please Try Again.....");
+				setTimeout(() => {
+					setError(null);
+				}, 1000);
 			});
 	}, []);
 
@@ -70,12 +78,16 @@ export default function Confirmpresence() {
 		let attempt_id = JSON.parse(localStorage.getItem("attempt_id"));
 		if (attempt_id && user) {
 			axiosInstance
-				.get(`/attempts/attempt/${attempt_id}/${user}`,config)
+				.get(`/attempts/attempt/${attempt_id}/${user}`, config)
 				.then((res) => {
 					console.log(res);
 				})
 				.catch((err) => {
 					console.log(err);
+					setError("Error occurred! Please Try Again.....");
+					setTimeout(() => {
+						setError(null);
+					}, 1000);
 				});
 		} else {
 			console.log("Not possible");

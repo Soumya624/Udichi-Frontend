@@ -35,7 +35,7 @@ const style = {
 };
 
 
-export default function AddCandidate() {
+export default function AddCandidate({error, setError}) {
 
   let token = getCookie("access_token");
 	let user = JSON.parse(localStorage.getItem("user"))
@@ -92,6 +92,10 @@ export default function AddCandidate() {
       })
       .catch((err) => {
         console.log(err);
+        setError("Error occurred! Please Try Again.....")
+        setTimeout(()=>{
+          setError(null)
+        },1000)
       });
   }
 
@@ -107,6 +111,10 @@ export default function AddCandidate() {
       })
       .catch((err) => {
         console.log(err);
+        setError("Error occurred! Please Try Again.....")
+        setTimeout(()=>{
+          setError(null)
+        },1000)
       });
   }
 
@@ -122,6 +130,10 @@ export default function AddCandidate() {
       })
       .catch((err) => {
         console.log(err);
+        setError("Error occurred! Please Try Again.....")
+        setTimeout(()=>{
+          setError(null)
+        },1000)
       });
   }
   return (

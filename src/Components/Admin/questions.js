@@ -80,7 +80,7 @@ const rows = [
 // 	headers: { Authorization: `Bearer ${token}`, "user-type" : user.usertype },
 // };
 
-export default function BasicTable() {
+export default function BasicTable({error, setError}) {
 	let token = getCookie("access_token");
 	let user = JSON.parse(localStorage.getItem("user"));
 
@@ -104,6 +104,10 @@ export default function BasicTable() {
 			})
 			.catch((err) => {
 				console.log(err);
+				setError("Error occurred! Please Try Again.....");
+				setTimeout(() => {
+					setError(null);
+				}, 1000);
 			});
 	}
 
