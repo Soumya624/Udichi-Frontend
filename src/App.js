@@ -22,6 +22,8 @@ import StarttestStudent from "./Components/Student/starttest";
 import SubmittestStudent from "./Components/Student/submittest";
 import TestStudent from "./Components/Student/test";
 import AddcandidateAdmin from "./Components/Admin/addCandidate";
+import AddassessorAdmin from './Components/Admin/addAssessor';
+import AddproctorerAdmin from './Components/Admin/addProctorer';
 import AddexamAdmin from "./Components/Admin/addExam";
 import AddquestionAdmin from "./Components/Admin/addQuestion";
 import Test from "./testCont";
@@ -270,6 +272,20 @@ function App() {
 							<Route
 								path="/addcandidateAdmin"
 								element={<AddcandidateAdmin setError={setError}/>}
+								exact
+							/>
+						</Route>
+						<Route path="/addassessorAdmin" element={<ProtectedRoute />} exact>
+							<Route
+								path="/addassessorAdmin"
+								element={<AddassessorAdmin setError={setError}/>}
+								exact
+							/>
+						</Route>
+						<Route path="/addproctorerAdmin" element={<ProtectedRoute />} exact>
+							<Route
+								path="/addproctorerAdmin"
+								element={<AddproctorerAdmin setError={setError}/>}
 								exact
 							/>
 						</Route>
