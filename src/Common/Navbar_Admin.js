@@ -87,11 +87,17 @@ function DrawerAppBar(props) {
             <Button sx={{ color: "#fff" }} href="/examAdmin">
               Exams
             </Button>
+            <Button sx={{ color: "#fff" }} href="/questionAdmin">
+              Questions
+            </Button>
             <Button sx={{ color: "#fff" }} href="/candidateAdmin">
               Candidates
             </Button>
-            <Button sx={{ color: "#fff" }} href="/questionAdmin">
-              Questions
+            <Button sx={{ color: "#fff" }} href="#">
+              Assessors
+            </Button>
+            <Button sx={{ color: "#fff" }} href="#">
+              Proctoresrs
             </Button>
             {/* <Button sx={{ color: "#fff" }} href="/statisticsAdmin">
               Statistics
@@ -101,7 +107,7 @@ function DrawerAppBar(props) {
             </Button> */}
             <Button sx={{ color: "#fff" }} onClick={()=>{
               // deleteAllCookies()
-              console.log("Condole")
+              console.log("Console")
             }}>
               Logout
             </Button>
