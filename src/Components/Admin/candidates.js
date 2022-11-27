@@ -108,11 +108,22 @@ export default function BasicTable({ error, setError }) {
 
   function handleSubmit1(e) {
 	e.preventDefault();
-	let data = {
-		file: file,
-		group: name
-	}
-	console.log(data);
+	let formdata = new FormData();
+	formdata.append(`files`,file);
+	formdata.append(`title`,name);
+	console.log(formdata);
+	axiosInstance
+	.post("/candidate_group/file-upload", formdata)
+	.then((res)=>{
+		console.log(res.data);
+		if(res.status===200)
+		{
+			window.location.reload();
+		}
+	})
+	.catch((err)=>{
+		console.log(err);
+	})
   }
 
   useEffect(() => {
