@@ -122,7 +122,9 @@ export default function BasicTable({ error, setError }) {
 					<a href="/addcandidateAdmin" style={{ textDecoration: "none" }}>
 						New Candidate?
 					</a>
-					&nbsp;Or <input type="file" />
+					&nbsp;Or <a href="#" style={{ textDecoration: "none" }}>
+						Upload File
+					</a>
 				</p>
 				<br />
 				<br />

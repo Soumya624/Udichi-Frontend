@@ -34,15 +34,13 @@ const style = {
   p: 4,
 };
 
-
-export default function AddCandidate({error, setError}) {
-
+export default function AddCandidate({ error, setError }) {
   let token = getCookie("access_token");
-	let user = JSON.parse(localStorage.getItem("user"))
+  let user = JSON.parse(localStorage.getItem("user"));
 
-	const config = {
-		headers: { Authorization: `Bearer ${token}`, "user-type": user.usertype },
-  }
+  const config = {
+    headers: { Authorization: `Bearer ${token}`, "user-type": user.usertype },
+  };
 
   const [group, setGroup] = useState("");
   const [fname, setFname] = useState("");
@@ -83,19 +81,19 @@ export default function AddCandidate({error, setError}) {
 
     console.log(data);
     axiosInstance
-      .post("/candidate/", data,config)
+      .post("/candidate/", data, config)
       .then((res) => {
         console.log(res);
-        if(res.status === 201){
-          window.location = "/candidateAdmin"
+        if (res.status === 201) {
+          window.location = "/candidateAdmin";
         }
       })
       .catch((err) => {
         console.log(err);
-        setError("Error occurred! Please Try Again.....")
-        setTimeout(()=>{
-          setError(null)
-        },1000)
+        setError("Error occurred! Please Try Again.....");
+        setTimeout(() => {
+          setError(null);
+        }, 1000);
       });
   }
 
@@ -105,23 +103,24 @@ export default function AddCandidate({error, setError}) {
       title: grptitle,
     };
     axiosInstance
-      .post("/candidate_group/", data,config)
+      .post("/candidate_group/", data, config)
       .then((res) => {
         console.log(res);
+        alert("Assessor Added!");
       })
       .catch((err) => {
         console.log(err);
-        setError("Error occurred! Please Try Again.....")
-        setTimeout(()=>{
-          setError(null)
-        },1000)
+        setError("Error occurred! Please Try Again.....");
+        setTimeout(() => {
+          setError(null);
+        }, 1000);
       });
   }
 
   // get Candidates Group
   function getCandidates() {
     axiosInstance
-      .get("/candidate_group/all/",config)
+      .get("/candidate_group/all/", config)
       .then((res) => {
         console.log(res);
         if (res.status === 200) {
@@ -130,10 +129,10 @@ export default function AddCandidate({error, setError}) {
       })
       .catch((err) => {
         console.log(err);
-        setError("Error occurred! Please Try Again.....")
-        setTimeout(()=>{
-          setError(null)
-        },1000)
+        setError("Error occurred! Please Try Again.....");
+        setTimeout(() => {
+          setError(null);
+        }, 1000);
       });
   }
   return (
@@ -286,22 +285,15 @@ export default function AddCandidate({error, setError}) {
                         onChange={handleChange}
                       >
                         {candigroup.map((key) => {
-                          return <MenuItem value={key._id}>{key.title}</MenuItem>;
+                          return (
+                            <MenuItem value={key._id}>{key.title}</MenuItem>
+                          );
                         })}
                       </Select>
                     </FormControl>
                   </Grid>
                 </Grid>
-                <br />
-                <p>
-                  Want to Create a New{" "}
-                  <a
-                    onClick={handleOpen}
-                    style={{ textDecoration: "none", cursor: "pointer" }}
-                  >
-                    Candidate Group?
-                  </a>
-                </p>
+
                 <br />
                 <br />
                 <Button
@@ -311,6 +303,16 @@ export default function AddCandidate({error, setError}) {
                 >
                   Continue
                 </Button>
+                <br />
+                <p>
+                  Create a{" "}
+                  <a
+                    onClick={handleOpen}
+                    style={{ textDecoration: "none", cursor: "pointer" }}
+                  >
+                    Candidate Group
+                  </a>
+                </p>
               </Typography>
             </CardContent>
             {/* <CardActions>
@@ -349,7 +351,7 @@ export default function AddCandidate({error, setError}) {
                 />
               </Grid>
             </Grid>
-            <br/>
+            <br />
             <Button
               variant="contained"
               style={{ backgroundColor: "#7882BD", width: "50%" }}

@@ -126,7 +126,9 @@ export default function BasicTable({error, setError}) {
 					<a href="/addquestionAdmin" style={{ textDecoration: "none" }}>
 						New Questions?
 					</a>
-					&nbsp;Or <input type="file" />
+					&nbsp;Or <a href="#" style={{ textDecoration: "none" }}>
+						Upload File
+					</a>
 				</p>
 				<br />
 				<br />

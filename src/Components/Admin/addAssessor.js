@@ -54,6 +54,7 @@ export default function Signup() {
 			.post("/signup/", data)
 			.then((res) => {
 				console.log(res.data);
+				alert("Assessor Added!");
 			})
 			.catch((err) => {
 				console.log(err);
