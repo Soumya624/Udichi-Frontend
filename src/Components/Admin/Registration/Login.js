@@ -13,13 +13,16 @@ import { useState } from "react";
 import axios from "axios";
 import axiosInstance from "../../../axiosInstance";
 import setCookie from "../../../setCookie";
+import { CircularProgress } from "@mui/material";
 
 export default function LoginAdmin({error, setError}) {
 	console.log(setError)
 	const [username, setUsername] = useState("");
 	const [password, setPassword] = useState("");
+	const [loading,setLoading] = useState(false)
 
 	function submit(e) {
+		setLoading(true)
 		e.preventDefault();
 		let data = {
 			email: username,
@@ -28,8 +31,6 @@ export default function LoginAdmin({error, setError}) {
 		axiosInstance
 			.post("/login/", data)
 			.then((res) => {
-				console.log(res);
-
 				if (res.status === 200) {
 					
 					let token = res.data.access_token;
@@ -44,10 +45,12 @@ export default function LoginAdmin({error, setError}) {
 					if(user_type === "admin"){
 						window.location = "/dashboardAdmin"
 					}
+					setLoading(false)
 					// setCookie(`refresh`, `${token.refresh}`, 1);
 				}
 			})
 			.catch((err) => {
+				setLoading(false)
 				console.log(err);
 				setError("Error occurred! Please Try Again.....");
 				setTimeout(() => {
@@ -61,6 +64,7 @@ export default function LoginAdmin({error, setError}) {
 			<Navbar />
 			<div style={{ padding: "2%" }}>
 				<center>
+					
 					<Card
 						sx={{ maxWidth: 500 }}
 						style={{
@@ -136,7 +140,8 @@ export default function LoginAdmin({error, setError}) {
 										style={{ backgroundColor: "#7882BD", width: "50%" }}
 										// onClick={submit}
 									>
-										Continue
+										{loading && <CircularProgress color="inherit"/>}
+										{!loading && `Continue`}
 									</Button>
 									<br />
 									<p style={{ marginTop: "1%" }}>

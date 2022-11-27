@@ -32,6 +32,7 @@ import Grid from "@mui/material/Grid";
 import Button from "@mui/material/Button";
 import Typography from "@mui/material/Typography";
 import TextField from "@mui/material/TextField";
+import { CircularProgress } from "@mui/material";
 
 const style = {
   position: "absolute",
@@ -107,7 +108,7 @@ export default function BasicTable({ error, setError }) {
 
   const [file, setFile] = useState(null);
   const [name, setName] = useState("");
-  const [quesgroup, setQuesgroup] = useState([]);
+  const [quesgroup, setQuesgroup] = useState(null);
   const [open, setOpen] = useState(false);
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
@@ -176,7 +177,18 @@ export default function BasicTable({ error, setError }) {
         </p>
         <br />
         <br />
-        {quesgroup.map((key) => {
+        {!quesgroup && (
+					<div
+						style={{
+							display: "flex",
+							alignItems: "center",
+							justifyContent: "center",
+						}}
+					>
+						<CircularProgress />
+					</div>
+				)}
+        {quesgroup && quesgroup.map((key) => {
           return (
             <Collapsible trigger={key.title} style={{ padding: "2px" }}>
               <TableContainer component={Paper}>
