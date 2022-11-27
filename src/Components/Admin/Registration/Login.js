@@ -11,17 +11,13 @@ import Checkbox from "@mui/material/Checkbox";
 import Footer from "./../../../Common/Footer";
 import { useState } from "react";
 import axios from "axios";
+import axiosInstance from "../../../axiosInstance";
+import setCookie from "../../../setCookie";
 
-export default function LoginAdmin() {
+export default function LoginAdmin({error, setError}) {
+	console.log(setError)
 	const [username, setUsername] = useState("");
 	const [password, setPassword] = useState("");
-
-	function setCookie(cname, cvalue, exdays) {
-		const d = new Date();
-		d.setTime(d.getTime() + exdays * 24 * 60 * 60 * 1000);
-		let expires = "expires=" + d.toUTCString();
-		document.cookie = cname + "=" + cvalue + ";" + expires + ";path=/";
-	}
 
 	function submit(e) {
 		e.preventDefault();
@@ -29,21 +25,34 @@ export default function LoginAdmin() {
 			email: username,
 			password: password,
 		};
-		axios
-			.post("http://localhost:5000/login/", data)
+		axiosInstance
+			.post("/login/", data)
 			.then((res) => {
-				console.log(res.data);
+				console.log(res);
 
-				let token = res.data.access_token;
-				let user_data = res.data.user;
+				if (res.status === 200) {
+					
+					let token = res.data.access_token;
+					let user_data = res.data.user;
 
-				localStorage.setItem("user", JSON.stringify(user_data));
+					localStorage.setItem("user", JSON.stringify(user_data));
 
-				setCookie(`access_token`, `${token}`, 1);
-				// setCookie(`refresh`, `${token.refresh}`, 1);
+					setCookie(`access_token`, `${token}`, 1);
+					setCookie(`user_type`,`${user_data.usertype}`,1)
+					
+					let user_type = user_data.usertype
+					if(user_type === "admin"){
+						window.location = "/dashboardAdmin"
+					}
+					// setCookie(`refresh`, `${token.refresh}`, 1);
+				}
 			})
 			.catch((err) => {
 				console.log(err);
+				setError("Error occurred! Please Try Again.....");
+				setTimeout(() => {
+					setError(null);
+				}, 1000);
 			});
 	}
 

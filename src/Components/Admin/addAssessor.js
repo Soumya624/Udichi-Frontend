@@ -1,5 +1,5 @@
 import React from "react";
-import Navbar from "./../Common/Navbar";
+import Navbar from "../../Common/Navbar_Admin";
 import Card from "@mui/material/Card";
 import CardContent from "@mui/material/CardContent";
 import Button from "@mui/material/Button";
@@ -8,10 +8,10 @@ import TextField from "@mui/material/TextField";
 import Grid from "@mui/material/Grid";
 import FormControlLabel from "@mui/material/FormControlLabel";
 import Checkbox from "@mui/material/Checkbox";
-import Footer from "./../Common/Footer";
+import Footer from "../../Common/Footer";
 import { useState } from "react";
 import axios from "axios";
-import axiosInstance from "../axiosInstance";
+import axiosInstance from '../../axiosInstance';
 
 export default function Signup() {
 	const [fname, setFname] = useState("");
@@ -47,13 +47,14 @@ export default function Signup() {
 			state: state,
 			country: country,
 			zip: zip,
-			usertype: user,
+			usertype: "teacher",
 		};
 		console.log(data);
 		axiosInstance
 			.post("/signup/", data)
 			.then((res) => {
 				console.log(res.data);
+				alert("Assessor Added!");
 			})
 			.catch((err) => {
 				console.log(err);
@@ -81,13 +82,13 @@ export default function Signup() {
 								component="div"
 								style={{ marginBottom: "0", fontWeight: "bold" }}
 							>
-								Signup Here
+								Add Assessor
 							</Typography>
-							<p style={{ marginTop: "0" }}>
+							{/* <p style={{ marginTop: "0" }}>
 								Please Fill The Requirements Below to
 								<br />
 								Get Connected
-							</p>
+							</p> */}
 							<br />
 							<form onSubmit={register_user}>
 								<Typography variant="body2" color="text.secondary">
@@ -310,7 +311,7 @@ export default function Signup() {
 										</Grid>
 									</Grid>
 									<br />
-									<FormControlLabel
+									{/* <FormControlLabel
 										control={<Checkbox />}
 										label="Admin"
 										value="admin"
@@ -328,15 +329,6 @@ export default function Signup() {
 											setUser(e.target.value);
 										}}
 									/>
-									{/* <FormControlLabel
-										control={<Checkbox />}
-										label="Student"
-										value="student"
-										onChange={(e) => {
-											e.preventDefault();
-											setUser(e.target.value);
-										}}
-									/> */}
 									<FormControlLabel
 										control={<Checkbox />}
 										label="Proctorer"
@@ -347,7 +339,7 @@ export default function Signup() {
 										}}
 									/>
 									<br />
-									<br />
+									<br /> */}
 									<br />
 									<Button
 										type="submit"

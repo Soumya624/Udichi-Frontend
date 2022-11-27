@@ -197,7 +197,87 @@ export default function Index() {
               responsive={true}
               size={50}
               lineWidth={14}
-              progress={"24 Exams"}
+              progress={"0 Exams"}
+              progressColor="#7882bd"
+              bgColor="whitesmoke"
+              textColor="#7882bd"
+              textStyle={{
+                font: "normal 2rem Helvetica, Arial, sans-serif",
+              }}
+              percentSpacing={10}
+              roundedStroke={true}
+              showPercentage={true}
+              showPercentageSymbol={false}
+            />
+          </Grid>
+          <Grid item sm={2} style={{ padding: "2%" }}>
+            <Circle
+              animate={true}
+              animationDuration="1s"
+              responsive={true}
+              size={50}
+              lineWidth={14}
+              progress={"0 Questions"}
+              progressColor="#7882bd"
+              bgColor="whitesmoke"
+              textColor="#7882bd"
+              textStyle={{
+                font: "normal 2rem Helvetica, Arial, sans-serif",
+              }}
+              percentSpacing={10}
+              roundedStroke={true}
+              showPercentage={true}
+              showPercentageSymbol={false}
+            />
+          </Grid>
+          <Grid item sm={2} style={{ padding: "2%" }}>
+            <Circle
+              animate={true}
+              animationDuration="1s"
+              responsive={true}
+              size={50}
+              lineWidth={14}
+              progress={"0 Candidates"}
+              progressColor="#7882bd"
+              bgColor="whitesmoke"
+              textColor="#7882bd"
+              textStyle={{
+                font: "normal 2rem Helvetica, Arial, sans-serif",
+              }}
+              percentSpacing={10}
+              roundedStroke={true}
+              showPercentage={true}
+              showPercentageSymbol={false}
+            />
+          </Grid>
+          <Grid item sm={2} style={{ padding: "2%" }}>
+            <Circle
+              animate={true}
+              animationDuration="1s"
+              responsive={true}
+              size={50}
+              lineWidth={14}
+              progress={"0 Assessors"}
+              progressColor="#7882bd"
+              bgColor="whitesmoke"
+              textColor="#7882bd"
+              textStyle={{
+                font: "normal 2rem Helvetica, Arial, sans-serif",
+              }}
+              percentSpacing={10}
+              roundedStroke={true}
+              showPercentage={true}
+              showPercentageSymbol={false}
+            />
+          </Grid>
+          <Grid item sm={2} style={{ padding: "2%" }}>
+            <Circle
+              animate={true}
+              animationDuration="1s"
+              responsive={true}
+              size={50}
+              lineWidth={14}
+              progress={"0 Proctorers"}
               progressColor="#7882bd"
               bgColor="whitesmoke"
               textColor="#7882bd"
@@ -218,86 +298,6 @@ export default function Index() {
               size={50}
               lineWidth={14}
               progress={"0 Notifications"}
-              progressColor="#7882bd"
-              bgColor="whitesmoke"
-              textColor="#7882bd"
-              textStyle={{
-                font: "normal 2rem Helvetica, Arial, sans-serif",
-              }}
-              percentSpacing={10}
-              roundedStroke={true}
-              showPercentage={true}
-              showPercentageSymbol={false}
-            />
-          </Grid>
-          <Grid item sm={2} style={{ padding: "2%" }}>
-            <Circle
-              animate={true}
-              animationDuration="1s"
-              responsive={true}
-              size={50}
-              lineWidth={14}
-              progress={"68 Groups"}
-              progressColor="#7882bd"
-              bgColor="whitesmoke"
-              textColor="#7882bd"
-              textStyle={{
-                font: "normal 2rem Helvetica, Arial, sans-serif",
-              }}
-              percentSpacing={10}
-              roundedStroke={true}
-              showPercentage={true}
-              showPercentageSymbol={false}
-            />
-          </Grid>
-          <Grid item sm={2} style={{ padding: "2%" }}>
-            <Circle
-              animate={true}
-              animationDuration="1s"
-              responsive={true}
-              size={50}
-              lineWidth={14}
-              progress={"54 Candidates"}
-              progressColor="#7882bd"
-              bgColor="whitesmoke"
-              textColor="#7882bd"
-              textStyle={{
-                font: "normal 2rem Helvetica, Arial, sans-serif",
-              }}
-              percentSpacing={10}
-              roundedStroke={true}
-              showPercentage={true}
-              showPercentageSymbol={false}
-            />
-          </Grid>
-          <Grid item sm={2} style={{ padding: "2%" }}>
-            <Circle
-              animate={true}
-              animationDuration="1s"
-              responsive={true}
-              size={50}
-              lineWidth={14}
-              progress={"21 Sections"}
-              progressColor="#7882bd"
-              bgColor="whitesmoke"
-              textColor="#7882bd"
-              textStyle={{
-                font: "normal 2rem Helvetica, Arial, sans-serif",
-              }}
-              percentSpacing={10}
-              roundedStroke={true}
-              showPercentage={true}
-              showPercentageSymbol={false}
-            />
-          </Grid>
-          <Grid item sm={2} style={{ padding: "2%" }}>
-            <Circle
-              animate={true}
-              animationDuration="1s"
-              responsive={true}
-              size={50}
-              lineWidth={14}
-              progress={"89 Questions"}
               progressColor="#7882bd"
               bgColor="whitesmoke"
               textColor="#7882bd"

@@ -11,8 +11,9 @@ import Checkbox from "@mui/material/Checkbox";
 import Footer from "./../../../Common/Footer";
 import { useState } from "react";
 import axios from "axios";
+import axiosInstance from "../../../axiosInstance";
 
-export default function Signup() {
+export default function Signup({error,setError}) {
 	const [username, setUsername] = useState("");
 	const [password, setPassword] = useState("");
 
@@ -29,8 +30,8 @@ export default function Signup() {
 			email: username,
 			password: password,
 		};
-		axios
-			.post("http://localhost:5000/login/", data)
+		axiosInstance
+			.post("/login/", data)
 			.then((res) => {
 				console.log(res.data);
 				
@@ -45,6 +46,10 @@ export default function Signup() {
 			})
 			.catch((err) => {
 				console.log(err);
+				setError("Error occurred! Please Try Again.....");
+				setTimeout(() => {
+					setError(null);
+				}, 1000);
 			});
 	}
 

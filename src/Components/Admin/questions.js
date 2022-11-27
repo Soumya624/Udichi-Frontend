@@ -20,11 +20,29 @@ import SendIcon from "@mui/icons-material/Send";
 import ExpandLess from "@mui/icons-material/ExpandLess";
 import ExpandMore from "@mui/icons-material/ExpandMore";
 import StarBorder from "@mui/icons-material/StarBorder";
-import axios from "axios";
 import { useEffect } from "react";
 import { useState } from "react";
 import Collapsible from "react-collapsible";
 import "./style.css";
+import axiosInstance from "../../axiosInstance";
+import getCookie from "../../getCookie";
+import Box from "@mui/material/Box";
+import Modal from "@mui/material/Modal";
+import Grid from "@mui/material/Grid";
+import Button from "@mui/material/Button";
+import Typography from "@mui/material/Typography";
+import TextField from "@mui/material/TextField";
+
+const style = {
+  position: "absolute",
+  top: "50%",
+  left: "50%",
+  transform: "translate(-50%, -50%)",
+  width: 400,
+  bgcolor: "background.paper",
+  boxShadow: 24,
+  p: 4,
+};
 
 function createData(name, identity, section, type, action) {
   return { name, identity, section, type, action };
@@ -68,16 +86,59 @@ const rows = [
   ),
 ];
 
-export default function BasicTable() {
+// let token = getCookie("access_token")
+// // let user = JSON.parse(localStorage.getItem("user"))
+
+// let user = {
+//   usertype : "teacher"
+// }
+
+// const config = {
+// 	headers: { Authorization: `Bearer ${token}`, "user-type" : user.usertype },
+// };
+
+export default function BasicTable({ error, setError }) {
+  let token = getCookie("access_token");
+  let user = JSON.parse(localStorage.getItem("user"));
+
+  const config = {
+    headers: { Authorization: `Bearer ${token}`, "user-type": user.usertype },
+  };
+
+  const [file, setFile] = useState(null);
+  const [name, setName] = useState("");
   const [quesgroup, setQuesgroup] = useState([]);
+  const [open, setOpen] = useState(false);
+  const handleOpen = () => setOpen(true);
+  const handleClose = () => setOpen(false);
+
+  function handleSubmit1(e) {
+    e.preventDefault();
+	let formdata = new FormData();
+	formdata.append(`files`,file);
+	formdata.append(`title`,name);
+	console.log(formdata);
+	axiosInstance
+	.post("/questions/file-upload", formdata)
+	.then((res)=>{
+		console.log(res.data);
+		if(res.status===200)
+		{
+			window.location.reload();
+		}
+	})
+	.catch((err)=>{
+		console.log(err);
+	})
+  }
 
   useEffect(() => {
     getQuestions();
   }, []);
 
   function getQuestions() {
-    axios
-      .get("http://localhost:5000/question-group/")
+    axiosInstance
+      .get("/question-group/", config)
       .then((res) => {
         console.log(res);
         if (res.status === 200) {
@@ -86,6 +147,10 @@ export default function BasicTable() {
       })
       .catch((err) => {
         console.log(err);
+        setError("Error occurred! Please Try Again.....");
+        setTimeout(() => {
+          setError(null);
+        }, 1000);
       });
   }
 
@@ -104,7 +169,10 @@ export default function BasicTable() {
           <a href="/addquestionAdmin" style={{ textDecoration: "none" }}>
             New Questions?
           </a>
-          &nbsp;Or <input type="file" />
+          &nbsp;Or{" "}
+          <a onClick={handleOpen} style={{ textDecoration: "none", cursor: "pointer" }}>
+            Upload File
+          </a>
         </p>
         <br />
         <br />
@@ -143,7 +211,11 @@ export default function BasicTable() {
                         </TableCell>
                         <TableCell align="right">{x._id}</TableCell>
 
-                        <TableCell align="right">{x.is_objective === false? "Fill in the Blanks" : "MCQ"}</TableCell>
+                        <TableCell align="right">
+                          {x.is_objective === false
+                            ? "Fill in the Blanks"
+                            : "MCQ"}
+                        </TableCell>
                         <TableCell
                           align="right"
                           style={{ cursor: "pointer", color: "red" }}
@@ -162,6 +234,48 @@ export default function BasicTable() {
         <br />
       </div>
       <Footer />
+	  <Modal
+        open={open}
+        onClose={handleClose}
+        aria-labelledby="modal-modal-title"
+        aria-describedby="modal-modal-description"
+      >
+        <Box sx={style}>
+          <center>
+            <Grid container spacing={1} style={{ marginTop: "0.5%" }}>
+              <Grid item xs={12}>
+                <TextField
+                  id="outlined-basic"
+                  label="Specify Question Group"
+                  variant="outlined"
+                  size="small"
+                  style={{ width: "98.5%" }}
+                  onChange={(e) => {
+                    e.preventDefault();
+                    setName(e.target.value);
+                  }}
+                />
+              </Grid>
+            </Grid>
+          </center>
+          <input
+            type="file"
+            onChange={(e) => setFile(e.target.files[0])}
+            style={{ margin: "3%" }}
+          />
+          <br />
+          <br />
+          <center>
+            <Button
+              variant="contained"
+              style={{ backgroundColor: "#7882BD", width: "50%" }}
+			  onClick={handleSubmit1}
+            >
+              Continue
+            </Button>
+          </center>
+        </Box>
+      </Modal>
     </div>
   );
 }

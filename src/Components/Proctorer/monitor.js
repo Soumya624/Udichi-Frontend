@@ -25,6 +25,8 @@ import axios from "axios";
 import { useState } from "react";
 import Modal from "@mui/material/Modal";
 import Box from "@mui/material/Box";
+import axiosInstance from "../../axiosInstance";
+import getCookie from "../../getCookie";
 
 const style = {
   position: "absolute",
@@ -49,7 +51,13 @@ const rows = [
   createData("P K Das", 356, "Yes", "Download"),
 ];
 
-export default function Confirmpresence() {
+export default function Confirmpresence({error,setError}) {
+  let token = getCookie("access_token");
+	let user = JSON.parse(localStorage.getItem("user"));
+
+	const config = {
+		headers: { Authorization: `Bearer ${token}`, "user-type": user.usertype },
+	};
   const [open, setOpen] = useState(false);
 
   const [list, setList] = useState([]);
@@ -57,8 +65,8 @@ export default function Confirmpresence() {
   const { id } = useParams();
 
   useEffect(() => {
-    axios
-      .get(`http://localhost:5000/attempts/attempts_group/${id}`)
+    axiosInstance
+      .get(`/attempts/attempts_group/${id}`,config)
       .then((res) => {
         if (res.status === 200) {
           console.log(res.data);
@@ -68,6 +76,10 @@ export default function Confirmpresence() {
       })
       .catch((err) => {
         console.log(err);
+        setError("Error occurred! Please Try Again.....");
+				setTimeout(() => {
+					setError(null);
+				}, 1000);
       });
   }, []);
 
@@ -103,9 +115,9 @@ export default function Confirmpresence() {
   const downloadZip = (id) =>{
     console.log(id)
 
-    axios.get(`http://localhost:5000/attempts/download/${id}`,{
+    axiosInstance.get(`/attempts/download/${id}`,{
       responseType : "blob"
-    })
+    },config)
     .then((res)=>{
       console.log(res)
       if(res.status === 200){

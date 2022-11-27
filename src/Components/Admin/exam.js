@@ -25,6 +25,8 @@ import { useEffect } from "react";
 import { useState } from "react";
 import Collapsible from "react-collapsible";
 import "./style.css";
+import axiosInstance from "../../axiosInstance";
+import getCookie from "../../getCookie";
 
 function createData(name, candidates, duration, questions, action) {
   return { name, candidates, duration, questions, action };
@@ -38,7 +40,13 @@ const rows = [
   createData("Algorithms III", 356, 16.0, 49, "View Details"),
 ];
 
-export default function BasicTable() {
+let token = getCookie("access_token")
+
+const config = {
+	headers: { Authorization: `Bearer ${token}` },
+};
+
+export default function BasicTable({error, setError}) {
   const [examgroup, setExamgroup] = useState([]);
 
   useEffect(() => {
@@ -46,8 +54,8 @@ export default function BasicTable() {
   }, []);
 
   function getExams() {
-    axios
-      .get("http://localhost:5000/test/all")
+    axiosInstance
+      .get("/test/all",config)
       .then((res) => {
         console.log(res);
         if (res.status === 200) {
@@ -56,6 +64,10 @@ export default function BasicTable() {
       })
       .catch((err) => {
         console.log(err);
+        setError("Error occurred! Please Try Again.....");
+				setTimeout(() => {
+					setError(null);
+				}, 1000);
       });
   }
   return (
@@ -73,7 +85,7 @@ export default function BasicTable() {
           <a href="/addexamAdmin" style={{ textDecoration: "none" }}>
             New Exams?
           </a>
-          &nbsp;Or <input type="file" />
+          {/* &nbsp;Or <input type="file" /> */}
         </p>
         <br />
         <br />

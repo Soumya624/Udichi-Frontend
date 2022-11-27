@@ -19,6 +19,8 @@ import Footer from "../../Common/Footer";
 import { useEffect, useState } from "react";
 import axios from "axios";
 import Modal from "@mui/material/Modal";
+import axiosInstance from "../../axiosInstance";
+import getCookie from "../../getCookie";
 
 const style = {
   position: "absolute",
@@ -39,13 +41,19 @@ const Item = styled(Paper)(({ theme }) => ({
   color: theme.palette.text.secondary,
 }));
 
-export default function Index() {
+export default function Index({error,setError}) {
+  let token = getCookie("access_token");
+	let user = JSON.parse(localStorage.getItem("user"));
+
+	const config = {
+		headers: { Authorization: `Bearer ${token}`, "user-type": user.usertype },
+	};
   const [alltest, setAlltest] = useState([]);
   const [open, setOpen ] = useState(false);
 
   useEffect(() => {
-    axios
-      .get("http://localhost:5000/test/all")
+    axiosInstance
+      .get("/test/all",config)
       .then((res) => {
         if (res.status === 200) {
           console.log(res.data);
@@ -54,6 +62,10 @@ export default function Index() {
       })
       .catch((err) => {
         console.log(err);
+        setError("Error occurred! Please Try Again.....");
+				setTimeout(() => {
+					setError(null);
+				}, 1000);
       });
   }, []);
 

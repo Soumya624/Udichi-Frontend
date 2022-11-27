@@ -9,8 +9,16 @@ import { useScreenshot } from "use-screenshot-hook";
 import { useReactMediaRecorder } from "react-media-recorder";
 import { Link, useParams } from "react-router-dom";
 import axios from "axios";
+import axiosInstance from "../../axiosInstance";
+import getCookie from "../../getCookie";
 
-export default function Confirmpresence() {
+export default function Confirmpresence({ error, setError }) {
+	let token = getCookie("access_token");
+	let user = JSON.parse(localStorage.getItem("user"));
+
+	const config = {
+		headers: { Authorization: `Bearer ${token}`, "user-type": user.usertype },
+	};
 	const { id } = useParams();
 	const [alloted_test, setAllotedTest] = useState(null);
 	const [is_attempted, setIsAttempted] = useState(false);
@@ -18,8 +26,8 @@ export default function Confirmpresence() {
 	const [number_of_attempts, setNumberOfAttempts] = useState(0);
 
 	useEffect(() => {
-		axios
-			.get(`http://localhost:5000/test/${id}`)
+		axiosInstance
+			.get(`/test/${id}`, config)
 			.then((res) => {
 				console.log(res);
 				if (res.status === 200) {
@@ -37,13 +45,17 @@ export default function Confirmpresence() {
 			})
 			.catch((err) => {
 				console.log(err);
+				setError("Error occurred! Please Try Again.....");
+				setTimeout(() => {
+					setError(null);
+				}, 1000);
 			});
 	}, [id]);
 
 	useEffect(() => {
 		let user = JSON.parse(localStorage.getItem("user_id"));
-		axios
-			.get(`http://localhost:5000/attempts/group/${user}/${id}`)
+		axiosInstance
+			.get(`/attempts/group/${user}/${id}`, config)
 			.then((res) => {
 				console.log(res);
 				if (res.status === 200) {
@@ -54,6 +66,10 @@ export default function Confirmpresence() {
 			})
 			.catch((err) => {
 				console.log(err);
+				setError("Error occurred! Please Try Again.....");
+				setTimeout(() => {
+					setError(null);
+				}, 1000);
 			});
 	}, []);
 
@@ -61,16 +77,20 @@ export default function Confirmpresence() {
 		let user = JSON.parse(localStorage.getItem("user_id"));
 		let attempt_id = JSON.parse(localStorage.getItem("attempt_id"));
 		if (attempt_id && user) {
-			axios
-				.get(`http://localhost:5000/attempts/attempt/${attempt_id}/${user}`)
+			axiosInstance
+				.get(`/attempts/attempt/${attempt_id}/${user}`, config)
 				.then((res) => {
 					console.log(res);
 				})
 				.catch((err) => {
 					console.log(err);
+					setError("Error occurred! Please Try Again.....");
+					setTimeout(() => {
+						setError(null);
+					}, 1000);
 				});
-		}else{
-			console.log("Not possible")
+		} else {
+			console.log("Not possible");
 		}
 	}, []);
 

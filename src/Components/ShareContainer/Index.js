@@ -4,6 +4,8 @@ import Screen from "./Screen";
 import { Card, CardContent, Typography, Button } from "@mui/material";
 import { useNavigate, useParams } from "react-router-dom";
 import axios from "axios";
+import axiosInstance from "../../axiosInstance";
+import getCookie from "../../getCookie";
 
 export default function Index({
 	startScreenRecording,
@@ -17,7 +19,16 @@ export default function Index({
 	cameraStatus,
 	screeStatus,
 	isClicked,
+	error,
+	setError,
 }) {
+	let token = getCookie("access_token");
+	let user = JSON.parse(localStorage.getItem("user"));
+
+	const config = {
+		headers: { Authorization: `Bearer ${token}`, "user-type": user.usertype },
+	};
+
 	console.log(screeStatus, cameraStatus);
 	const navigate = useNavigate();
 	const [alloted_test, setAllotedTest] = useState(null);
@@ -29,8 +40,8 @@ export default function Index({
 	// const [cameraShare, setCameraShare] = useState(null);
 	// const [isClicked, setClicked] = useState(false);
 	useEffect(() => {
-		axios
-			.get(`http://localhost:5000/test/${id}`)
+		axiosInstance
+			.get(`/test/${id}`, config)
 			.then((res) => {
 				console.log(res);
 				if (res.status === 200) {
@@ -48,14 +59,18 @@ export default function Index({
 			})
 			.catch((err) => {
 				console.log(err);
+				setError("Error occurred! Please Try Again.....");
+				setTimeout(() => {
+					setError(null);
+				}, 1000);
 			});
 	}, [id]);
 
 	useEffect(() => {
 		let user = JSON.parse(localStorage.getItem("user_id"));
 		console.log(user);
-		axios
-			.get(`http://localhost:5000/attempts/group/${user}/${id}`)
+		axiosInstance
+			.get(`/attempts/group/${user}/${id}`, config)
 			.then((res) => {
 				console.log(res);
 				if (res.status === 200) {
@@ -66,6 +81,10 @@ export default function Index({
 			})
 			.catch((err) => {
 				console.log(err);
+				setError("Error occurred! Please Try Again.....");
+				setTimeout(() => {
+					setError(null);
+				}, 1000);
 			});
 	}, []);
 
@@ -80,8 +99,8 @@ export default function Index({
 
 		// check whether there is any
 		if (is_attempted) {
-			await axios
-				.patch(`/attempts/groups/${previous_submission._id}`, data)
+			await axiosInstance
+				.patch(`/attempts/groups/${previous_submission._id}`, data, config)
 				.then((res) => {
 					console.log(res);
 					if (res.status === 201) {
@@ -95,10 +114,14 @@ export default function Index({
 				})
 				.catch((err) => {
 					console.log(err);
+					setError("Error occurred! Please Try Again.....");
+					setTimeout(() => {
+						setError(null);
+					}, 1000);
 				});
 		} else {
-			await axios
-				.post("/attempts/create-group", data)
+			await axiosInstance
+				.post("/attempts/create-group", data, config)
 				.then((res) => {
 					console.log(res);
 					if (res.status === 200) {
@@ -111,6 +134,10 @@ export default function Index({
 				})
 				.catch((err) => {
 					console.log(err);
+					setError("Error occurred! Please Try Again.....");
+					setTimeout(() => {
+						setError(null);
+					}, 1000);
 				});
 		}
 		let submitted_question = JSON.parse(
@@ -127,8 +154,8 @@ export default function Index({
 		};
 
 		if (attempt_id === null) {
-			await axios
-				.post("http://localhost:5000/attempts", d)
+			await axiosInstance
+				.post("/attempts", d, config)
 				.then((res) => {
 					if (res.status === 200) {
 						console.log(res.data);
@@ -138,6 +165,10 @@ export default function Index({
 				})
 				.catch((err) => {
 					console.log(err);
+					setError("Error occurred! Please Try Again.....");
+					setTimeout(() => {
+						setError(null);
+					}, 1000);
 				});
 		} else {
 			console.log("sdfkjsk");
@@ -217,10 +248,16 @@ export default function Index({
 								enable={cameraStatus === "acquiring_media"}
 							/>
 							<Button
+								disabled={
+									!(screeStatus === "recording" && cameraStatus === "recording")
+								}
 								variant="contained"
 								onClick={() => {
-									if(screeStatus === "recording" && cameraStatus === "recording"){
-										console.log("Recording....")
+									if (
+										screeStatus === "recording" &&
+										cameraStatus === "recording"
+									) {
+										console.log("Recording....");
 										startExam();
 									}
 								}}
