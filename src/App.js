@@ -54,9 +54,7 @@ function App() {
 
 	const camera = useReactMediaRecorder({ video: true, audio: true });
 	useEffect(() => {
-		console.log("Hk");
 		if (isClicked) {
-			console.log("nk");
 			camera.stopRecording();
 			screen.stopRecording();
 			console.log(camera, screen);

@@ -33,6 +33,7 @@ import Grid from "@mui/material/Grid";
 import Button from "@mui/material/Button";
 import Typography from "@mui/material/Typography";
 import TextField from "@mui/material/TextField";
+import { CircularProgress } from "@mui/material";
 
 const style = {
   position: "absolute",
@@ -98,7 +99,7 @@ export default function BasicTable({ error, setError }) {
   const [file, setFile] = useState(null);
   const [name, setName] = useState("");
   const [open, setOpen] = useState(false);
-  const [candigroup, setCandigroup] = useState([]);
+  const [candigroup, setCandigroup] = useState(null);
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
 
@@ -170,7 +171,18 @@ export default function BasicTable({ error, setError }) {
         </p>
         <br />
         <br />
-        {candigroup.map((key) => {
+        {!candigroup && (
+					<div
+						style={{
+							display: "flex",
+							alignItems: "center",
+							justifyContent: "center",
+						}}
+					>
+						<CircularProgress />
+					</div>
+				)}
+        {candigroup && candigroup.map((key) => {
           return (
             // <List
             //   sx={{ width: "100%", bgcolor: "background.paper" }}
