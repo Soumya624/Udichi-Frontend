@@ -124,6 +124,7 @@ export default function BasicTable({ error, setError }) {
 	})
 	.catch((err)=>{
 		console.log(err);
+    setError(err.message)
 	})
   }
 

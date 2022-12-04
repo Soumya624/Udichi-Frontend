@@ -16,7 +16,6 @@ import setCookie from "../../../setCookie";
 import { CircularProgress } from "@mui/material";
 
 export default function LoginAdmin({error, setError}) {
-	console.log(setError)
 	const [username, setUsername] = useState("");
 	const [password, setPassword] = useState("");
 	const [loading,setLoading] = useState(false)

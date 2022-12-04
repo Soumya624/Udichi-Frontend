@@ -3,7 +3,6 @@ import Camera from "./Camera";
 import Screen from "./Screen";
 import { Card, CardContent, Typography, Button } from "@mui/material";
 import { useNavigate, useParams } from "react-router-dom";
-import axios from "axios";
 import axiosInstance from "../../axiosInstance";
 import getCookie from "../../getCookie";
 
@@ -29,12 +28,13 @@ export default function Index({
 		headers: { Authorization: `Bearer ${token}`, "user-type": user.usertype },
 	};
 
-	console.log(screeStatus, cameraStatus);
 	const navigate = useNavigate();
 	const [alloted_test, setAllotedTest] = useState(null);
 	const [is_attempted, setIsAttempted] = useState(false);
 	const [previous_submission, setPreviousSubmission] = useState(null);
 	const [number_of_attempts, setNumberOfAttempts] = useState(0);
+	const [is_proctoring, setIsProctoring] = useState(true);
+	console.log("Asdnkajndkjsnk")
 	const { id } = useParams();
 	// const [screeShare, setScreenShare] = useState(null);
 	// const [cameraShare, setCameraShare] = useState(null);
@@ -46,6 +46,8 @@ export default function Index({
 				console.log(res);
 				if (res.status === 200) {
 					let data = res.data;
+					console.log(data.proctoring)
+					setIsProctoring(data.proctoring);
 					let question_groups = data.question_groups;
 					let questions = [];
 					for (let ques of question_groups) {
@@ -59,7 +61,8 @@ export default function Index({
 			})
 			.catch((err) => {
 				console.log(err);
-				setError("Error occurred! Please Try Again.....");
+				if (err.response.status !== 404)
+					setError("Error occurred! Please Try Again.....");
 				setTimeout(() => {
 					setError(null);
 				}, 1000);
@@ -81,7 +84,8 @@ export default function Index({
 			})
 			.catch((err) => {
 				console.log(err);
-				setError("Error occurred! Please Try Again.....");
+				if (err.response.status !== 404)
+					setError("Error occurred! Please Try Again.....");
 				setTimeout(() => {
 					setError(null);
 				}, 1000);
@@ -114,7 +118,8 @@ export default function Index({
 				})
 				.catch((err) => {
 					console.log(err);
-					setError("Error occurred! Please Try Again.....");
+					if (err.response.status !== 404)
+						setError("Error occurred! Please Try Again.....");
 					setTimeout(() => {
 						setError(null);
 					}, 1000);
@@ -129,12 +134,13 @@ export default function Index({
 							"attempted_group_id",
 							JSON.stringify(res.data._id),
 						);
-						// window.location = "/testStudent/1"
+						window.location = "/testStudent/1"
 					}
 				})
 				.catch((err) => {
 					console.log(err);
-					setError("Error occurred! Please Try Again.....");
+					if (err.response.status !== 404)
+						setError("Error occurred! Please Try Again.....");
 					setTimeout(() => {
 						setError(null);
 					}, 1000);
@@ -165,7 +171,8 @@ export default function Index({
 				})
 				.catch((err) => {
 					console.log(err);
-					setError("Error occurred! Please Try Again.....");
+					if (err.response.status !== 404)
+						setError("Error occurred! Please Try Again.....");
 					setTimeout(() => {
 						setError(null);
 					}, 1000);
@@ -175,6 +182,13 @@ export default function Index({
 			navigate("/testStudent/1");
 		}
 	};
+
+
+	useState(() => {
+		console.log(is_proctoring)
+	}, [is_proctoring]);
+
+
 	if (alloted_test === null) {
 		return <h1>Loading...</h1>;
 	}
@@ -231,23 +245,23 @@ export default function Index({
 								display: "flex",
 							}}
 						>
-							<Screen
+							{is_proctoring && <Screen
 								startRecording={startScreenRecording}
 								setMediaBlob={setScreenShare}
 								mediaBlobUrl={mediaScreenBlob}
 								stopRecording={stopScreenSharing}
 								isClicked={isClicked}
 								enable={screeStatus === "acquiring_media"}
-							/>
-							<Camera
+							/>}
+							{is_proctoring && <Camera
 								startRecording={startCameraRecording}
 								setCameraBlob={setCameraShare}
 								mediaBlobUrl={mediaCameraBlob}
 								stopRecording={stopCamera}
 								isClicked={isClicked}
 								enable={cameraStatus === "acquiring_media"}
-							/>
-							<Button
+							/>}
+							{is_proctoring && <Button
 								disabled={
 									!(screeStatus === "recording" && cameraStatus === "recording")
 								}
@@ -266,7 +280,18 @@ export default function Index({
 								// }
 							>
 								Continue Exam
-							</Button>
+							</Button>}
+							{!is_proctoring && <Button
+								variant="contained"
+								onClick={() => {
+									startExam()
+								}}
+								// enabled={
+								// 	screeStatus !== "recording" && cameraStatus !== "recording"
+								// }
+							>
+								Continue Exam
+							</Button>}
 						</div>
 					</CardContent>
 					{/* <CardActions>

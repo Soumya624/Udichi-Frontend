@@ -57,7 +57,6 @@ function App() {
 		if (isClicked) {
 			camera.stopRecording();
 			screen.stopRecording();
-			console.log(camera, screen);
 			if (
 				camera.mediaBlobUrl !== undefined &&
 				screen.mediaBlobUrl !== undefined
@@ -68,7 +67,6 @@ function App() {
 
 	async function zipfile(cameraShare, screeShare) {
 		console.log("Stopped....");
-		console.log(screeShare, cameraShare);
 		console.log("Stopped....");
 		const zip = new JSZip();
 		let video = zip.folder("Recording");
@@ -76,13 +74,10 @@ function App() {
 		let blob_camera = await fetch(cameraShare).then((r) => r.blob());
 		camera.clearBlobUrl();
 		screen.clearBlobUrl();
-		console.log(blob_camera, blob_screen);
 		video.file("screen.mp4", blob_screen);
 		video.file("camera.mp4", blob_camera);
 		await zip.generateAsync({ type: "blob" }).then(async function (content) {
-			console.log(content);
 			const file = new File([content], "upload_zip.zip");
-			console.log(file);
 			let form = new FormData();
 			form.append("zip_files", file);
 			// blob to file with extension zip
@@ -90,13 +85,11 @@ function App() {
 			await axiosInstance
 				.patch(`/attempts/${attempt_id}`, form, config)
 				.then((res) => {
-					console.log(res);
 					if (res.status === 200) {
 						localStorage.removeItem("attempt_id");
 					}
 				})
 				.catch((err) => {
-					console.log(err);
 				});
 
 			// FileSaver.saveAs(content, "download.zip");
@@ -104,7 +97,6 @@ function App() {
 			setScreenShare(null);
 		});
 	}
-	console.log(screeShare, cameraShare);
 	return (
 		<div>
 			<Container>
