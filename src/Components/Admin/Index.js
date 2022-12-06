@@ -49,7 +49,7 @@ export default function Index({ error, setError }) {
   const [testlist, setTestlist] = useState([]);
   const [candidategrouplist, setCandidateGrouplist] = useState([]);
   const [questiongrouplist, setQuestionGrouplist] = useState([]);
-  let [data, setData] = useState([]);
+  let [data, setData]=useState([]);
 
   let dateobj = {
     1: 0,
@@ -65,6 +65,22 @@ export default function Index({ error, setError }) {
     11: 0,
     12: 0,
   };
+
+  data = [
+    ["Month", "Exams"],
+    ["January", dateobj[1]],
+    ["February", dateobj[2]],
+    ["March", dateobj[3]],
+    ["April", dateobj[4]],
+    ["May", dateobj[5]],
+    ["June", dateobj[6]],
+    ["July", dateobj[7]],
+    ["August", dateobj[8]],
+    ["September", dateobj[9]],
+    ["October", dateobj[10]],
+    ["November", dateobj[11]],
+    ["December", dateobj[12]],
+  ];
   let token = getCookie("access_token");
   let user = JSON.parse(localStorage.getItem("user"));
 
@@ -182,29 +198,27 @@ export default function Index({ error, setError }) {
       11: 0,
       12: 0,
     };
-    // console.log(testlist.length);
     for (var i = 0; i < testlist.length; i++) {
       let momentDate = moment.utc(testlist[i].starting_date).format("M");
       dateobj[momentDate]++;
     }
     console.log(dateobj);
+    data[1][1] = dateobj[1];
+    data[2][1] = dateobj[2];
+    data[3][1] = dateobj[3];
+    data[4][1] = dateobj[4];
+    data[5][1] = dateobj[5];
+    data[6][1] = dateobj[6];
+    data[7][1] = dateobj[7];
+    data[8][1] = dateobj[8];
+    data[9][1] = dateobj[9];
+    data[10][1] = dateobj[10];
+    data[11][1] = dateobj[11];
+    data[12][1] = dateobj[12];
+    console.log(data);
   }
 
-  data = [
-    ["Month", "Exams"],
-    ["January", dateobj[1]],
-    ["February", dateobj[2]],
-    ["March", dateobj[3]],
-    ["April", dateobj[4]],
-    ["May", dateobj[5]],
-    ["June", dateobj[6]],
-    ["July", dateobj[7]],
-    ["August", dateobj[8]],
-    ["September", dateobj[9]],
-    ["October", dateobj[10]],
-    ["November", dateobj[11]],
-    ["December", dateobj[12]],
-  ];
+  // console.log(data[1][1]);
 
   return (
     <div>
