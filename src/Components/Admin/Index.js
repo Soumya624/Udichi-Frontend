@@ -21,6 +21,7 @@ import { useEffect } from "react";
 import axiosInstance from "../../axiosInstance";
 import getCookie from "../../getCookie";
 import { useState } from "react";
+import moment from "moment";
 
 const Item = styled(Paper)(({ theme }) => ({
   backgroundColor: theme.palette.mode === "dark" ? "#1A2027" : "#fff",
@@ -30,12 +31,12 @@ const Item = styled(Paper)(({ theme }) => ({
   color: theme.palette.text.secondary,
 }));
 
-export const data = [
-  ["Month", "Exams"],
-  ["January", 3000],
-  ["May", 1370],
-  ["September", 570],
-];
+// export const data = [
+//   ["Month", "Exams"],
+//   ["January", 3000],
+//   ["May", 1370],
+//   ["September", 570],
+// ];
 
 export const options = {
   curveType: "function",
@@ -48,7 +49,22 @@ export default function Index({ error, setError }) {
   const [testlist, setTestlist] = useState([]);
   const [candidategrouplist, setCandidateGrouplist] = useState([]);
   const [questiongrouplist, setQuestionGrouplist] = useState([]);
+  let [data, setData] = useState([]);
 
+  let dateobj = {
+    1: 0,
+    2: 0,
+    3: 0,
+    4: 0,
+    5: 0,
+    6: 0,
+    7: 0,
+    8: 0,
+    9: 0,
+    10: 0,
+    11: 0,
+    12: 0,
+  };
   let token = getCookie("access_token");
   let user = JSON.parse(localStorage.getItem("user"));
 
@@ -150,6 +166,45 @@ export default function Index({ error, setError }) {
         }, 1000);
       });
   }
+
+  function chart_preparation() {
+    dateobj = {
+      1: 0,
+      2: 0,
+      3: 0,
+      4: 0,
+      5: 0,
+      6: 0,
+      7: 0,
+      8: 0,
+      9: 0,
+      10: 0,
+      11: 0,
+      12: 0,
+    };
+    // console.log(testlist.length);
+    for (var i = 0; i < testlist.length; i++) {
+      let momentDate = moment.utc(testlist[i].starting_date).format("M");
+      dateobj[momentDate]++;
+    }
+    console.log(dateobj);
+  }
+
+  data = [
+    ["Month", "Exams"],
+    ["January", dateobj[1]],
+    ["February", dateobj[2]],
+    ["March", dateobj[3]],
+    ["April", dateobj[4]],
+    ["May", dateobj[5]],
+    ["June", dateobj[6]],
+    ["July", dateobj[7]],
+    ["August", dateobj[8]],
+    ["September", dateobj[9]],
+    ["October", dateobj[10]],
+    ["November", dateobj[11]],
+    ["December", dateobj[12]],
+  ];
 
   return (
     <div>
@@ -318,10 +373,13 @@ export default function Index({ error, setError }) {
             <Chart
               chartType="LineChart"
               width="100%"
-              height="100%"
+              height="80%"
               data={data}
               options={options}
             />
+            <center>
+              <Button onClick={chart_preparation}>Update Chart</Button>
+            </center>
           </Grid>
           <Grid item sm={6}>
             <Grid
