@@ -51,10 +51,10 @@ export default function Signup() {
 		};
 		console.log(data);
 		axiosInstance
-			.post("/signup/", data)
+			.post("/proctorer/", data)
 			.then((res) => {
 				console.log(res.data);
-				alert("Assessor Added!");
+				alert("Proctorer Added!");
 			})
 			.catch((err) => {
 				console.log(err);

@@ -51,7 +51,7 @@ export default function Signup() {
 		};
 		console.log(data);
 		axiosInstance
-			.post("/signup/", data)
+			.post("/assessor/", data)
 			.then((res) => {
 				console.log(res.data);
 				alert("Assessor Added!");

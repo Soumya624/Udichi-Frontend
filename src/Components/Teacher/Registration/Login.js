@@ -30,7 +30,7 @@ export default function LoginAssessor({error,setError}) {
       password: password,
     };
     axiosInstance
-      .post("/login/", data)
+      .post("/assessor/login", data)
       .then((res) => {
         console.log(res.data);
         

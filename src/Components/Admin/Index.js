@@ -17,6 +17,10 @@ import { styled } from "@mui/material/styles";
 import Paper from "@mui/material/Paper";
 import Footer from "../../Common/Footer";
 import Circle from "react-circle";
+import { useEffect } from "react";
+import axiosInstance from "../../axiosInstance";
+import getCookie from "../../getCookie";
+import { useState } from "react";
 
 const Item = styled(Paper)(({ theme }) => ({
   backgroundColor: theme.palette.mode === "dark" ? "#1A2027" : "#fff",
@@ -26,7 +30,116 @@ const Item = styled(Paper)(({ theme }) => ({
   color: theme.palette.text.secondary,
 }));
 
-export default function Index() {
+export default function Index({ error, setError }) {
+  const [assessorlist, setAssessorlist] = useState([]);
+  const [proctorerlist, setProctorerlist] = useState([]);
+  const [testlist, setTestlist] = useState([]);
+  const [candidategrouplist, setCandidateGrouplist] = useState([]);
+  const [questiongrouplist, setQuestionGrouplist] = useState([]);
+
+  let token = getCookie("access_token");
+  let user = JSON.parse(localStorage.getItem("user"));
+
+  const config = {
+    headers: { Authorization: `Bearer ${token}`, "user-type": user.usertype },
+  };
+
+
+  useEffect(() => {
+    getAssessors();
+    getProctorers();
+    getTests();
+    getCandidategroup();
+    getQuestiongroup();
+  }, []);
+
+  function getAssessors() {
+    axiosInstance
+      .get("/assessor/all", config)
+      .then((res) => {
+        console.log(res);
+        if (res.status === 200) {
+          setAssessorlist(res.data);
+          console.log(assessorlist);
+        }
+      })
+      .catch((err) => {
+        console.log(err);
+        setError("Error occurred! Please Try Again.....");
+        setTimeout(() => {
+          setError(null);
+        }, 1000);
+      });
+  }
+  function getProctorers() {
+    axiosInstance
+      .get("/proctorer/all", config)
+      .then((res) => {
+        console.log(res);
+        if (res.status === 200) {
+          setProctorerlist(res.data);
+        }
+      })
+      .catch((err) => {
+        console.log(err);
+        setError("Error occurred! Please Try Again.....");
+        setTimeout(() => {
+          setError(null);
+        }, 1000);
+      });
+  }
+  function getTests() {
+    axiosInstance
+      .get("/test/all", config)
+      .then((res) => {
+        console.log(res);
+        if (res.status === 200) {
+          setTestlist(res.data);
+        }
+      })
+      .catch((err) => {
+        console.log(err);
+        setError("Error occurred! Please Try Again.....");
+        setTimeout(() => {
+          setError(null);
+        }, 1000);
+      });
+  }
+  function getCandidategroup() {
+    axiosInstance
+      .get("/candidate_group/all", config)
+      .then((res) => {
+        console.log(res);
+        if (res.status === 200) {
+          setCandidateGrouplist(res.data);
+        }
+      })
+      .catch((err) => {
+        console.log(err);
+        setError("Error occurred! Please Try Again.....");
+        setTimeout(() => {
+          setError(null);
+        }, 1000);
+      });
+  }
+  function getQuestiongroup() {
+    axiosInstance
+      .get("/question-group/", config)
+      .then((res) => {
+        console.log(res);
+        if (res.status === 200) {
+          setQuestionGrouplist(res.data);
+        }
+      })
+      .catch((err) => {
+        console.log(err);
+        setError("Error occurred! Please Try Again.....");
+        setTimeout(() => {
+          setError(null);
+        }, 1000);
+      });
+  }
+
   return (
     <div>
       <Navbar />
@@ -35,7 +148,7 @@ export default function Index() {
         <br />
         <br />
         <h4 style={{ textAlign: "left", fontSize: "28px", lineHeight: "1px" }}>
-          Welcome!
+          Welcome User!
         </h4>
         <p style={{ lineHeight: "1px" }}>
           Want to View{" "}
@@ -197,7 +310,7 @@ export default function Index() {
               responsive={true}
               size={50}
               lineWidth={14}
-              progress={"0 Exams"}
+              progress={`${testlist.length}`+' '+'Exam'}
               progressColor="#7882bd"
               bgColor="whitesmoke"
               textColor="#7882bd"
@@ -217,7 +330,7 @@ export default function Index() {
               responsive={true}
               size={50}
               lineWidth={14}
-              progress={"0 Questions"}
+              progress={`${questiongrouplist.length}`+' '+'Question Group'}
               progressColor="#7882bd"
               bgColor="whitesmoke"
               textColor="#7882bd"
@@ -237,7 +350,7 @@ export default function Index() {
               responsive={true}
               size={50}
               lineWidth={14}
-              progress={"0 Candidates"}
+              progress={`${candidategrouplist.length}`+' '+'Candidate Group'}
               progressColor="#7882bd"
               bgColor="whitesmoke"
               textColor="#7882bd"
@@ -257,7 +370,7 @@ export default function Index() {
               responsive={true}
               size={50}
               lineWidth={14}
-              progress={"0 Assessors"}
+              progress={`${assessorlist.length}`+' '+'Assessor'}
               progressColor="#7882bd"
               bgColor="whitesmoke"
               textColor="#7882bd"
@@ -277,7 +390,7 @@ export default function Index() {
               responsive={true}
               size={50}
               lineWidth={14}
-              progress={"0 Proctorers"}
+              progress={`${proctorerlist.length}`+' '+'Proctorer'}
               progressColor="#7882bd"
               bgColor="whitesmoke"
               textColor="#7882bd"
@@ -297,7 +410,7 @@ export default function Index() {
               responsive={true}
               size={50}
               lineWidth={14}
-              progress={"0 Notifications"}
+              progress={"0 Candidates Taking Exam Right Now"}
               progressColor="#7882bd"
               bgColor="whitesmoke"
               textColor="#7882bd"
@@ -313,9 +426,9 @@ export default function Index() {
         </Grid>
         <br />
         <br />
-        <h4 style={{ textAlign: "left", fontSize: "28px", lineHeight: "1px" }}>
+        {/* <h4 style={{ textAlign: "left", fontSize: "28px", lineHeight: "1px" }}>
           Important Tasks
-        </h4>
+        </h4> */}
       </div>
       <br />
       <br />
