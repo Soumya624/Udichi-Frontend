@@ -49,8 +49,6 @@ export default function Index({ error, setError }) {
   const [testlist, setTestlist] = useState([]);
   const [candidategrouplist, setCandidateGrouplist] = useState([]);
   const [questiongrouplist, setQuestionGrouplist] = useState([]);
-  let [data, setData]=useState([]);
-
   let dateobj = {
     1: 0,
     2: 0,
@@ -65,8 +63,23 @@ export default function Index({ error, setError }) {
     11: 0,
     12: 0,
   };
+  const [data, setData] = useState([
+    ["Month", "Exams"],
+    ["January", dateobj[1]],
+    ["February", dateobj[2]],
+    ["March", dateobj[3]],
+    ["April", dateobj[4]],
+    ["May", dateobj[5]],
+    ["June", dateobj[6]],
+    ["July", dateobj[7]],
+    ["August", dateobj[8]],
+    ["September", dateobj[9]],
+    ["October", dateobj[10]],
+    ["November", dateobj[11]],
+    ["December", dateobj[12]],
+  ]);
 
-  data = [
+  let data1 = [
     ["Month", "Exams"],
     ["January", dateobj[1]],
     ["February", dateobj[2]],
@@ -184,7 +197,7 @@ export default function Index({ error, setError }) {
   }
 
   function chart_preparation() {
-    dateobj = {
+    let dateobj = {
       1: 0,
       2: 0,
       3: 0,
@@ -216,6 +229,7 @@ export default function Index({ error, setError }) {
     data[11][1] = dateobj[11];
     data[12][1] = dateobj[12];
     console.log(data);
+    setData(data);
   }
 
   // console.log(data[1][1]);
