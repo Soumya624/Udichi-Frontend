@@ -163,7 +163,7 @@ export default function AddCandidate({ error, setError }) {
                 <Grid container spacing={1} style={{ marginTop: "0.5%" }}>
                   <Grid item xs={6}>
                     <TextField
-                    fullWidth
+                      fullWidth
                       id="outlined-basic"
                       label="First Name"
                       variant="outlined"
@@ -176,7 +176,7 @@ export default function AddCandidate({ error, setError }) {
                   </Grid>
                   <Grid item xs={6}>
                     <TextField
-                    fullWidth
+                      fullWidth
                       id="outlined-basic"
                       label="Last Name"
                       variant="outlined"
@@ -192,7 +192,7 @@ export default function AddCandidate({ error, setError }) {
                 <Grid container spacing={1} style={{ marginTop: "0.5%" }}>
                   <Grid item xs={6}>
                     <TextField
-                    fullWidth
+                      fullWidth
                       id="outlined-basic"
                       label="Email"
                       variant="outlined"
@@ -205,7 +205,7 @@ export default function AddCandidate({ error, setError }) {
                   </Grid>
                   <Grid item xs={6}>
                     <TextField
-                    fullWidth
+                      fullWidth
                       id="outlined-basic"
                       label="Username"
                       variant="outlined"
@@ -221,7 +221,7 @@ export default function AddCandidate({ error, setError }) {
                   <Grid item xs={12}>
                     <center>
                       <TextField
-                      fullWidth
+                        fullWidth
                         id="outlined-basic"
                         label="Password"
                         variant="outlined"
@@ -237,7 +237,7 @@ export default function AddCandidate({ error, setError }) {
                 <Grid container spacing={1} style={{ marginTop: "0.5%" }}>
                   <Grid item xs={12}>
                     <TextField
-                    fullWidth
+                      fullWidth
                       id="outlined-basic"
                       label="Mobile Number"
                       variant="outlined"
@@ -252,7 +252,7 @@ export default function AddCandidate({ error, setError }) {
                 <Grid container spacing={1} style={{ marginTop: "0.5%" }}>
                   <Grid item xs={6}>
                     <TextField
-                    fullWidth
+                      fullWidth
                       id="outlined-basic"
                       label="Aadhar Number"
                       variant="outlined"
@@ -265,7 +265,7 @@ export default function AddCandidate({ error, setError }) {
                   </Grid>
                   <Grid item xs={6}>
                     <TextField
-                    fullWidth
+                      fullWidth
                       id="outlined-basic"
                       label="Telephone Number"
                       variant="outlined"

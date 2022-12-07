@@ -95,7 +95,7 @@ export default function AddCandidate({ error, setError }) {
       available_window: duration,
       candidates_groups: candigrp,
       question_groups: quesgrp,
-      proctoring: enableproctoring
+      proctoring: enableproctoring,
     };
     console.log(data);
     axiosInstance
@@ -198,12 +198,12 @@ export default function AddCandidate({ error, setError }) {
                 <Grid container spacing={1} style={{ marginTop: "0.5%" }}>
                   <Grid item xs={12}>
                     <TextField
+                      fullWidth
                       value={title}
                       id="outlined-basic"
                       label="Exam Name"
                       variant="outlined"
                       size="small"
-                      style={{ width: "98.5%" }}
                       onChange={(e) => {
                         e.preventDefault();
                         setTitle(e.target.value);
@@ -218,13 +218,13 @@ export default function AddCandidate({ error, setError }) {
                 >
                   <Grid item xs={12}>
                     <TextField
+                      fullWidth
                       value={startdate}
                       id="outlined-basic"
                       // label="Start Date & Time"
                       variant="outlined"
                       size="small"
                       type="datetime-local"
-                      style={{ width: "98.5%" }}
                       onChange={(e) => {
                         e.preventDefault();
                         setStartdate(e.target.value);
@@ -235,6 +235,7 @@ export default function AddCandidate({ error, setError }) {
                 <Grid container spacing={1} style={{ marginTop: "0.5%" }}>
                   <Grid item xs={6}>
                     <TextField
+                      fullWidth
                       value={duration}
                       id="outlined-basic"
                       label="Duration"
@@ -248,6 +249,7 @@ export default function AddCandidate({ error, setError }) {
                   </Grid>
                   <Grid item xs={6}>
                     <TextField
+                      fullWidth
                       value={fullmarks}
                       id="outlined-basic"
                       label="Full Marks"
@@ -272,13 +274,14 @@ export default function AddCandidate({ error, setError }) {
                         </InputLabel>
                         <center>
                           <Select
+                            fullWidth
                             labelId="demo-simple-select-label"
                             id="demo-simple-select"
                             value={type}
                             label="Exam Type"
                             onChange={handleChange}
                             size="small"
-                            style={{ width: "98.5%", paddingBottom: "2%" }}
+                            style={{ paddingBottom: "2%" }}
                           >
                             <MenuItem value={"written"}>Written</MenuItem>
                             <MenuItem value={"viva"}>Viva</MenuItem>

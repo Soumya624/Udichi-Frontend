@@ -342,13 +342,13 @@ export default function AddCandidate({ error, setError }) {
                   <Grid container spacing={1} style={{ marginTop: "0.5%" }}>
                     <Grid item xs={12}>
                       <TextField
+                        fullWidth
                         required
                         value={title}
                         id="outlined-basic"
                         label="Type Your Question"
                         variant="outlined"
                         size="small"
-                        style={{ width: "98.5%" }}
                         onChange={(e) => {
                           e.preventDefault();
                           setTitle(e.target.value);
@@ -359,13 +359,13 @@ export default function AddCandidate({ error, setError }) {
                   <Grid container spacing={1} style={{ marginTop: "0.5%" }}>
                     <Grid item xs={6}>
                       <TextField
+                        fullWidth
                         required
                         value={positive}
                         id="outlined-basic"
                         label="Positive Marks"
                         variant="outlined"
                         size="small"
-                        style={{ width: "98.5%" }}
                         onChange={(e) => {
                           e.preventDefault();
                           setPositive(e.target.value);
@@ -374,13 +374,13 @@ export default function AddCandidate({ error, setError }) {
                     </Grid>
                     <Grid item xs={6}>
                       <TextField
+                        fullWidth
                         required
                         value={negetive}
                         id="outlined-basic"
                         label="Negetive Marks"
                         variant="outlined"
                         size="small"
-                        style={{ width: "98.5%" }}
                         onChange={(e) => {
                           e.preventDefault();
                           setNegetive(e.target.value);
@@ -400,13 +400,14 @@ export default function AddCandidate({ error, setError }) {
                           </InputLabel>
                           <center>
                             <Select
+                              fullWidth
                               labelId="demo-simple-select-label"
                               id="demo-simple-select"
                               value={type}
                               label="Question Type"
                               onChange={handleChange}
                               size="small"
-                              style={{ width: "100%", paddingBottom: "2%" }}
+                              style={{ paddingBottom: "2%" }}
                             >
                               <MenuItem value={"Obj"}>
                                 Single/Miltiple Correct
@@ -429,13 +430,14 @@ export default function AddCandidate({ error, setError }) {
                           </InputLabel>
                           <center>
                             <Select
+                              fullWidth
                               labelId="demo-simple-select-label"
                               id="demo-simple-select"
                               value={group}
                               label="Question Group"
                               onChange={handleChange2}
                               size="small"
-                              style={{ width: "100%", paddingBottom: "2%" }}
+                              style={{ paddingBottom: "2%" }}
                             >
                               {quesgroup.map((key) => {
                                 return (

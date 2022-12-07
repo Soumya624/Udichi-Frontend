@@ -65,18 +65,18 @@ export default function Index({ error, setError }) {
   };
   const [data, setData] = useState([
     ["Month", "Exams"],
-    ["January", dateobj[1]],
-    ["February", dateobj[2]],
-    ["March", dateobj[3]],
-    ["April", dateobj[4]],
+    ["Jan", dateobj[1]],
+    ["Feb", dateobj[2]],
+    ["Mar", dateobj[3]],
+    ["Apri", dateobj[4]],
     ["May", dateobj[5]],
-    ["June", dateobj[6]],
-    ["July", dateobj[7]],
-    ["August", dateobj[8]],
-    ["September", dateobj[9]],
-    ["October", dateobj[10]],
-    ["November", dateobj[11]],
-    ["December", dateobj[12]],
+    ["Jun", dateobj[6]],
+    ["Jul", dateobj[7]],
+    ["Aug", dateobj[8]],
+    ["Sep", dateobj[9]],
+    ["Oct", dateobj[10]],
+    ["Nov", dateobj[11]],
+    ["Dec", dateobj[12]],
   ]);
   let token = getCookie("access_token");
   let user = JSON.parse(localStorage.getItem("user"));
@@ -218,18 +218,18 @@ export default function Index({ error, setError }) {
     // data[12][1] = dateobj[12];
     let data1=[
       ["Month", "Exams"],
-      ["January", dateobj[1]],
-      ["February", dateobj[2]],
-      ["March", dateobj[3]],
-      ["April", dateobj[4]],
+      ["Jan", dateobj[1]],
+      ["Feb", dateobj[2]],
+      ["Mar", dateobj[3]],
+      ["Apr", dateobj[4]],
       ["May", dateobj[5]],
-      ["June", dateobj[6]],
-      ["July", dateobj[7]],
-      ["August", dateobj[8]],
-      ["September", dateobj[9]],
-      ["October", dateobj[10]],
-      ["November", dateobj[11]],
-      ["December", dateobj[12]],
+      ["Jun", dateobj[6]],
+      ["Jul", dateobj[7]],
+      ["Aug", dateobj[8]],
+      ["Sep", dateobj[9]],
+      ["Oct", dateobj[10]],
+      ["Nov", dateobj[11]],
+      ["Dec", dateobj[12]],
     ]
     console.log(data1);
     setData(data1);
