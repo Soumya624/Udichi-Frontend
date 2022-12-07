@@ -13,6 +13,7 @@ import MenuIcon from "@mui/icons-material/Menu";
 import Toolbar from "@mui/material/Toolbar";
 import Typography from "@mui/material/Typography";
 import Button from "@mui/material/Button";
+import deleteAllCookies from "../deleteAllCookies";
 
 const drawerWidth = 240;
 const navItems = [
@@ -86,11 +87,17 @@ function DrawerAppBar(props) {
             <Button sx={{ color: "#fff" }} href="/examAdmin">
               Exams
             </Button>
+            <Button sx={{ color: "#fff" }} href="/questionAdmin">
+              Questions
+            </Button>
             <Button sx={{ color: "#fff" }} href="/candidateAdmin">
               Candidates
             </Button>
-            <Button sx={{ color: "#fff" }} href="/questionAdmin">
-              Questions
+            <Button sx={{ color: "#fff" }} href="/assessorAdmin">
+              Assessors
+            </Button>
+            <Button sx={{ color: "#fff" }} href="/proctorerAdmin">
+              Proctorers
             </Button>
             {/* <Button sx={{ color: "#fff" }} href="/statisticsAdmin">
               Statistics
@@ -98,7 +105,9 @@ function DrawerAppBar(props) {
             <Button sx={{ color: "#fff" }} href="/dashboardAdmin">
               Notifications
             </Button> */}
-            <Button sx={{ color: "#fff" }} href="/loginAdmin">
+            <Button sx={{ color: "#fff" }} onClick={()=>{
+              deleteAllCookies();
+            }}>
               Logout
             </Button>
           </Box>

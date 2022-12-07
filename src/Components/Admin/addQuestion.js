@@ -19,6 +19,19 @@ import Select from "@mui/material/Select";
 import axios from "axios";
 import Box from "@mui/material/Box";
 import Modal from "@mui/material/Modal";
+import axiosInstance from "../../axiosInstance";
+import getCookie from "../../getCookie";
+
+// let token = getCookie("access_token")
+// // let user = JSON.parse(localStorage.getItem("user"))
+
+// let user = {
+//   usertype : "teacher"
+// }
+
+// const config = {
+// 	headers: { Authorization: `Bearer ${token}`, "user-type" : user.usertype },
+// };
 
 const style = {
   position: "absolute",
@@ -88,7 +101,14 @@ const Input = ({
   );
 };
 
-export default function AddCandidate() {
+export default function AddCandidate({ error, setError }) {
+  let token = getCookie("access_token");
+  let user = JSON.parse(localStorage.getItem("user"));
+
+  const config = {
+    headers: { Authorization: `Bearer ${token}`, "user-type": user.usertype },
+  };
+
   const [group, setGroup] = useState("");
   const [type, setType] = useState("");
   const [section, setSection] = useState("");
@@ -162,8 +182,8 @@ export default function AddCandidate() {
   // 			positive_marks: positive,
   // 			negative_marks: negetive,
   // 		};
-  // 		axios
-  // 			.post("http://localhost:5000/questions/", data)
+  // 		axiosInstance
+  // 			.post("/questions/", data)
   // 			.then((res) => {
   // 				console.log(res);
   // 				if (res.status === 200) {
@@ -182,8 +202,8 @@ export default function AddCandidate() {
   // 			negative_marks: negetive,
   // 			options: arrayOption,
   // 		};
-  // 		axios
-  // 			.post("http://localhost:5000/questions/", data)
+  // 		axiosInstance
+  // 			.post("/questions/", data)
   // 			.then((res) => {
   // 				console.log(res);
   // 				if (res.status === 200) {
@@ -203,8 +223,8 @@ export default function AddCandidate() {
       title: grptitle,
       questions: [],
     };
-    axios
-      .post("http://localhost:5000/question-group/", data)
+    axiosInstance
+      .post("/question-group/", data, config)
       .then((res) => {
         console.log(res);
         let ques = quesgroup;
@@ -215,6 +235,10 @@ export default function AddCandidate() {
       })
       .catch((err) => {
         console.log(err);
+        setError("Error occurred! Please Try Again.....");
+        setTimeout(() => {
+          setError(null);
+        }, 1000);
       });
   }
 
@@ -234,8 +258,8 @@ export default function AddCandidate() {
   }
 
   function getQuestionsGroup() {
-    axios
-      .get("http://localhost:5000/question-group/")
+    axiosInstance
+      .get("/question-group/", config)
       .then((res) => {
         console.log(res);
         if (res.status === 200) {
@@ -244,6 +268,10 @@ export default function AddCandidate() {
       })
       .catch((err) => {
         console.log(err);
+        setError("Error occurred! Please Try Again.....");
+        setTimeout(() => {
+          setError(null);
+        }, 1000);
       });
   }
 
@@ -261,8 +289,8 @@ export default function AddCandidate() {
     };
 
     console.log(data);
-    axios
-      .post(`http://localhost:5000/question-group/create/${group}`, data)
+    axiosInstance
+      .post(`/question-group/create/${group}`, data, config)
       .then((res) => {
         console.log(res);
         if (res.status === 201) {
@@ -278,6 +306,10 @@ export default function AddCandidate() {
       })
       .catch((err) => {
         console.log(err);
+        setError("Error occurred! Please Try Again.....");
+        setTimeout(() => {
+          setError(null);
+        }, 1000);
       });
   }
 
@@ -374,7 +406,7 @@ export default function AddCandidate() {
                               label="Question Type"
                               onChange={handleChange}
                               size="small"
-                              style={{ width: "98.5%", paddingBottom: "2%" }}
+                              style={{ width: "100%", paddingBottom: "2%" }}
                             >
                               <MenuItem value={"Obj"}>
                                 Single/Miltiple Correct
@@ -387,37 +419,38 @@ export default function AddCandidate() {
                         </FormControl>
                       </center>
                     </Grid>
-                    <Grid container spacing={1} style={{ marginTop: "0.5%" }}>
-                      <Grid item xs={12}>
-                        <center>
-                          <FormControl required fullWidth>
-                            <InputLabel id="demo-simple-select-label">
-                              Question Group
-                            </InputLabel>
-                            <center>
-                              <Select
-                                labelId="demo-simple-select-label"
-                                id="demo-simple-select"
-                                value={group}
-                                label="Question Group"
-                                onChange={handleChange2}
-                                size="small"
-                                style={{ width: "98.5%", paddingBottom: "2%" }}
-                              >
-                                {quesgroup.map((key) => {
-                                  return (
-                                    <MenuItem value={key._id}>
-                                      {key.title}
-                                    </MenuItem>
-                                  );
-                                })}
-                              </Select>
-                            </center>
-                          </FormControl>
-                        </center>
-                      </Grid>
+                  </Grid>
+                  <Grid container spacing={1} style={{ marginTop: "0.5%" }}>
+                    <Grid item xs={12}>
+                      <center>
+                        <FormControl required fullWidth>
+                          <InputLabel id="demo-simple-select-label">
+                            Question Group
+                          </InputLabel>
+                          <center>
+                            <Select
+                              labelId="demo-simple-select-label"
+                              id="demo-simple-select"
+                              value={group}
+                              label="Question Group"
+                              onChange={handleChange2}
+                              size="small"
+                              style={{ width: "100%", paddingBottom: "2%" }}
+                            >
+                              {quesgroup.map((key) => {
+                                return (
+                                  <MenuItem value={key._id}>
+                                    {key.title}
+                                  </MenuItem>
+                                );
+                              })}
+                            </Select>
+                          </center>
+                        </FormControl>
+                      </center>
                     </Grid>
-                    {/* <Grid item xs={6}>
+                  </Grid>
+                  {/* <Grid item xs={6}>
                     <center>
                       <FormControl fullWidth>
                         <InputLabel
@@ -440,7 +473,7 @@ export default function AddCandidate() {
                       </FormControl>
                     </center>
                   </Grid> */}
-                  </Grid>
+
                   {/* <Grid container spacing={1} style={{ marginTop: "0.5%" }}>
                   <Grid item xs={12}>
                     <TextField
@@ -469,7 +502,6 @@ export default function AddCandidate() {
                   <br />
                   <div>{inputList}</div>
                   <br />
-                  <br />
                   <Button
                     variant="contained"
                     style={{ backgroundColor: "#7882BD", width: "50%" }}
@@ -477,8 +509,18 @@ export default function AddCandidate() {
                   >
                     Continues
                   </Button>
-                  <p>
+                  {/* <p>
                     <Button onClick={create_group}>Create Group</Button>
+                  </p> */}
+                  <br />
+                  <p>
+                    Create a{" "}
+                    <a
+                      onClick={create_group}
+                      style={{ textDecoration: "none", cursor: "pointer" }}
+                    >
+                      Question Group
+                    </a>
                   </p>
                 </form>
               </Typography>

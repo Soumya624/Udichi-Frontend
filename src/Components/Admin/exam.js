@@ -25,6 +25,10 @@ import { useEffect } from "react";
 import { useState } from "react";
 import Collapsible from "react-collapsible";
 import "./style.css";
+import axiosInstance from "../../axiosInstance";
+import getCookie from "../../getCookie";
+import { CircularProgress } from "@mui/material";
+import moment from "moment";
 
 function createData(name, candidates, duration, questions, action) {
   return { name, candidates, duration, questions, action };
@@ -38,24 +42,37 @@ const rows = [
   createData("Algorithms III", 356, 16.0, 49, "View Details"),
 ];
 
-export default function BasicTable() {
-  const [examgroup, setExamgroup] = useState([]);
+let token = getCookie("access_token");
+
+const config = {
+  headers: { Authorization: `Bearer ${token}` },
+};
+
+export default function BasicTable({ error, setError }) {
+  const [examgroup, setExamgroup] = useState(null);
+  const [loading, setLoading] = useState(false);
 
   useEffect(() => {
     getExams();
   }, []);
 
   function getExams() {
-    axios
-      .get("http://localhost:5000/test/all")
+    setLoading(true);
+    axiosInstance
+      .get("/test/all", config)
       .then((res) => {
-        console.log(res);
+        setLoading(false);
         if (res.status === 200) {
           setExamgroup(res.data);
         }
       })
       .catch((err) => {
+        setLoading(false);
         console.log(err);
+        setError("Error occurred! Please Try Again.....");
+        setTimeout(() => {
+          setError(null);
+        }, 1000);
       });
   }
   return (
@@ -71,36 +88,47 @@ export default function BasicTable() {
         <p style={{ lineHeight: "1px" }}>
           Want to Create{" "}
           <a href="/addexamAdmin" style={{ textDecoration: "none" }}>
-            New Exams?
+            Exams?
           </a>
-          &nbsp;Or <input type="file" />
+          {/* &nbsp;Or <input type="file" /> */}
         </p>
         <br />
         <br />
-
-        <TableContainer component={Paper}>
-          <Table sx={{ minWidth: 650 }} aria-label="simple table">
-            <TableHead>
-              <TableRow>
-                <TableCell>
-                  <b>Exam Name</b>
-                </TableCell>
-                <TableCell align="right">
-                  <b>Start Date/Time</b>
-                </TableCell>
-                <TableCell align="right">
-                  <b>Full Marks</b>
-                </TableCell>
-                <TableCell align="right">
-                  <b>Question Groups</b>
-                </TableCell>
-                <TableCell align="right">
-                  <b>Action</b>
-                </TableCell>
-              </TableRow>
-            </TableHead>
-            <TableBody>
-              {/* {rows.map((row) => (
+        {!examgroup && (
+          <div
+            style={{
+              display: "flex",
+              alignItems: "center",
+              justifyContent: "center",
+            }}
+          >
+            <CircularProgress />
+          </div>
+        )}
+        {examgroup && (
+          <TableContainer component={Paper}>
+            <Table sx={{ minWidth: 650 }} aria-label="simple table">
+              <TableHead>
+                <TableRow>
+                  <TableCell>
+                    <b>Exam Name</b>
+                  </TableCell>
+                  <TableCell align="right">
+                    <b>Start Date/Time</b>
+                  </TableCell>
+                  <TableCell align="right">
+                    <b>Full Marks</b>
+                  </TableCell>
+                  <TableCell align="right">
+                    <b>Question Groups</b>
+                  </TableCell>
+                  <TableCell align="right">
+                    <b>Action</b>
+                  </TableCell>
+                </TableRow>
+              </TableHead>
+              <TableBody>
+                {/* {rows.map((row) => (
                     <TableRow
                       key={row.name}
                       sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
@@ -116,34 +144,38 @@ export default function BasicTable() {
                       </TableCell>
                     </TableRow>
                   ))} */}
-              {examgroup.map((key) => {
-                return (
-                  <TableRow
-                    key={key._id}
-                    sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
-                  >
-                    <TableCell component="th" scope="row">
-                      {key.title}
-                    </TableCell>
-                    <TableCell align="right">{key.starting_date}</TableCell>
-                    <TableCell align="right">{key.total_number}</TableCell>
-                    <TableCell align="right">
-                      {key.question_groups.map((x) => {
-                        return x.title + " ";
-                      })}
-                    </TableCell>
-                    <TableCell
-                      align="right"
-                      style={{ cursor: "pointer", color: "red" }}
+                {examgroup.map((key) => {
+                  let momentDate = moment
+                    .utc(key.starting_date)
+                    .format("MM/DD/YY, h:mm:ss a");
+                  return (
+                    <TableRow
+                      key={key._id}
+                      sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
                     >
-                      Delete
-                    </TableCell>
-                  </TableRow>
-                );
-              })}
-            </TableBody>
-          </Table>
-        </TableContainer>
+                      <TableCell component="th" scope="row">
+                        {key.title}
+                      </TableCell>
+                      <TableCell align="right">{momentDate}</TableCell>
+                      <TableCell align="right">{key.total_number}</TableCell>
+                      <TableCell align="right">
+                        {key.question_groups.map((x) => {
+                          return x.title + " ";
+                        })}
+                      </TableCell>
+                      <TableCell
+                        align="right"
+                        style={{ cursor: "pointer", color: "red" }}
+                      >
+                        Delete
+                      </TableCell>
+                    </TableRow>
+                  );
+                })}
+              </TableBody>
+            </Table>
+          </TableContainer>
+        )}
 
         <br />
         <br />

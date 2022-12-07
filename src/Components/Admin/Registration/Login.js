@@ -11,39 +11,51 @@ import Checkbox from "@mui/material/Checkbox";
 import Footer from "./../../../Common/Footer";
 import { useState } from "react";
 import axios from "axios";
+import axiosInstance from "../../../axiosInstance";
+import setCookie from "../../../setCookie";
+import { CircularProgress } from "@mui/material";
 
-export default function LoginAdmin() {
+export default function LoginAdmin({error, setError}) {
+	console.log(setError)
 	const [username, setUsername] = useState("");
 	const [password, setPassword] = useState("");
-
-	function setCookie(cname, cvalue, exdays) {
-		const d = new Date();
-		d.setTime(d.getTime() + exdays * 24 * 60 * 60 * 1000);
-		let expires = "expires=" + d.toUTCString();
-		document.cookie = cname + "=" + cvalue + ";" + expires + ";path=/";
-	}
+	const [loading,setLoading] = useState(false)
 
 	function submit(e) {
+		setLoading(true)
 		e.preventDefault();
 		let data = {
 			email: username,
 			password: password,
 		};
-		axios
-			.post("http://localhost:5000/login/", data)
+		axiosInstance
+			.post("/login/", data)
 			.then((res) => {
-				console.log(res.data);
+				if (res.status === 200) {
+					
+					let token = res.data.access_token;
+					let user_data = res.data.user;
 
-				let token = res.data.access_token;
-				let user_data = res.data.user;
+					localStorage.setItem("user", JSON.stringify(user_data));
 
-				localStorage.setItem("user", JSON.stringify(user_data));
-
-				setCookie(`access_token`, `${token}`, 1);
-				// setCookie(`refresh`, `${token.refresh}`, 1);
+					setCookie(`access_token`, `${token}`, 1);
+					setCookie(`user_type`,`${user_data.usertype}`,1)
+					
+					let user_type = user_data.usertype
+					if(user_type === "admin"){
+						window.location = "/dashboardAdmin"
+					}
+					setLoading(false)
+					// setCookie(`refresh`, `${token.refresh}`, 1);
+				}
 			})
 			.catch((err) => {
+				setLoading(false)
 				console.log(err);
+				setError("Error occurred! Please Try Again.....");
+				setTimeout(() => {
+					setError(null);
+				}, 1000);
 			});
 	}
 
@@ -52,6 +64,7 @@ export default function LoginAdmin() {
 			<Navbar />
 			<div style={{ padding: "2%" }}>
 				<center>
+					
 					<Card
 						sx={{ maxWidth: 500 }}
 						style={{
@@ -127,7 +140,8 @@ export default function LoginAdmin() {
 										style={{ backgroundColor: "#7882BD", width: "50%" }}
 										// onClick={submit}
 									>
-										Continue
+										{loading && <CircularProgress color="inherit"/>}
+										{!loading && `Continue`}
 									</Button>
 									<br />
 									<p style={{ marginTop: "1%" }}>

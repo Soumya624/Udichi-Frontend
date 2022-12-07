@@ -2,10 +2,10 @@ import React from "react";
 import { Chart } from "react-google-charts";
 
 export const data = [
-  ["Year", "Exams", "Students"],
-  ["2004", 3000, 400],
-  ["2006", 1370, 560],
-  ["2008", 570, 460],
+  [ "Month", "Exams"],
+  [ "12", 3000],
+  [ "10",1370],
+  [ "9",570],
 ];
 
 export const options = {

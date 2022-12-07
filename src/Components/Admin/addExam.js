@@ -22,6 +22,8 @@ import FormLabel from "@mui/material/FormLabel";
 import axios from "axios";
 import Box from "@mui/material/Box";
 import Modal from "@mui/material/Modal";
+import axiosInstance from "../../axiosInstance";
+import getCookie from "../../getCookie";
 
 const style = {
   position: "absolute",
@@ -34,7 +36,13 @@ const style = {
   p: 4,
 };
 
-export default function AddCandidate() {
+export default function AddCandidate({ error, setError }) {
+  let token = getCookie("access_token");
+  let user = JSON.parse(localStorage.getItem("user"));
+
+  const config = {
+    headers: { Authorization: `Bearer ${token}`, "user-type": user.usertype },
+  };
   const [group, setGroup] = useState();
   const [type, setType] = useState("");
   const [flag, setFlag] = useState(true);
@@ -49,6 +57,7 @@ export default function AddCandidate() {
   const [checked, setChecked] = useState(false);
   const [candigrp, setCandigrp] = useState([]);
   const [quesgrp, setQuesgrp] = useState([]);
+  const [enableproctoring, setEnableproctoring] = useState(false);
 
   const handleOpen = () => setOpen(true);
   const handleClose = () => {
@@ -86,25 +95,36 @@ export default function AddCandidate() {
       available_window: duration,
       candidates_groups: candigrp,
       question_groups: quesgrp,
+      proctoring: enableproctoring
     };
     console.log(data);
-    axios
-      .post("http://localhost:5000/test/", data)
+    axiosInstance
+      .post("/test/", data, config)
       .then((res) => {
         console.log(res);
         if (res.status === 200) {
           setCandigrp([]);
           setQuesgrp([]);
+          setTitle("");
+          setType("");
+          setStartdate("");
+          setFullmarks("");
+          setDuration("");
+          window.location = "/examAdmin";
         }
       })
       .catch((err) => {
         console.log(err);
+        setError("Error occurred! Please Try Again.....");
+        setTimeout(() => {
+          setError(null);
+        }, 1000);
       });
   }
 
   function getCandidates() {
-    axios
-      .get("http://localhost:5000/candidate_group/all/")
+    axiosInstance
+      .get("/candidate_group/all/", config)
       .then((res) => {
         console.log(res);
         if (res.status === 200) {
@@ -113,12 +133,16 @@ export default function AddCandidate() {
       })
       .catch((err) => {
         console.log(err);
+        setError("Error occurred! Please Try Again.....");
+        setTimeout(() => {
+          setError(null);
+        }, 1000);
       });
   }
 
   function getQuestions() {
-    axios
-      .get("http://localhost:5000/question-group/")
+    axiosInstance
+      .get("/question-group/", config)
       .then((res) => {
         console.log(res);
         if (res.status === 200) {
@@ -127,6 +151,10 @@ export default function AddCandidate() {
       })
       .catch((err) => {
         console.log(err);
+        setError("Error occurred! Please Try Again.....");
+        setTimeout(() => {
+          setError(null);
+        }, 1000);
       });
   }
 
@@ -170,6 +198,7 @@ export default function AddCandidate() {
                 <Grid container spacing={1} style={{ marginTop: "0.5%" }}>
                   <Grid item xs={12}>
                     <TextField
+                      value={title}
                       id="outlined-basic"
                       label="Exam Name"
                       variant="outlined"
@@ -189,6 +218,7 @@ export default function AddCandidate() {
                 >
                   <Grid item xs={12}>
                     <TextField
+                      value={startdate}
                       id="outlined-basic"
                       // label="Start Date & Time"
                       variant="outlined"
@@ -205,6 +235,7 @@ export default function AddCandidate() {
                 <Grid container spacing={1} style={{ marginTop: "0.5%" }}>
                   <Grid item xs={6}>
                     <TextField
+                      value={duration}
                       id="outlined-basic"
                       label="Duration"
                       variant="outlined"
@@ -217,6 +248,7 @@ export default function AddCandidate() {
                   </Grid>
                   <Grid item xs={6}>
                     <TextField
+                      value={fullmarks}
                       id="outlined-basic"
                       label="Full Marks"
                       variant="outlined"
@@ -336,6 +368,39 @@ export default function AddCandidate() {
                     </Button>
                   </Grid>
                 </Grid>
+                <br />
+                <p
+                  style={{ borderBottom: "1px solid grey", textAlign: "left" }}
+                >
+                  <b>Additional Informations</b>
+                </p>
+                <Grid container spacing={1} style={{ marginTop: "0.5%" }}>
+                  <Grid item xs={6}>
+                    <input
+                      type="radio"
+                      value="true"
+                      name="Proctoring"
+                      onChange={(e) => {
+                        e.preventDefault();
+                        setEnableproctoring(e.target.value);
+                      }}
+                    />
+                    Enable Audio & Video Capturing
+                  </Grid>
+                  <Grid item xs={6}>
+                    <input
+                      type="radio"
+                      value="false"
+                      name="Proctoring"
+                      onChange={(e) => {
+                        e.preventDefault();
+                        setEnableproctoring(e.target.value);
+                      }}
+                    />
+                    Disable Audio & Video Capturing
+                  </Grid>
+                </Grid>
+                <br />
                 <br />
                 <br />
                 {/* <br />

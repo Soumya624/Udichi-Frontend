@@ -9,8 +9,16 @@ import { useScreenshot } from "use-screenshot-hook";
 import { useReactMediaRecorder } from "react-media-recorder";
 import { Link, useParams } from "react-router-dom";
 import axios from "axios";
+import axiosInstance from "../../axiosInstance";
+import getCookie from "../../getCookie";
 
-export default function Confirmpresence() {
+export default function Confirmpresence({ error, setError }) {
+	let token = getCookie("access_token");
+	let user = JSON.parse(localStorage.getItem("user"));
+
+	const config = {
+		headers: { Authorization: `Bearer ${token}`, "user-type": user.usertype },
+	};
 	const { id } = useParams();
 	const [alloted_test, setAllotedTest] = useState(null);
 	const [is_attempted, setIsAttempted] = useState(false);
@@ -18,8 +26,8 @@ export default function Confirmpresence() {
 	const [number_of_attempts, setNumberOfAttempts] = useState(0);
 
 	useEffect(() => {
-		axios
-			.get(`http://localhost:5000/test/${id}`)
+		axiosInstance
+			.get(`/test/${id}`, config)
 			.then((res) => {
 				console.log(res);
 				if (res.status === 200) {
@@ -37,13 +45,17 @@ export default function Confirmpresence() {
 			})
 			.catch((err) => {
 				console.log(err);
+				setError("Error occurred! Please Try Again.....");
+				setTimeout(() => {
+					setError(null);
+				}, 1000);
 			});
 	}, [id]);
 
 	useEffect(() => {
 		let user = JSON.parse(localStorage.getItem("user_id"));
-		axios
-			.get(`http://localhost:5000/attempts/group/${user}/${id}`)
+		axiosInstance
+			.get(`/attempts/group/${user}/${id}`, config)
 			.then((res) => {
 				console.log(res);
 				if (res.status === 200) {
@@ -54,22 +66,31 @@ export default function Confirmpresence() {
 			})
 			.catch((err) => {
 				console.log(err);
+				setError("Error occurred! Please Try Again.....");
+				setTimeout(() => {
+					setError(null);
+				}, 1000);
 			});
 	}, []);
 
 	useEffect(() => {
 		let user = JSON.parse(localStorage.getItem("user_id"));
 		let attempt_id = JSON.parse(localStorage.getItem("attempt_id"));
-		if (attempt_id) {
-			axios
-				.get(`http://localhost:5000/attempts/attempt/${attempt_id}/${user}`)
+		if (attempt_id && user) {
+			axiosInstance
+				.get(`/attempts/attempt/${attempt_id}/${user}`, config)
 				.then((res) => {
-					console.log("kjbjb");
 					console.log(res);
 				})
 				.catch((err) => {
 					console.log(err);
+					setError("Error occurred! Please Try Again.....");
+					setTimeout(() => {
+						setError(null);
+					}, 1000);
 				});
+		} else {
+			console.log("Not possible");
 		}
 	}, []);
 
@@ -90,81 +111,6 @@ export default function Confirmpresence() {
 		a.href = image;
 		a.download = "Screenshot.png";
 		a.click();
-	};
-
-	const startExam = async () => {
-		let data = {
-			test: id,
-			candidate: JSON.parse(localStorage.getItem("user_id")),
-			number_of_attempts_left: alloted_test.number_of_attempts,
-		};
-
-		// console.log(previous_submission._id)
-
-		// check whether there is any
-		if (is_attempted) {
-			await axios
-				.patch(`/attempts/groups/${previous_submission._id}`, data)
-				.then((res) => {
-					console.log(res);
-					if (res.status === 201) {
-						localStorage.setItem(
-							"attempted_group_id",
-							JSON.stringify(res.data._id),
-						);
-						// window.location = "/testStudent/1"
-					}
-				})
-				.catch((err) => {
-					console.log(err);
-				});
-		} else {
-			await axios
-				.post("/attempts/create-group", data)
-				.then((res) => {
-					console.log(res);
-					if (res.status === 200) {
-						localStorage.setItem(
-							"attempted_group_id",
-							JSON.stringify(res.data._id),
-						);
-						// window.location = "/testStudent/1"
-					}
-				})
-				.catch((err) => {
-					console.log(err);
-				});
-		}
-		let submitted_question = JSON.parse(
-			localStorage.getItem("submitted_questions_id"),
-		);
-		let test = JSON.parse(localStorage.getItem("test_id"));
-		let user = JSON.parse(localStorage.getItem("user_id"));
-		let attempt_id = JSON.parse(localStorage.getItem("attempt_id"));
-
-		let d = {
-			test: test,
-			candidate: user,
-			questions_submitted: submitted_question,
-		};
-
-		if (attempt_id === null) {
-			await axios
-				.post("http://localhost:5000/attempts", d)
-				.then((res) => {
-					if (res.status === 200) {
-						console.log(res.data);
-						window.location = "/testStudent/1";
-						localStorage.setItem("attempt_id", JSON.stringify(res.data._id));
-					}
-				})
-				.catch((err) => {
-					console.log(err);
-				});
-		}else{
-			console.log("sdfkjsk")
-			window.location = "/testStudent/1";
-		}
 	};
 
 	if (alloted_test === null) {
@@ -234,7 +180,6 @@ export default function Confirmpresence() {
 											// onClick={getImage}
 											// onClick={startRecording}
 											href={`/shareScreen/${id}`}
-											// onClick={startExam}
 											disabled={left_attempts <= 0}
 										>
 											{attempt_id?"Continue":"Start"} Exam

@@ -89,7 +89,7 @@ function DrawerAppBar(props) {
             Udichi_Portal
           </Typography>
           <Box sx={{ display: { xs: "none", sm: "block" } }}>
-            <Button href='/loginAdmin' sx={{ color: "#fff" }}>Admin</Button>
+            <Button href='/' sx={{ color: "#fff" }}>Admin</Button>
             <Button href='/loginAssessor' sx={{ color: "#fff" }}>Assessor</Button>
             <Button href='/loginStudent' sx={{ color: "#fff" }}>Student</Button>
             <Button href='/loginProctorer' sx={{ color: "#fff" }}>Proctorer</Button>
