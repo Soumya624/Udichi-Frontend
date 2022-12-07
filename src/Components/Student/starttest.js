@@ -65,8 +65,8 @@ export default function Confirmpresence({ error, setError }) {
 				}
 			})
 			.catch((err) => {
-				console.log(err);
-				setError("Error occurred! Please Try Again.....");
+				
+				if(err.response.status !== 404)setError("Error occurred! Please Try Again.....");
 				setTimeout(() => {
 					setError(null);
 				}, 1000);

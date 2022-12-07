@@ -37,8 +37,6 @@ export default function Signup({error,setError}) {
 			.post("/candidate/login/", data)
 			.then((res) => {
 				if (res.status === 200) {
-					console.log(res.data);
-
 					let token = res.data.access_token;
 					let user_data = res.data.candidate;
 
