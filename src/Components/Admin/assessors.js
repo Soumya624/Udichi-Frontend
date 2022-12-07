@@ -99,7 +99,7 @@ export default function BasicTable({ error, setError }) {
   const [file, setFile] = useState(null);
   const [name, setName] = useState("");
   const [open, setOpen] = useState(false);
-  const [candigroup, setCandigroup] = useState(null);
+  const [candigroup, setCandigroup] = useState([]);
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
 

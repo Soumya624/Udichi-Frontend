@@ -11,6 +11,8 @@ import DashboardAssessor from "./Components/Teacher/Index";
 import DashboardStudent from "./Components/Student/Index";
 import ExamAdmin from "./Components/Admin/exam";
 import CandidateAdmin from "./Components/Admin/candidates";
+import AssessorAdmin from "./Components/Admin/assessors";
+import ProctorerAdmin from "./Components/Admin/proctorers";
 import QuestionAdmin from "./Components/Admin/questions";
 import StatisticsAdmin from "./Components/Admin/statistics";
 import ResultAssessor from "./Components/Teacher/result";
@@ -172,6 +174,20 @@ function App() {
 							<Route
 								path="/candidateAdmin"
 								element={<CandidateAdmin setError={setError} />}
+								exact
+							/>
+						</Route>
+						<Route path="/assessorAdmin" element={<ProtectedRoute />} exact>
+							<Route
+								path="/assessorAdmin"
+								element={<AssessorAdmin setError={setError} />}
+								exact
+							/>
+						</Route>
+						<Route path="/proctorerAdmin" element={<ProtectedRoute />} exact>
+							<Route
+								path="/proctorerAdmin"
+								element={<ProctorerAdmin setError={setError} />}
 								exact
 							/>
 						</Route>

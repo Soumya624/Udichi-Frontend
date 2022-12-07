@@ -166,9 +166,9 @@ export default function BasicTable({ error, setError }) {
           Total Questions
         </h4>
         <p style={{ lineHeight: "1px" }}>
-          Want to Add{" "}
+          Want to Add a{" "}
           <a href="/addquestionAdmin" style={{ textDecoration: "none" }}>
-            New Questions?
+            Question?
           </a>
           &nbsp;Or{" "}
           <a onClick={handleOpen} style={{ textDecoration: "none", cursor: "pointer" }}>

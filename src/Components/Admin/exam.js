@@ -86,9 +86,9 @@ export default function BasicTable({ error, setError }) {
           Upcoming Exams
         </h4>
         <p style={{ lineHeight: "1px" }}>
-          Want to Create{" "}
+          Want to Create an{" "}
           <a href="/addexamAdmin" style={{ textDecoration: "none" }}>
-            Exams?
+            Exam?
           </a>
           {/* &nbsp;Or <input type="file" /> */}
         </p>
