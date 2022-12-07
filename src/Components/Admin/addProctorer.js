@@ -12,6 +12,7 @@ import Footer from "../../Common/Footer";
 import { useState } from "react";
 import axios from "axios";
 import axiosInstance from "../../axiosInstance";
+import getCookie from "../../getCookie";
 
 export default function Signup() {
   let token = getCookie("access_token");
