@@ -22,6 +22,18 @@ import axiosInstance from "../../axiosInstance";
 import getCookie from "../../getCookie";
 import { useState } from "react";
 import moment from "moment";
+import Modal from "@mui/material/Modal";
+
+const style = {
+  position: "absolute",
+  top: "50%",
+  left: "50%",
+  transform: "translate(-50%, -50%)",
+  width: 400,
+  bgcolor: "background.paper",
+  boxShadow: 24,
+  p: 4,
+};
 
 const Item = styled(Paper)(({ theme }) => ({
   backgroundColor: theme.palette.mode === "dark" ? "#1A2027" : "#fff",
@@ -49,6 +61,7 @@ export default function Index({ error, setError }) {
   const [testlist, setTestlist] = useState([]);
   const [candidategrouplist, setCandidateGrouplist] = useState([]);
   const [questiongrouplist, setQuestionGrouplist] = useState([]);
+  const [open, setOpen] = useState(false);
   let dateobj = {
     1: 0,
     2: 0,
@@ -80,9 +93,17 @@ export default function Index({ error, setError }) {
   ]);
   let token = getCookie("access_token");
   let user = JSON.parse(localStorage.getItem("user"));
+  console.log(user);
 
   const config = {
     headers: { Authorization: `Bearer ${token}`, "user-type": user.usertype },
+  };
+
+  const handleOpen = () => {
+    setOpen(true);
+  };
+  const handleClose = () => {
+    setOpen(false);
   };
 
   useEffect(() => {
@@ -93,9 +114,9 @@ export default function Index({ error, setError }) {
     getQuestiongroup();
   }, []);
 
-  useEffect(()=>{
-    chart_preparation()
-  },[testlist])
+  useEffect(() => {
+    chart_preparation();
+  }, [testlist]);
 
   function getAssessors() {
     axiosInstance
@@ -216,7 +237,7 @@ export default function Index({ error, setError }) {
     // data[10][1] = dateobj[10];
     // data[11][1] = dateobj[11];
     // data[12][1] = dateobj[12];
-    let data1=[
+    let data1 = [
       ["Month", "Exams"],
       ["Jan", dateobj[1]],
       ["Feb", dateobj[2]],
@@ -230,7 +251,7 @@ export default function Index({ error, setError }) {
       ["Oct", dateobj[10]],
       ["Nov", dateobj[11]],
       ["Dec", dateobj[12]],
-    ]
+    ];
     console.log(data1);
     setData(data1);
   }
@@ -249,7 +270,10 @@ export default function Index({ error, setError }) {
         </h4>
         <p style={{ lineHeight: "1px" }}>
           Want to View{" "}
-          <a href="#" style={{ textDecoration: "none" }}>
+          <a
+            onClick={handleOpen}
+            style={{ textDecoration: "none", cursor: "pointer" }}
+          >
             Your Account?
           </a>
         </p>
@@ -399,7 +423,11 @@ export default function Index({ error, setError }) {
             </Box>
           </Box>
         )} */}
-        <Grid container spacing={2} style={{ color: "white", padding: "5%" }}>
+        <Grid
+          container
+          spacing={2}
+          style={{ color: "white", padding: "5%", alignItems: "center" }}
+        >
           <Grid item sm={6}>
             <Chart
               chartType="LineChart"
@@ -538,6 +566,36 @@ export default function Index({ error, setError }) {
       <br />
       <br />
       <Footer />
+      <Modal
+        open={open}
+        onClose={handleClose}
+        aria-labelledby="modal-modal-title"
+        aria-describedby="modal-modal-description"
+      >
+        <Box sx={style}>
+          <center>
+          <img
+            src="https://media.istockphoto.com/id/1300845620/vector/user-icon-flat-isolated-on-white-background-user-symbol-vector-illustration.jpg?b=1&s=170667a&w=0&k=20&c=Z5bM_O61NdvOVMAV91l_K_xVAsgPxayDrlVxvi19jqE="
+            style={{ width: "60%" }}
+          />
+          </center>
+          <p>
+            <b>First Name:</b> {user.firstname}
+          </p>
+          <p>
+            <b>Last Name:</b> {user.lastname}
+          </p>
+          <p>
+            <b>Email ID:</b> {user.email}
+          </p>
+          <p>
+            <b>Mobile No:</b> {user.mobile}
+          </p>
+          <p>
+            <b>Username:</b> {user.username}
+          </p>
+        </Box>
+      </Modal>
     </div>
   );
 }

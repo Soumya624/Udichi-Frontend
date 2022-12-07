@@ -24,6 +24,7 @@ import Box from "@mui/material/Box";
 import Modal from "@mui/material/Modal";
 import axiosInstance from "../../axiosInstance";
 import getCookie from "../../getCookie";
+import { isDisabled } from "@testing-library/user-event/dist/utils";
 
 const style = {
   position: "absolute",
@@ -58,12 +59,22 @@ export default function AddCandidate({ error, setError }) {
   const [candigrp, setCandigrp] = useState([]);
   const [quesgrp, setQuesgrp] = useState([]);
   const [enableproctoring, setEnableproctoring] = useState(false);
+  const [data1, setData1] = useState([]);
+  const [data2, setData2] = useState([]);
+  const [disablestate1, setDisablestate1] = useState(false);
+  const [disablestate2, setDisablestate2] = useState(false);
 
-  const handleOpen = () => setOpen(true);
+  const handleOpen = () => {
+    setOpen(true);
+    setCandigrp([]);
+  };
   const handleClose = () => {
     setOpen(false);
   };
-  const handleOpen1 = () => setOpen1(true);
+  const handleOpen1 = () => {
+    setOpen1(true);
+    setQuesgrp([]);
+  };
   const handleClose1 = () => setOpen1(false);
 
   // var candigrp = [];
@@ -161,6 +172,20 @@ export default function AddCandidate({ error, setError }) {
   function getResults(e) {
     e.preventDefault();
     console.log(e.target.value);
+  }
+
+  function submitfunction1() {
+    console.log(data1);
+    setCandigrp(data1);
+    setData1([]);
+    handleClose();
+  }
+
+  function submitfunction2() {
+    console.log(data2);
+    setQuesgrp(data2);
+    setData2([]);
+    handleClose1();
   }
 
   return (
@@ -384,7 +409,6 @@ export default function AddCandidate({ error, setError }) {
                       value="true"
                       name="Proctoring"
                       onChange={(e) => {
-                        e.preventDefault();
                         setEnableproctoring(e.target.value);
                       }}
                     />
@@ -396,7 +420,6 @@ export default function AddCandidate({ error, setError }) {
                       value="false"
                       name="Proctoring"
                       onChange={(e) => {
-                        e.preventDefault();
                         setEnableproctoring(e.target.value);
                       }}
                     />
@@ -434,7 +457,7 @@ export default function AddCandidate({ error, setError }) {
       </div>
       <Modal
         open={open}
-        onClose={handleClose}
+        // onClose={handleClose}
         aria-labelledby="modal-modal-title"
         aria-describedby="modal-modal-description"
       >
@@ -446,18 +469,39 @@ export default function AddCandidate({ error, setError }) {
               </Input>
             );
           })} */}
-          {candigroup.map((key) => {
-            return (
-              <Grid
-                container
-                spacing={1}
-                style={{ margin: "1px", alignItems: "center" }}
-              >
-                <Grid item xs={4}>
-                  {key.title}
-                </Grid>
-                <Grid item xs={8}>
-                  <Button
+          <form>
+            {candigroup.map((key) => {
+              return (
+                <Grid
+                  container
+                  spacing={1}
+                  style={{ margin: "1px", alignItems: "center" }}
+                >
+                  <Grid item xs={1}>
+                    <input
+                      type="checkbox"
+                      id={key}
+                      name={key}
+                      value={key._id}
+                      onChange={(e) => {
+                        if (e.target.checked) {
+                          console.log(e.target.value);
+                          data1.push(e.target.value);
+                          setData1(data1);
+                        } else {
+                          let random1 = data1.filter((d) => {
+                            return d !== key._id;
+                          });
+                          setData1(random1);
+                        }
+                      }}
+                    />
+                  </Grid>
+                  <Grid item xs={4} style={{ alignItems: "center" }}>
+                    {key.title}
+                  </Grid>
+                  <Grid item xs={6}>
+                    {/* <Button
                     variant="contained"
                     style={{ backgroundColor: "#7882BD", width: "30%" }}
                     onClick={(e) => {
@@ -467,28 +511,31 @@ export default function AddCandidate({ error, setError }) {
                     }}
                   >
                     Add
-                  </Button>
+                  </Button> */}
+                  </Grid>
                 </Grid>
-              </Grid>
-            );
-          })}
-          {/* <br />
-          <center>
-            <Button
-              variant="contained"
-              style={{ backgroundColor: "#7882BD", width: "50%" }}
-              onClick={(e) => {
-                console.log(candigrp);
-              }}
-            >
-              Continue
-            </Button>
-          </center> */}
+              );
+            })}
+
+            <br />
+            <br />
+            <center>
+              <Button
+                variant="contained"
+                style={{ backgroundColor: "#7882BD", width: "50%" }}
+                onClick={(e) => {
+                  submitfunction1();
+                }}
+              >
+                Continue
+              </Button>
+            </center>
+          </form>
         </Box>
       </Modal>
       <Modal
         open={open1}
-        onClose={handleClose1}
+        // onClose={handleClose1}
         aria-labelledby="modal-modal-title"
         aria-describedby="modal-modal-description"
       >
@@ -509,11 +556,31 @@ export default function AddCandidate({ error, setError }) {
                   spacing={1}
                   style={{ margin: "1px", alignItems: "center" }}
                 >
+                  <Grid item xs={1}>
+                    <input
+                      type="checkbox"
+                      id={key}
+                      name={key}
+                      value={key._id}
+                      onChange={(e) => {
+                        if (e.target.checked) {
+                          console.log(e.target.value);
+                          data2.push(e.target.value);
+                          setData2(data2);
+                        } else {
+                          let random2 = data2.filter((d) => {
+                            return d !== key._id;
+                          });
+                          setData2(random2);
+                        }
+                      }}
+                    />
+                  </Grid>
                   <Grid item xs={4}>
                     {key.title}
                   </Grid>
                   <Grid item xs={8}>
-                    <Button
+                    {/* <Button
                       variant="contained"
                       style={{ backgroundColor: "#7882BD", width: "30%" }}
                       onClick={(e) => {
@@ -523,24 +590,25 @@ export default function AddCandidate({ error, setError }) {
                       }}
                     >
                       Add
-                    </Button>
+                    </Button> */}
                   </Grid>
                 </Grid>
               );
             })}
           </FormGroup>
-          {/* <br />
+          <br />
+          <br />
           <center>
             <Button
               variant="contained"
               style={{ backgroundColor: "#7882BD", width: "50%" }}
               onClick={(e) => {
-                console.log(quesgrp);
+                submitfunction2();
               }}
             >
               Continue
             </Button>
-          </center> */}
+          </center>
         </Box>
       </Modal>
       <Footer />

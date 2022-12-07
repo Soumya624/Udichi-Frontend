@@ -8,6 +8,18 @@ import { useState } from "react";
 import axiosInstance from "../../axiosInstance";
 import getCookie from "../../getCookie";
 import moment from "moment";
+import Modal from "@mui/material/Modal";
+
+const style = {
+  position: "absolute",
+  top: "50%",
+  left: "50%",
+  transform: "translate(-50%, -50%)",
+  width: 400,
+  bgcolor: "background.paper",
+  boxShadow: 24,
+  p: 4,
+};
 // 6352ac7eee578c61f13ec293
 
 const Item = styled(Paper)(({ theme }) => ({
@@ -19,7 +31,9 @@ const Item = styled(Paper)(({ theme }) => ({
 }));
 
 export default function Index({ error, setError }) {
+  const [open, setOpen] = useState(false);
   let token = getCookie("access_token");
+  let user = JSON.parse(localStorage.getItem("user"));
   let user_id = JSON.parse(localStorage.getItem("user"))._id;
 
   const config = {
@@ -46,6 +60,13 @@ export default function Index({ error, setError }) {
       });
   }, []);
 
+  const handleOpen = () => {
+    setOpen(true);
+  };
+  const handleClose = () => {
+    setOpen(false);
+  };
+
   return (
     <div>
       <Navbar />
@@ -58,7 +79,10 @@ export default function Index({ error, setError }) {
         </h4>
         <p style={{ lineHeight: "1px" }}>
           Want to View{" "}
-          <a href="#" style={{ textDecoration: "none" }}>
+          <a
+            onClick={handleOpen}
+            style={{ textDecoration: "none", cursor: "pointer" }}
+          >
             Your Account?
           </a>
         </p>
@@ -130,6 +154,36 @@ export default function Index({ error, setError }) {
       <br />
       <br />
       <Footer />
+      <Modal
+        open={open}
+        onClose={handleClose}
+        aria-labelledby="modal-modal-title"
+        aria-describedby="modal-modal-description"
+      >
+        <Box sx={style}>
+          <center>
+            <img
+              src="https://media.istockphoto.com/id/1300845620/vector/user-icon-flat-isolated-on-white-background-user-symbol-vector-illustration.jpg?b=1&s=170667a&w=0&k=20&c=Z5bM_O61NdvOVMAV91l_K_xVAsgPxayDrlVxvi19jqE="
+              style={{ width: "60%" }}
+            />
+          </center>
+          <p>
+            <b>First Name:</b> {user.firstname}
+          </p>
+          <p>
+            <b>Last Name:</b> {user.lastname}
+          </p>
+          <p>
+            <b>Email ID:</b> {user.email}
+          </p>
+          <p>
+            <b>Mobile No:</b> {user.mobile}
+          </p>
+          <p>
+            <b>Username:</b> {user.username}
+          </p>
+        </Box>
+      </Modal>
     </div>
   );
 }
