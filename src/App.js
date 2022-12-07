@@ -87,6 +87,7 @@ function App() {
 			await axiosInstance
 				.patch(`/attempts/${attempt_id}`, form, config)
 				.then((res) => {
+					console.log(res);
 					if (res.status === 200) {
 						localStorage.removeItem("attempt_id");
 					}
