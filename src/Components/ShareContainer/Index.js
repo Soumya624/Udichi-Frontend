@@ -114,8 +114,11 @@ export default function Index({
               "attempted_group_id",
               JSON.stringify(res.data._id)
             );
-            navigate("/testStudent/1");
-            // window.location = "/testStudent/1"
+            setTimeout(()=>{
+              navigate("/testStudent/1");
+            },10)
+            // navigate("/testStudent/1");
+            // window.location = "/testStudent/1";
           }
         })
         .catch((err) => {
