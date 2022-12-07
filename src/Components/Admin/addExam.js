@@ -95,6 +95,7 @@ export default function AddCandidate({ error, setError }) {
       available_window: duration,
       candidates_groups: candigrp,
       question_groups: quesgrp,
+      proctoring: enableproctoring
     };
     console.log(data);
     axiosInstance
