@@ -21,6 +21,7 @@ import axios from "axios";
 import Modal from "@mui/material/Modal";
 import axiosInstance from "../../axiosInstance";
 import getCookie from "../../getCookie";
+import moment from "moment";
 
 const style = {
   position: "absolute",
@@ -41,19 +42,19 @@ const Item = styled(Paper)(({ theme }) => ({
   color: theme.palette.text.secondary,
 }));
 
-export default function Index({error,setError}) {
+export default function Index({ error, setError }) {
   let token = getCookie("access_token");
-	let user = JSON.parse(localStorage.getItem("user"));
+  let user = JSON.parse(localStorage.getItem("user"));
 
-	const config = {
-		headers: { Authorization: `Bearer ${token}`, "user-type": user.usertype },
-	};
+  const config = {
+    headers: { Authorization: `Bearer ${token}`, "user-type": user.usertype },
+  };
   const [alltest, setAlltest] = useState([]);
-  const [open, setOpen ] = useState(false);
+  const [open, setOpen] = useState(false);
 
   useEffect(() => {
     axiosInstance
-      .get("/test/all",config)
+      .get("/test/all", config)
       .then((res) => {
         if (res.status === 200) {
           console.log(res.data);
@@ -63,9 +64,9 @@ export default function Index({error,setError}) {
       .catch((err) => {
         console.log(err);
         setError("Error occurred! Please Try Again.....");
-				setTimeout(() => {
-					setError(null);
-				}, 1000);
+        setTimeout(() => {
+          setError(null);
+        }, 1000);
       });
   }, []);
 
@@ -92,6 +93,9 @@ export default function Index({error,setError}) {
         <br />
         <br />
         {alltest.map((altst) => {
+          let momentDate = moment
+            .utc(altst.starting_date)
+            .format("MM/DD/YY, h:mm:ss a");
           return (
             <div>
               <Box
@@ -115,21 +119,21 @@ export default function Index({error,setError}) {
                       style={{ alignItems: "center", justifyContent: "center" }}
                     >
                       <Box gridColumn="span 3" style={{ textAlign: "left" }}>
-                        {altst.available_window}
+                        Duration: {altst.available_window} mins.
                       </Box>
-                      <Box gridColumn="span 3">{altst.starting_date}</Box>
+                      <Box gridColumn="span 3">{momentDate}</Box>
                       <Box
                         gridColumn="span 3"
                         style={{ color: "red", cursor: "pointer" }}
-                      >
-                        View Results
-                      </Box>
+                      ></Box>
                       <Box
                         gridColumn="span 3"
                         style={{
                           textAlign: "right",
                           color: "#7882bd",
                           cursor: "pointer",
+                          display:
+                            altst.type_of_test === "written" ? "" : "none",
                         }}
                       >
                         <a

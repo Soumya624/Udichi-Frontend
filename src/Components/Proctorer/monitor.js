@@ -197,7 +197,7 @@ export default function Confirmpresence({error,setError}) {
                           </TableCell>
                           <TableCell
                             align="right"
-                            style={{ cursor: "pointer" }}
+                            style={{ cursor: "pointer", color:"red" }}
                             onClick={()=>{
                               setAttemptlist(altst.attempts_submitted)
                               handleOpen()

@@ -31,7 +31,7 @@ export default function Signup({error,setError}) {
 			password: password,
 		};
 		axiosInstance
-			.post("/login/", data)
+			.post("/proctorer/login", data)
 			.then((res) => {
 				console.log(res.data);
 				

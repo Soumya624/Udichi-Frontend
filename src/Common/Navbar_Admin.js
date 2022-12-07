@@ -93,11 +93,11 @@ function DrawerAppBar(props) {
             <Button sx={{ color: "#fff" }} href="/candidateAdmin">
               Candidates
             </Button>
-            <Button sx={{ color: "#fff" }} href="/addassessorAdmin">
+            <Button sx={{ color: "#fff" }} href="/assessorAdmin">
               Assessors
             </Button>
-            <Button sx={{ color: "#fff" }} href="/addproctorerAdmin">
-              Proctoresrs
+            <Button sx={{ color: "#fff" }} href="/proctorerAdmin">
+              Proctorers
             </Button>
             {/* <Button sx={{ color: "#fff" }} href="/statisticsAdmin">
               Statistics
