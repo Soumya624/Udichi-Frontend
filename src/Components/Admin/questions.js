@@ -120,7 +120,7 @@ export default function BasicTable({ error, setError }) {
 	formdata.append(`title`,name);
 	console.log(formdata);
 	axiosInstance
-	.post("/questions/file-upload", formdata)
+	.post("/questions/file-upload", formdata,config)
 	.then((res)=>{
 		console.log(res.data);
 		if(res.status===200)

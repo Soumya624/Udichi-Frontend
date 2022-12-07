@@ -114,7 +114,7 @@ export default function BasicTable({ error, setError }) {
 	formdata.append(`title`,name);
 	console.log(formdata);
 	axiosInstance
-	.post("/candidate_group/file-upload", formdata)
+	.post("/candidate_group/file-upload", formdata,config)
 	.then((res)=>{
 		console.log(res.data);
 		if(res.status===200)
@@ -124,7 +124,10 @@ export default function BasicTable({ error, setError }) {
 	})
 	.catch((err)=>{
 		console.log(err);
-    setError(err.message)
+    setError(err.response.data)
+    setTimeout(() => {
+      setError(null);
+    }, 1000);
 	})
   }
 

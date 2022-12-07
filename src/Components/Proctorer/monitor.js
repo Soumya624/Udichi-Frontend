@@ -39,17 +39,17 @@ const style = {
   p: 4,
 };
 
-function createData(name, candidates, terminate, action) {
-  return { name, candidates, terminate, action };
-}
+// function createData(name, candidates, terminate, action) {
+//   return { name, candidates, terminate, action };
+// }
 
-const rows = [
-  createData("A Bose", 159, "Yes", "Download"),
-  createData("Sudip Nayak", 237, "Yes", "Download"),
-  createData("B M Kumar", 262, "Yes", "Download"),
-  createData("P Chetri", 305, "Yes", "Download"),
-  createData("P K Das", 356, "Yes", "Download"),
-];
+// const rows = [
+//   createData("A Bose", 159, "Yes", "Download"),
+//   createData("Sudip Nayak", 237, "Yes", "Download"),
+//   createData("B M Kumar", 262, "Yes", "Download"),
+//   createData("P Chetri", 305, "Yes", "Download"),
+//   createData("P K Das", 356, "Yes", "Download"),
+// ];
 
 export default function Confirmpresence({error,setError}) {
   let token = getCookie("access_token");
@@ -69,14 +69,14 @@ export default function Confirmpresence({error,setError}) {
       .get(`/attempts/attempts_group/${id}`,config)
       .then((res) => {
         if (res.status === 200) {
-          console.log(res.data);
           setList(res.data);
           // setAttemptlist(res.data.attempts_submitted);
         }
       })
       .catch((err) => {
         console.log(err);
-        setError("Error occurred! Please Try Again.....");
+        if(err.response.status !== 404)setError("Error occurred! Please Try Again.....");
+        
 				setTimeout(() => {
 					setError(null);
 				}, 1000);
@@ -116,8 +116,9 @@ export default function Confirmpresence({error,setError}) {
     console.log(id)
 
     axiosInstance.get(`/attempts/download/${id}`,{
-      responseType : "blob"
-    },config)
+      responseType : "blob",
+      ...config
+    })
     .then((res)=>{
       console.log(res)
       if(res.status === 200){
@@ -125,7 +126,11 @@ export default function Confirmpresence({error,setError}) {
       }
     })
     .catch((err)=>{
-      console.log(err)
+      
+      if(err.response.status === 404) setError("File is not Present")
+      setTimeout(() => {
+        setError(null);
+      }, 1000);
     })
   }
 

@@ -32,16 +32,15 @@ export default function LoginAssessor({error,setError}) {
     axiosInstance
       .post("/assessor/login", data)
       .then((res) => {
-        console.log(res.data);
-        
-        let token = res.data.access_token;
-				let user_data = res.data.user;
+        if(res.status === 200){
+          let token = res.data.access_token;
+          let user_data = res.data.accessor;
 
-				localStorage.setItem("user", JSON.stringify(user_data));
-        
-        setCookie(`access_token`, `${token}`, 1);
+          localStorage.setItem("user", JSON.stringify(user_data));
+          setCookie(`access_token`, `${token}`, 1);
+          window.location = '/dashboardAssessor'
+        }
         //setCookie(`refresh`, `${token.refresh}`, 1);
-
       })
       .catch((err) => {
         console.log(err);

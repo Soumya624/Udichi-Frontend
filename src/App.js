@@ -114,7 +114,7 @@ function App() {
 				>
 					{error && (
 						<Alert severity="error">
-							This is an error alert — check it out!
+							{error}
 						</Alert>
 					)}
 				</div>

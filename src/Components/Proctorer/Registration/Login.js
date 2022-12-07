@@ -34,13 +34,17 @@ export default function Signup({error,setError}) {
 			.post("/proctorer/login", data)
 			.then((res) => {
 				console.log(res.data);
-				
-				let token = res.data.access_token;
-				let user_data = res.data.user;
 
-				localStorage.setItem("user", JSON.stringify(user_data));
-        
-        		setCookie(`access_token`, `${token}`, 1);
+				if(res.status === 200){
+					let token = res.data.access_token;
+					let user_data = res.data.proctorer;
+
+					localStorage.setItem("user", JSON.stringify(user_data));
+			
+					setCookie(`access_token`, `${token}`, 1);
+					window.location = '/dashboardProctorer'
+				}
+				
 				//setCookie(`refresh`, `${token.refresh}`, 1);
 
 			})
@@ -129,7 +133,7 @@ export default function Signup({error,setError}) {
 									<Button
 										variant="contained"
 										style={{ backgroundColor: "#7882BD", width: "50%" }}
-										// onClick={submit}
+										type = "submit"
 									>
 										Continue
 									</Button>

@@ -78,22 +78,6 @@ export default function Index({ error, setError }) {
     ["November", dateobj[11]],
     ["December", dateobj[12]],
   ]);
-
-  let data1 = [
-    ["Month", "Exams"],
-    ["January", dateobj[1]],
-    ["February", dateobj[2]],
-    ["March", dateobj[3]],
-    ["April", dateobj[4]],
-    ["May", dateobj[5]],
-    ["June", dateobj[6]],
-    ["July", dateobj[7]],
-    ["August", dateobj[8]],
-    ["September", dateobj[9]],
-    ["October", dateobj[10]],
-    ["November", dateobj[11]],
-    ["December", dateobj[12]],
-  ];
   let token = getCookie("access_token");
   let user = JSON.parse(localStorage.getItem("user"));
 
@@ -108,6 +92,10 @@ export default function Index({ error, setError }) {
     getCandidategroup();
     getQuestiongroup();
   }, []);
+
+  useEffect(()=>{
+    chart_preparation()
+  },[testlist])
 
   function getAssessors() {
     axiosInstance
@@ -420,9 +408,9 @@ export default function Index({ error, setError }) {
               data={data}
               options={options}
             />
-            <center>
+            {/* <center>
               <Button onClick={chart_preparation}>Update Chart</Button>
-            </center>
+            </center> */}
           </Grid>
           <Grid item sm={6}>
             <Grid
