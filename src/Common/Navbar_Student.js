@@ -13,6 +13,7 @@ import MenuIcon from '@mui/icons-material/Menu';
 import Toolbar from '@mui/material/Toolbar';
 import Typography from '@mui/material/Typography';
 import Button from '@mui/material/Button';
+import deleteAllCookies from '../deleteAllCookies';
 
 const drawerWidth = 240;
 const navItems = ['Logout'];
@@ -67,7 +68,10 @@ function DrawerAppBar(props) {
           </Typography>
           <Box sx={{ display: { xs: 'none', sm: 'block' } }}>
             {navItems.map((item) => (
-              <Button key={item} sx={{ color: '#fff' }} href="/loginStudent">
+              <Button key={item} sx={{ color: '#fff' }} onClick={()=>{
+                deleteAllCookies(); 
+                window.location.href="/";
+              }}>
                 {item}
               </Button>
             ))}

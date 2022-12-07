@@ -64,6 +64,10 @@ export default function Confirmpresence({
 	const [subjective_ans, setSubjectAnswer] = useState("");
 
 	let attempt_id = JSON.parse(localStorage.getItem("attempt_id"));
+	// if(attempt_id===null)
+	// {
+	// 	window.location.reload();
+	// }
 	useEffect(() => {
 		let questions = JSON.parse(localStorage.getItem("questions"));
 		setQuestion(questions);
@@ -71,6 +75,7 @@ export default function Confirmpresence({
 		let test = JSON.parse(localStorage.getItem("test_id"));
 		let user = JSON.parse(localStorage.getItem("user_id"));
 		let attempt_id = JSON.parse(localStorage.getItem("attempt_id"));
+		console.log(attempt_id);
 		// let questions = JSON.parse(localStorage.getItem("questions"));
 		let qId = parseInt(id);
 		const question_data = questions[qId - 1];
@@ -241,6 +246,7 @@ export default function Confirmpresence({
 				console.log(res);
 				if (res.status === 201) {
 					localStorage.removeItem("submitted_questions_id");
+					// localStorage.removeItem("attempt_id");
 					localStorage.removeItem("questions_id");
 					navigate(`/starttestStudent/${test}`);
 				}

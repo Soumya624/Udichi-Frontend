@@ -167,8 +167,9 @@ export default function Index({
         .then((res) => {
           if (res.status === 200) {
             console.log(res.data);
-            navigate("/testStudent/1");
+            
             localStorage.setItem("attempt_id", JSON.stringify(res.data._id));
+            navigate("/testStudent/1");
           }
         })
         .catch((err) => {

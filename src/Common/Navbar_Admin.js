@@ -107,6 +107,7 @@ function DrawerAppBar(props) {
             </Button> */}
             <Button sx={{ color: "#fff" }} onClick={()=>{
               deleteAllCookies();
+              window.location.href="/";       
             }}>
               Logout
             </Button>
