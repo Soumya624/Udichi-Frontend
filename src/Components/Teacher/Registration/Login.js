@@ -131,19 +131,20 @@ export default function LoginAssessor({error,setError}) {
                   Continue
                 </Button>
                 <br />
-                <p style={{ marginTop: "1%" }}>
+                {/* <p style={{ marginTop: "1%" }}>
                   Don't Have an Account?{" "}
                   <a href="/" style={{ textDecoration: "none" }}>
                     Click Here
                   </a>
-                </p>
+                </p> */}
               </Typography>
               </form>
             </CardContent>
             {/* <CardActions>
-          <Button size="small">Share</Button>
-          <Button size="small">Learn More</Button>
-        </CardActions> */}
+              <Button size="small">Share</Button>
+              <Button size="small">Learn More</Button>
+              </CardActions> 
+            */}
           </Card>
         </center>
         <br />

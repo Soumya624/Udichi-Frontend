@@ -76,8 +76,7 @@ export default function Index({ error, setError }) {
     setOpen(false);
   };
 
-  function alertfunction()
-  {
+  function alertfunction() {
     alert("Please Make a Meet Link!");
   }
   return (
@@ -91,9 +90,12 @@ export default function Index({ error, setError }) {
           Welcome!
         </h4>
         <p style={{ lineHeight: "1px" }}>
-          Want to View{" "}
-          <a onClick={handleOpen} style={{ textDecoration: "none", cursor:"pointer" }}>
-            Your Account?
+          Check Out{" "}
+          <a
+            onClick={handleOpen}
+            style={{ textDecoration: "none", cursor: "pointer", color:"#5a5a5a" }}
+          >
+            Your Account
           </a>
         </p>
         <br />
@@ -145,7 +147,10 @@ export default function Index({ error, setError }) {
                             altst.type_of_test === "written" ? "none" : "",
                         }}
                       >
-                        <a onClick={alertfunction} style={{ textDecoration: "none" }}>
+                        <a
+                          onClick={alertfunction}
+                          style={{ textDecoration: "none" }}
+                        >
                           Start Viva
                         </a>
                       </Box>
@@ -170,12 +175,12 @@ export default function Index({ error, setError }) {
         aria-labelledby="modal-modal-title"
         aria-describedby="modal-modal-description"
       >
-        <Box sx={style}>
+        <Box sx={style} style={{ margin: "2%" }}>
           <center>
-          <img
-            src="https://media.istockphoto.com/id/1300845620/vector/user-icon-flat-isolated-on-white-background-user-symbol-vector-illustration.jpg?b=1&s=170667a&w=0&k=20&c=Z5bM_O61NdvOVMAV91l_K_xVAsgPxayDrlVxvi19jqE="
-            style={{ width: "60%" }}
-          />
+            <img
+              src="https://media.istockphoto.com/id/1300845620/vector/user-icon-flat-isolated-on-white-background-user-symbol-vector-illustration.jpg?b=1&s=170667a&w=0&k=20&c=Z5bM_O61NdvOVMAV91l_K_xVAsgPxayDrlVxvi19jqE="
+              style={{ width: "60%" }}
+            />
           </center>
           <p>
             <b>First Name:</b> {user.firstname}

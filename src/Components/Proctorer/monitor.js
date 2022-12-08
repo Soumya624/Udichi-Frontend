@@ -167,12 +167,12 @@ export default function Confirmpresence({ error, setError }) {
                       <TableCell>
                         <b>Student Name</b>
                       </TableCell>
-                      <TableCell align="right">
-                        <b>ID of Student</b>
+                      <TableCell align="center">
+                        <b>Email ID</b>
                       </TableCell>
-                      <TableCell align="right">
+                      {/* <TableCell align="right">
                         <b>Terminate</b>
-                      </TableCell>
+                      </TableCell> */}
                       <TableCell align="right">
                         <b>Screen Recording/Audio</b>
                       </TableCell>
@@ -192,15 +192,15 @@ export default function Confirmpresence({ error, setError }) {
                               " " +
                               altst.candidate.lastname}
                           </TableCell>
-                          <TableCell align="right">
-                            {altst.candidate._id}
+                          <TableCell align="center">
+                            {altst.candidate.email}
                           </TableCell>
-                          <TableCell
+                          {/* <TableCell
                             align="right"
                             style={{ cursor: "pointer", color: "grey" }}
                           >
                             Yes
-                          </TableCell>
+                          </TableCell> */}
                           <TableCell
                             align="right"
                             style={{ cursor: "pointer", color: "red" }}
@@ -245,6 +245,12 @@ export default function Confirmpresence({ error, setError }) {
           >
             <Box sx={style}>
               <center>
+                <h3>Download Files</h3>
+                <p>
+                  Get the Zip File of Different Attempts. Recent Attempts are
+                  Added in The End
+                </p>
+                <br />
                 {attemplist.map((altst) => {
                   return (
                     <Grid
@@ -276,9 +282,11 @@ export default function Confirmpresence({ error, setError }) {
                 })}
                 <br />
                 <br />
+                <br />
                 <Button
                   variant="contained"
                   style={{ backgroundColor: "#7882BD", width: "50%" }}
+                  onClick={handleClose}
                 >
                   Close
                 </Button>

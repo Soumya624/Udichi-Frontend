@@ -138,12 +138,12 @@ export default function Signup({error,setError}) {
 										Continue
 									</Button>
 									<br />
-									<p style={{ marginTop: "1%" }}>
+									{/* <p style={{ marginTop: "1%" }}>
 										Don't Have an Account?{" "}
 										<a href="/" style={{ textDecoration: "none" }}>
 											Click Here
 										</a>
-									</p>
+									</p> */}
 								</Typography>
 							</form>
 						</CardContent>
