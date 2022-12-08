@@ -51,13 +51,13 @@ const style = {
 //   createData("P K Das", 356, "Yes", "Download"),
 // ];
 
-export default function Confirmpresence({error,setError}) {
+export default function Confirmpresence({ error, setError }) {
   let token = getCookie("access_token");
-	let user = JSON.parse(localStorage.getItem("user"));
+  let user = JSON.parse(localStorage.getItem("user"));
 
-	const config = {
-		headers: { Authorization: `Bearer ${token}`, "user-type": user.usertype },
-	};
+  const config = {
+    headers: { Authorization: `Bearer ${token}`, "user-type": user.usertype },
+  };
   const [open, setOpen] = useState(false);
 
   const [list, setList] = useState([]);
@@ -66,7 +66,7 @@ export default function Confirmpresence({error,setError}) {
 
   useEffect(() => {
     axiosInstance
-      .get(`/attempts/attempts_group/${id}`,config)
+      .get(`/attempts/attempts_group/${id}`, config)
       .then((res) => {
         if (res.status === 200) {
           setList(res.data);
@@ -75,64 +75,65 @@ export default function Confirmpresence({error,setError}) {
       })
       .catch((err) => {
         console.log(err);
-        if(err.response.status !== 404)setError("Error occurred! Please Try Again.....");
-        
-				setTimeout(() => {
-					setError(null);
-				}, 1000);
+        if (err.response.status !== 404)
+          setError("Error occurred! Please Try Again.....");
+
+        setTimeout(() => {
+          setError(null);
+        }, 1000);
       });
   }, []);
 
   const handleOpen = () => setOpen(true);
-  const handleClose = () =>{
-    setAttemptlist([])
+  const handleClose = () => {
+    setAttemptlist([]);
     setOpen(false);
-  }
+  };
 
   function downloadReportFrontend(blob, name) {
-		if (window.navigator && window.navigator.msSaveOrOpenBlob)
-			return window.navigator.msSaveOrOpenBlob(blob);
+    if (window.navigator && window.navigator.msSaveOrOpenBlob)
+      return window.navigator.msSaveOrOpenBlob(blob);
 
-		var binaryData = [];
-		binaryData.push(blob);
-		const data = window.URL.createObjectURL(
-			new Blob(binaryData, { type: "application/pdf" }),
-		);
+    var binaryData = [];
+    binaryData.push(blob);
+    const data = window.URL.createObjectURL(
+      new Blob(binaryData, { type: "application/pdf" })
+    );
 
-		const link = document.createElement("a");
-		link.href = data;
-		link.download = name;
+    const link = document.createElement("a");
+    link.href = data;
+    link.download = name;
 
-		link.dispatchEvent(
-			new MouseEvent("click", {
-				bubbles: true,
-				cancelable: true,
-				view: window,
-			}),
-		);
-	}
-
-  const downloadZip = (id) =>{
-    console.log(id)
-
-    axiosInstance.get(`/attempts/download/${id}`,{
-      responseType : "blob",
-      ...config
-    })
-    .then((res)=>{
-      console.log(res)
-      if(res.status === 200){
-        downloadReportFrontend(res.data,`${Date.now()}_Udichi.zip`)
-      }
-    })
-    .catch((err)=>{
-      
-      if(err.response.status === 404) setError("File is not Present")
-      setTimeout(() => {
-        setError(null);
-      }, 1000);
-    })
+    link.dispatchEvent(
+      new MouseEvent("click", {
+        bubbles: true,
+        cancelable: true,
+        view: window,
+      })
+    );
   }
+
+  const downloadZip = (id) => {
+    console.log(id);
+
+    axiosInstance
+      .get(`/attempts/download/${id}`, {
+        responseType: "blob",
+        ...config,
+      })
+      .then((res) => {
+        console.log(res);
+        if (res.status === 200) {
+          downloadReportFrontend(res.data, `${Date.now()}_Udichi.zip`);
+        }
+      })
+      .catch((err) => {
+        if (err.response.status === 404) setError("File is not Present");
+        setTimeout(() => {
+          setError(null);
+        }, 1000);
+      });
+  };
 
   return (
     <div>
@@ -196,16 +197,16 @@ export default function Confirmpresence({error,setError}) {
                           </TableCell>
                           <TableCell
                             align="right"
-                            style={{ cursor: "pointer" }}
+                            style={{ cursor: "pointer", color: "grey" }}
                           >
                             Yes
                           </TableCell>
                           <TableCell
                             align="right"
-                            style={{ cursor: "pointer", color:"red" }}
-                            onClick={()=>{
-                              setAttemptlist(altst.attempts_submitted)
-                              handleOpen()
+                            style={{ cursor: "pointer", color: "red" }}
+                            onClick={() => {
+                              setAttemptlist(altst.attempts_submitted);
+                              handleOpen();
                             }}
                           >
                             Download
@@ -257,10 +258,14 @@ export default function Confirmpresence({error,setError}) {
                       <Grid item xs={6}>
                         <Button
                           variant="contained"
-                          style={{ backgroundColor: "#7882BD", width: "50%" }}
-                          onClick={()=>{
-                            console.log(altst)
-                            downloadZip(altst)
+                          style={{
+                            backgroundColor: "#7882BD",
+                            width: "50%",
+                            display: altst !== null ? "" : "none",
+                          }}
+                          onClick={() => {
+                            console.log(altst);
+                            downloadZip(altst);
                           }}
                         >
                           Download

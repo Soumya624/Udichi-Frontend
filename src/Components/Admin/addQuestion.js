@@ -128,6 +128,8 @@ export default function AddCandidate({ error, setError }) {
   const [option_id, setOptionId] = useState(null);
   const [option_name, setOptionName] = useState(null);
   const [option_ischecked, setOptionIsCorrect] = useState(false);
+  let [boltype, setBoltype] = useState(false);
+  let [strtype, setStrtype] = useState("Fill in the Blank");
 
   useEffect(() => {
     getQuestionsGroup();
@@ -277,13 +279,21 @@ export default function AddCandidate({ error, setError }) {
 
   async function assign_questiongroup(e) {
     e.preventDefault();
+    console.log(type);
+    if(type === "Obj")
+    {
+      console.log("MCQ");
+      boltype=true;
+      strtype="Multiple Correct";
+    }
+    console.log(boltype);
     let q_data = {
       title: title,
-      is_objective: false,
+      is_objective: boltype,
       positive_marks: positive,
       negative_marks: negetive,
       options: option_list,
-      type_question: null
+      type_question: strtype
     };
     let data = {
       question: q_data,
@@ -300,6 +310,8 @@ export default function AddCandidate({ error, setError }) {
           setNegetive("");
           setType("");
           setGroup("");
+          boltype=false;
+          strtype="Fill in the Blank";
           setOptionList([]);
           setInputList([]);
           handleClose();
