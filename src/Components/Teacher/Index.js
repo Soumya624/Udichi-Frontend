@@ -44,6 +44,8 @@ const Item = styled(Paper)(({ theme }) => ({
 
 export default function Index({ error, setError }) {
   const [open, setOpen] = useState(false);
+  let [exportarray, setExportarray] = useState([]);
+  const [downloadLink, setDownloadLink] = useState("");
   let token = getCookie("access_token");
   let user = JSON.parse(localStorage.getItem("user"));
 
@@ -79,6 +81,17 @@ export default function Index({ error, setError }) {
   function alertfunction() {
     alert("Please Make a Meet Link!");
   }
+
+  function gettxt(item) {
+    console.log(item.available_window);
+  }
+
+  const makeTextFile = (list) => {
+    const data = new Blob([list.join("\n")], { type: "text/plain" });
+    if (downloadLink !== "") window.URL.revokeObjectURL(downloadLink);
+    setDownloadLink(window.URL.createObjectURL(data));
+  };
+
   return (
     <div>
       <Navbar />
@@ -93,7 +106,11 @@ export default function Index({ error, setError }) {
           Check Out{" "}
           <a
             onClick={handleOpen}
-            style={{ textDecoration: "none", cursor: "pointer", color:"#5a5a5a" }}
+            style={{
+              textDecoration: "none",
+              cursor: "pointer",
+              color: "#5a5a5a",
+            }}
           >
             Your Account
           </a>
@@ -133,14 +150,18 @@ export default function Index({ error, setError }) {
                       <Box gridColumn="span 3">{momentDate}</Box>
                       <Box
                         gridColumn="span 3"
-                        style={{ color: "grey", cursor: "pointer" }}
+                        style={{
+                          color: "grey",
+                          cursor: "pointer",
+                          display:
+                            altst.type_of_test === "written" ? "" : "none",
+                        }}
                       >
                         View Results
                       </Box>
                       <Box
                         gridColumn="span 3"
                         style={{
-                          textAlign: "right",
                           color: "#7882bd",
                           cursor: "pointer",
                           display:
@@ -148,10 +169,46 @@ export default function Index({ error, setError }) {
                         }}
                       >
                         <a
-                          onClick={alertfunction}
+                          onClick={(e) => {
+                            alert("Please Download the Mail List. To Send the Meet Link")
+                            exportarray = [];
+                            let x = altst.candidates_groups;
+                            {
+                              x.map((val) => {
+                                let y = val.candidates;
+                                {
+                                  y.map((key) => {
+                                    console.log(key.email);
+                                    let z = key.email;
+                                    exportarray.push(z);
+                                  });
+                                }
+                              });
+                            }
+                            console.log(exportarray);
+                            makeTextFile(exportarray);
+                          }}
                           style={{ textDecoration: "none" }}
                         >
                           Start Viva
+                        </a>
+                      </Box>
+                      <Box
+                        gridColumn="span 3"
+                        style={{
+                          color: "red",
+                          cursor: "pointer",
+                          textAlign:"right",
+                          display:
+                            altst.type_of_test === "written" ? "none" : "",
+                        }}
+                      >
+                        <a
+                          download="Viva_Student_Mailing_List.txt"
+                          href={downloadLink}
+                          style={{textDecoration:"none", color:"red"}}
+                        >
+                          Download Mail List
                         </a>
                       </Box>
                     </Box>
@@ -163,6 +220,7 @@ export default function Index({ error, setError }) {
           );
         })}
       </div>
+
       <br />
       <br />
       <br />
