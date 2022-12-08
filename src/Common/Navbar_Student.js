@@ -80,20 +80,21 @@ function DrawerAppBar(props) {
             variant="h6"
             component="div"
             sx={{ flexGrow: 1, display: { xs: "none", sm: "block" } }}
-            style={{ display: "flex", alignItems: "center" }}
           >
-            <img src={Logo_PC} style={{ width: "5%", marginTop: "5px" }} />
-            <a
-              href="/dashboardStudent"
-              style={{
-                cursor: "pointer",
-                textDecoration: "none",
-                color: "white",
-                fontWeight: "bold",
-              }}
-            >
-              Udichi
-            </a>
+            <div style={{ display: "flex", alignItems: "center" }}>
+              <img src={Logo_PC} style={{ width: "5%", marginTop: "5px" }} />
+              <a
+                href="/dashboardStudent"
+                style={{
+                  cursor: "pointer",
+                  textDecoration: "none",
+                  color: "white",
+                  fontWeight: "bold",
+                }}
+              >
+                Udichi
+              </a>
+            </div>
           </Typography>
           <Box sx={{ display: { xs: "none", sm: "block" } }}>
             {navItems.map((item) => (
