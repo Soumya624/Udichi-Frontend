@@ -41,13 +41,75 @@ function DrawerAppBar(props) {
       </Typography>
       <Divider />
       <List>
-        {navItems.map((item) => (
-          <ListItem key={item} disablePadding>
-            <ListItemButton sx={{ textAlign: "center" }}>
-              <ListItemText primary={item} />
-            </ListItemButton>
-          </ListItem>
-        ))}
+        <ListItem disablePadding>
+          <ListItemButton sx={{ textAlign: "center" }}>
+            <ListItemText>
+              <Button sx={{ color: "#000" }} href="/dashboardAdmin">
+                Dashboard
+              </Button>
+            </ListItemText>
+          </ListItemButton>
+        </ListItem>
+        <ListItem disablePadding>
+          <ListItemButton sx={{ textAlign: "center" }}>
+            <ListItemText>
+              <Button sx={{ color: "#000" }} href="/examAdmin">
+                Exams
+              </Button>
+            </ListItemText>
+          </ListItemButton>
+        </ListItem>
+        <ListItem disablePadding>
+          <ListItemButton sx={{ textAlign: "center" }}>
+            <ListItemText>
+              <Button sx={{ color: "#000" }} href="/questionAdmin">
+                Questions
+              </Button>
+            </ListItemText>
+          </ListItemButton>
+        </ListItem>
+        <ListItem disablePadding>
+          <ListItemButton sx={{ textAlign: "center" }}>
+            <ListItemText>
+              <Button sx={{ color: "#000" }} href="/candidateAdmin">
+                Candidates
+              </Button>
+            </ListItemText>
+          </ListItemButton>
+        </ListItem>
+        <ListItem disablePadding>
+          <ListItemButton sx={{ textAlign: "center" }}>
+            <ListItemText>
+              <Button sx={{ color: "#000" }} href="/assessorAdmin">
+                Assessors
+              </Button>
+            </ListItemText>
+          </ListItemButton>
+        </ListItem>
+        <ListItem disablePadding>
+          <ListItemButton sx={{ textAlign: "center" }}>
+            <ListItemText>
+              <Button sx={{ color: "#000" }} href="/proctorerAdmin">
+                Proctorers
+              </Button>
+            </ListItemText>
+          </ListItemButton>
+        </ListItem>
+        <ListItem disablePadding>
+          <ListItemButton sx={{ textAlign: "center" }}>
+            <ListItemText>
+              <Button
+                sx={{ color: "#000" }}
+                onClick={() => {
+                  deleteAllCookies();
+                  window.location.href = "/";
+                }}
+              >
+                Logout
+              </Button>
+            </ListItemText>
+          </ListItemButton>
+        </ListItem>
       </List>
     </Box>
   );
@@ -105,10 +167,13 @@ function DrawerAppBar(props) {
             <Button sx={{ color: "#fff" }} href="/dashboardAdmin">
               Notifications
             </Button> */}
-            <Button sx={{ color: "#fff" }} onClick={()=>{
-              deleteAllCookies();
-              window.location.href="/";       
-            }}>
+            <Button
+              sx={{ color: "#fff" }}
+              onClick={() => {
+                deleteAllCookies();
+                window.location.href = "/";
+              }}
+            >
               Logout
             </Button>
           </Box>

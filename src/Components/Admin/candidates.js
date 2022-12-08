@@ -108,27 +108,26 @@ export default function BasicTable({ error, setError }) {
   };
 
   function handleSubmit1(e) {
-	e.preventDefault();
-	let formdata = new FormData();
-	formdata.append(`files`,file);
-	formdata.append(`title`,name);
-	console.log(formdata);
-	axiosInstance
-	.post("/candidate_group/file-upload", formdata,config)
-	.then((res)=>{
-		console.log(res.data);
-		if(res.status===200)
-		{
-			window.location.reload();
-		}
-	})
-	.catch((err)=>{
-		console.log(err);
-    setError(err.response.data)
-    setTimeout(() => {
-      setError(null);
-    }, 1000);
-	})
+    e.preventDefault();
+    let formdata = new FormData();
+    formdata.append(`files`, file);
+    formdata.append(`title`, name);
+    console.log(formdata);
+    axiosInstance
+      .post("/candidate_group/file-upload", formdata, config)
+      .then((res) => {
+        console.log(res.data);
+        if (res.status === 200) {
+          window.location.reload();
+        }
+      })
+      .catch((err) => {
+        console.log(err);
+        setError(err.response.data);
+        setTimeout(() => {
+          setError(null);
+        }, 1000);
+      });
   }
 
   useEffect(() => {
@@ -164,14 +163,21 @@ export default function BasicTable({ error, setError }) {
           Total Candidates
         </h4>
         <p style={{ lineHeight: "1px" }}>
-          Want to Add a{" "}
-          <a href="/addcandidateAdmin" style={{ textDecoration: "none" }}>
-            Candidate?
+          Manually Add a{" "}
+          <a
+            href="/addcandidateAdmin"
+            style={{ textDecoration: "none", color: "#5a5a5a" }}
+          >
+            Candidate
           </a>
           &nbsp;Or{" "}
           <a
             onClick={handleOpen}
-            style={{ textDecoration: "none", cursor: "pointer" }}
+            style={{
+              textDecoration: "none",
+              cursor: "pointer",
+              color: "#5a5a5a",
+            }}
           >
             Upload File
           </a>

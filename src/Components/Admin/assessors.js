@@ -159,9 +159,12 @@ export default function BasicTable({ error, setError }) {
           Total Assessor
         </h4>
         <p style={{ lineHeight: "1px" }}>
-          Want to Add an{" "}
-          <a href="/addassessorAdmin" style={{ textDecoration: "none" }}>
-            Assessor?
+          Manually Add an{" "}
+          <a
+            href="/addassessorAdmin"
+            style={{ textDecoration: "none", color: "#5a5a5a" }}
+          >
+            Assessor
           </a>
         </p>
         <br />

@@ -159,9 +159,12 @@ export default function BasicTable({ error, setError }) {
           Total Proctorer
         </h4>
         <p style={{ lineHeight: "1px" }}>
-          Want to Add a{" "}
-          <a href="/addproctorerAdmin" style={{ textDecoration: "none" }}>
-            Proctorer?
+          Manually Add a{" "}
+          <a
+            href="/addproctorerAdmin"
+            style={{ textDecoration: "none", color: "#5a5a5a" }}
+          >
+            Proctorer
           </a>
         </p>
         <br />

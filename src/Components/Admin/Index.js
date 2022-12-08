@@ -269,12 +269,16 @@ export default function Index({ error, setError }) {
           Welcome User!
         </h4>
         <p style={{ lineHeight: "1px" }}>
-          Want to View{" "}
+          Check Out{" "}
           <a
             onClick={handleOpen}
-            style={{ textDecoration: "none", cursor: "pointer" }}
+            style={{
+              textDecoration: "none",
+              cursor: "pointer",
+              color: "#5a5a5a",
+            }}
           >
-            Your Account?
+            Your Account
           </a>
         </p>
         {/* {window.innerWidth < 968 ? (
@@ -425,8 +429,8 @@ export default function Index({ error, setError }) {
         )} */}
         <Grid
           container
-          spacing={2}
-          style={{ color: "white", padding: "5%", alignItems: "center" }}
+          spacing={3}
+          style={{ color: "white", paddingBottom: "10%", alignItems: "center" }}
         >
           <Grid item sm={6}>
             <Chart
@@ -553,17 +557,7 @@ export default function Index({ error, setError }) {
             </Grid>
           </Grid>
         </Grid>
-
-        <br />
-        <br />
-        {/* <h4 style={{ textAlign: "left", fontSize: "28px", lineHeight: "1px" }}>
-          Important Tasks
-        </h4> */}
       </div>
-      <br />
-      <br />
-      <br />
-      <br />
       <br />
       <Footer />
       <Modal
@@ -574,10 +568,10 @@ export default function Index({ error, setError }) {
       >
         <Box sx={style}>
           <center>
-          <img
-            src="https://media.istockphoto.com/id/1300845620/vector/user-icon-flat-isolated-on-white-background-user-symbol-vector-illustration.jpg?b=1&s=170667a&w=0&k=20&c=Z5bM_O61NdvOVMAV91l_K_xVAsgPxayDrlVxvi19jqE="
-            style={{ width: "60%" }}
-          />
+            <img
+              src="https://media.istockphoto.com/id/1300845620/vector/user-icon-flat-isolated-on-white-background-user-symbol-vector-illustration.jpg?b=1&s=170667a&w=0&k=20&c=Z5bM_O61NdvOVMAV91l_K_xVAsgPxayDrlVxvi19jqE="
+              style={{ width: "60%" }}
+            />
           </center>
           <p>
             <b>First Name:</b> {user.firstname}

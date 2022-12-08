@@ -78,12 +78,12 @@ export default function Index({ error, setError }) {
           Welcome!
         </h4>
         <p style={{ lineHeight: "1px" }}>
-          Want to View{" "}
+          Check Out{" "}
           <a
             onClick={handleOpen}
             style={{ textDecoration: "none", cursor: "pointer", color:"#5a5a5a" }}
           >
-            Your Account?
+            Your Account
           </a>
         </p>
         <br />
