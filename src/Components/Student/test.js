@@ -343,7 +343,7 @@ export default function Confirmpresence({
                   <br />
                   <br />
                   <Grid container spacing={1} style={{ padding: "1%" }}>
-                    <Grid item sm={3}>
+                    <Grid item sm={6}>
                       <Button
                         style={{
                           backgroundColor: "#70ff00",
@@ -358,8 +358,8 @@ export default function Confirmpresence({
                         Save & Next
                       </Button>
                     </Grid>
-                    <Grid item sm={3}>
-                      {/* <Button
+                    {/* <Grid item sm={3}>
+                      <Button
 												style={{
 													backgroundColor: "#7882bd",
 													color: "white",
@@ -370,7 +370,7 @@ export default function Confirmpresence({
 												}}
 											>
 												Review & Next
-											</Button> */}
+											</Button>
                     </Grid>
                     <Grid item sm={1}></Grid>
                     <Grid item sm={3}>
@@ -387,8 +387,8 @@ export default function Confirmpresence({
                       >
                         Clear Response
                       </Button>
-                    </Grid>
-                    <Grid item sm={2}>
+                    </Grid> */}
+                    <Grid item sm={6}>
                       <Button
                         style={{
                           backgroundColor: "rgb(120 130 189)",
@@ -445,11 +445,10 @@ export default function Confirmpresence({
                   </Box>
                 </Modal>
                 <Grid item sm={3}>
-                  <Grid container spacing={3} style={{ padding: "1%" }}>
-                    <Grid item sx={4}>
-                      {questions.map((ques, ind) => (
+                  <Grid container spacing={1} style={{ padding: "1%" }}>
+                    {questions.map((ques, ind) => (
+                      <Grid item xs={4}>
                         <Fab
-                          // color = {}
                           title={ques._id}
                           size="small"
                           style={{
@@ -463,13 +462,11 @@ export default function Confirmpresence({
                             boxShadow: "none",
                             margin: "5px",
                           }}
-                          // onClick={getImage}
-                          // onClick={startRecording}
                         >
                           {ind + 1}
                         </Fab>
-                      ))}
-                    </Grid>
+                      </Grid>
+                    ))}
                   </Grid>
                   {/* <video style={{width : "30em"}} src={mediaBlobUrl} controls autoPlay loop /> */}
                 </Grid>

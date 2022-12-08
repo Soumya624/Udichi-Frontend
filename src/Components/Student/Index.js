@@ -81,7 +81,7 @@ export default function Index({ error, setError }) {
           Want to View{" "}
           <a
             onClick={handleOpen}
-            style={{ textDecoration: "none", cursor: "pointer" }}
+            style={{ textDecoration: "none", cursor: "pointer", color:"#5a5a5a" }}
           >
             Your Account?
           </a>

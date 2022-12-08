@@ -114,9 +114,9 @@ export default function Index({
               "attempted_group_id",
               JSON.stringify(res.data._id)
             );
-            setTimeout(()=>{
+            setTimeout(() => {
               navigate("/testStudent/1");
-            },10)
+            }, 10);
             // navigate("/testStudent/1");
             // window.location = "/testStudent/1";
           }
@@ -170,7 +170,7 @@ export default function Index({
         .then((res) => {
           if (res.status === 200) {
             console.log(res.data);
-            
+
             localStorage.setItem("attempt_id", JSON.stringify(res.data._id));
             navigate("/testStudent/1");
           }
@@ -234,14 +234,19 @@ export default function Index({
               <center>Share Access</center>
             </Typography>
             <br />
-            <p style={{ marginTop: "0", textAlign: "justify" }}>
-              Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
-              eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut
-              enim ad minim veniam, quis nostrud exercitation ullamco laboris
-              nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in
-              reprehenderit in voluptate velit esse cillum dolore eu fugiat
-              nulla pariatur
-            </p>
+            <ul style={{ textAlign: "justify" }}>
+              <li style={{ textAlign: "justify" }}>
+                {" "}
+                Students are requested to share the screen and the camera,
+                before starting the exam
+              </li>
+              <br />
+              <li style={{ textAlign: "justify" }}>
+                {" "}
+                If any student faces any network issue during this time, he/she
+                can call the pre-announced phone number, to get the assistance
+              </li>
+            </ul>
             <br />
             <br />
             <br />
@@ -288,7 +293,7 @@ export default function Index({
                       startExam();
                     }
                   }}
-				  style={{
+                  style={{
                     backgroundColor: !(
                       screeStatus === "recording" &&
                       cameraStatus === "recording"
