@@ -110,6 +110,7 @@ export default function LoginAssessor({error,setError}) {
                         label="Password"
                         variant="outlined"
                         size="small"
+                        type="password"
                         style={{ width: "98.5%" }}
                         onChange={(e)=>{
                           e.preventDefault();

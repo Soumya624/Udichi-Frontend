@@ -113,6 +113,7 @@ export default function Signup({error,setError}) {
 													id="outlined-basic"
 													label="Password"
 													variant="outlined"
+													type="password"
 													size="small"
 													style={{ width: "98.5%" }}
 													onChange={(e) => {
