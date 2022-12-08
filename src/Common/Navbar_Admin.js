@@ -14,6 +14,8 @@ import Toolbar from "@mui/material/Toolbar";
 import Typography from "@mui/material/Typography";
 import Button from "@mui/material/Button";
 import deleteAllCookies from "../deleteAllCookies";
+import Logo from "../Assets/Logo.png";
+import Logo_PC from "../Assets/Logo_PC.png";
 
 const drawerWidth = 240;
 const navItems = [
@@ -37,7 +39,7 @@ function DrawerAppBar(props) {
   const drawer = (
     <Box onClick={handleDrawerToggle} sx={{ textAlign: "center" }}>
       <Typography variant="h6" sx={{ my: 2 }}>
-        Udichi_Portal
+        <img src={Logo} />
       </Typography>
       <Divider />
       <List>
@@ -134,8 +136,20 @@ function DrawerAppBar(props) {
             variant="h6"
             component="div"
             sx={{ flexGrow: 1, display: { xs: "none", sm: "block" } }}
+            style={{ display: "flex", alignItems: "center" }}
           >
-            Udichi_Portal
+            <img src={Logo_PC} style={{ width: "5%", marginTop: "5px" }} />
+            <a
+              href="/dashboardAdmin"
+              style={{
+                cursor: "pointer",
+                textDecoration: "none",
+                color: "white",
+                fontWeight: "bold",
+              }}
+            >
+              Udichi
+            </a>
           </Typography>
           <Box sx={{ display: { xs: "none", sm: "block" } }}>
             {/* {navItems.map((item) => (

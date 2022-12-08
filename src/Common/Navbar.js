@@ -13,6 +13,8 @@ import MenuIcon from "@mui/icons-material/Menu";
 import Toolbar from "@mui/material/Toolbar";
 import Typography from "@mui/material/Typography";
 import Button from "@mui/material/Button";
+import Logo from "../Assets/Logo.png";
+import Logo_PC from "../Assets/Logo_PC.png";
 
 const drawerWidth = 240;
 const navItems = ["Admin", "Assessor", "Student", "Proctorer"];
@@ -28,7 +30,7 @@ function DrawerAppBar(props) {
   const drawer = (
     <Box onClick={handleDrawerToggle} sx={{ textAlign: "center" }}>
       <Typography variant="h6" sx={{ my: 2 }}>
-        Udichi_Portal
+        <img src={Logo} />
       </Typography>
       <Divider />
       {/* <List>
@@ -101,8 +103,20 @@ function DrawerAppBar(props) {
             variant="h6"
             component="div"
             sx={{ flexGrow: 1, display: { xs: "none", sm: "block" } }}
+            style={{ display: "flex", alignItems: "center" }}
           >
-            Udichi_Portal
+            <img src={Logo_PC} style={{ width: "5%", marginTop: "5px" }} />
+            <a
+              href="/"
+              style={{
+                cursor: "pointer",
+                textDecoration: "none",
+                color: "white",
+                fontWeight: "bold",
+              }}
+            >
+              Udichi
+            </a>
           </Typography>
           <Box sx={{ display: { xs: "none", sm: "block" } }}>
             <Button href="/" sx={{ color: "#fff" }}>
