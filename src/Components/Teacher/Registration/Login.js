@@ -12,9 +12,9 @@ import Footer from "./../../../Common/Footer";
 import { useState } from "react";
 import axiosInstance from "../../../axiosInstance";
 
-export default function LoginAssessor({error,setError}) {
-  const [username,setUsername]=useState("");
-  const [password,setPassword]=useState("");
+export default function LoginAssessor({ error, setError }) {
+  const [username, setUsername] = useState("");
+  const [password, setPassword] = useState("");
 
   function setCookie(cname, cvalue, exdays) {
     const d = new Date();
@@ -32,22 +32,22 @@ export default function LoginAssessor({error,setError}) {
     axiosInstance
       .post("/assessor/login", data)
       .then((res) => {
-        if(res.status === 200){
+        if (res.status === 200) {
           let token = res.data.access_token;
           let user_data = res.data.accessor;
 
           localStorage.setItem("user", JSON.stringify(user_data));
           setCookie(`access_token`, `${token}`, 1);
-          window.location = '/dashboardAssessor'
+          window.location = "/dashboardAssessor";
         }
         //setCookie(`refresh`, `${token.refresh}`, 1);
       })
       .catch((err) => {
         console.log(err);
         setError("Error occurred! Please Try Again.....");
-				setTimeout(() => {
-					setError(null);
-				}, 1000);
+        setTimeout(() => {
+          setError(null);
+        }, 1000);
       });
   }
 
@@ -81,64 +81,67 @@ export default function LoginAssessor({error,setError}) {
               </p>
               <br />
               <form onSubmit={submit}>
-              <Typography variant="body2" color="text.secondary">
-                <Grid container spacing={1} style={{ marginTop: "0.5%" }}>
-                  <Grid item xs={12}>
-                    <center>
-                      <TextField
-                        required
-                        id="outlined-basic"
-                        label="Username"
-                        variant="outlined"
-                        size="small"
-                        style={{ width: "98.5%" }}
-                        onChange={(e)=>{
-                          e.preventDefault();
-                          setUsername(e.target.value);
-                        }}
-                      />
-                    </center>
+                <Typography variant="body2" color="text.secondary">
+                  <Grid container spacing={1} style={{ marginTop: "0.5%" }}>
+                    <Grid item xs={12}>
+                      <center>
+                        <TextField
+                          required
+                          id="outlined-basic"
+                          label="Username"
+                          variant="outlined"
+                          size="small"
+                          style={{ width: "98.5%" }}
+                          onChange={(e) => {
+                            e.preventDefault();
+                            setUsername(e.target.value);
+                          }}
+                        />
+                      </center>
+                    </Grid>
                   </Grid>
-                </Grid>
 
-                <Grid container spacing={1} style={{ marginTop: "0.5%" }}>
-                  <Grid item xs={12}>
-                    <center>
-                      <TextField
-                        required
-                        id="outlined-basic"
-                        label="Password"
-                        variant="outlined"
-                        size="small"
-                        type="password"
-                        style={{ width: "98.5%" }}
-                        onChange={(e)=>{
-                          e.preventDefault();
-                          setPassword(e.target.value);
-                        }}
-                      />
-                    </center>
+                  <Grid container spacing={1} style={{ marginTop: "0.5%" }}>
+                    <Grid item xs={12}>
+                      <center>
+                        <TextField
+                          required
+                          id="outlined-basic"
+                          label="Password"
+                          variant="outlined"
+                          size="small"
+                          type="password"
+                          style={{ width: "98.5%" }}
+                          onChange={(e) => {
+                            e.preventDefault();
+                            setPassword(e.target.value);
+                          }}
+                        />
+                      </center>
+                    </Grid>
                   </Grid>
-                </Grid>
-                <br />
-                <FormControlLabel control={<Checkbox />} label="Remember Me" />
-                <br />
-                <br />
-                <Button
-                  type = "submit"
-                  variant="contained"
-                  style={{ backgroundColor: "#7882BD", width: "50%" }}
-                >
-                  Continue
-                </Button>
-                <br />
-                {/* <p style={{ marginTop: "1%" }}>
+                  <br />
+                  <FormControlLabel
+                    control={<Checkbox />}
+                    label="Remember Me"
+                  />
+                  <br />
+                  <br />
+                  <Button
+                    type="submit"
+                    variant="contained"
+                    style={{ backgroundColor: "#7882BD", width: "50%" }}
+                  >
+                    Continue
+                  </Button>
+                  <br />
+                  {/* <p style={{ marginTop: "1%" }}>
                   Don't Have an Account?{" "}
                   <a href="/" style={{ textDecoration: "none" }}>
                     Click Here
                   </a>
                 </p> */}
-              </Typography>
+                </Typography>
               </form>
             </CardContent>
             {/* <CardActions>
