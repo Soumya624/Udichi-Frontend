@@ -383,6 +383,7 @@ export default function Confirmpresence({
                           width: "100%",
                           border: "1px solid #bcbcbc",
                         }}
+                        disabled
                       >
                         Clear Response
                       </Button>

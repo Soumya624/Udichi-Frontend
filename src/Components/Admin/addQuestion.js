@@ -283,6 +283,7 @@ export default function AddCandidate({ error, setError }) {
       positive_marks: positive,
       negative_marks: negetive,
       options: option_list,
+      type_question: null
     };
     let data = {
       question: q_data,
@@ -509,7 +510,7 @@ export default function AddCandidate({ error, setError }) {
                     style={{ backgroundColor: "#7882BD", width: "50%" }}
                     onClick={assign_questiongroup}
                   >
-                    Continues
+                    Continue
                   </Button>
                   {/* <p>
                     <Button onClick={create_group}>Create Group</Button>

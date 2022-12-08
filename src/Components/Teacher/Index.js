@@ -131,7 +131,7 @@ export default function Index({ error, setError }) {
                       <Box gridColumn="span 3">{momentDate}</Box>
                       <Box
                         gridColumn="span 3"
-                        style={{ color: "red", cursor: "pointer" }}
+                        style={{ color: "grey", cursor: "pointer" }}
                       >
                         View Results
                       </Box>
