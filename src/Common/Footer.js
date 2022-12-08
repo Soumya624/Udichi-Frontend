@@ -14,11 +14,17 @@ import Checkbox from "@mui/material/Checkbox";
 
 export default function Footer() {
   return (
-    <div>
+    <div style={{ marginTop: "10rem" }}>
       <Grid
         container
         spacing={2}
-        style={{ backgroundColor: "#7882BD", color: "white", padding: "2%" }}
+        style={{
+          backgroundColor: "#7882BD",
+          color: "white",
+          padding: "2%",
+          position: "relative",
+          bottom: "0",
+        }}
       >
         <Grid item sm={9}>
           <h4>Footer Text</h4>

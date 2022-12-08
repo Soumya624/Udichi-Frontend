@@ -69,7 +69,7 @@ export default function Signup() {
   }
 
   return (
-    <div>
+    <div style={{position:"relative"}}>
       <Navbar />
       <div style={{ padding: "2%" }}>
         <center>
@@ -371,7 +371,7 @@ export default function Signup() {
         <br />
         <br />
       </div>
-      <Footer />
+      <Footer/>
     </div>
   );
 }

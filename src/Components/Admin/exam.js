@@ -165,7 +165,7 @@ export default function BasicTable({ error, setError }) {
                       </TableCell>
                       <TableCell
                         align="right"
-                        style={{ cursor: "pointer", color: "red" }}
+                        style={{ cursor: "pointer", color: "grey" }}
                       >
                         Delete
                       </TableCell>
