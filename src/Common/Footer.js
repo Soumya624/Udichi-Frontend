@@ -11,6 +11,8 @@ import Grid from "@mui/material/Grid";
 import FormGroup from "@mui/material/FormGroup";
 import FormControlLabel from "@mui/material/FormControlLabel";
 import Checkbox from "@mui/material/Checkbox";
+import PhoneIcon from "@mui/icons-material/Phone";
+import EmailIcon from "@mui/icons-material/Email";
 
 export default function Footer() {
   return (
@@ -21,29 +23,39 @@ export default function Footer() {
         style={{
           backgroundColor: "#7882BD",
           color: "white",
-          padding: "2%",
+          padding: window.innerWidth < 968 ? "5%" : "2%",
           position: "relative",
           bottom: "0",
         }}
       >
-        <Grid item sm={9}>
-          <h4>Footer Text</h4>
+        <Grid item sm={9} style={{ padding: "2%" }}>
+          <h4>About Us</h4>
           <p style={{ textAlign: "justify" }}>
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
-            eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim
-            ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut
-            aliquip ex ea commodo consequat. Duis aute irure dolor in
-            reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla
-            pariatur
+            Udichi is an Ngo registered under society registration act 1860(1)
+            in the year 2010. Udichi is backed by a large number of change maker
+            who committed and passionate to do better for Society. We want to
+            bring a revolution of change for the society by educating the rare
+            sections of the society to make them livable in the society
           </p>
         </Grid>
-        <Grid item sm={3}>
-          <h4>Footer Subtext</h4>
-          <p style={{ textAlign: "justify" }}>
-            Duis aute irure dolor in reprehenderit in voluptate velit esse
-            cillum dolore eu fugiat nulla pariatur
-          </p>
+        <Grid item sm={3} style={{ padding: "2%" }}>
+          <h4>Contact Us</h4>
+          <div style={{ textAlign: "justify", display: "flex" }}>
+            <PhoneIcon />
+            &nbsp;9818152403
+          </div>
+          <div style={{ textAlign: "justify", display: "flex" }}>
+            <EmailIcon />
+            &nbsp;info@udichi.co.in
+          </div>
         </Grid>
+        {/* <Grid item sm={12} >
+          <center>
+            <p style={{borderTop:"1px solid white", paddingTop:"2%"}}>
+              © Copyright Udichi | All Rights Reserved
+            </p>
+          </center>
+        </Grid> */}
       </Grid>
     </div>
   );

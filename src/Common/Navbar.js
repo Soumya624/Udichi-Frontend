@@ -43,22 +43,38 @@ function DrawerAppBar(props) {
       <List>
         <ListItem disablePadding>
           <ListItemButton sx={{ textAlign: "center" }}>
-            <ListItemText primary="Admin" />
+            <ListItemText>
+              <Button href="/" sx={{ color: "black" }}>
+                Admin
+              </Button>
+            </ListItemText>
           </ListItemButton>
         </ListItem>
         <ListItem disablePadding>
           <ListItemButton sx={{ textAlign: "center" }}>
-            <ListItemText primary="Assessor" />
+            <ListItemText>
+              <Button href="/loginAssessor" sx={{ color: "black" }}>
+                Assessor
+              </Button>
+            </ListItemText>
           </ListItemButton>
         </ListItem>
         <ListItem disablePadding>
           <ListItemButton sx={{ textAlign: "center" }}>
-            <ListItemText primary="Student" />
+            <ListItemText>
+              <Button href="/loginStudent" sx={{ color: "black" }}>
+                Student
+              </Button>
+            </ListItemText>
           </ListItemButton>
         </ListItem>
         <ListItem disablePadding>
           <ListItemButton sx={{ textAlign: "center" }}>
-            <ListItemText primary="Proctorer" />
+            <ListItemText>
+              <Button href="/loginProctorer" sx={{ color: "black" }}>
+                Proctorer
+              </Button>
+            </ListItemText>
           </ListItemButton>
         </ListItem>
       </List>
@@ -89,10 +105,18 @@ function DrawerAppBar(props) {
             Udichi_Portal
           </Typography>
           <Box sx={{ display: { xs: "none", sm: "block" } }}>
-            <Button href='/' sx={{ color: "#fff" }}>Admin</Button>
-            <Button href='/loginAssessor' sx={{ color: "#fff" }}>Assessor</Button>
-            <Button href='/loginStudent' sx={{ color: "#fff" }}>Student</Button>
-            <Button href='/loginProctorer' sx={{ color: "#fff" }}>Proctorer</Button>
+            <Button href="/" sx={{ color: "#fff" }}>
+              Admin
+            </Button>
+            <Button href="/loginAssessor" sx={{ color: "#fff" }}>
+              Assessor
+            </Button>
+            <Button href="/loginStudent" sx={{ color: "#fff" }}>
+              Student
+            </Button>
+            <Button href="/loginProctorer" sx={{ color: "#fff" }}>
+              Proctorer
+            </Button>
           </Box>
         </Toolbar>
       </AppBar>
