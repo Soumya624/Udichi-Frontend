@@ -11,6 +11,7 @@ import { Link, useParams } from "react-router-dom";
 import axios from "axios";
 import axiosInstance from "../../axiosInstance";
 import getCookie from "../../getCookie";
+import Countdown from "react-countdown";
 
 export default function Confirmpresence({ error, setError }) {
   let token = getCookie("access_token");
@@ -33,6 +34,7 @@ export default function Confirmpresence({ error, setError }) {
         if (res.status === 200) {
           let data = res.data;
           let question_groups = data.question_groups;
+          let duration = data.available_window;
           let questions = [];
           for (let ques of question_groups) {
             console.log(ques.questions);
@@ -40,6 +42,7 @@ export default function Confirmpresence({ error, setError }) {
           }
           localStorage.setItem("questions", JSON.stringify(questions));
           localStorage.setItem("test_id", JSON.stringify(id));
+          localStorage.setItem("duration", JSON.stringify(duration*60*1000));
           setAllotedTest(res.data);
         }
       })
@@ -118,6 +121,7 @@ export default function Confirmpresence({ error, setError }) {
   }
 
   let left_attempts = alloted_test.number_of_attempts - number_of_attempts;
+  const Completionist = () => <span>Number of Attempts: {left_attempts}</span>;
 
   return (
     <div>
@@ -143,37 +147,36 @@ export default function Confirmpresence({ error, setError }) {
                 {alloted_test.title}
               </Typography>
               <br />
-			  <ul style={{ textAlign: "justify" }}>
-              <li style={{ textAlign: "justify" }}>
-                {" "}
-                The examination does not require any paper, pen, pencil and
-                calculator
-              </li>
+              <ul style={{ textAlign: "justify" }}>
+                <li style={{ textAlign: "justify" }}>
+                  {" "}
+                  The examination does not require any paper, pen, pencil and
+                  calculator
+                </li>
+                <br />
+                <li style={{ textAlign: "justify" }}>
+                  {" "}
+                  Any student can take the examination on a Laptop/Desktop/Smart
+                  Phone
+                </li>
+                <br />
+                <li style={{ textAlign: "justify" }}>
+                  {" "}
+                  The answers can be changed at any time during the test and are
+                  saved automatically
+                </li>
+                <br />
+                <li style={{ textAlign: "justify" }}>
+                  {" "}
+                  The system automatically shuts down when the time limit is
+                  over. Alternatively if examinee finishes the exam before time
+                  he can quit by pressing the 'Submit' button
+                </li>
+              </ul>
               <br />
-              <li style={{ textAlign: "justify" }}>
-                {" "}
-                Any student can take the examination on a Laptop/Desktop/Smart
-                Phone
-              </li>
-              <br />
-              <li style={{ textAlign: "justify" }}>
-                {" "}
-                The answers can be changed at any time during the test and are
-                saved automatically
-              </li>
-              <br />
-              <li style={{ textAlign: "justify" }}>
-                {" "}
-                The system automatically shuts down when the time limit is over.
-                Alternatively if examinee finishes the exam before time he can
-                quit by pressing the 'Submit' button
-              </li>
-			  </ul>
-			  <br />
               <br />
               <br />
-              <h4>Number of Attempts: {left_attempts}</h4>
-              
+
               <Typography variant="body2" color="text.secondary">
                 {isLoading ? (
                   <div>Loading...</div>
@@ -188,20 +191,28 @@ export default function Confirmpresence({ error, setError }) {
                         alt={"Screenshot"}
                       />
                     )}
-                    <Button
-                      variant="contained"
-                      style={{
-                        backgroundColor:
-                          left_attempts <= 0 ? "#aaaaaa" : "#7882BD",
-                        margin: "1em",
-                      }}
-                      // onClick={getImage}
-                      // onClick={startRecording}
-                      href={`/shareScreen/${id}`}
-                      disabled={left_attempts <= 0}
-                    >
-                      Start Exam
-                    </Button>
+                    <b>
+                      <Countdown date={Date.now() + 35000}>
+                        <div>
+                          <Completionist />
+                          <br />
+                          <Button
+                            variant="contained"
+                            style={{
+                              backgroundColor:
+                                left_attempts <= 0 ? "#aaaaaa" : "#7882BD",
+                              margin: "1em",
+                            }}
+                            // onClick={getImage}
+                            // onClick={startRecording}
+                            href={`/shareScreen/${id}`}
+                            disabled={left_attempts <= 0}
+                          >
+                            Start Exam
+                          </Button>
+                        </div>
+                      </Countdown>
+                    </b>
                     {/* <Button
 											variant="contained"
 											style={{ backgroundColor: "#7882BD", margin: "1em" }}

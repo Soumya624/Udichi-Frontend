@@ -21,6 +21,9 @@ import axios from "axios";
 import { Box, FormLabel, Modal } from "@mui/material";
 import axiosInstance from "../../axiosInstance";
 import getCookie from "../../getCookie";
+import { duration } from "moment/moment";
+import Countdown from "react-countdown";
+
 const style = {
   position: "absolute",
   top: "50%",
@@ -62,6 +65,7 @@ export default function Confirmpresence({
   const [submission_id, setSubmissionId] = useState(null);
   const [is_attempted, setIsAttempted] = useState(false);
   const [subjective_ans, setSubjectAnswer] = useState("");
+  const [timer, setTimer] = useState(null);
 
   let attempt_id = JSON.parse(localStorage.getItem("attempt_id"));
   // if(attempt_id===null)
@@ -73,6 +77,10 @@ export default function Confirmpresence({
     setQuestion(questions);
 
     let test = JSON.parse(localStorage.getItem("test_id"));
+    let durations = JSON.parse(localStorage.getItem("duration"));
+    console.log(typeof durations);
+    setTimer(durations);
+    console.log(timer);
     let user = JSON.parse(localStorage.getItem("user_id"));
     let attempt_id = JSON.parse(localStorage.getItem("attempt_id"));
     console.log(attempt_id);
@@ -102,6 +110,12 @@ export default function Confirmpresence({
       });
   }, [id]);
 
+  let time = timer;
+  console.log(time);
+  setTimeout(() => {
+    localStorage.setItem("duration", JSON.stringify(timer - 1));
+  }, 1000);
+
   // console.log(questions)
 
   // const { isLoading, image, takeScreenshot, clear } = useScreenshot();
@@ -130,6 +144,7 @@ export default function Confirmpresence({
   console.log(qId);
   // if (!questions) return <h1>Loading..</h1>;
   const question_data = questions[qId - 1];
+  // console.log(question_data);
 
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
@@ -249,6 +264,7 @@ export default function Confirmpresence({
           // localStorage.removeItem("attempt_id");
           localStorage.removeItem("questions_id");
           navigate(`/starttestStudent/${test}`);
+          localStorage.removeItem("duration");
         }
       })
       .catch((err) => {
@@ -259,6 +275,8 @@ export default function Confirmpresence({
         }, 1000);
       });
   };
+
+  const Completionist = () => <span>You are good to go!</span>;
 
   return (
     <div>
@@ -283,8 +301,11 @@ export default function Confirmpresence({
                       : "Multiple Correct Questions"}
                   </p>
                 </Grid>
-                <Grid item xs={4} style={{ textAlign: "center" }}>
-                  <p>01:59:01</p>
+                <Grid item xs={4}>
+                  {/* <Countdown date={Date.now() + time}>
+                    <Completionist />
+                  </Countdown> */}
+                  {/* <p>Remaining Time: {timer / 60 / 1000} mins.</p> */}
                 </Grid>
                 <Grid item xs={4} style={{ textAlign: "right" }}>
                   <p>
