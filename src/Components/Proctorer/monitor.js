@@ -37,6 +37,7 @@ const style = {
   bgcolor: "background.paper",
   boxShadow: 24,
   p: 4,
+  overFlowY: "scroll"
 };
 
 // function createData(name, candidates, terminate, action) {
@@ -242,6 +243,7 @@ export default function Confirmpresence({ error, setError }) {
             onClose={handleClose}
             aria-labelledby="modal-modal-title"
             aria-describedby="modal-modal-description"
+            style={{overFlowY:"scroll"}}
           >
             <Box sx={style}>
               <center>

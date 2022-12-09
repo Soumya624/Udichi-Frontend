@@ -196,7 +196,7 @@ export default function Confirmpresence({ error, setError }) {
                         <div>
                           <Completionist />
                           <br />
-                          Server Issue: Please Wait 1/2 mins. Before Any Action
+                          Slow Server: Please Wait 1-2 Minutes Before Any Action
                           <br/>
                           <Button
                             variant="contained"
