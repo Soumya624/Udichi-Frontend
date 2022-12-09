@@ -15,10 +15,12 @@ import Footer from "./../../../Common/Footer";
 import { useState } from "react";
 import axios from "axios";
 import axiosInstance from "../../../axiosInstance";
+import { CircularProgress } from "@mui/material";
 
 export default function Signup({ error, setError }) {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
+  const [loading, setLoading] = useState(false);
 
   function setCookie(cname, cvalue, exdays) {
     const d = new Date();
@@ -28,6 +30,7 @@ export default function Signup({ error, setError }) {
   }
 
   function submit(e) {
+    setLoading(true);
     e.preventDefault();
     let data = {
       email: username,
@@ -43,11 +46,13 @@ export default function Signup({ error, setError }) {
           localStorage.setItem("user", JSON.stringify(user_data));
 
           setCookie(`access_token`, `${token}`, 1);
-          window.location = "/dashboardStudent/";
+          window.location = "/dashboardStudent";
           // setCookie(`refresh`, `${token.refresh}`, 1);
         }
+        setLoading(false);
       })
       .catch((err) => {
+        setLoading(false);
         console.log(err);
         setError("Error occurred! Please Try Again.....");
         setTimeout(() => {
@@ -137,7 +142,8 @@ export default function Signup({ error, setError }) {
                     style={{ backgroundColor: "#7882BD", width: "50%" }}
                     type="submit"
                   >
-                    Continue
+                    {loading && <CircularProgress color="inherit" />}
+                    {!loading && `Continue`}
                   </Button>
                   <br />
                   {/* <p style={{ marginTop: "1%" }}>

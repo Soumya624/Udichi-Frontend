@@ -11,10 +11,12 @@ import Checkbox from "@mui/material/Checkbox";
 import Footer from "./../../../Common/Footer";
 import { useState } from "react";
 import axiosInstance from "../../../axiosInstance";
+import { CircularProgress } from "@mui/material";
 
 export default function LoginAssessor({ error, setError }) {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
+  const [loading, setLoading] = useState(false);
 
   function setCookie(cname, cvalue, exdays) {
     const d = new Date();
@@ -24,6 +26,7 @@ export default function LoginAssessor({ error, setError }) {
   }
 
   function submit(e) {
+    setLoading(true);
     e.preventDefault();
     let data = {
       email: username,
@@ -40,9 +43,11 @@ export default function LoginAssessor({ error, setError }) {
           setCookie(`access_token`, `${token}`, 1);
           window.location = "/dashboardAssessor";
         }
+        setLoading(false);
         //setCookie(`refresh`, `${token.refresh}`, 1);
       })
       .catch((err) => {
+        setLoading(false);
         console.log(err);
         setError("Error occurred! Please Try Again.....");
         setTimeout(() => {
@@ -132,7 +137,8 @@ export default function LoginAssessor({ error, setError }) {
                     variant="contained"
                     style={{ backgroundColor: "#7882BD", width: "50%" }}
                   >
-                    Continue
+                    {loading && <CircularProgress color="inherit" />}
+                    {!loading && `Continue`}
                   </Button>
                   <br />
                   {/* <p style={{ marginTop: "1%" }}>
