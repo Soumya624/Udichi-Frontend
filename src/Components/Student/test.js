@@ -276,8 +276,6 @@ export default function Confirmpresence({
       });
   };
 
-  const Completionist = () => <span>You are good to go!</span>;
-
   return (
     <div>
       <Navbar />

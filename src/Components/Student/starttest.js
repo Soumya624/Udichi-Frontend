@@ -192,10 +192,12 @@ export default function Confirmpresence({ error, setError }) {
                       />
                     )}
                     <b>
-                      <Countdown date={Date.now() + 35000}>
+                      {/* <Countdown date={Date.now() + 35000}> */}
                         <div>
                           <Completionist />
                           <br />
+                          Server Issue: Please Wait 1/2 mins. Before Any Action
+                          <br/>
                           <Button
                             variant="contained"
                             style={{
@@ -211,7 +213,7 @@ export default function Confirmpresence({ error, setError }) {
                             Start Exam
                           </Button>
                         </div>
-                      </Countdown>
+                      {/* </Countdown> */}
                     </b>
                     {/* <Button
 											variant="contained"
