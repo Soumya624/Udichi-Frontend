@@ -24,8 +24,8 @@ import StarttestStudent from "./Components/Student/starttest";
 import SubmittestStudent from "./Components/Student/submittest";
 import TestStudent from "./Components/Student/test";
 import AddcandidateAdmin from "./Components/Admin/addCandidate";
-import AddassessorAdmin from './Components/Admin/addAssessor';
-import AddproctorerAdmin from './Components/Admin/addProctorer';
+import AddassessorAdmin from "./Components/Admin/addAssessor";
+import AddproctorerAdmin from "./Components/Admin/addProctorer";
 import AddexamAdmin from "./Components/Admin/addExam";
 import AddquestionAdmin from "./Components/Admin/addQuestion";
 import Test from "./testCont";
@@ -39,301 +39,334 @@ import Alert from "@mui/material/Alert";
 import axiosInstance from "./axiosInstance";
 import getCookie from "./getCookie";
 import ProtectedRoute from "./ProtectedRoute";
+import { Translator, Translate } from "react-auto-translate/lib/commonjs";
 function App() {
-	let token = getCookie("access_token");
-	const [error, setError] = useState(null);
-	let user = JSON.parse(localStorage.getItem("user"));
+  let token = getCookie("access_token");
+  const [error, setError] = useState(null);
+  let user = JSON.parse(localStorage.getItem("user"));
 
-	let config = null;
-	if (user && token)
-		config = {
-			headers: { Authorization: `Bearer ${token}`, "user-type": user.usertype },
-		};
-	const [isClicked, setClicked] = useState(false);
-	const [screeShare, setScreenShare] = useState(null);
-	const [cameraShare, setCameraShare] = useState(null);
-	const screen = useReactMediaRecorder({ screen: true, audio: true });
+  let config = null;
+  if (user && token)
+    config = {
+      headers: { Authorization: `Bearer ${token}`, "user-type": user.usertype },
+    };
+  const [isClicked, setClicked] = useState(false);
+  const [screeShare, setScreenShare] = useState(null);
+  const [cameraShare, setCameraShare] = useState(null);
+  const screen = useReactMediaRecorder({ screen: true, audio: true });
 
-	const camera = useReactMediaRecorder({ video: true, audio: true });
-	useEffect(() => {
-		if (isClicked) {
-			camera.stopRecording();
-			screen.stopRecording();
-			if (
-				camera.mediaBlobUrl !== undefined &&
-				screen.mediaBlobUrl !== undefined
-			)
-				zipfile(camera.mediaBlobUrl, screen.mediaBlobUrl);
-		}
-	}, [camera, screen, cameraShare, screeShare]);
+  const camera = useReactMediaRecorder({ video: true, audio: true });
+  useEffect(() => {
+    if (isClicked) {
+      camera.stopRecording();
+      screen.stopRecording();
+      if (
+        camera.mediaBlobUrl !== undefined &&
+        screen.mediaBlobUrl !== undefined
+      )
+        zipfile(camera.mediaBlobUrl, screen.mediaBlobUrl);
+    }
+  }, [camera, screen, cameraShare, screeShare]);
 
-	async function zipfile(cameraShare, screeShare) {
-		console.log("Stopped....");
-		console.log("Stopped....");
-		const zip = new JSZip();
-		let video = zip.folder("Recording");
-		let blob_screen = await fetch(screeShare).then((r) => r.blob());
-		let blob_camera = await fetch(cameraShare).then((r) => r.blob());
-		camera.clearBlobUrl();
-		screen.clearBlobUrl();
-		video.file("screen.mp4", blob_screen);
-		video.file("camera.mp4", blob_camera);
-		await zip.generateAsync({ type: "blob" }).then(async function (content) {
-			const file = new File([content], "upload_zip.zip");
-			let form = new FormData();
-			form.append("zip_files", file);
-			// blob to file with extension zip
-			let attempt_id = JSON.parse(localStorage.getItem("attempt_id"));
-			await axiosInstance
-				.patch(`/attempts/${attempt_id}`, form, config)
-				.then((res) => {
-					console.log(res);
-					if (res.status === 200) {
-						localStorage.removeItem("attempt_id");
-					}
-				})
-				.catch((err) => {
-				});
+  async function zipfile(cameraShare, screeShare) {
+    console.log("Stopped....");
+    console.log("Stopped....");
+    const zip = new JSZip();
+    let video = zip.folder("Recording");
+    let blob_screen = await fetch(screeShare).then((r) => r.blob());
+    let blob_camera = await fetch(cameraShare).then((r) => r.blob());
+    camera.clearBlobUrl();
+    screen.clearBlobUrl();
+    video.file("screen.mp4", blob_screen);
+    video.file("camera.mp4", blob_camera);
+    await zip.generateAsync({ type: "blob" }).then(async function (content) {
+      const file = new File([content], "upload_zip.zip");
+      let form = new FormData();
+      form.append("zip_files", file);
+      // blob to file with extension zip
+      let attempt_id = JSON.parse(localStorage.getItem("attempt_id"));
+      await axiosInstance
+        .patch(`/attempts/${attempt_id}`, form, config)
+        .then((res) => {
+          console.log(res);
+          if (res.status === 200) {
+            localStorage.removeItem("attempt_id");
+          }
+        })
+        .catch((err) => {});
 
-			// FileSaver.saveAs(content, "download.zip");
-			setCameraShare(null);
-			setScreenShare(null);
-		});
-	}
-	return (
-		<div>
-			<Container>
-				<div
-					style={{
-						position: "absolute",
-						top: "6em",
-						display: "flex",
-						alignItems: "center",
-						justifyContent: "center",
-						width: "100vw",
-					}}
-				>
-					{error && (
-						<Alert severity="error">
-							{error}
-						</Alert>
-					)}
-				</div>
-				<Router>
-					<Routes>
-						<Route path="/testing-page" element={<Test />} exact />
-						{/* <Route path="/" element={<Signup setError={setError} />} exact /> */}
-						<Route
-							path="/"
-							element={<LoginAdmin setError={setError} />}
-							exact
-						/>
-						<Route
-							path="/loginAssessor"
-							element={<LoginAssessor setError={setError} />}
-							exact
-						/>
-						<Route path="/loginStudent" element={<LoginStudent setError={setError}/>} exact />
-						<Route path="/loginProctorer" element={<LoginProctorer setError={setError}/>} exact />
-						<Route path="/dashboardAdmin" element={<ProtectedRoute />} exact>
-							<Route
-								path="/dashboardAdmin"
-								element={<DashboardAdmin setError={setError}/>}
-								exact
-							/>
-						</Route>
-						<Route
-							path="/dashboardProctorer"
-							element={<ProtectedRoute />}
-							exact
-						>
-							<Route
-								path="/dashboardProctorer"
-								element={<DashboardProctorer setError={setError}/>}
-								exact
-							/>
-						</Route>
-						<Route path="/dashboardAssessor" element={<ProtectedRoute />} exact>
-							<Route
-								path="/dashboardAssessor"
-								element={<DashboardAssessor setError={setError}/>}
-								exact
-							/>
-						</Route>
-						<Route path="/dashboardStudent" element={<ProtectedRoute />} exact>
-							<Route
-								path="/dashboardStudent"
-								element={<DashboardStudent setError={setError}/>}
-								exact
-							/>
-						</Route>
-						<Route path="/examAdmin" element={<ProtectedRoute />} exact>
-							<Route path="/examAdmin" element={<ExamAdmin setError={setError}/>} exact />
-						</Route>
+      // FileSaver.saveAs(content, "download.zip");
+      setCameraShare(null);
+      setScreenShare(null);
+    });
+  }
+  const cacheProvider = {
+    get: (language, key) =>
+      ((JSON.parse(localStorage.getItem("translations")) || {})[key] || {})[
+        language
+      ],
+    set: (language, key, value) => {
+      const existing = JSON.parse(localStorage.getItem("translations")) || {
+        [key]: {},
+      };
+      existing[key] = { ...existing[key], [language]: value };
+      localStorage.setItem("translations", JSON.stringify(existing));
+    },
+  };
+  return (
+    <div>
+      <Container>
+        <div
+          style={{
+            position: "absolute",
+            top: "6em",
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "center",
+            width: "100vw",
+          }}
+        >
+          {error && <Alert severity="error">{error}</Alert>}
+        </div>
+        <Router>
+          <Routes>
+            <Route path="/testing-page" element={<Test />} exact />
+            {/* <Route path="/" element={<Signup setError={setError} />} exact /> */}
+            <Route
+              path="/"
+              element={<LoginAdmin setError={setError} />}
+              exact
+            />
+            <Route
+              path="/loginAssessor"
+              element={<LoginAssessor setError={setError} />}
+              exact
+            />
+            <Route
+              path="/loginStudent"
+              element={<LoginStudent setError={setError} />}
+              exact
+            />
+            <Route
+              path="/loginProctorer"
+              element={<LoginProctorer setError={setError} />}
+              exact
+            />
+            <Route path="/dashboardAdmin" element={<ProtectedRoute />} exact>
+              <Route
+                path="/dashboardAdmin"
+                element={<DashboardAdmin setError={setError} />}
+                exact
+              />
+            </Route>
+            <Route
+              path="/dashboardProctorer"
+              element={<ProtectedRoute />}
+              exact
+            >
+              <Route
+                path="/dashboardProctorer"
+                element={<DashboardProctorer setError={setError} />}
+                exact
+              />
+            </Route>
+            <Route path="/dashboardAssessor" element={<ProtectedRoute />} exact>
+              <Route
+                path="/dashboardAssessor"
+                element={<DashboardAssessor setError={setError} />}
+                exact
+              />
+            </Route>
+            <Route path="/dashboardStudent" element={<ProtectedRoute />} exact>
+              <Route
+                path="/dashboardStudent"
+                element={<DashboardStudent setError={setError} />}
+                exact
+              />
+            </Route>
+            <Route path="/examAdmin" element={<ProtectedRoute />} exact>
+              <Route
+                path="/examAdmin"
+                element={<ExamAdmin setError={setError} />}
+                exact
+              />
+            </Route>
 
-						<Route path="/candidateAdmin" element={<ProtectedRoute />} exact>
-							<Route
-								path="/candidateAdmin"
-								element={<CandidateAdmin setError={setError} />}
-								exact
-							/>
-						</Route>
-						<Route path="/assessorAdmin" element={<ProtectedRoute />} exact>
-							<Route
-								path="/assessorAdmin"
-								element={<AssessorAdmin setError={setError} />}
-								exact
-							/>
-						</Route>
-						<Route path="/proctorerAdmin" element={<ProtectedRoute />} exact>
-							<Route
-								path="/proctorerAdmin"
-								element={<ProctorerAdmin setError={setError} />}
-								exact
-							/>
-						</Route>
+            <Route path="/candidateAdmin" element={<ProtectedRoute />} exact>
+              <Route
+                path="/candidateAdmin"
+                element={<CandidateAdmin setError={setError} />}
+                exact
+              />
+            </Route>
+            <Route path="/assessorAdmin" element={<ProtectedRoute />} exact>
+              <Route
+                path="/assessorAdmin"
+                element={<AssessorAdmin setError={setError} />}
+                exact
+              />
+            </Route>
+            <Route path="/proctorerAdmin" element={<ProtectedRoute />} exact>
+              <Route
+                path="/proctorerAdmin"
+                element={<ProctorerAdmin setError={setError} />}
+                exact
+              />
+            </Route>
 
-						<Route path="/questionAdmin" element={<ProtectedRoute />} exact>
-							<Route path="/questionAdmin" element={<QuestionAdmin setError={setError} />} exact />
-						</Route>
-						<Route path="/statisticsAdmin" element={<ProtectedRoute />} exact>
-							<Route
-								path="/statisticsAdmin"
-								element={<StatisticsAdmin setError={setError} />}
-								exact
-							/>
-						</Route>
-						<Route path="/resultAssessor" element={<ProtectedRoute />} exact>
-							<Route
-								path="/resultAssessor"
-								element={<ResultAssessor setError={setError} />}
-								exact
-							/>
-						</Route>
-						<Route path="/presenceAssessor" element={<ProtectedRoute />} exact>
-							<Route
-								path="/presenceAssessor"
-								element={<PresenceAssessor setError={setError} />}
-								exact
-							/>
-						</Route>
-						<Route path="/vivaAssessor" element={<ProtectedRoute />} exact>
-							<Route path="/vivaAssessor" element={<VivaAssessor setError={setError} />} exact />
-						</Route>
+            <Route path="/questionAdmin" element={<ProtectedRoute />} exact>
+              <Route
+                path="/questionAdmin"
+                element={<QuestionAdmin setError={setError} />}
+                exact
+              />
+            </Route>
+            <Route path="/statisticsAdmin" element={<ProtectedRoute />} exact>
+              <Route
+                path="/statisticsAdmin"
+                element={<StatisticsAdmin setError={setError} />}
+                exact
+              />
+            </Route>
+            <Route path="/resultAssessor" element={<ProtectedRoute />} exact>
+              <Route
+                path="/resultAssessor"
+                element={<ResultAssessor setError={setError} />}
+                exact
+              />
+            </Route>
+            <Route path="/presenceAssessor" element={<ProtectedRoute />} exact>
+              <Route
+                path="/presenceAssessor"
+                element={<PresenceAssessor setError={setError} />}
+                exact
+              />
+            </Route>
+            <Route path="/vivaAssessor" element={<ProtectedRoute />} exact>
+              <Route
+                path="/vivaAssessor"
+                element={<VivaAssessor setError={setError} />}
+                exact
+              />
+            </Route>
 
-						<Route path="/vivalinkAssessor" element={<ProtectedRoute />} exact>
-							<Route
-								path="/vivalinkAssessor"
-								element={<VivalinkAssessor setError={setError} />}
-								exact
-							/>
-						</Route>
-						<Route
-							path="/monitorProctorer/:id"
-							element={<ProtectedRoute />}
-							exact
-						>
-							<Route
-								path="/monitorProctorer/:id"
-								element={<MonitorProctorer setError={setError}/>}
-								exact
-							/>
-						</Route>
+            <Route path="/vivalinkAssessor" element={<ProtectedRoute />} exact>
+              <Route
+                path="/vivalinkAssessor"
+                element={<VivalinkAssessor setError={setError} />}
+                exact
+              />
+            </Route>
+            <Route
+              path="/monitorProctorer/:id"
+              element={<ProtectedRoute />}
+              exact
+            >
+              <Route
+                path="/monitorProctorer/:id"
+                element={<MonitorProctorer setError={setError} />}
+                exact
+              />
+            </Route>
 
-						<Route
-							path="/starttestStudent/:id"
-							element={<ProtectedRoute />}
-							exact
-						>
-							<Route
-								path="/starttestStudent/:id"
-								element={<StarttestStudent setError={setError}/>}
-								exact
-							/>
-						</Route>
-						<Route path="/submittestStudent" element={<ProtectedRoute />} exact>
-							<Route
-								path="/submittestStudent"
-								element={<SubmittestStudent setError={setError}/>}
-								exact
-							/>
-						</Route>
-						<Route path="/testStudent/:id" element={<ProtectedRoute />} exact>
-							<Route
-								path="/testStudent/:id"
-								element={
-									<TestStudent
-										cameraShare={cameraShare}
-										screeShare={screeShare}
-										stopScreenSharing={screen.stopRecording}
-										stopCamera={camera.stopRecording}
-										setClicked={setClicked}
-										setError={setError}
-									/>
-								}
-								exact
-							/>
-						</Route>
+            <Route
+              path="/starttestStudent/:id"
+              element={<ProtectedRoute />}
+              exact
+            >
+              <Route
+                path="/starttestStudent/:id"
+                element={<StarttestStudent setError={setError} />}
+                exact
+              />
+            </Route>
+            <Route path="/submittestStudent" element={<ProtectedRoute />} exact>
+              <Route
+                path="/submittestStudent"
+                element={<SubmittestStudent setError={setError} />}
+                exact
+              />
+            </Route>
+            <Route path="/testStudent/:id" element={<ProtectedRoute />} exact>
+              <Route
+                path="/testStudent/:id"
+                element={
+                  <TestStudent
+                    cameraShare={cameraShare}
+                    screeShare={screeShare}
+                    stopScreenSharing={screen.stopRecording}
+                    stopCamera={camera.stopRecording}
+                    setClicked={setClicked}
+                    setError={setError}
+                  />
+                }
+                exact
+              />
+            </Route>
 
-						<Route path="/addcandidateAdmin" element={<ProtectedRoute />} exact>
-							<Route
-								path="/addcandidateAdmin"
-								element={<AddcandidateAdmin setError={setError}/>}
-								exact
-							/>
-						</Route>
-						<Route path="/addassessorAdmin" element={<ProtectedRoute />} exact>
-							<Route
-								path="/addassessorAdmin"
-								element={<AddassessorAdmin setError={setError}/>}
-								exact
-							/>
-						</Route>
-						<Route path="/addproctorerAdmin" element={<ProtectedRoute />} exact>
-							<Route
-								path="/addproctorerAdmin"
-								element={<AddproctorerAdmin setError={setError}/>}
-								exact
-							/>
-						</Route>
-						<Route path="/addexamAdmin" element={<ProtectedRoute />} exact>
-							<Route path="/addexamAdmin" element={<AddexamAdmin setError={setError}/>} exact />
-						</Route>
+            <Route path="/addcandidateAdmin" element={<ProtectedRoute />} exact>
+              <Route
+                path="/addcandidateAdmin"
+                element={<AddcandidateAdmin setError={setError} />}
+                exact
+              />
+            </Route>
+            <Route path="/addassessorAdmin" element={<ProtectedRoute />} exact>
+              <Route
+                path="/addassessorAdmin"
+                element={<AddassessorAdmin setError={setError} />}
+                exact
+              />
+            </Route>
+            <Route path="/addproctorerAdmin" element={<ProtectedRoute />} exact>
+              <Route
+                path="/addproctorerAdmin"
+                element={<AddproctorerAdmin setError={setError} />}
+                exact
+              />
+            </Route>
+            <Route path="/addexamAdmin" element={<ProtectedRoute />} exact>
+              <Route
+                path="/addexamAdmin"
+                element={<AddexamAdmin setError={setError} />}
+                exact
+              />
+            </Route>
 
-						<Route path="/addquestionAdmin" element={<ProtectedRoute />} exact>
-							<Route
-								path="/addquestionAdmin"
-								element={<AddquestionAdmin setError={setError}/>}
-								exact
-							/>
-						</Route>
-						<Route path="/shareScreen/:id" element={<ProtectedRoute />} exact>
-							<Route
-								path="/shareScreen/:id"
-								element={
-									<ShareContainer
-										startScreenRecording={screen.startRecording}
-										startCameraRecording={camera.startRecording}
-										mediaCameraBlob={camera.mediaBlobUrl}
-										mediaScreenBlob={screen.mediaBlobUrl}
-										stopScreenSharing={screen.stopRecording}
-										stopCamera={camera.stopRecording}
-										setScreenShare={setScreenShare}
-										setCameraShare={setCameraShare}
-										cameraStatus={camera.status}
-										screeStatus={screen.status}
-										isClicked={isClicked}
-										setError={setError}
-									/>
-								}
-								exact
-							/>
-						</Route>
-					</Routes>
-				</Router>
-			</Container>
-		</div>
-	);
+            <Route path="/addquestionAdmin" element={<ProtectedRoute />} exact>
+              <Route
+                path="/addquestionAdmin"
+                element={<AddquestionAdmin setError={setError} />}
+                exact
+              />
+            </Route>
+            <Route path="/shareScreen/:id" element={<ProtectedRoute />} exact>
+              <Route
+                path="/shareScreen/:id"
+                element={
+                  <ShareContainer
+                    startScreenRecording={screen.startRecording}
+                    startCameraRecording={camera.startRecording}
+                    mediaCameraBlob={camera.mediaBlobUrl}
+                    mediaScreenBlob={screen.mediaBlobUrl}
+                    stopScreenSharing={screen.stopRecording}
+                    stopCamera={camera.stopRecording}
+                    setScreenShare={setScreenShare}
+                    setCameraShare={setCameraShare}
+                    cameraStatus={camera.status}
+                    screeStatus={screen.status}
+                    isClicked={isClicked}
+                    setError={setError}
+                  />
+                }
+                exact
+              />
+            </Route>
+          </Routes>
+        </Router>
+      </Container>
+    </div>
+  );
 }
 
 export default App;

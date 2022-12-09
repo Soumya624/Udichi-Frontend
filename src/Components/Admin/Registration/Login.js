@@ -14,6 +14,8 @@ import axios from "axios";
 import axiosInstance from "../../../axiosInstance";
 import setCookie from "../../../setCookie";
 import { CircularProgress } from "@mui/material";
+import Translator from "react-auto-translate/lib/commonjs/translator";
+import { Translate } from "@mui/icons-material";
 
 export default function LoginAdmin({ error, setError }) {
   const [username, setUsername] = useState("");
@@ -56,6 +58,20 @@ export default function LoginAdmin({ error, setError }) {
         }, 1000);
       });
   }
+
+  const cacheProvider = {
+    get: (language, key) =>
+      ((JSON.parse(localStorage.getItem("translations")) || {})[key] || {})[
+        language
+      ],
+    set: (language, key, value) => {
+      const existing = JSON.parse(localStorage.getItem("translations")) || {
+        [key]: {},
+      };
+      existing[key] = { ...existing[key], [language]: value };
+      localStorage.setItem("translations", JSON.stringify(existing));
+    },
+  };
 
   return (
     <div>
@@ -152,9 +168,10 @@ export default function LoginAdmin({ error, setError }) {
               </form>
             </CardContent>
             {/* <CardActions>
-          <Button size="small">Share</Button>
-          <Button size="small">Learn More</Button>
-        </CardActions> */}
+                  <Button size="small">Share</Button>
+                  <Button size="small">Learn More</Button>
+                </CardActions> 
+            */}
           </Card>
         </center>
         <br />
