@@ -109,7 +109,7 @@ export default function Index({ error, setError }) {
             style={{
               textDecoration: "none",
               cursor: "pointer",
-              color: "#5a5a5a",
+              color: "#7882bd",
             }}
           >
             Your Account

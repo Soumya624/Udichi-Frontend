@@ -81,7 +81,7 @@ export default function Index({ error, setError }) {
           Check Out{" "}
           <a
             onClick={handleOpen}
-            style={{ textDecoration: "none", cursor: "pointer", color:"#5a5a5a" }}
+            style={{ textDecoration: "none", cursor: "pointer", color:"#7882bd" }}
           >
             Your Account
           </a>

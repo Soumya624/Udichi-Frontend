@@ -89,7 +89,7 @@ export default function BasicTable({ error, setError }) {
           Manually Create an{" "}
           <a
             href="/addexamAdmin"
-            style={{ textDecoration: "none", color: "#5a5a5a" }}
+            style={{ textDecoration: "none", color: "#7882bd" }}
           >
             Exam
           </a>

@@ -168,7 +168,7 @@ export default function BasicTable({ error, setError }) {
           Manually Add a{" "}
           <a
             href="/addquestionAdmin"
-            style={{ textDecoration: "none", color: "#5a5a5a" }}
+            style={{ textDecoration: "none", color: "#7882bd" }}
           >
             Question
           </a>
@@ -178,7 +178,7 @@ export default function BasicTable({ error, setError }) {
             style={{
               textDecoration: "none",
               cursor: "pointer",
-              color: "#5a5a5a",
+              color: "#7882bd",
             }}
           >
             Upload File

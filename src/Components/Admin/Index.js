@@ -52,7 +52,8 @@ const Item = styled(Paper)(({ theme }) => ({
 
 export const options = {
   curveType: "function",
-  legend: { position: "bottom" },
+  legend: { position: "top" },
+  backgroundColor: { fill: "transparent" },
 };
 
 export default function Index({ error, setError }) {
@@ -275,7 +276,7 @@ export default function Index({ error, setError }) {
             style={{
               textDecoration: "none",
               cursor: "pointer",
-              color: "#5a5a5a",
+              color: "#7882bd",
             }}
           >
             Your Account
@@ -436,10 +437,23 @@ export default function Index({ error, setError }) {
             <Chart
               chartType="LineChart"
               width="100%"
-              height="80%"
+              height="100%"
               data={data}
               options={options}
+              style={{ backgroundColor: "transparent" }}
             />
+            <br />
+            <center>
+              <p
+                style={{
+                  color: "black",
+                  padding: window.innerWidth < 968 ? "3%" : "2% 15%",
+                }}
+              >
+                The chart will be updated if there is an increment or decrement
+                of exams
+              </p>
+            </center>
             {/* <center>
               <Button onClick={chart_preparation}>Update Chart</Button>
             </center> */}
@@ -456,10 +470,10 @@ export default function Index({ error, setError }) {
                   animationDuration="1s"
                   responsive={true}
                   size={50}
-                  lineWidth={14}
+                  lineWidth={6}
                   progress={`${testlist.length}` + " " + "Exam"}
                   progressColor="#7882bd"
-                  bgColor="whitesmoke"
+                  bgColor="#7882bd"
                   textColor="#7882bd"
                   textStyle={{
                     font: "normal 2rem Helvetica, Arial, sans-serif",
@@ -476,12 +490,12 @@ export default function Index({ error, setError }) {
                   animationDuration="1s"
                   responsive={true}
                   size={50}
-                  lineWidth={14}
+                  lineWidth={6}
                   progress={
                     `${questiongrouplist.length}` + " " + "Question Group"
                   }
                   progressColor="#7882bd"
-                  bgColor="whitesmoke"
+                  bgColor="#7882bd"
                   textColor="#7882bd"
                   textStyle={{
                     font: "normal 2rem Helvetica, Arial, sans-serif",
@@ -498,12 +512,12 @@ export default function Index({ error, setError }) {
                   animationDuration="1s"
                   responsive={true}
                   size={50}
-                  lineWidth={14}
+                  lineWidth={6}
                   progress={
                     `${candidategrouplist.length}` + " " + "Candidate Group"
                   }
                   progressColor="#7882bd"
-                  bgColor="whitesmoke"
+                  bgColor="#7882bd"
                   textColor="#7882bd"
                   textStyle={{
                     font: "normal 2rem Helvetica, Arial, sans-serif",
@@ -520,10 +534,10 @@ export default function Index({ error, setError }) {
                   animationDuration="1s"
                   responsive={true}
                   size={50}
-                  lineWidth={14}
+                  lineWidth={6}
                   progress={`${assessorlist.length}` + " " + "Assessor"}
                   progressColor="#7882bd"
-                  bgColor="whitesmoke"
+                  bgColor="#7882bd"
                   textColor="#7882bd"
                   textStyle={{
                     font: "normal 2rem Helvetica, Arial, sans-serif",
@@ -540,10 +554,10 @@ export default function Index({ error, setError }) {
                   animationDuration="1s"
                   responsive={true}
                   size={50}
-                  lineWidth={14}
+                  lineWidth={6}
                   progress={`${proctorerlist.length}` + " " + "Proctorer"}
                   progressColor="#7882bd"
-                  bgColor="whitesmoke"
+                  bgColor="#7882bd"
                   textColor="#7882bd"
                   textStyle={{
                     font: "normal 2rem Helvetica, Arial, sans-serif",
