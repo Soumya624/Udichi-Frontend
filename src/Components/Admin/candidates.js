@@ -319,6 +319,18 @@ export default function BasicTable({ error, setError }) {
         <Box sx={style}>
           <center>
             <Grid container spacing={1} style={{ marginTop: "0.5%" }}>
+              <center>
+                <h4>General Guidelines</h4>
+                <ul>
+                  <li style={{ textAlign: "justify" }}>
+                    The File Must Contain Unique Candidates
+                  </li>
+                  <li style={{ textAlign: "justify" }}>
+                    Any Two Files Shouln't Contain Exactly Same Candidate(s)
+                  </li>
+                </ul>
+                <br />
+              </center>
               <Grid item xs={12}>
                 <TextField
                   id="outlined-basic"
