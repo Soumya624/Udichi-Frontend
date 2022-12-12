@@ -78,8 +78,12 @@ export default function Confirmpresence({
 
     let test = JSON.parse(localStorage.getItem("test_id"));
     let durations = JSON.parse(localStorage.getItem("duration"));
-    console.log(typeof durations);
-    setTimer(durations);
+    console.log(durations);
+    if (timer === null) {
+      setTimer(durations);
+    } else {
+      setTimer(timer);
+    }
     console.log(timer);
     let user = JSON.parse(localStorage.getItem("user_id"));
     let attempt_id = JSON.parse(localStorage.getItem("attempt_id"));
@@ -109,12 +113,14 @@ export default function Confirmpresence({
         }, 1000);
       });
   }, [id]);
-
-  let time = timer;
-  console.log(time);
-  setTimeout(() => {
-    localStorage.setItem("duration", JSON.stringify(timer - 1));
-  }, 1000);
+  // timer=durations;
+  console.log(timer);
+  // setTimer(durations);
+  // let time = timer;
+  // console.log(time);
+  // setTimeout(() => {
+  //   localStorage.setItem("duration", JSON.stringify(timer - 1));
+  // }, 1000);
 
   // console.log(questions)
 
@@ -299,10 +305,26 @@ export default function Confirmpresence({
                       : "Multiple Correct Questions"}
                   </p>
                 </Grid>
-                <Grid item xs={4}>
-                  {/* <Countdown date={Date.now() + time}>
-                    <Completionist />
+                {/* <Countdown
+                    date={Date.now() + timer}
+                    onTick={(e) => {
+                      localStorage.setItem("duration", JSON.stringify(timer-1));
+                    }}
+                  >
+                    <p>End Now</p>
                   </Countdown> */}
+                <Grid item xs={4}>
+                  <Countdown
+                    date={Date.now() + timer}
+                    onTick={(e) => {
+                      localStorage.setItem(
+                        "duration",
+                        JSON.stringify(timer - 1)
+                      );
+                    }}
+                  >
+                    <p>End Now</p>
+                  </Countdown>
                   {/* <p>Remaining Time: {timer / 60 / 1000} mins.</p> */}
                 </Grid>
                 <Grid item xs={4} style={{ textAlign: "right" }}>
