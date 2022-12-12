@@ -27,6 +27,8 @@ import Modal from "@mui/material/Modal";
 import Box from "@mui/material/Box";
 import axiosInstance from "../../axiosInstance";
 import getCookie from "../../getCookie";
+import "react-responsive-modal/styles.css";
+import { Modal as Modal1 } from "react-responsive-modal";
 
 const style = {
   position: "absolute",
@@ -37,7 +39,7 @@ const style = {
   bgcolor: "background.paper",
   boxShadow: 24,
   p: 4,
-  overFlowY: "scroll"
+  overFlowY: "scroll",
 };
 
 // function createData(name, candidates, terminate, action) {
@@ -238,12 +240,12 @@ export default function Confirmpresence({ error, setError }) {
           <Button size="small">Learn More</Button>
         </CardActions> */}
           </Card>
-          <Modal
+          {/* <Modal
             open={open}
             onClose={handleClose}
             aria-labelledby="modal-modal-title"
             aria-describedby="modal-modal-description"
-            style={{overFlowY:"scroll"}}
+            style={{ overFlowY: "scroll" }}
           >
             <Box sx={style}>
               <center>
@@ -258,7 +260,11 @@ export default function Confirmpresence({ error, setError }) {
                     <Grid
                       container
                       spacing={1}
-                      style={{ marginTop: "0.5%", alignItems: "center" }}
+                      style={{
+                        marginTop: "0.5%",
+                        alignItems: "center",
+                        overFlowY: "scroll",
+                      }}
                     >
                       <Grid item xs={6}>
                         <p>{altst}</p>
@@ -294,7 +300,62 @@ export default function Confirmpresence({ error, setError }) {
                 </Button>
               </center>
             </Box>
-          </Modal>
+          </Modal> */}
+          <Modal1 open={open} onClose={handleClose} center>
+            <Box style={{ padding: "3%" }}>
+              <center>
+                <h3>Download Files</h3>
+                <p>
+                  Get the Zip File of Different Attempts. Recent Attempts are
+                  Added in The End
+                </p>
+                <br />
+                {attemplist.map((altst) => {
+                  return (
+                    <Grid
+                      container
+                      spacing={1}
+                      style={{
+                        marginTop: "0.5%",
+                        alignItems: "center",
+                        overFlowY: "scroll",
+                      }}
+                    >
+                      <Grid item xs={6}>
+                        <p>{altst}</p>
+                      </Grid>
+                      <Grid item xs={6}>
+                        <Button
+                          variant="contained"
+                          style={{
+                            backgroundColor: "#7882BD",
+                            width: "50%",
+                            display: altst !== null ? "" : "none",
+                          }}
+                          onClick={() => {
+                            console.log(altst);
+                            downloadZip(altst);
+                          }}
+                        >
+                          Download
+                        </Button>
+                      </Grid>
+                    </Grid>
+                  );
+                })}
+                <br />
+                <br />
+                <br />
+                <Button
+                  variant="contained"
+                  style={{ backgroundColor: "#7882BD", width: "50%" }}
+                  onClick={handleClose}
+                >
+                  Close
+                </Button>
+              </center>
+            </Box>
+          </Modal1>
         </center>
         <br />
         <br />

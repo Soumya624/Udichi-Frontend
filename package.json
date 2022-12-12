@@ -24,6 +24,7 @@
     "react-dom": "^18.2.0",
     "react-google-charts": "^4.0.0",
     "react-media-recorder": "^1.6.6",
+    "react-responsive-modal": "^6.4.1",
     "react-router-dom": "^6.3.0",
     "react-screen-capture": "^1.0.1",
     "react-scripts": "5.0.1",
