@@ -282,6 +282,28 @@ export default function Confirmpresence({
       });
   };
 
+  // Get the duration from local storage
+  const duration = localStorage.getItem("duration");
+
+  // Initialize state variables to keep track of the time remaining
+  // and whether the timer has expired
+  const [timeRemaining, setTimeRemaining] = useState(duration);
+  const [isExpired, setIsExpired] = useState(false);
+
+  // Update the time remaining every 1000ms (1 second)
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setTimeRemaining(timeRemaining - 1000);
+
+      // If the time remaining has reached 0, the timer has expired
+      if (timeRemaining === 0) {
+        setIsExpired(true);
+      }
+    }, 1000);
+
+    return () => clearInterval(interval);
+  });
+
   return (
     <div>
       <Navbar />
@@ -312,9 +334,11 @@ export default function Confirmpresence({
                     }}
                   >
                     <p>End Now</p>
+                    
                   </Countdown> */}
+
                 <Grid item xs={4}>
-                  <Countdown
+                  {/* <Countdown
                     date={Date.now() + timer}
                     onTick={(e) => {
                       localStorage.setItem(
@@ -324,7 +348,18 @@ export default function Confirmpresence({
                     }}
                   >
                     <p>End Now</p>
-                  </Countdown>
+                  </Countdown> */}
+                  <div>
+                    {/* Display the time remaining */}
+                    <p>{`${Math.floor(
+                      timeRemaining / 1000 / 3600
+                    )}:${Math.floor(
+                      ((timeRemaining / 1000) % 3600) / 60
+                    )}:${Math.floor(((timeRemaining / 1000) % 3600) % 60)}`}</p>
+
+                    {/* If the timer has expired, show a message */}
+                    {isExpired && <p style={{ color: "red" }}>Time's Up</p>}
+                  </div>
                   {/* <p>Remaining Time: {timer / 60 / 1000} mins.</p> */}
                 </Grid>
                 <Grid item xs={4} style={{ textAlign: "right" }}>
