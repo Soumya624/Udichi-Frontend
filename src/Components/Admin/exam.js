@@ -27,8 +27,9 @@ import Collapsible from "react-collapsible";
 import "./style.css";
 import axiosInstance from "../../axiosInstance";
 import getCookie from "../../getCookie";
-import { CircularProgress } from "@mui/material";
+import { Box, Button, CircularProgress, Grid } from "@mui/material";
 import moment from "moment";
+import { Modal as Modal1 } from "react-responsive-modal";
 
 function createData(name, candidates, duration, questions, action) {
   return { name, candidates, duration, questions, action };
@@ -51,10 +52,20 @@ const config = {
 export default function BasicTable({ error, setError }) {
   const [examgroup, setExamgroup] = useState(null);
   const [loading, setLoading] = useState(false);
+  const [open1, setOpen1] = useState(false);
+  const [allexamcandidates, setAllexamcandidates] = useState([]);
+  const [demodata, setDemodata] = useState("");
 
   useEffect(() => {
     getExams();
   }, []);
+
+  const handleOpen1 = () => {
+    setOpen1(true);
+  };
+  const handleClose1 = () => {
+    setOpen1(false);
+  };
 
   function getExams() {
     setLoading(true);
@@ -169,8 +180,22 @@ export default function BasicTable({ error, setError }) {
                       <TableCell
                         align="right"
                         style={{ cursor: "pointer", color: "grey" }}
+                        onClick={() => {
+                          // handleOpen1();
+                          setDemodata(key._id);
+                          // axiosInstance
+                          //   .get(`/result/${altst._id}/`, config)
+                          //   .then((res) => {
+                          //     if (res.status === 200) {
+                          //       console.log(res);
+                          //     }
+                          //   })
+                          //   .catch((err)=>{
+                          //     console.log(err);
+                          //   })
+                        }}
                       >
-                        Delete
+                        View Results
                       </TableCell>
                     </TableRow>
                   );
@@ -184,6 +209,72 @@ export default function BasicTable({ error, setError }) {
         <br />
       </div>
       <Footer />
+      <Modal1 open={open1} onClose={handleClose1} center>
+        <Box style={{ padding: "3%" }}>
+          <center>
+            <h3>View Results</h3>
+            <p>Get the Results of the Students Who Have Attempted the Exam</p>
+            <br />
+            <Grid
+              container
+              spacing={1}
+              style={{
+                marginTop: "0.5%",
+                alignItems: "center",
+                overFlowY: "scroll",
+              }}
+            >
+              <Grid item xs={5}>
+                <p style={{ textAlign: "left", fontWeight: "bold" }}>Name</p>
+              </Grid>
+              <Grid item xs={3}>
+                <p style={{ textAlign: "center", fontWeight: "bold" }}>Marks</p>
+              </Grid>
+              <Grid item xs={4}>
+                <p style={{ textAlign: "right", fontWeight: "bold" }}>
+                  View Paper
+                </p>
+              </Grid>
+            </Grid>
+            {allexamcandidates.map((altst) => {
+              return (
+                <Grid
+                  container
+                  spacing={1}
+                  style={{
+                    marginTop: "0.5%",
+                    alignItems: "center",
+                    overFlowY: "scroll",
+                  }}
+                >
+                  <Grid item xs={5}>
+                    <p style={{ textAlign: "left" }}>Name</p>
+                  </Grid>
+                  <Grid item xs={3}>
+                    <p style={{ textAlign: "center" }}>Marks</p>
+                  </Grid>
+                  <Grid item xs={4}>
+                    <p style={{ textAlign: "right", color: "red" }}>View</p>
+                  </Grid>
+                </Grid>
+              );
+            })}
+            <br />
+            <br />
+            <br />
+            <Button
+              variant="contained"
+              style={{
+                backgroundColor: "#7882BD",
+                width: "50%",
+              }}
+              onClick={handleClose1}
+            >
+              Close
+            </Button>
+          </center>
+        </Box>
+      </Modal1>
     </div>
   );
 }

@@ -322,7 +322,7 @@ export default function Confirmpresence({ error, setError }) {
                       }}
                     >
                       <Grid item xs={6}>
-                        <p>{altst}</p>
+                        <p style={{textAlign:"left"}}>{altst}</p>
                       </Grid>
                       <Grid item xs={6}>
                         <Button

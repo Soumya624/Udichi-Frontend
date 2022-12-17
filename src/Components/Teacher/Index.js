@@ -22,6 +22,7 @@ import getCookie from "../../getCookie";
 import axiosInstance from "../../axiosInstance";
 import moment from "moment";
 import Modal from "@mui/material/Modal";
+import { Modal as Modal1 } from "react-responsive-modal";
 
 const style = {
   position: "absolute",
@@ -44,8 +45,11 @@ const Item = styled(Paper)(({ theme }) => ({
 
 export default function Index({ error, setError }) {
   const [open, setOpen] = useState(false);
+  const [open1, setOpen1] = useState(false);
   let [exportarray, setExportarray] = useState([]);
   const [downloadLink, setDownloadLink] = useState("");
+  const [allexamcandidates, setAllexamcandidates] = useState([]);
+  const [demodata, setDemodata] = useState("");
   let token = getCookie("access_token");
   let user = JSON.parse(localStorage.getItem("user"));
 
@@ -76,6 +80,13 @@ export default function Index({ error, setError }) {
   };
   const handleClose = () => {
     setOpen(false);
+  };
+
+  const handleOpen1 = () => {
+    setOpen1(true);
+  };
+  const handleClose1 = () => {
+    setOpen1(false);
   };
 
   function alertfunction() {
@@ -156,9 +167,24 @@ export default function Index({ error, setError }) {
                           display:
                             altst.type_of_test === "written" ? "" : "none",
                         }}
+                        onClick={() => {
+                          // handleOpen1();
+                          setDemodata(altst._id);
+                          // axiosInstance
+                          //   .get(`/result/${altst._id}/`, config)
+                          //   .then((res) => {
+                          //     if (res.status === 200) {
+                          //       console.log(res);
+                          //     }
+                          //   })
+                          //   .catch((err)=>{
+                          //     console.log(err);
+                          //   })
+                        }}
                       >
                         View Results
                       </Box>
+
                       <Box
                         gridColumn="span 3"
                         style={{
@@ -170,7 +196,9 @@ export default function Index({ error, setError }) {
                       >
                         <a
                           onClick={(e) => {
-                            alert("Please Download the Mail List. To Send the Meet Link")
+                            alert(
+                              "Please Download the Mail List. To Send the Meet Link"
+                            );
                             exportarray = [];
                             let x = altst.candidates_groups;
                             {
@@ -198,7 +226,7 @@ export default function Index({ error, setError }) {
                         style={{
                           color: "red",
                           cursor: "pointer",
-                          textAlign:"right",
+                          textAlign: "right",
                           display:
                             altst.type_of_test === "written" ? "none" : "",
                         }}
@@ -206,7 +234,7 @@ export default function Index({ error, setError }) {
                         <a
                           download="Viva_Student_Mailing_List.txt"
                           href={downloadLink}
-                          style={{textDecoration:"none", color:"red"}}
+                          style={{ textDecoration: "none", color: "red" }}
                         >
                           Download Mail List
                         </a>
@@ -257,6 +285,72 @@ export default function Index({ error, setError }) {
           </p>
         </Box>
       </Modal>
+      <Modal1 open={open1} onClose={handleClose1} center>
+        <Box style={{ padding: "3%" }}>
+          <center>
+            <h3>View Results</h3>
+            <p>Get the Results of the Students Who Have Attempted the Exam</p>
+            <br />
+            <Grid
+              container
+              spacing={1}
+              style={{
+                marginTop: "0.5%",
+                alignItems: "center",
+                overFlowY: "scroll",
+              }}
+            >
+              <Grid item xs={5}>
+                <p style={{ textAlign: "left", fontWeight: "bold" }}>Name</p>
+              </Grid>
+              <Grid item xs={3}>
+                <p style={{ textAlign: "center", fontWeight: "bold" }}>Marks</p>
+              </Grid>
+              <Grid item xs={4}>
+                <p style={{ textAlign: "right", fontWeight: "bold" }}>
+                  View Paper
+                </p>
+              </Grid>
+            </Grid>
+            {allexamcandidates.map((altst) => {
+              return (
+                <Grid
+                  container
+                  spacing={1}
+                  style={{
+                    marginTop: "0.5%",
+                    alignItems: "center",
+                    overFlowY: "scroll",
+                  }}
+                >
+                  <Grid item xs={5}>
+                    <p style={{ textAlign: "left" }}>Name</p>
+                  </Grid>
+                  <Grid item xs={3}>
+                    <p style={{ textAlign: "center" }}>Marks</p>
+                  </Grid>
+                  <Grid item xs={4}>
+                    <p style={{ textAlign: "right", color: "red" }}>View</p>
+                  </Grid>
+                </Grid>
+              );
+            })}
+            <br />
+            <br />
+            <br />
+            <Button
+              variant="contained"
+              style={{
+                backgroundColor: "#7882BD",
+                width: "50%",
+              }}
+              onClick={handleClose1}
+            >
+              Close
+            </Button>
+          </center>
+        </Box>
+      </Modal1>
     </div>
   );
 }
