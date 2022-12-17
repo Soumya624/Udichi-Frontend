@@ -29,6 +29,7 @@ import AddproctorerAdmin from "./Components/Admin/addProctorer";
 import AddexamAdmin from "./Components/Admin/addExam";
 import AddquestionAdmin from "./Components/Admin/addQuestion";
 import Test from "./testCont";
+import Testmarks from './Common/Testmarks';
 import ShareContainer from "./Components/ShareContainer/Index";
 import Container from "./Components/ShareContainer/Container";
 import { useReactMediaRecorder } from "react-media-recorder";
@@ -150,6 +151,11 @@ function App() {
             <Route
               path="/loginProctorer"
               element={<LoginProctorer setError={setError} />}
+              exact
+            />
+            <Route
+              path="/testMarks"
+              element={<Testmarks setError={setError} />}
               exact
             />
             <Route path="/dashboardAdmin" element={<ProtectedRoute />} exact>
