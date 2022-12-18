@@ -29,7 +29,7 @@ export default function Camera({
           variant="contained"
           onClick={startRecording}
           style={{
-            backgroundColor: "#7882BD",
+            backgroundColor: "#296d98",
             margin: "2px",
           }}
         >

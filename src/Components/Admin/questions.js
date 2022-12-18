@@ -33,6 +33,7 @@ import Button from "@mui/material/Button";
 import Typography from "@mui/material/Typography";
 import TextField from "@mui/material/TextField";
 import { CircularProgress } from "@mui/material";
+import question_demo_file from "./../../Common/Question_Udichi.xlsx";
 
 const style = {
   position: "absolute",
@@ -168,7 +169,7 @@ export default function BasicTable({ error, setError }) {
           Manually Add a{" "}
           <a
             href="/addquestionAdmin"
-            style={{ textDecoration: "none", color: "#7882bd" }}
+            style={{ textDecoration: "none", color: "#296d98" }}
           >
             Question
           </a>
@@ -178,7 +179,7 @@ export default function BasicTable({ error, setError }) {
             style={{
               textDecoration: "none",
               cursor: "pointer",
-              color: "#7882bd",
+              color: "#296d98",
             }}
           >
             Upload File
@@ -290,11 +291,24 @@ export default function BasicTable({ error, setError }) {
           <center>
             <Button
               variant="contained"
-              style={{ backgroundColor: "#7882BD", width: "50%" }}
+              style={{ backgroundColor: "#296d98", width: "50%" }}
               onClick={handleSubmit1}
             >
               Continue
             </Button>
+            <br />
+            <a
+              style={{
+                textDecoration: "none",
+                color: "#296d98",
+                fontSize: "10px",
+                cursor: "pointer",
+              }}
+              href={question_demo_file}
+              download
+            >
+              Click Here to Download Sample Excel File
+            </a>
           </center>
         </Box>
       </Modal>

@@ -323,7 +323,7 @@ export default function AddCandidate({ error, setError }) {
                 <br />
                 <Button
                   variant="contained"
-                  style={{ backgroundColor: "#7882BD", width: "50%" }}
+                  style={{ backgroundColor: "#296d98", width: "50%" }}
                   onClick={add_candidate}
                 >
                   Continue
@@ -379,7 +379,7 @@ export default function AddCandidate({ error, setError }) {
             <br />
             <Button
               variant="contained"
-              style={{ backgroundColor: "#7882BD", width: "50%" }}
+              style={{ backgroundColor: "#296d98", width: "50%" }}
               onClick={add_candidategroup}
             >
               Continue

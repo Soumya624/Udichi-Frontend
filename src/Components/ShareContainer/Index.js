@@ -299,7 +299,7 @@ export default function Index({
                       cameraStatus === "recording"
                     )
                       ? "#aaaaaa"
-                      : "#7882BD",
+                      : "#296d98",
                     margin: "2px",
                   }}
                   // enabled={
@@ -321,7 +321,7 @@ export default function Index({
                       cameraStatus === "recording"
                     )
                       ? "#aaaaaa"
-                      : "#7882BD",
+                      : "#296d98",
                     margin: "2px",
                   }}
                   // enabled={

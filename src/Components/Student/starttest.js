@@ -202,7 +202,7 @@ export default function Confirmpresence({ error, setError }) {
                             variant="contained"
                             style={{
                               backgroundColor:
-                                left_attempts <= 0 ? "#aaaaaa" : "#7882BD",
+                                left_attempts <= 0 ? "#aaaaaa" : "#296d98",
                               margin: "1em",
                             }}
                             // onClick={getImage}
@@ -217,7 +217,7 @@ export default function Confirmpresence({ error, setError }) {
                     </b>
                     {/* <Button
 											variant="contained"
-											style={{ backgroundColor: "#7882BD", margin: "1em" }}
+											style={{ backgroundColor: "#296d98", margin: "1em" }}
 											onClick={() => {
 												image && downloadImage();
 											}}

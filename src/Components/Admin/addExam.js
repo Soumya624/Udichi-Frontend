@@ -343,7 +343,7 @@ export default function AddCandidate({ error, setError }) {
                   <Grid item xs={6}>
                     <Button
                       variant="contained"
-                      style={{ backgroundColor: "#7882BD", width: "100%" }}
+                      style={{ backgroundColor: "#296d98", width: "100%" }}
                       onClick={handleOpen}
                     >
                       Assign Groups
@@ -352,7 +352,7 @@ export default function AddCandidate({ error, setError }) {
                   {/* <Grid item xs={6}>
                     <Button
                       variant="contained"
-                      style={{ backgroundColor: "#7882BD", width: "100%" }}
+                      style={{ backgroundColor: "#296d98", width: "100%" }}
                       href="#"
                     >
                       Assign Candidates
@@ -389,7 +389,7 @@ export default function AddCandidate({ error, setError }) {
                   <Grid item xs={6}>
                     <Button
                       variant="contained"
-                      style={{ backgroundColor: "#7882BD", width: "100%" }}
+                      style={{ backgroundColor: "#296d98", width: "100%" }}
                       onClick={handleOpen1}
                     >
                       Specify & Add
@@ -436,7 +436,7 @@ export default function AddCandidate({ error, setError }) {
                 </p> */}
                 <Button
                   variant="contained"
-                  style={{ backgroundColor: "#7882BD", width: "50%" }}
+                  style={{ backgroundColor: "#296d98", width: "50%" }}
                   onClick={add_exam}
                 >
                   Continue
@@ -503,7 +503,7 @@ export default function AddCandidate({ error, setError }) {
                   <Grid item xs={6}>
                     {/* <Button
                     variant="contained"
-                    style={{ backgroundColor: "#7882BD", width: "30%" }}
+                    style={{ backgroundColor: "#296d98", width: "30%" }}
                     onClick={(e) => {
                       console.log(key._id);
                       candigrp.push(key._id);
@@ -522,7 +522,7 @@ export default function AddCandidate({ error, setError }) {
             <center>
               <Button
                 variant="contained"
-                style={{ backgroundColor: "#7882BD", width: "50%" }}
+                style={{ backgroundColor: "#296d98", width: "50%" }}
                 onClick={(e) => {
                   submitfunction1();
                 }}
@@ -582,7 +582,7 @@ export default function AddCandidate({ error, setError }) {
                   <Grid item xs={8}>
                     {/* <Button
                       variant="contained"
-                      style={{ backgroundColor: "#7882BD", width: "30%" }}
+                      style={{ backgroundColor: "#296d98", width: "30%" }}
                       onClick={(e) => {
                         console.log(key._id);
                         quesgrp.push(key._id);
@@ -601,7 +601,7 @@ export default function AddCandidate({ error, setError }) {
           <center>
             <Button
               variant="contained"
-              style={{ backgroundColor: "#7882BD", width: "50%" }}
+              style={{ backgroundColor: "#296d98", width: "50%" }}
               onClick={(e) => {
                 submitfunction2();
               }}

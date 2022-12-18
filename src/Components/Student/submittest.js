@@ -73,7 +73,7 @@ export default function Confirmpresence() {
                 <br />
                 <Button
                   variant="contained"
-                  style={{ backgroundColor: "#7882BD", width: "50%" }}
+                  style={{ backgroundColor: "#296d98", width: "50%" }}
                 >
                   Submit Exam
                 </Button>

@@ -162,7 +162,7 @@ export default function BasicTable({ error, setError }) {
           Manually Add a{" "}
           <a
             href="/addproctorerAdmin"
-            style={{ textDecoration: "none", color: "#7882bd" }}
+            style={{ textDecoration: "none", color: "#296d98" }}
           >
             Proctorer
           </a>

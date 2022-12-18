@@ -267,7 +267,7 @@ export default function Index({ error, setError }) {
         <br />
         <br />
         <h4 style={{ textAlign: "left", fontSize: "28px", lineHeight: "1px" }}>
-          Welcome User!
+          Welcome!
         </h4>
         <p style={{ lineHeight: "1px" }}>
           Check Out{" "}
@@ -276,7 +276,7 @@ export default function Index({ error, setError }) {
             style={{
               textDecoration: "none",
               cursor: "pointer",
-              color: "#7882bd",
+              color: "#296d98",
             }}
           >
             Your Account
@@ -428,149 +428,298 @@ export default function Index({ error, setError }) {
             </Box>
           </Box>
         )} */}
-        <Grid
-          container
-          spacing={3}
-          style={{ color: "white", paddingBottom: "10%", alignItems: "center" }}
-        >
-          <Grid item sm={6}>
-            <Chart
-              chartType="LineChart"
-              width="100%"
-              height="100%"
-              data={data}
-              options={options}
-              style={{ backgroundColor: "transparent" }}
-            />
-            <br />
-            <center>
-              <p
-                style={{
-                  color: "black",
-                  padding: window.innerWidth < 968 ? "3%" : "2% 15%",
-                }}
-              >
-                The chart will be updated if there is an increment or decrement
-                of exams
-              </p>
-            </center>
-            {/* <center>
+        <br />
+        <br />
+        <br />
+        {window.innerWidth < 968 ? (
+          <Grid
+            container
+            spacing={3}
+            style={{
+              color: "white",
+              paddingBottom: "10%",
+              alignItems: "center",
+            }}
+          >
+            <Grid item sm={6}>
+              <Chart
+                chartType="LineChart"
+                width="100%"
+                height="100%"
+                data={data}
+                options={options}
+                style={{ backgroundColor: "transparent" }}
+              />
+              <br />
+              <center>
+                <p
+                  style={{
+                    color: "black",
+                    padding: window.innerWidth < 968 ? "3%" : "2% 15%",
+                  }}
+                >
+                  The chart will be updated if there is an increment or
+                  decrement of exams
+                </p>
+              </center>
+              {/* <center>
               <Button onClick={chart_preparation}>Update Chart</Button>
             </center> */}
-          </Grid>
-          <Grid item sm={6}>
-            <Grid
-              container
-              spacing={2}
-              style={{ color: "white", padding: "5%" }}
-            >
-              <Grid item xs={4} style={{ padding: "2%" }}>
-                <Circle
-                  animate={true}
-                  animationDuration="1s"
-                  responsive={true}
-                  size={50}
-                  lineWidth={6}
-                  progress={`${testlist.length}` + " " + "Exam"}
-                  progressColor="#7882bd"
-                  bgColor="#7882bd"
-                  textColor="#7882bd"
-                  textStyle={{
-                    font: "normal 2rem Helvetica, Arial, sans-serif",
-                  }}
-                  percentSpacing={10}
-                  roundedStroke={true}
-                  showPercentage={true}
-                  showPercentageSymbol={false}
-                />
-              </Grid>
-              <Grid item xs={4} style={{ padding: "2%" }}>
-                <Circle
-                  animate={true}
-                  animationDuration="1s"
-                  responsive={true}
-                  size={50}
-                  lineWidth={6}
-                  progress={
-                    `${questiongrouplist.length}` + " " + "Question Group"
-                  }
-                  progressColor="#7882bd"
-                  bgColor="#7882bd"
-                  textColor="#7882bd"
-                  textStyle={{
-                    font: "normal 2rem Helvetica, Arial, sans-serif",
-                  }}
-                  percentSpacing={10}
-                  roundedStroke={true}
-                  showPercentage={true}
-                  showPercentageSymbol={false}
-                />
-              </Grid>
-              <Grid item xs={4} style={{ padding: "2%" }}>
-                <Circle
-                  animate={true}
-                  animationDuration="1s"
-                  responsive={true}
-                  size={50}
-                  lineWidth={6}
-                  progress={
-                    `${candidategrouplist.length}` + " " + "Candidate Group"
-                  }
-                  progressColor="#7882bd"
-                  bgColor="#7882bd"
-                  textColor="#7882bd"
-                  textStyle={{
-                    font: "normal 2rem Helvetica, Arial, sans-serif",
-                  }}
-                  percentSpacing={10}
-                  roundedStroke={true}
-                  showPercentage={true}
-                  showPercentageSymbol={false}
-                />
-              </Grid>
-              <Grid item xs={4} style={{ padding: "2%" }}>
-                <Circle
-                  animate={true}
-                  animationDuration="1s"
-                  responsive={true}
-                  size={50}
-                  lineWidth={6}
-                  progress={`${assessorlist.length}` + " " + "Assessor"}
-                  progressColor="#7882bd"
-                  bgColor="#7882bd"
-                  textColor="#7882bd"
-                  textStyle={{
-                    font: "normal 2rem Helvetica, Arial, sans-serif",
-                  }}
-                  percentSpacing={10}
-                  roundedStroke={true}
-                  showPercentage={true}
-                  showPercentageSymbol={false}
-                />
-              </Grid>
-              <Grid item xs={4} style={{ padding: "2%" }}>
-                <Circle
-                  animate={true}
-                  animationDuration="1s"
-                  responsive={true}
-                  size={50}
-                  lineWidth={6}
-                  progress={`${proctorerlist.length}` + " " + "Proctorer"}
-                  progressColor="#7882bd"
-                  bgColor="#7882bd"
-                  textColor="#7882bd"
-                  textStyle={{
-                    font: "normal 2rem Helvetica, Arial, sans-serif",
-                  }}
-                  percentSpacing={10}
-                  roundedStroke={true}
-                  showPercentage={true}
-                  showPercentageSymbol={false}
-                />
+            </Grid>
+            <Grid item sm={6}>
+              <Grid
+                container
+                spacing={2}
+                style={{ color: "white", padding: "5%" }}
+              >
+                <Grid item xs={4} style={{ padding: "2%" }}>
+                  <Circle
+                    animate={true}
+                    animationDuration="1s"
+                    responsive={true}
+                    size={50}
+                    lineWidth={6}
+                    progress={`${testlist.length}` + " " + "Exam"}
+                    progressColor="#296d98"
+                    bgColor="#296d98"
+                    textColor="#296d98"
+                    textStyle={{
+                      font: "normal 2rem Helvetica, Arial, sans-serif",
+                    }}
+                    percentSpacing={10}
+                    roundedStroke={true}
+                    showPercentage={true}
+                    showPercentageSymbol={false}
+                  />
+                </Grid>
+                <Grid item xs={4} style={{ padding: "2%" }}>
+                  <Circle
+                    animate={true}
+                    animationDuration="1s"
+                    responsive={true}
+                    size={50}
+                    lineWidth={6}
+                    progress={
+                      `${questiongrouplist.length}` + " " + "Question Group"
+                    }
+                    progressColor="#296d98"
+                    bgColor="#296d98"
+                    textColor="#296d98"
+                    textStyle={{
+                      font: "normal 2rem Helvetica, Arial, sans-serif",
+                    }}
+                    percentSpacing={10}
+                    roundedStroke={true}
+                    showPercentage={true}
+                    showPercentageSymbol={false}
+                  />
+                </Grid>
+                <Grid item xs={4} style={{ padding: "2%" }}>
+                  <Circle
+                    animate={true}
+                    animationDuration="1s"
+                    responsive={true}
+                    size={50}
+                    lineWidth={6}
+                    progress={
+                      `${candidategrouplist.length}` + " " + "Candidate Group"
+                    }
+                    progressColor="#296d98"
+                    bgColor="#296d98"
+                    textColor="#296d98"
+                    textStyle={{
+                      font: "normal 2rem Helvetica, Arial, sans-serif",
+                    }}
+                    percentSpacing={10}
+                    roundedStroke={true}
+                    showPercentage={true}
+                    showPercentageSymbol={false}
+                  />
+                </Grid>
+                <Grid item xs={4} style={{ padding: "2%" }}>
+                  <Circle
+                    animate={true}
+                    animationDuration="1s"
+                    responsive={true}
+                    size={50}
+                    lineWidth={6}
+                    progress={`${assessorlist.length}` + " " + "Assessor"}
+                    progressColor="#296d98"
+                    bgColor="#296d98"
+                    textColor="#296d98"
+                    textStyle={{
+                      font: "normal 2rem Helvetica, Arial, sans-serif",
+                    }}
+                    percentSpacing={10}
+                    roundedStroke={true}
+                    showPercentage={true}
+                    showPercentageSymbol={false}
+                  />
+                </Grid>
+                <Grid item xs={4} style={{ padding: "2%" }}>
+                  <Circle
+                    animate={true}
+                    animationDuration="1s"
+                    responsive={true}
+                    size={50}
+                    lineWidth={6}
+                    progress={`${proctorerlist.length}` + " " + "Proctorer"}
+                    progressColor="#296d98"
+                    bgColor="#296d98"
+                    textColor="#296d98"
+                    textStyle={{
+                      font: "normal 2rem Helvetica, Arial, sans-serif",
+                    }}
+                    percentSpacing={10}
+                    roundedStroke={true}
+                    showPercentage={true}
+                    showPercentageSymbol={false}
+                  />
+                </Grid>
               </Grid>
             </Grid>
           </Grid>
-        </Grid>
+        ) : (
+          <Grid
+            container
+            spacing={3}
+            style={{
+              color: "white",
+              paddingBottom: "10%",
+              alignItems: "center",
+            }}
+          >
+            <Grid item sm={6}>
+              <Card
+                style={{
+                  alignItems: "center",
+                  padding: "2%",
+                  borderLeft: "3px solid #296d98",
+                }}
+              >
+                <Chart
+                  chartType="LineChart"
+                  width="100%"
+                  height="100%"
+                  data={data}
+                  options={options}
+                  style={{ backgroundColor: "transparent" }}
+                />
+                <br />
+                <center>
+                  <p
+                    style={{
+                      color: "black",
+                      padding: window.innerWidth < 968 ? "3%" : "2% 15%",
+                    }}
+                  >
+                    The chart will be updated if there is an increment or
+                    decrement of exams
+                  </p>
+                </center>
+              </Card>
+            </Grid>
+
+            <Grid item sm={6}>
+              <Grid
+                container
+                spacing={0}
+                style={{ color: "white", padding: "0%" }}
+              >
+                <Grid item xs={4} style={{ padding: "2%" }}>
+                  <Card
+                    style={{
+                      alignItems: "center",
+                      justifyContent: "center",
+                      padding: "29% 10%",
+                      margin: "0%",
+                      textAlign: "center",
+                      borderLeft: "3px solid #296d98",
+                    }}
+                  >
+                    {testlist.length}
+                    <br />
+                    Exams
+                  </Card>
+                </Grid>
+
+                <Grid item xs={4} style={{ padding: "2%" }}>
+                  <Card
+                    style={{
+                      alignItems: "center",
+                      justifyContent: "center",
+                      padding: "29% 10%",
+                      margin: "0%",
+                      textAlign: "center",
+                      borderLeft: "3px solid #296d98",
+                    }}
+                  >
+                    {questiongrouplist.length}
+                    <br />
+                    Question Groups
+                  </Card>
+                </Grid>
+
+                <Grid item xs={4} style={{ padding: "2%" }}>
+                  <Card
+                    style={{
+                      alignItems: "center",
+                      justifyContent: "center",
+                      padding: "29% 10%",
+                      margin: "0%",
+                      textAlign: "center",
+                      borderLeft: "3px solid #296d98",
+                    }}
+                  >
+                    {candidategrouplist.length}
+                    <br />
+                    Candidate Groups
+                  </Card>
+                </Grid>
+              </Grid>
+              <Grid
+                container
+                spacing={0}
+                style={{ color: "white", padding: "0%" }}
+              >
+                <Grid item xs={4} style={{ padding: "2%" }}>
+                  <Card
+                    style={{
+                      alignItems: "center",
+                      justifyContent: "center",
+                      padding: "29% 10%",
+                      margin: "0%",
+                      textAlign: "center",
+                      borderLeft: "3px solid #296d98",
+                    }}
+                  >
+                    {assessorlist.length}
+                    <br />
+                    Assessors
+                  </Card>
+                </Grid>
+
+                <Grid item xs={4} style={{ padding: "2%" }}>
+                  <Card
+                    style={{
+                      alignItems: "center",
+                      justifyContent: "center",
+                      padding: "29% 10%",
+                      margin: "0%",
+                      textAlign: "center",
+                      borderLeft: "3px solid #296d98",
+                    }}
+                  >
+                    {proctorerlist.length}
+                    <br />
+                    Proctorers
+                  </Card>
+                </Grid>
+                <Grid item xs={4} style={{ padding: "2%" }}></Grid>
+              </Grid>
+            </Grid>
+          </Grid>
+        )}
       </div>
       <br />
       <Footer />

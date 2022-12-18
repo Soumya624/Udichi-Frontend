@@ -87,7 +87,7 @@ export default function Index({ error, setError }) {
           Check Out{" "}
           <a
             onClick={handleOpen}
-            style={{ textDecoration: "none", cursor: "pointer", color:"#7882bd" }}
+            style={{ textDecoration: "none", cursor: "pointer", color:"#296d98" }}
           >
             Your Account
           </a>
@@ -111,7 +111,7 @@ export default function Index({ error, setError }) {
                   <Item
                     style={{
                       padding: "1.5%",
-                      borderLeft: "2rem solid #7882bd",
+                      borderLeft: "2rem solid #296d98",
                     }}
                   >
                     <h3 style={{ textAlign: "left" }}>{altst.title}</h3>
@@ -133,7 +133,7 @@ export default function Index({ error, setError }) {
                         gridColumn="span 3"
                         style={{
                           textAlign: "right",
-                          color: "#7882bd",
+                          color: "#296d98",
                           cursor: "pointer",
                           display:
                             altst.type_of_test === "written" ? "" : "none",
