@@ -22,6 +22,7 @@ import Box from "@mui/material/Box";
 import Modal from "@mui/material/Modal";
 import axiosInstance from "../../axiosInstance";
 import getCookie from "../../getCookie";
+import emailjs from "@emailjs/browser";
 
 const style = {
   position: "absolute",
@@ -65,6 +66,23 @@ export default function AddCandidate({ error, setError }) {
     setGroup(event.target.value);
   };
 
+  async function sendEmail() {
+    // Construct the email message
+    let emailMessage = {
+      to: email,
+      subject: `Your Username: ${username} and Password: ${password}`,
+    };
+
+    // Send the email
+    let result = await emailjs.send(
+      "service_saoe924",
+      "template_9vghbes",
+      emailMessage,
+      "PDBciQ1IxtBzQDf28"
+    );
+    console.log(result);
+  }
+
   async function add_candidate(e) {
     e.preventDefault();
     let data = {
@@ -85,6 +103,7 @@ export default function AddCandidate({ error, setError }) {
       .then((res) => {
         console.log(res);
         if (res.status === 201) {
+          sendEmail();
           window.location = "/candidateAdmin";
         }
       })
@@ -106,7 +125,7 @@ export default function AddCandidate({ error, setError }) {
       .post("/candidate_group/", data, config)
       .then((res) => {
         console.log(res);
-        alert("Assessor Added!");
+        alert("Candidate Group Created!");
       })
       .catch((err) => {
         console.log(err);

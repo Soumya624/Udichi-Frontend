@@ -13,6 +13,7 @@ import { useState } from "react";
 import axios from "axios";
 import axiosInstance from "../../axiosInstance";
 import getCookie from "../../getCookie";
+import emailjs from "@emailjs/browser";
 
 export default function Signup() {
   let token = getCookie("access_token");
@@ -36,6 +37,23 @@ export default function Signup() {
   const [state, setState] = useState("");
   const [country, setCountry] = useState("");
   const [zip, setZip] = useState("");
+
+  async function sendEmail() {
+    // Construct the email message
+    let emailMessage = {
+      to: email,
+      subject: `Your Username: ${username} and Password: ${password}`,
+    };
+
+    // Send the email
+    let result = await emailjs.send(
+      "service_saoe924",
+      "template_9vghbes",
+      emailMessage,
+      "PDBciQ1IxtBzQDf28"
+    );
+    console.log(result);
+  }
 
   async function register_user(e) {
     e.preventDefault();
@@ -61,7 +79,8 @@ export default function Signup() {
       .post("/assessor/", data, config)
       .then((res) => {
         console.log(res.data);
-        alert("Assessor Added!");
+        sendEmail();
+        window.location = "/assessorAdmin";
       })
       .catch((err) => {
         console.log(err);
@@ -69,7 +88,7 @@ export default function Signup() {
   }
 
   return (
-    <div style={{position:"relative"}}>
+    <div style={{ position: "relative" }}>
       <Navbar />
       <div style={{ padding: "2%" }}>
         <center>
@@ -371,7 +390,7 @@ export default function Signup() {
         <br />
         <br />
       </div>
-      <Footer/>
+      <Footer />
     </div>
   );
 }
