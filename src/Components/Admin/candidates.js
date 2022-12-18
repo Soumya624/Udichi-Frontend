@@ -167,7 +167,7 @@ export default function BasicTable({ error, setError }) {
           Manually Add a{" "}
           <a
             href="/addcandidateAdmin"
-            style={{ textDecoration: "none", color: "#296d98" }}
+            style={{ textDecoration: "none", color: "#07a8a0" }}
           >
             Candidate
           </a>
@@ -177,7 +177,7 @@ export default function BasicTable({ error, setError }) {
             style={{
               textDecoration: "none",
               cursor: "pointer",
-              color: "#296d98",
+              color: "#07a8a0",
             }}
           >
             Upload File
@@ -357,7 +357,7 @@ export default function BasicTable({ error, setError }) {
           <center>
             <Button
               variant="contained"
-              style={{ backgroundColor: "#296d98", width: "50%" }}
+              style={{ backgroundColor: "#07a8a0", width: "50%" }}
               onClick={handleSubmit1}
             >
               Continue
@@ -366,7 +366,7 @@ export default function BasicTable({ error, setError }) {
             <a
               style={{
                 textDecoration: "none",
-                color: "#296d98",
+                color: "#07a8a0",
                 fontSize: "10px",
                 cursor: "pointer",
               }}

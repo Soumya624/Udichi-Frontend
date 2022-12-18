@@ -100,7 +100,7 @@ export default function BasicTable({ error, setError }) {
           Manually Create an{" "}
           <a
             href="/addexamAdmin"
-            style={{ textDecoration: "none", color: "#296d98" }}
+            style={{ textDecoration: "none", color: "#07a8a0" }}
           >
             Exam
           </a>
@@ -265,7 +265,7 @@ export default function BasicTable({ error, setError }) {
             <Button
               variant="contained"
               style={{
-                backgroundColor: "#296d98",
+                backgroundColor: "#07a8a0",
                 width: "50%",
               }}
               onClick={handleClose1}

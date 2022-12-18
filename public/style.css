@@ -13,7 +13,7 @@ body {
 
 .gradient {
   width: 100%;
-  height: auto;
+  height: 100%;
   background-image: radial-gradient(
     at 300px 300px,
     rgba(255, 255, 255, 0.9) 0,

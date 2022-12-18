@@ -138,7 +138,7 @@ export default function Signup({ error, setError }) {
                   <br />
                   <Button
                     variant="contained"
-                    style={{ backgroundColor: "#296d98", width: "50%" }}
+                    style={{ backgroundColor: "#07a8a0", width: "50%" }}
                     type="submit"
                   >
                     {loading && <CircularProgress color="inherit" />}

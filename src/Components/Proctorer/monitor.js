@@ -227,7 +227,7 @@ export default function Confirmpresence({ error, setError }) {
                 <br />
                 <Button
                   variant="contained"
-                  style={{ backgroundColor: "#296d98", width: "50%" }}
+                  style={{ backgroundColor: "#07a8a0", width: "50%" }}
                   href="/dashboardProctorer"
                 >
                   Close
@@ -273,7 +273,7 @@ export default function Confirmpresence({ error, setError }) {
                         <Button
                           variant="contained"
                           style={{
-                            backgroundColor: "#296d98",
+                            backgroundColor: "#07a8a0",
                             width: "50%",
                             display: altst !== null ? "" : "none",
                           }}
@@ -293,7 +293,7 @@ export default function Confirmpresence({ error, setError }) {
                 <br />
                 <Button
                   variant="contained"
-                  style={{ backgroundColor: "#296d98", width: "50%" }}
+                  style={{ backgroundColor: "#07a8a0", width: "50%" }}
                   onClick={handleClose}
                 >
                   Close
@@ -328,7 +328,7 @@ export default function Confirmpresence({ error, setError }) {
                         <Button
                           variant="contained"
                           style={{
-                            backgroundColor: "#296d98",
+                            backgroundColor: "#07a8a0",
                             width: "50%",
                             display: altst !== null ? "" : "none",
                           }}
@@ -348,7 +348,7 @@ export default function Confirmpresence({ error, setError }) {
                 <br />
                 <Button
                   variant="contained"
-                  style={{ backgroundColor: "#296d98", width: "50%" }}
+                  style={{ backgroundColor: "#07a8a0", width: "50%" }}
                   onClick={handleClose}
                 >
                   Close

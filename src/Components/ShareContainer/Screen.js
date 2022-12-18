@@ -32,7 +32,7 @@ export default function Screen({
           variant="contained"
           onClick={startRecording}
           style={{
-            backgroundColor: "#296d98",
+            backgroundColor: "#07a8a0",
             margin: "2px",
           }}
         >

@@ -276,7 +276,7 @@ export default function Index({ error, setError }) {
             style={{
               textDecoration: "none",
               cursor: "pointer",
-              color: "#296d98",
+              color: "#07a8a0",
             }}
           >
             Your Account
@@ -480,9 +480,9 @@ export default function Index({ error, setError }) {
                     size={50}
                     lineWidth={6}
                     progress={`${testlist.length}` + " " + "Exam"}
-                    progressColor="#296d98"
-                    bgColor="#296d98"
-                    textColor="#296d98"
+                    progressColor="#07a8a0"
+                    bgColor="#07a8a0"
+                    textColor="#07a8a0"
                     textStyle={{
                       font: "normal 2rem Helvetica, Arial, sans-serif",
                     }}
@@ -502,9 +502,9 @@ export default function Index({ error, setError }) {
                     progress={
                       `${questiongrouplist.length}` + " " + "Question Group"
                     }
-                    progressColor="#296d98"
-                    bgColor="#296d98"
-                    textColor="#296d98"
+                    progressColor="#07a8a0"
+                    bgColor="#07a8a0"
+                    textColor="#07a8a0"
                     textStyle={{
                       font: "normal 2rem Helvetica, Arial, sans-serif",
                     }}
@@ -524,9 +524,9 @@ export default function Index({ error, setError }) {
                     progress={
                       `${candidategrouplist.length}` + " " + "Candidate Group"
                     }
-                    progressColor="#296d98"
-                    bgColor="#296d98"
-                    textColor="#296d98"
+                    progressColor="#07a8a0"
+                    bgColor="#07a8a0"
+                    textColor="#07a8a0"
                     textStyle={{
                       font: "normal 2rem Helvetica, Arial, sans-serif",
                     }}
@@ -544,9 +544,9 @@ export default function Index({ error, setError }) {
                     size={50}
                     lineWidth={6}
                     progress={`${assessorlist.length}` + " " + "Assessor"}
-                    progressColor="#296d98"
-                    bgColor="#296d98"
-                    textColor="#296d98"
+                    progressColor="#07a8a0"
+                    bgColor="#07a8a0"
+                    textColor="#07a8a0"
                     textStyle={{
                       font: "normal 2rem Helvetica, Arial, sans-serif",
                     }}
@@ -564,9 +564,9 @@ export default function Index({ error, setError }) {
                     size={50}
                     lineWidth={6}
                     progress={`${proctorerlist.length}` + " " + "Proctorer"}
-                    progressColor="#296d98"
-                    bgColor="#296d98"
-                    textColor="#296d98"
+                    progressColor="#07a8a0"
+                    bgColor="#07a8a0"
+                    textColor="#07a8a0"
                     textStyle={{
                       font: "normal 2rem Helvetica, Arial, sans-serif",
                     }}
@@ -594,7 +594,7 @@ export default function Index({ error, setError }) {
                 style={{
                   alignItems: "center",
                   padding: "2%",
-                  borderLeft: "3px solid #296d98",
+                  borderLeft: "3px solid #07a8a0",
                 }}
               >
                 <Chart
@@ -634,7 +634,7 @@ export default function Index({ error, setError }) {
                       padding: "29% 10%",
                       margin: "0%",
                       textAlign: "center",
-                      borderLeft: "3px solid #296d98",
+                      borderLeft: "3px solid #07a8a0",
                     }}
                   >
                     {testlist.length}
@@ -651,7 +651,7 @@ export default function Index({ error, setError }) {
                       padding: "29% 10%",
                       margin: "0%",
                       textAlign: "center",
-                      borderLeft: "3px solid #296d98",
+                      borderLeft: "3px solid #07a8a0",
                     }}
                   >
                     {questiongrouplist.length}
@@ -668,7 +668,7 @@ export default function Index({ error, setError }) {
                       padding: "29% 10%",
                       margin: "0%",
                       textAlign: "center",
-                      borderLeft: "3px solid #296d98",
+                      borderLeft: "3px solid #07a8a0",
                     }}
                   >
                     {candidategrouplist.length}
@@ -690,7 +690,7 @@ export default function Index({ error, setError }) {
                       padding: "29% 10%",
                       margin: "0%",
                       textAlign: "center",
-                      borderLeft: "3px solid #296d98",
+                      borderLeft: "3px solid #07a8a0",
                     }}
                   >
                     {assessorlist.length}
@@ -707,7 +707,7 @@ export default function Index({ error, setError }) {
                       padding: "29% 10%",
                       margin: "0%",
                       textAlign: "center",
-                      borderLeft: "3px solid #296d98",
+                      borderLeft: "3px solid #07a8a0",
                     }}
                   >
                     {proctorerlist.length}

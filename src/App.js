@@ -41,6 +41,8 @@ import axiosInstance from "./axiosInstance";
 import getCookie from "./getCookie";
 import ProtectedRoute from "./ProtectedRoute";
 import { Translator, Translate } from "react-auto-translate/lib/commonjs";
+import Home from "./Components/Home";
+
 function App() {
   let token = getCookie("access_token");
   const [error, setError] = useState(null);
@@ -135,6 +137,11 @@ function App() {
             {/* <Route path="/" element={<Signup setError={setError} />} exact /> */}
             <Route
               path="/"
+              element={<Home setError={setError} />}
+              exact
+            />
+            <Route
+              path="/loginAdmin"
               element={<LoginAdmin setError={setError} />}
               exact
             />

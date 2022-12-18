@@ -162,7 +162,7 @@ export default function BasicTable({ error, setError }) {
           Manually Add an{" "}
           <a
             href="/addassessorAdmin"
-            style={{ textDecoration: "none", color: "#296d98" }}
+            style={{ textDecoration: "none", color: "#07a8a0" }}
           >
             Assessor
           </a>

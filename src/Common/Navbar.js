@@ -46,7 +46,7 @@ function DrawerAppBar(props) {
         <ListItem disablePadding>
           <ListItemButton sx={{ textAlign: "center" }}>
             <ListItemText>
-              <Button href="/" sx={{ color: "black" }}>
+              <Button href="/loginAdmin" sx={{ color: "black" }}>
                 Admin
               </Button>
             </ListItemText>
@@ -88,7 +88,7 @@ function DrawerAppBar(props) {
 
   return (
     <Box sx={{ display: "flex" }}>
-      <AppBar component="nav" style={{ backgroundColor: "#296d98" }}>
+      <AppBar component="nav" style={{ backgroundColor: "#07a8a0" }}>
         <Toolbar>
           <IconButton
             color="inherit"
@@ -120,7 +120,7 @@ function DrawerAppBar(props) {
             </div>
           </Typography>
           <Box sx={{ display: { xs: "none", sm: "block" } }}>
-            <Button href="/" sx={{ color: "#fff" }}>
+            <Button href="/loginAdmin" sx={{ color: "#fff" }}>
               Admin
             </Button>
             <Button href="/loginAssessor" sx={{ color: "#fff" }}>
