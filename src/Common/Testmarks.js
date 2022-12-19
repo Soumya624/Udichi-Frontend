@@ -38,7 +38,7 @@ const style = {
 export default function Confirmpresence({}) {
   return (
     <div>
-      <Navbar />
+      {/* <Navbar /> */}
       <div style={{ padding: "1%" }}>
         <center>
           <Card
@@ -180,7 +180,7 @@ export default function Confirmpresence({}) {
         <br />
         <br />
       </div>
-      <Footer />
+      {/* <Footer /> */}
     </div>
   );
 }

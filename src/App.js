@@ -29,7 +29,7 @@ import AddproctorerAdmin from "./Components/Admin/addProctorer";
 import AddexamAdmin from "./Components/Admin/addExam";
 import AddquestionAdmin from "./Components/Admin/addQuestion";
 import Test from "./testCont";
-import Testmarks from './Common/Testmarks';
+import Testmarks from "./Common/Testmarks";
 import ShareContainer from "./Components/ShareContainer/Index";
 import Container from "./Components/ShareContainer/Container";
 import { useReactMediaRecorder } from "react-media-recorder";
@@ -60,7 +60,7 @@ function App() {
 
   const camera = useReactMediaRecorder({ video: true, audio: true });
   useEffect(() => {
-	console.log(isClicked)
+    console.log(isClicked);
     if (isClicked) {
       camera.stopRecording();
       screen.stopRecording();
@@ -89,7 +89,7 @@ function App() {
       form.append("zip_files", file);
       // blob to file with extension zip
       let attempt_id = JSON.parse(localStorage.getItem("attempt_id"));
-	    console.log("Submitting the file....")
+      console.log("Submitting the file....");
       await axiosInstance
         .patch(`/attempts/${attempt_id}`, form, config)
         .then((res) => {
@@ -99,7 +99,7 @@ function App() {
             localStorage.removeItem("submitted_questions_id");
             localStorage.removeItem("questions_id");
             localStorage.removeItem("duration");
-            window.location = '/dashboardStudent'
+            window.location = "/dashboardStudent";
           }
         })
         .catch((err) => {});
@@ -140,11 +140,7 @@ function App() {
           <Routes>
             <Route path="/testing-page" element={<Test />} exact />
             {/* <Route path="/" element={<Signup setError={setError} />} exact /> */}
-            <Route
-              path="/"
-              element={<Home setError={setError} />}
-              exact
-            />
+            <Route path="/" element={<Home setError={setError} />} exact />
             <Route
               path="/loginAdmin"
               element={<LoginAdmin setError={setError} />}
@@ -165,11 +161,13 @@ function App() {
               element={<LoginProctorer setError={setError} />}
               exact
             />
-            <Route
-              path="/testMarks"
-              element={<Testmarks setError={setError} />}
-              exact
-            />
+            <Route path="/testMarks" element={<ProtectedRoute />} exact>
+              <Route
+                path="/testMarks"
+                element={<Testmarks setError={setError} />}
+                exact
+              />
+            </Route>
             <Route path="/dashboardAdmin" element={<ProtectedRoute />} exact>
               <Route
                 path="/dashboardAdmin"

@@ -53,8 +53,9 @@ export default function BasicTable({ error, setError }) {
   const [examgroup, setExamgroup] = useState(null);
   const [loading, setLoading] = useState(false);
   const [open1, setOpen1] = useState(false);
+  const [open2, setOpen2] = useState(false);
   const [allexamcandidates, setAllexamcandidates] = useState([]);
-  const [demodata, setDemodata] = useState("");
+  const [demodata, setDemodata] = useState([]);
 
   useEffect(() => {
     getExams();
@@ -64,7 +65,15 @@ export default function BasicTable({ error, setError }) {
     setOpen1(true);
   };
   const handleClose1 = () => {
+    setDemodata([]);
     setOpen1(false);
+  };
+  const handleOpen2 = () => {
+    setOpen2(true);
+  };
+  const handleClose2 = () => {
+    setAllexamcandidates([]);
+    setOpen2(false);
   };
 
   function getExams() {
@@ -181,18 +190,18 @@ export default function BasicTable({ error, setError }) {
                         align="right"
                         style={{ cursor: "pointer", color: "grey" }}
                         onClick={() => {
-                          // handleOpen1();
-                          setDemodata(key._id);
-                          // axiosInstance
-                          //   .get(`/result/${altst._id}/`, config)
-                          //   .then((res) => {
-                          //     if (res.status === 200) {
-                          //       console.log(res);
-                          //     }
-                          //   })
-                          //   .catch((err)=>{
-                          //     console.log(err);
-                          //   })
+                          handleOpen1();
+                          axiosInstance
+                            .get(`/attempts/attempts_group/${key._id}`, config)
+                            .then((res) => {
+                              if (res.status === 200) {
+                                console.log(res);
+                                setDemodata(res.data);
+                              }
+                            })
+                            .catch((err) => {
+                              console.log(err);
+                            });
                         }}
                       >
                         View Results
@@ -224,19 +233,16 @@ export default function BasicTable({ error, setError }) {
                 overFlowY: "scroll",
               }}
             >
-              <Grid item xs={5}>
+              <Grid item xs={6}>
                 <p style={{ textAlign: "left", fontWeight: "bold" }}>Name</p>
               </Grid>
-              <Grid item xs={3}>
-                <p style={{ textAlign: "center", fontWeight: "bold" }}>Marks</p>
-              </Grid>
-              <Grid item xs={4}>
+              <Grid item xs={6}>
                 <p style={{ textAlign: "right", fontWeight: "bold" }}>
-                  View Paper
+                  View Attempts
                 </p>
               </Grid>
             </Grid>
-            {allexamcandidates.map((altst) => {
+            {demodata.map((altst) => {
               return (
                 <Grid
                   container
@@ -247,14 +253,35 @@ export default function BasicTable({ error, setError }) {
                     overFlowY: "scroll",
                   }}
                 >
-                  <Grid item xs={5}>
-                    <p style={{ textAlign: "left" }}>Name</p>
+                  <Grid item xs={6}>
+                    <p style={{ textAlign: "left" }}>
+                      {altst.candidate.firstname} {altst.candidate.lastname}
+                    </p>
                   </Grid>
-                  <Grid item xs={3}>
-                    <p style={{ textAlign: "center" }}>Marks</p>
-                  </Grid>
-                  <Grid item xs={4}>
-                    <p style={{ textAlign: "right", color: "red" }}>View</p>
+                  <Grid item xs={6}>
+                    <p
+                      style={{
+                        textAlign: "right",
+                        color: "red",
+                        cursor: "pointer",
+                      }}
+                      onClick={() => {
+                        handleOpen2();
+                        axiosInstance
+                          .get(`/attempts/attempts_groups/${altst._id}`, config)
+                          .then((res) => {
+                            if (res.status === 200) {
+                              console.log(res);
+                              setAllexamcandidates(res.data.attempts_submitted);
+                            }
+                          })
+                          .catch((err) => {
+                            console.log(err);
+                          });
+                      }}
+                    >
+                      View
+                    </p>
                   </Grid>
                 </Grid>
               );
@@ -274,6 +301,91 @@ export default function BasicTable({ error, setError }) {
             </Button>
           </center>
         </Box>
+      </Modal1>
+      <Modal1 open={open2} onClose={handleClose2} center>
+        <center>
+          <h3>View Attempts</h3>
+          <p>Get the Attempts of the Students Who Have Submitted the Exam</p>
+          <br />
+          <Grid
+            container
+            spacing={1}
+            style={{
+              marginTop: "0.5%",
+              alignItems: "center",
+              overFlowY: "scroll",
+            }}
+          >
+            <Grid item xs={6}>
+              <p style={{ textAlign: "left", fontWeight: "bold" }}>
+                Attempt Id
+              </p>
+            </Grid>
+            <Grid item xs={2}>
+              <p style={{ textAlign: "center", fontWeight: "bold" }}>Marks</p>
+            </Grid>
+            <Grid item xs={4}>
+              <p style={{ textAlign: "right", fontWeight: "bold" }}>
+                Edit Marks
+              </p>
+            </Grid>
+          </Grid>
+          {allexamcandidates.map((altst) => {
+            return (
+              <Grid
+                container
+                spacing={1}
+                style={{
+                  marginTop: "0.5%",
+                  alignItems: "center",
+                  overFlowY: "scroll",
+                }}
+              >
+                <Grid item xs={6}>
+                  <p style={{ textAlign: "left" }}>{altst._id}</p>
+                </Grid>
+                <Grid item xs={2}>
+                  <p style={{ textAlign: "center" }}>{altst.marks_obtained}</p>
+                </Grid>
+                <Grid item xs={4}>
+                  <p
+                    style={{
+                      textAlign: "right",
+                      color: "red",
+                      cursor: "pointer",
+                    }}
+                    onClick={() => {
+                      localStorage.setItem(
+                        "total_marks_obtained",
+                        JSON.stringify(altst.marks_obtained)
+                      );
+                      localStorage.setItem(
+                        "question_submitted",
+                        JSON.stringify(altst.questions_submitted)
+                      );
+                      window.location.href = "./testMarks";
+                    }}
+                  >
+                    Edit
+                  </p>
+                </Grid>
+              </Grid>
+            );
+          })}
+          <br />
+          <br />
+          <br />
+          <Button
+            variant="contained"
+            style={{
+              backgroundColor: "#07a8a0",
+              width: "50%",
+            }}
+            onClick={handleClose2}
+          >
+            Close
+          </Button>
+        </center>
       </Modal1>
     </div>
   );
