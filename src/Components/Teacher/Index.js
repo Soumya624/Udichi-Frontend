@@ -168,7 +168,7 @@ export default function Index({ error, setError }) {
                             altst.type_of_test === "written" ? "" : "none",
                         }}
                         onClick={() => {
-                          // handleOpen1();
+                          handleOpen1();
                           setDemodata(altst._id);
                           // axiosInstance
                           //   .get(`/result/${altst._id}/`, config)

@@ -261,16 +261,20 @@ export default function Confirmpresence({
       attempts_submitted: attempt_id,
     };
     let attempt_group = JSON.parse(localStorage.getItem("attempted_group_id"));
+    let proctoring = JSON.parse(localStorage.getItem("proctoring"))
     await axiosInstance
       .patch(`/attempts/add/${attempt_group}`, d, config)
       .then((res) => {
         console.log(res);
         if (res.status === 201) {
-          localStorage.removeItem("submitted_questions_id");
-          // localStorage.removeItem("attempt_id");
-          localStorage.removeItem("questions_id");
-          navigate(`/starttestStudent/${test}`);
-          localStorage.removeItem("duration");
+          if(!proctoring){
+            localStorage.removeItem("submitted_questions_id");
+            localStorage.removeItem("questions_id");
+            localStorage.removeItem("duration");
+            localStorage.removeItem("attempt_id")
+            // navigate(`/starttestStudent/${test}`);
+            window.location = '/dashboardStudent'
+          }
         }
       })
       .catch((err) => {

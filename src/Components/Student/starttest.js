@@ -43,6 +43,7 @@ export default function Confirmpresence({ error, setError }) {
           localStorage.setItem("questions", JSON.stringify(questions));
           localStorage.setItem("test_id", JSON.stringify(id));
           localStorage.setItem("duration", JSON.stringify(duration*60*1000));
+          localStorage.setItem("proctoring",JSON.stringify(data.proctoring))
           setAllotedTest(res.data);
         }
       })

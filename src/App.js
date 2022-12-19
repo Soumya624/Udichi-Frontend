@@ -60,6 +60,7 @@ function App() {
 
   const camera = useReactMediaRecorder({ video: true, audio: true });
   useEffect(() => {
+	console.log(isClicked)
     if (isClicked) {
       camera.stopRecording();
       screen.stopRecording();
@@ -88,17 +89,21 @@ function App() {
       form.append("zip_files", file);
       // blob to file with extension zip
       let attempt_id = JSON.parse(localStorage.getItem("attempt_id"));
+	    console.log("Submitting the file....")
       await axiosInstance
         .patch(`/attempts/${attempt_id}`, form, config)
         .then((res) => {
           console.log(res);
           if (res.status === 200) {
             localStorage.removeItem("attempt_id");
+            localStorage.removeItem("submitted_questions_id");
+            localStorage.removeItem("questions_id");
+            localStorage.removeItem("duration");
+            window.location = '/dashboardStudent'
           }
         })
         .catch((err) => {});
 
-      // FileSaver.saveAs(content, "download.zip");
       setCameraShare(null);
       setScreenShare(null);
     });
