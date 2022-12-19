@@ -36,6 +36,39 @@ const style = {
   p: 4,
 };
 export default function Confirmpresence({}) {
+  const [questionarray, setQuestionarray] = useState([]);
+  const [totalmarks, setTotalmarks] = useState([]);
+  let token = getCookie("access_token");
+  let user = JSON.parse(localStorage.getItem("user"));
+
+  const config = {
+    headers: { Authorization: `Bearer ${token}`, "user-type": user.usertype },
+  };
+
+  useEffect(
+    () => {
+      setQuestionarray(JSON.parse(localStorage.getItem("question_submitted")));
+      setTotalmarks(JSON.parse(localStorage.getItem("total_marks_obtained")));
+    },
+    questionarray,
+    totalmarks
+  );
+
+  console.log(questionarray, totalmarks);
+
+  useEffect(() => {
+    questionarray.map((altst) => {
+      axiosInstance
+        .patch(`/questions/${altst}`, config)
+        .then((res) => {
+          console.log(res);
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+    });
+  });
+
   return (
     <div>
       {/* <Navbar /> */}
