@@ -81,7 +81,11 @@ export default function Index({ error, setError }) {
           Check Out{" "}
           <a
             onClick={handleOpen}
-            style={{ textDecoration: "none", cursor: "pointer", color:"#07a8a0" }}
+            style={{
+              textDecoration: "none",
+              cursor: "pointer",
+              color: "#07a8a0",
+            }}
           >
             Your Account
           </a>
@@ -122,6 +126,9 @@ export default function Index({ error, setError }) {
                     <Box
                       gridColumn="span 3"
                       style={{ color: "grey", cursor: "pointer" }}
+                      onClick={() => {
+                        alert("Please Contact Admin");
+                      }}
                     >
                       View Results
                     </Box>

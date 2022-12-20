@@ -301,7 +301,10 @@ export default function Index({ error, setError }) {
         <Box style={{ padding: "3%" }}>
           <center>
             <h3>View Results</h3>
-            <p>Get the Results of the Students Who Have Attempted the Exam</p>
+            <p style={{ padding: "0 5%" }}>
+              Click On The Link Below to Get The Attempts of The Students Who
+              Have Submitted The Exam
+            </p>
             <br />
             <Grid
               container
@@ -325,9 +328,9 @@ export default function Index({ error, setError }) {
               return (
                 <Grid
                   container
-                  spacing={1}
+                  spacing={0}
                   style={{
-                    marginTop: "0.5%",
+                    marginTop: "0.1%",
                     alignItems: "center",
                     overFlowY: "scroll",
                   }}
@@ -384,7 +387,10 @@ export default function Index({ error, setError }) {
       <Modal1 open={open2} onClose={handleClose2} center>
         <center>
           <h3>View Attempts</h3>
-          <p>Get the Attempts of the Students Who Have Submitted the Exam</p>
+          <p style={{ padding: "0 8%" }}>
+            Click On The Link Below to Check The Answer Script. And to Update
+            The Marks
+          </p>
           <br />
           <Grid
             container
@@ -413,9 +419,9 @@ export default function Index({ error, setError }) {
             return (
               <Grid
                 container
-                spacing={1}
+                spacing={0}
                 style={{
-                  marginTop: "0.5%",
+                  marginTop: "0.1%",
                   alignItems: "center",
                   overFlowY: "scroll",
                 }}
@@ -442,8 +448,8 @@ export default function Index({ error, setError }) {
                         "question_submitted",
                         JSON.stringify(altst.questions_submitted)
                       );
-                      
-                      window.location.href= `/testMarks/${altst._id}/${altst.questions_submitted[0]}`
+
+                      window.location.href = `/testMarks/${altst._id}/${altst.questions_submitted[0]}`;
                     }}
                   >
                     Edit
