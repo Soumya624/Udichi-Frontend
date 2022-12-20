@@ -95,6 +95,8 @@ export default function BasicTable({ error, setError }) {
         }, 1000);
       });
   }
+
+  console.log(allexamcandidates)
   return (
     <div>
       <Navbar />
@@ -363,7 +365,7 @@ export default function BasicTable({ error, setError }) {
                         "question_submitted",
                         JSON.stringify(altst.questions_submitted)
                       );
-                      window.location.href = "./testMarks";
+                      window.location.href= `/testMarks/${altst._id}/${altst.questions_submitted[0]}`
                     }}
                   >
                     Edit

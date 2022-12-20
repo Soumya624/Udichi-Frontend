@@ -163,7 +163,7 @@ function App() {
             />
             <Route path="/testMarks" element={<ProtectedRoute />} exact>
               <Route
-                path="/testMarks"
+                path="/testMarks/:attempt_id/:submission_id"
                 element={<Testmarks setError={setError} />}
                 exact
               />

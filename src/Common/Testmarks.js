@@ -37,13 +37,38 @@ const style = {
 };
 export default function Confirmpresence({}) {
   const [questionarray, setQuestionarray] = useState([]);
-  const [totalmarks, setTotalmarks] = useState([]);
+  const [submitted_ans, setSubmittedAns ] = useState(null)
+  const [marks, setMarks] = useState(0);
+  const [totalmarks, setTotalmarks] = useState(0);
   let token = getCookie("access_token");
   let user = JSON.parse(localStorage.getItem("user"));
+  let total_marks_obj = JSON.parse(localStorage.getItem("marks_obj"));
+  if(total_marks_obj === null) total_marks_obj = {}
+
+  let navigate = useNavigate()
+
+  const { attempt_id, submission_id } = useParams()
 
   const config = {
     headers: { Authorization: `Bearer ${token}`, "user-type": user.usertype },
   };
+
+
+  useEffect(()=>{
+    axiosInstance.get(`/question_submission/${submission_id}`,config)
+    .then((res)=>{
+      console.log(res)
+      if(res.status === 200){
+        setSubmittedAns(res.data)
+        setMarks(res.data.marks_obtained)
+        total_marks_obj[`${submission_id}`] = res.data.marks_obtained
+        localStorage.setItem("marks_obj",JSON.stringify(total_marks_obj))
+      }
+    })
+    .catch((err)=>{
+      console.log(err)
+    })
+  },[])
 
   useEffect(
     () => {
@@ -54,20 +79,57 @@ export default function Confirmpresence({}) {
     totalmarks
   );
 
-  console.log(questionarray, totalmarks);
+  
 
-  useEffect(() => {
-    questionarray.map((altst) => {
-      axiosInstance
-        .patch(`/questions/${altst}`, config)
-        .then((res) => {
-          console.log(res);
+  const saveMarks =()=>{
+    let data = {
+      marks_obtained : marks
+    }
+    axiosInstance.patch(`/question_submission/${submission_id}`,data,config)
+    .then((res)=>{
+      if(res.status === 201){
+        total_marks_obj[`${submission_id}`] = res.data.marks_obtained
+        localStorage.setItem("marks_obj",JSON.stringify(total_marks_obj))
+        let total_marks = 0
+        Object.keys(total_marks_obj).map((x)=>{
+          total_marks += total_marks_obj[x]
         })
-        .catch((err) => {
-          console.log(err);
-        });
-    });
-  });
+        
+
+        localStorage.setItem("total_marks_obtained",JSON.stringify(total_marks))
+
+        let ind = questionarray.indexOf(submission_id);
+        let l = questionarray.length
+        console.log(`/testMarks/${attempt_id}/${questionarray[(ind+1)%l]}`)
+        window.location = `/testMarks/${attempt_id}/${questionarray[(ind+1)%l]}`
+      }
+    })
+    .catch((err)=>{
+      console.log(err)
+    })
+  }
+
+
+  const UpdateTotalMarks = ()=>{
+    let total_marks = JSON.parse(localStorage.getItem("total_marks_obtained"))
+    let data = {
+      marks_obtained : total_marks
+    }
+    axiosInstance.patch(`/attempts/${attempt_id}`,data,config)
+    .then((res)=>{
+      console.log(res)
+      if(res.status === 200){
+        localStorage.removeItem("marks_obj")
+        window.location = '/dashboardAssessor'
+      }
+    })
+    .catch((err)=>{
+      console.log(err)
+    })
+  }
+
+
+  if(!submitted_ans) return <h1>Loading...</h1>
 
   return (
     <div>
@@ -87,30 +149,34 @@ export default function Confirmpresence({}) {
               <Grid container spacing={1} style={{ padding: "1%" }}>
                 <Grid item xs={4} style={{ textAlign: "left" }}>
                   <p>
-                    {!true
+                    {!submitted_ans.question.is_objective
                       ? "Fill in The Blacks Question"
                       : "Multiple Correct Questions"}
                   </p>
                 </Grid>
                 <Grid item xs={4}></Grid>
                 <Grid item xs={4} style={{ textAlign: "right" }}>
-                  <p>+2 For Correct/- 2 For Wrong</p>
+                  <p>+{submitted_ans.question.positive_marks} For Correct/-{submitted_ans.question.negative_marks} For Wrong</p>
                 </Grid>
               </Grid>
               <Grid container spacing={2} style={{ padding: "1%" }}>
                 <Grid item sm={9}>
-                  <h4 style={{ textAlign: "center" }}>Question</h4>
-                  <p style={{ textAlign: "justify" }}>Title</p>
-                  {!true ? (
+                  <h4 style={{ textAlign: "center" }}>{submitted_ans.question.title}</h4>
+                  {/* <p style={{ textAlign: "justify" }}>Title</p> */}
+                  {submitted_ans.question.is_objective ? (
                     <div>
-                      <>
-                        <Checkbox />
-                        <FormLabel>Title 1</FormLabel>
-                      </>
+                      {submitted_ans.question.options.map((op)=>(
+                        <>
+                          <Checkbox disabled checked={submitted_ans.options_marked.indexOf(op._id) !== -1} />
+                          <FormLabel>{op.title}</FormLabel>
+                        </>
+                      ))}
                     </div>
                   ) : (
                     <TextField
                       id="standard-basic"
+                      value={submitted_ans.subjective_answer}
+                      disabled
                       label="Write Your Answer"
                       variant="standard"
                       style={{ width: "100%" }}
@@ -123,6 +189,10 @@ export default function Confirmpresence({}) {
                     id="standard-basic"
                     variant="standard"
                     label="Obtained Marks"
+                    value={marks}
+                    onChange={(e)=>{
+                      setMarks(e.target.value)
+                    }}
                     style={{ width: "30%" }}
                   />
                   {/* <Grid
@@ -154,6 +224,7 @@ export default function Confirmpresence({}) {
                   <Grid container spacing={1} style={{ padding: "1%" }}>
                     <Grid item sm={6}>
                       <Button
+                        onClick={saveMarks}
                         style={{
                           backgroundColor: "#70ff00",
                           color: "black",
@@ -169,6 +240,7 @@ export default function Confirmpresence({}) {
 
                     <Grid item sm={6}>
                       <Button
+                        onClick={UpdateTotalMarks}
                         style={{
                           backgroundColor: "rgb(120 130 189)",
                           color: "white",
@@ -179,28 +251,29 @@ export default function Confirmpresence({}) {
                         }}
                         target="_blank"
                       >
-                        Close
+                        Save and Close
                       </Button>
                     </Grid>
                   </Grid>
                 </Grid>
                 <Grid item sm={3}>
                   <Grid container spacing={1} style={{ padding: "1%" }}>
-                    <Grid item xs={4}>
-                      <Fab
-                        title="1"
-                        size="small"
-                        style={{
-                          backgroundColor: "white",
-                          color: "black",
-                          border: "1px solid black",
-                          boxShadow: "none",
-                          margin: "5px",
-                        }}
-                      >
-                        1
-                      </Fab>
-                    </Grid>
+                  {questionarray.map((ques, ind) => (
+                      <Grid item xs={4}>
+                        <Fab
+                          title={ques}
+                          size="small"
+                          style={{
+                            color: "black",
+                            border: "1px solid black",
+                            boxShadow: "none",
+                            margin: "5px",
+                          }}
+                        >
+                          {ind + 1}
+                        </Fab>
+                      </Grid>
+                    ))}
                   </Grid>
                 </Grid>
               </Grid>
