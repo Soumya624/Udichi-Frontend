@@ -1,5 +1,6 @@
 import React, { useRef, useEffect } from "react";
-import Navbar from "./Navbar_Admin";
+import Navbar_Admin from "./Navbar_Admin";
+import Navbar_Assessor from "./Navbar_Assessor";
 import Card from "@mui/material/Card";
 import CardActions from "@mui/material/CardActions";
 import CardContent from "@mui/material/CardContent";
@@ -37,38 +38,38 @@ const style = {
 };
 export default function Confirmpresence({}) {
   const [questionarray, setQuestionarray] = useState([]);
-  const [submitted_ans, setSubmittedAns ] = useState(null)
+  const [submitted_ans, setSubmittedAns] = useState(null);
   const [marks, setMarks] = useState(0);
   const [totalmarks, setTotalmarks] = useState(0);
   let token = getCookie("access_token");
   let user = JSON.parse(localStorage.getItem("user"));
   let total_marks_obj = JSON.parse(localStorage.getItem("marks_obj"));
-  if(total_marks_obj === null) total_marks_obj = {}
+  if (total_marks_obj === null) total_marks_obj = {};
 
-  let navigate = useNavigate()
+  let navigate = useNavigate();
 
-  const { attempt_id, submission_id } = useParams()
+  const { attempt_id, submission_id } = useParams();
 
   const config = {
     headers: { Authorization: `Bearer ${token}`, "user-type": user.usertype },
   };
 
-
-  useEffect(()=>{
-    axiosInstance.get(`/question_submission/${submission_id}`,config)
-    .then((res)=>{
-      console.log(res)
-      if(res.status === 200){
-        setSubmittedAns(res.data)
-        setMarks(res.data.marks_obtained)
-        total_marks_obj[`${submission_id}`] = res.data.marks_obtained
-        localStorage.setItem("marks_obj",JSON.stringify(total_marks_obj))
-      }
-    })
-    .catch((err)=>{
-      console.log(err)
-    })
-  },[])
+  useEffect(() => {
+    axiosInstance
+      .get(`/question_submission/${submission_id}`, config)
+      .then((res) => {
+        console.log(res);
+        if (res.status === 200) {
+          setSubmittedAns(res.data);
+          setMarks(res.data.marks_obtained);
+          total_marks_obj[`${submission_id}`] = res.data.marks_obtained;
+          localStorage.setItem("marks_obj", JSON.stringify(total_marks_obj));
+        }
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  }, []);
 
   useEffect(
     () => {
@@ -79,61 +80,69 @@ export default function Confirmpresence({}) {
     totalmarks
   );
 
-  
-
-  const saveMarks =()=>{
+  const saveMarks = () => {
     let data = {
-      marks_obtained : marks
-    }
-    axiosInstance.patch(`/question_submission/${submission_id}`,data,config)
-    .then((res)=>{
-      if(res.status === 201){
-        total_marks_obj[`${submission_id}`] = res.data.marks_obtained
-        localStorage.setItem("marks_obj",JSON.stringify(total_marks_obj))
-        let total_marks = 0
-        Object.keys(total_marks_obj).map((x)=>{
-          total_marks += total_marks_obj[x]
-        })
-        
+      marks_obtained: marks,
+    };
+    axiosInstance
+      .patch(`/question_submission/${submission_id}`, data, config)
+      .then((res) => {
+        if (res.status === 201) {
+          total_marks_obj[`${submission_id}`] = res.data.marks_obtained;
+          localStorage.setItem("marks_obj", JSON.stringify(total_marks_obj));
+          let total_marks = 0;
+          Object.keys(total_marks_obj).map((x) => {
+            total_marks += total_marks_obj[x];
+          });
 
-        localStorage.setItem("total_marks_obtained",JSON.stringify(total_marks))
+          localStorage.setItem(
+            "total_marks_obtained",
+            JSON.stringify(total_marks)
+          );
 
-        let ind = questionarray.indexOf(submission_id);
-        let l = questionarray.length
-        console.log(`/testMarks/${attempt_id}/${questionarray[(ind+1)%l]}`)
-        window.location = `/testMarks/${attempt_id}/${questionarray[(ind+1)%l]}`
-      }
-    })
-    .catch((err)=>{
-      console.log(err)
-    })
-  }
+          let ind = questionarray.indexOf(submission_id);
+          let l = questionarray.length;
+          console.log(
+            `/testMarks/${attempt_id}/${questionarray[(ind + 1) % l]}`
+          );
+          window.location = `/testMarks/${attempt_id}/${
+            questionarray[(ind + 1) % l]
+          }`;
+        }
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  };
 
-
-  const UpdateTotalMarks = ()=>{
-    let total_marks = JSON.parse(localStorage.getItem("total_marks_obtained"))
+  const UpdateTotalMarks = () => {
+    let total_marks = JSON.parse(localStorage.getItem("total_marks_obtained"));
     let data = {
-      marks_obtained : total_marks
-    }
-    axiosInstance.patch(`/attempts/${attempt_id}`,data,config)
-    .then((res)=>{
-      console.log(res)
-      if(res.status === 200){
-        localStorage.removeItem("marks_obj")
-        window.location = '/dashboardAssessor'
-      }
-    })
-    .catch((err)=>{
-      console.log(err)
-    })
-  }
+      marks_obtained: total_marks,
+    };
+    axiosInstance
+      .patch(`/attempts/${attempt_id}`, data, config)
+      .then((res) => {
+        console.log(res);
+        if (res.status === 200) {
+          localStorage.removeItem("marks_obj");
+          {
+            user.usertype === "admin"
+              ? (window.location = "/dashboardAdmin")
+              : (window.location = "/dashboardAssessor");
+          }
+        }
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  };
 
-
-  if(!submitted_ans) return <h1>Loading...</h1>
+  if (!submitted_ans) return <h1>Loading...</h1>;
 
   return (
     <div>
-      {/* <Navbar /> */}
+      {user.usertype === "admin" ? <Navbar_Admin /> : <Navbar_Assessor />}
       <div style={{ padding: "1%" }}>
         <center>
           <Card
@@ -156,18 +165,29 @@ export default function Confirmpresence({}) {
                 </Grid>
                 <Grid item xs={4}></Grid>
                 <Grid item xs={4} style={{ textAlign: "right" }}>
-                  <p>+{submitted_ans.question.positive_marks} For Correct/-{submitted_ans.question.negative_marks} For Wrong</p>
+                  <p>
+                    +{submitted_ans.question.positive_marks} For Correct/-
+                    {submitted_ans.question.negative_marks} For Wrong
+                  </p>
                 </Grid>
               </Grid>
               <Grid container spacing={2} style={{ padding: "1%" }}>
                 <Grid item sm={9}>
-                  <h4 style={{ textAlign: "center" }}>{submitted_ans.question.title}</h4>
+                  <h4 style={{ textAlign: "center" }}>
+                    {submitted_ans.question.title}
+                  </h4>
                   {/* <p style={{ textAlign: "justify" }}>Title</p> */}
                   {submitted_ans.question.is_objective ? (
                     <div>
-                      {submitted_ans.question.options.map((op)=>(
+                      {submitted_ans.question.options.map((op) => (
                         <>
-                          <Checkbox disabled checked={submitted_ans.options_marked.indexOf(op._id) !== -1} />
+                          <Checkbox
+                            disabled
+                            checked={
+                              submitted_ans.options_marked.indexOf(op._id) !==
+                              -1
+                            }
+                          />
                           <FormLabel>{op.title}</FormLabel>
                         </>
                       ))}
@@ -190,8 +210,8 @@ export default function Confirmpresence({}) {
                     variant="standard"
                     label="Obtained Marks"
                     value={marks}
-                    onChange={(e)=>{
-                      setMarks(e.target.value)
+                    onChange={(e) => {
+                      setMarks(e.target.value);
                     }}
                     style={{ width: "30%" }}
                   />
@@ -251,14 +271,23 @@ export default function Confirmpresence({}) {
                         }}
                         target="_blank"
                       >
-                        Save and Close
+                        Close
                       </Button>
+                    </Grid>
+                  </Grid>
+                  <Grid container spacing={1} style={{ padding: "1%" }}>
+                    <Grid item sm={12}>
+                      <center>
+                        <b style={{ fontSize: "10px", textAlign: "center" }}>
+                          (Please Click "Save & Next" Before "Close")
+                        </b>
+                      </center>
                     </Grid>
                   </Grid>
                 </Grid>
                 <Grid item sm={3}>
                   <Grid container spacing={1} style={{ padding: "1%" }}>
-                  {questionarray.map((ques, ind) => (
+                    {questionarray.map((ques, ind) => (
                       <Grid item xs={4}>
                         <Fab
                           title={ques}
@@ -286,7 +315,7 @@ export default function Confirmpresence({}) {
         <br />
         <br />
       </div>
-      {/* <Footer /> */}
+      <Footer />
     </div>
   );
 }
