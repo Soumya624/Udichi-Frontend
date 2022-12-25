@@ -42,7 +42,7 @@ export default function Signup() {
     // Construct the email message
     let emailMessage = {
       to: email,
-      subject: `Your Username: ${username} and Password: ${password}`,
+      subject: `Your Udichi Username: ${email} and Password: ${password}`,
     };
 
     // Send the email
