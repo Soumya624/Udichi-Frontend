@@ -238,7 +238,7 @@ export default function Index({
               <li style={{ textAlign: "justify" }}>
                 {" "}
                 Students are requested to share the screen and the camera,
-                before starting the exam
+                before starting the exam (if requested)
               </li>
               <br />
               <li style={{ textAlign: "justify" }}>
@@ -255,82 +255,84 @@ export default function Index({
                 display: "flex",
               }}
             >
-              {is_proctoring && (
-                <Screen
-                  startRecording={startScreenRecording}
-                  setMediaBlob={setScreenShare}
-                  mediaBlobUrl={mediaScreenBlob}
-                  stopRecording={stopScreenSharing}
-                  isClicked={isClicked}
-                  enable={screeStatus === "acquiring_media"}
-                />
-              )}
-              {is_proctoring && (
-                <Camera
-                  startRecording={startCameraRecording}
-                  setCameraBlob={setCameraShare}
-                  mediaBlobUrl={mediaCameraBlob}
-                  stopRecording={stopCamera}
-                  isClicked={isClicked}
-                  enable={cameraStatus === "acquiring_media"}
-                />
-              )}
-              {is_proctoring && (
-                <Button
-                  disabled={
-                    !(
-                      screeStatus === "recording" &&
-                      cameraStatus === "recording"
-                    )
-                  }
-                  variant="contained"
-                  onClick={() => {
-                    if (
-                      screeStatus === "recording" &&
-                      cameraStatus === "recording"
-                    ) {
-                      console.log("Recording....");
-                      startExam();
+              <center>
+                {is_proctoring && (
+                  <Screen
+                    startRecording={startScreenRecording}
+                    setMediaBlob={setScreenShare}
+                    mediaBlobUrl={mediaScreenBlob}
+                    stopRecording={stopScreenSharing}
+                    isClicked={isClicked}
+                    enable={screeStatus === "acquiring_media"}
+                  />
+                )}
+                {is_proctoring && (
+                  <Camera
+                    startRecording={startCameraRecording}
+                    setCameraBlob={setCameraShare}
+                    mediaBlobUrl={mediaCameraBlob}
+                    stopRecording={stopCamera}
+                    isClicked={isClicked}
+                    enable={cameraStatus === "acquiring_media"}
+                  />
+                )}
+                {is_proctoring && (
+                  <Button
+                    disabled={
+                      !(
+                        screeStatus === "recording" &&
+                        cameraStatus === "recording"
+                      )
                     }
-                  }}
-                  style={{
-                    backgroundColor: !(
-                      screeStatus === "recording" &&
-                      cameraStatus === "recording"
-                    )
-                      ? "#aaaaaa"
-                      : "#07a8a0",
-                    margin: "2px",
-                  }}
-                  // enabled={
-                  // 	screeStatus !== "recording" && cameraStatus !== "recording"
-                  // }
-                >
-                  Continue Exam
-                </Button>
-              )}
-              {!is_proctoring && (
-                <Button
-                  variant="contained"
-                  onClick={() => {
-                    startExam();
-                  }}
-                  style={{
-                    backgroundColor: !(
-                      screeStatus === "recording" &&
-                      cameraStatus === "recording"
-                    )
-                      ? "#aaaaaa"
-                      : "#07a8a0",
-                    margin: "2px",
-                  }}
-                  // enabled={
-                  // 	screeStatus !== "recording" && cameraStatus !== "recording"
-                  // }
-                >
-                  Continue Exam
-                </Button>
-              )}
+                    variant="contained"
+                    onClick={() => {
+                      if (
+                        screeStatus === "recording" &&
+                        cameraStatus === "recording"
+                      ) {
+                        console.log("Recording....");
+                        startExam();
+                      }
+                    }}
+                    style={{
+                      backgroundColor: !(
+                        screeStatus === "recording" &&
+                        cameraStatus === "recording"
+                      )
+                        ? "#aaaaaa"
+                        : "#07a8a0",
+                      margin: "2px",
+                    }}
+                    // enabled={
+                    // 	screeStatus !== "recording" && cameraStatus !== "recording"
+                    // }
+                  >
+                    Continue Exam
+                  </Button>
+                )}
+                {!is_proctoring && (
+                  <Button
+                    variant="contained"
+                    onClick={() => {
+                      startExam();
+                    }}
+                    style={{
+                      backgroundColor: !(
+                        screeStatus === "recording" &&
+                        cameraStatus === "recording"
+                      )
+                        ? "#aaaaaa"
+                        : "#07a8a0",
+                      margin: "2px",
+                    }}
+                    // enabled={
+                    // 	screeStatus !== "recording" && cameraStatus !== "recording"
+                    // }
+                  >
+                    Continue Exam
+                  </Button>
+                )}
+              </center>
             </div>
           </CardContent>
           {/* <CardActions>

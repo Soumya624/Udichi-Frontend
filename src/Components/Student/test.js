@@ -23,6 +23,26 @@ import axiosInstance from "../../axiosInstance";
 import getCookie from "../../getCookie";
 import { duration } from "moment/moment";
 import Countdown from "react-countdown";
+import Speech from "react-speech";
+
+const textstyle = {
+  play: {
+    hover: {
+      backgroundColor: "black",
+      color: "white",
+    },
+    button: {
+      padding: "4",
+      fontFamily: "Helvetica",
+      fontSize: "1.0em",
+      cursor: "pointer",
+      pointerEvents: "none",
+      outline: "none",
+      backgroundColor: "inherit",
+      border: "none",
+    },
+  },
+};
 
 const style = {
   position: "absolute",
@@ -35,6 +55,7 @@ const style = {
   boxShadow: 24,
   p: 4,
 };
+
 export default function Confirmpresence({
   screeShare,
   cameraShare,
@@ -50,6 +71,7 @@ export default function Confirmpresence({
   const config = {
     headers: { Authorization: `Bearer ${token}`, "user-type": user.usertype },
   };
+
   console.log(screeShare, cameraShare);
   const navigate = useNavigate();
   let submitted_questions_id = JSON.parse(
@@ -261,19 +283,19 @@ export default function Confirmpresence({
       attempts_submitted: attempt_id,
     };
     let attempt_group = JSON.parse(localStorage.getItem("attempted_group_id"));
-    let proctoring = JSON.parse(localStorage.getItem("proctoring"))
+    let proctoring = JSON.parse(localStorage.getItem("proctoring"));
     await axiosInstance
       .patch(`/attempts/add/${attempt_group}`, d, config)
       .then((res) => {
         console.log(res);
         if (res.status === 201) {
-          if(!proctoring){
+          if (!proctoring) {
             localStorage.removeItem("submitted_questions_id");
             localStorage.removeItem("questions_id");
             localStorage.removeItem("duration");
-            localStorage.removeItem("attempt_id")
+            localStorage.removeItem("attempt_id");
             // navigate(`/starttestStudent/${test}`);
-            window.location = '/dashboardStudent'
+            window.location = "/dashboardStudent";
           }
         }
       })
@@ -376,7 +398,11 @@ export default function Confirmpresence({
               <Grid container spacing={2} style={{ padding: "1%" }}>
                 <Grid item sm={9}>
                   <h4 style={{ textAlign: "center" }}>Question {qId}</h4>
-                  <p style={{ textAlign: "justify" }}>{question_data.title}</p>
+                  <p style={{ textAlign: "justify", alignItems: "center" }}>
+                    {question_data.title}{" "}
+                    <Speech styles={textstyle} text={question_data.title} />
+                  </p>
+
                   {question_data.is_objective ? (
                     <div>
                       {question_data.options.map((op) => (

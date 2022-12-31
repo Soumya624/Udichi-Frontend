@@ -16,6 +16,22 @@ import setCookie from "../../../setCookie";
 import { CircularProgress } from "@mui/material";
 import Translator from "react-auto-translate/lib/commonjs/translator";
 import { Translate } from "@mui/icons-material";
+import Speech from "react-speech";
+
+const style = {
+  play: {
+    button: {
+      width: '28',
+      height: '28',
+      cursor: 'pointer',
+      pointerEvents: 'none',
+      outline: 'none',
+      backgroundColor: 'yellow',
+      border: 'solid 1px rgba(255,255,255,1)',
+      borderRadius: 6
+    },
+  }
+};
 
 export default function LoginAdmin({ error, setError }) {
   const [username, setUsername] = useState("");

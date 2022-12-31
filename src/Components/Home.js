@@ -19,6 +19,30 @@ import { Translate } from "@mui/icons-material";
 import Carousel from "react-multi-carousel";
 import "react-multi-carousel/lib/styles.css";
 import Home_Imgae from "./../Assets/Home.png";
+import { ProctorApp, getStatistics } from  'react_proctoring_library';
+
+const style = {
+  play: {
+    button: {
+      width: '28',
+      height: '28',
+      cursor: 'pointer',
+      pointerEvents: 'none',
+      outline: 'none',
+      backgroundColor: 'yellow',
+      border: 'solid 1px rgba(255,255,255,1)',
+      borderRadius: 6
+    },
+  }
+};
+
+function  Test(props) {
+	return (
+		<div>
+			<h1>Proctoring Window</h1>
+		</div>
+	);
+}
 
 function Home(props) {
   const responsive = {
@@ -38,6 +62,13 @@ function Home(props) {
       slidesToSlide: 4, // optional, default to 1.
     },
   };
+
+  const testIdentifier = 'unique-proctoring-identifier';
+	const fullScreenMessage = 'This test can only be completed in Full Screen Mode, do you want to start this test?';
+	const  getStats = e  => {
+		e.preventDefault();
+		console.log(getStatistics(testIdentifier));
+	};
 
   return (
     <div>
@@ -100,6 +131,9 @@ function Home(props) {
           </Grid>
         </center>
       </div>
+      {/* <ProctorApp TestComponent={Test} testIdentifier={testIdentifier} fullScreenMessage={fullScreenMessage} />
+      <button  onClick={getStats}>Get Statistics</button> */}
+      
       <Footer />
     </div>
   );
