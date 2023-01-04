@@ -400,7 +400,7 @@ export default function Confirmpresence({
                   <h4 style={{ textAlign: "center" }}>Question {qId}</h4>
                   <p style={{ textAlign: "justify", alignItems: "center" }}>
                     {question_data.title}{" "}
-                    <Speech styles={textstyle} text={question_data.title} />
+                    {/* <Speech styles={textstyle} text={question_data.title} /> */}
                   </p>
 
                   {question_data.is_objective ? (
