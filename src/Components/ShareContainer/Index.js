@@ -255,7 +255,6 @@ export default function Index({
                 display: "flex",
               }}
             >
-              <center>
                 {is_proctoring && (
                   <Screen
                     startRecording={startScreenRecording}
@@ -332,7 +331,6 @@ export default function Index({
                     Continue Exam
                   </Button>
                 )}
-              </center>
             </div>
           </CardContent>
           {/* <CardActions>

@@ -330,6 +330,16 @@ export default function Confirmpresence({
     return () => clearInterval(interval);
   });
 
+  useEffect(() => {
+    const intervalId = setInterval(() => {
+      if (isExpired) {
+        document.getElementById("expired-button").click();
+        clearInterval(intervalId);
+      }
+    }, 1000);
+    return () => clearInterval(intervalId);
+  }, [isExpired]);
+
   return (
     <div>
       <Navbar />
@@ -349,7 +359,7 @@ export default function Confirmpresence({
                 <Grid item xs={4} style={{ textAlign: "left" }}>
                   <p>
                     {!question_data.is_objective
-                      ? "Fill in The Blacks Question"
+                      ? "Fill in The Blanks Question"
                       : "Multiple Correct Questions"}
                   </p>
                 </Grid>
@@ -504,6 +514,7 @@ export default function Confirmpresence({
                           width: "100%",
                           // border: "1px solid black",
                         }}
+                        id="expired-button"
                         onClick={async () => {
                           await saveAndNext();
                           handleOpen();
