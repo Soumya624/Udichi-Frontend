@@ -329,14 +329,14 @@ export default function BasicTable({ error, setError }) {
                 Attempt Id
               </p>
             </Grid>
-            <Grid item xs={2}>
-              <p style={{ textAlign: "center", fontWeight: "bold" }}>Marks</p>
+            <Grid item xs={6}>
+              <p style={{ textAlign: "right", fontWeight: "bold" }}>Marks</p>
             </Grid>
-            <Grid item xs={4}>
+            {/* <Grid item xs={4}>
               <p style={{ textAlign: "right", fontWeight: "bold" }}>
                 Edit Marks
               </p>
-            </Grid>
+            </Grid> */}
           </Grid>
           {allexamcandidates.map((altst) => {
             return (
@@ -352,10 +352,10 @@ export default function BasicTable({ error, setError }) {
                 <Grid item xs={6}>
                   <p style={{ textAlign: "left" }}>{altst._id}</p>
                 </Grid>
-                <Grid item xs={2}>
-                  <p style={{ textAlign: "center" }}>{altst.marks_obtained}</p>
+                <Grid item xs={6}>
+                  <p style={{ textAlign: "right" }}>{altst.marks_obtained}</p>
                 </Grid>
-                <Grid item xs={4}>
+                {/* <Grid item xs={4}>
                   <p
                     style={{
                       textAlign: "right",
@@ -376,7 +376,7 @@ export default function BasicTable({ error, setError }) {
                   >
                     Edit
                   </p>
-                </Grid>
+                </Grid> */}
               </Grid>
             );
           })}
