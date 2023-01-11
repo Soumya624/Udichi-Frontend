@@ -7,6 +7,8 @@ import axiosInstance from "../../axiosInstance";
 import getCookie from "../../getCookie";
 import Navbar from "./../../Common/Navbar_Student";
 import Footer from "./../../Common/Footer";
+import * as faceapi from 'face-api.js';
+import { useRef } from "react";
 
 export default function Index({
   startScreenRecording,
@@ -22,9 +24,11 @@ export default function Index({
   isClicked,
   error,
   setError,
+  camera
 }) {
   let token = getCookie("access_token");
   let user = JSON.parse(localStorage.getItem("user"));
+	const videoRef = useRef()
 
   const config = {
     headers: { Authorization: `Bearer ${token}`, "user-type": user.usertype },
@@ -41,6 +45,44 @@ export default function Index({
   // const [screeShare, setScreenShare] = useState(null);
   // const [cameraShare, setCameraShare] = useState(null);
   // const [isClicked, setClicked] = useState(false);
+
+  const [ initialise, setInitialise ] = useState(false);
+
+  useEffect(()=>{
+    if(camera.previewStream){
+      loadModels()
+    }
+  },[camera])
+
+
+  const loadModels = async()=>{
+    const MODEL_URL = process.env.PUBLIC_URL + '/models'
+    setInitialise(true)
+    Promise.all([
+      faceapi.nets.faceRecognitionNet.loadFromUri(MODEL_URL),
+      faceapi.nets.tinyFaceDetector.loadFromUri(MODEL_URL)
+    ])
+    .then(startVideo)
+  }
+
+
+  const startVideo = ()=>{
+		console.log("Start Video....")
+    videoRef.current.srcObject = camera.previewStream
+	}
+
+
+	const handleVideoOnPlay = ()=>{
+		setInterval(async()=>{
+			if(initialise){
+				setInitialise(false)
+			}
+
+			const detections = await faceapi.detectAllFaces(videoRef.current,new faceapi.TinyFaceDetectorOptions())
+			console.log(detections)
+		},500)
+	}
+
   useEffect(() => {
     axiosInstance
       .get(`/test/${id}`, config)
@@ -70,6 +112,11 @@ export default function Index({
         }, 1000);
       });
   }, [id]);
+
+  useState(()=>{
+    console.log(camera)
+  },[])
+
 
   useEffect(() => {
     let user = JSON.parse(localStorage.getItem("user_id"));
@@ -139,7 +186,9 @@ export default function Index({
               "attempted_group_id",
               JSON.stringify(res.data._id)
             );
-            window.location = "/testStudent/1";
+            setTimeout(() => {
+              navigate("/testStudent/1");
+            }, 10);
           }
         })
         .catch((err) => {
@@ -204,6 +253,9 @@ export default function Index({
 
   return (
     <>
+      {/* <div>
+        <video ref={videoRef} autoPlay muted width={400} height={400} onPlay={handleVideoOnPlay}/>
+      </div> */}
       <div
         style={{
           width: "100vw",

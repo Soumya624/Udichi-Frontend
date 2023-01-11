@@ -64,6 +64,7 @@ export default function Confirmpresence({
   setClicked,
   error,
   setError,
+  multipleFace
 }) {
   let token = getCookie("access_token");
   let user = JSON.parse(localStorage.getItem("user"));
@@ -262,6 +263,7 @@ export default function Confirmpresence({
     let data = {
       test: test,
       candidate: user,
+      multipleFace : multipleFace,
       questions_submitted: submitted_question,
     };
 
@@ -281,6 +283,7 @@ export default function Confirmpresence({
 
     let d = {
       attempts_submitted: attempt_id,
+      multipleFace : multipleFace
     };
     let attempt_group = JSON.parse(localStorage.getItem("attempted_group_id"));
     let proctoring = JSON.parse(localStorage.getItem("proctoring"));

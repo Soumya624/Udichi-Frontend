@@ -1,26 +1,54 @@
-import React from "react";
-import Test from "./test";
-import TestCamera from "./testCamera";
-import { useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
+import * as faceapi from 'face-api.js';
+
+
 export default function TestCont() {
-	const [screenBlob, setMediaBlob] = useState(null);
-	const [cameraBlobUrl, setCameraBlob] = useState(null);
-    const [isClicked, setClicked] = useState(false)
+	const [ initialise, setInitialise ] = useState(false);
+	const videoRef = useRef()
+
+	useEffect(()=>{
+		const loadModels = async()=>{
+			const MODEL_URL = process.env.PUBLIC_URL + '/models'
+			setInitialise(true)
+			Promise.all([
+				faceapi.nets.faceRecognitionNet.loadFromUri(MODEL_URL),
+				faceapi.nets.tinyFaceDetector.loadFromUri(MODEL_URL)
+			])
+			.then(startVideo)
+		}
+
+		loadModels()
+	},[])
 
 
-    useState(()=>{
-    },[])
+	const startVideo = ()=>{
+		console.log("Start Video....")
+		navigator.mediaDevices.getUserMedia(
+			{
+				video : true
+			})
+		.then(stream =>{
+			console.log(stream)
+			videoRef.current.srcObject = stream
+		})
+	}
 
-    // console.log(screenBlob,cameraBlobUrl)
+
+	const handleVideoOnPlay = ()=>{
+		setInterval(async()=>{
+			if(initialise){
+				setInitialise(false)
+			}
+
+			const detections = await faceapi.detectAllFaces(videoRef.current,new faceapi.TinyFaceDetectorOptions())
+			
+		},1000)
+	}
 
 	return (
 		<div>
-			<Test setMediaBlob={setMediaBlob} isClicked={isClicked} />
-			<TestCamera setCameraBlob={setCameraBlob} isClicked={isClicked} />
-            <button onClick={()=>{
-                setClicked(true)
-                
-            }}>Download</button>
+			<span>{initialise ? "Initialise" : "Ready"}</span>
+			<video ref={videoRef} autoPlay muted width={400} height={400} onPlay={handleVideoOnPlay}/>
 		</div>
 	);
 }

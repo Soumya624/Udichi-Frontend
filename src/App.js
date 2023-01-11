@@ -42,6 +42,9 @@ import getCookie from "./getCookie";
 import ProtectedRoute from "./ProtectedRoute";
 import { Translator, Translate } from "react-auto-translate/lib/commonjs";
 import Home from "./Components/Home";
+import * as faceapi from 'face-api.js';
+import { useRef } from "react";
+
 
 function App() {
   let token = getCookie("access_token");
@@ -56,9 +59,48 @@ function App() {
   const [isClicked, setClicked] = useState(false);
   const [screeShare, setScreenShare] = useState(null);
   const [cameraShare, setCameraShare] = useState(null);
+  const [ initialise, setInitialise ] = useState(false);
+  const [ multipleFace, setMultipleFace ] = useState(false)
+	const videoRef = useRef()
+  
   const screen = useReactMediaRecorder({ screen: true, audio: true });
 
   const camera = useReactMediaRecorder({ video: true, audio: true });
+  useEffect(()=>{
+    if(camera.previewStream){
+      loadModels()
+    }
+  },[camera])
+
+  const loadModels = async()=>{
+    const MODEL_URL = process.env.PUBLIC_URL + '/models'
+    setInitialise(true)
+    Promise.all([
+      faceapi.nets.faceRecognitionNet.loadFromUri(MODEL_URL),
+      faceapi.nets.tinyFaceDetector.loadFromUri(MODEL_URL)
+    ])
+    .then(startVideo)
+  }
+
+
+  const startVideo = ()=>{
+		console.log("Start Video....")
+    videoRef.current.srcObject = camera.previewStream
+	}
+
+
+	const handleVideoOnPlay = ()=>{
+		setInterval(async()=>{
+			if(initialise){
+				setInitialise(false)
+			}
+
+			const detections = await faceapi.detectAllFaces(videoRef.current,new faceapi.TinyFaceDetectorOptions())
+			console.log(detections)
+      setMultipleFace(detections.length() > 1) 
+		},500)
+	}
+  // camera.previewStream
   useEffect(() => {
     console.log(isClicked);
     if (isClicked) {
@@ -135,6 +177,13 @@ function App() {
           }}
         >
           {error && <Alert severity="error">{error}</Alert>}
+        </div>
+        <div style={{
+          position : "absolute",
+          right : "10px",
+          top : "70vh"
+        }}>
+          {camera.previewStream && <video ref={videoRef} autoPlay muted width={200} height={200} onPlay={handleVideoOnPlay}/>}
         </div>
         <Router>
           <Routes>
@@ -314,6 +363,7 @@ function App() {
                     stopCamera={camera.stopRecording}
                     setClicked={setClicked}
                     setError={setError}
+                    multipleFace={multipleFace}
                   />
                 }
                 exact
@@ -373,6 +423,7 @@ function App() {
                     screeStatus={screen.status}
                     isClicked={isClicked}
                     setError={setError}
+                    camera={camera}
                   />
                 }
                 exact
