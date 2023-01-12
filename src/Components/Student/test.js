@@ -591,9 +591,6 @@ export default function Confirmpresence({
                       </Button>
                     </Grid>
                   </Grid>
-                  <p>{`Loading: ${isLoading}`}</p>
-                  <p>{`Face Detected: ${detected}`}</p>
-                  <p>{`Number of faces detected: ${facesDetected}`}</p>
                 </Grid>
 
                 <Modal
@@ -652,13 +649,23 @@ export default function Confirmpresence({
                 </Grid>
               </Grid>
             </CardContent>
+
             {/* <CardActions>
               <Button size="small">Share</Button>
               <Button size="small">Learn More</Button>
             </CardActions> */}
           </Card>
-
-          {/* <div style={{ width: "100%", height: "500px", position: "relative" }}>
+          {/* <p>{`Loading: ${isLoading}`}</p>
+          <p>{`Face Detected: ${detected}`}</p>
+          <p>{`Number of faces detected: ${facesDetected}`}</p>
+          <div
+            style={{
+              width: "100%",
+              height: "500px",
+              position: "absolute",
+              right: "0",
+            }}
+          >
             {boundingBox.map((box, index) => (
               <div
                 key={`${index + 1}`}
@@ -677,10 +684,11 @@ export default function Confirmpresence({
               ref={webcamRef}
               forceScreenshotSourceSize
               style={{
-                height: "100%",
+                height: "50%",
                 width: "100%",
-                // objectFit: 'cover',
                 position: "absolute",
+                right: "0",
+                display: "none",
               }}
             />
           </div> */}
