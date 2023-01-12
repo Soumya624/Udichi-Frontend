@@ -19,29 +19,33 @@ import { Translate } from "@mui/icons-material";
 import Carousel from "react-multi-carousel";
 import "react-multi-carousel/lib/styles.css";
 import Home_Imgae from "./../Assets/Home.png";
-import { ProctorApp, getStatistics } from  'react_proctoring_library';
+import { ProctorApp, getStatistics } from "react_proctoring_library";
+import Webcam from "react-webcam";
+import { CameraOptions, useFaceDetection } from "react-use-face-detection";
+import FaceDetection from "@mediapipe/face_detection";
+import { Camera } from "@mediapipe/camera_utils";
 
 const style = {
   play: {
     button: {
-      width: '28',
-      height: '28',
-      cursor: 'pointer',
-      pointerEvents: 'none',
-      outline: 'none',
-      backgroundColor: 'yellow',
-      border: 'solid 1px rgba(255,255,255,1)',
-      borderRadius: 6
+      width: "28",
+      height: "28",
+      cursor: "pointer",
+      pointerEvents: "none",
+      outline: "none",
+      backgroundColor: "yellow",
+      border: "solid 1px rgba(255,255,255,1)",
+      borderRadius: 6,
     },
-  }
+  },
 };
 
-function  Test(props) {
-	return (
-		<div>
-			<h1>Proctoring Window</h1>
-		</div>
-	);
+function Test(props) {
+  return (
+    <div>
+      <h1>Proctoring Window</h1>
+    </div>
+  );
 }
 
 function Home(props) {
@@ -63,17 +67,68 @@ function Home(props) {
     },
   };
 
-  const testIdentifier = 'unique-proctoring-identifier';
-	const fullScreenMessage = 'This test can only be completed in Full Screen Mode, do you want to start this test?';
-	const  getStats = e  => {
-		e.preventDefault();
-		console.log(getStatistics(testIdentifier));
-	};
+  // var _a = useFaceDetection({
+  //     faceDetectionOptions: {
+  //       model: "short",
+  //     },
+  //     faceDetection: new FaceDetection.FaceDetection({
+  //       locateFile: function (file) {
+  //         return "https://cdn.jsdelivr.net/npm/@mediapipe/face_detection/".concat(
+  //           file
+  //         );
+  //       },
+  //     }),
+  //     camera: function (_a) {
+  //       var mediaSrc = _a.mediaSrc,
+  //         onFrame = _a.onFrame,
+  //         width = _a.width,
+  //         height = _a.height;
+  //       return new Camera(mediaSrc, {
+  //         onFrame: onFrame,
+  //         width: width,
+  //         height: height,
+  //       });
+  //     },
+  //   }),
+  //   webcamRef = _a.webcamRef,
+  //   boundingBox = _a.boundingBox,
+  //   isLoading = _a.isLoading,
+  //   detected = _a.detected,
+  //   facesDetected = _a.facesDetected;
 
   return (
     <div>
       <Navbar />
       <div style={{ padding: "2%" }}>
+        {/* <p>{`Loading: ${isLoading}`}</p>
+        <p>{`Face Detected: ${detected}`}</p>
+        <p>{`Number of faces detected: ${facesDetected}`}</p>
+        <div style={{ width: "100%", height: "500px", position: "relative" }}>
+          {boundingBox.map((box, index) => (
+            <div
+              key={`${index + 1}`}
+              style={{
+                border: "4px solid red",
+                position: "absolute",
+                top: `${box.yCenter * 100}%`,
+                left: `${box.xCenter * 100}%`,
+                width: `${box.width * 100}%`,
+                height: `${box.height * 100}%`,
+                zIndex: 1,
+              }}
+            />
+          ))}
+          <Webcam
+            ref={webcamRef}
+            forceScreenshotSourceSize
+            style={{
+              height: "100%",
+              width: "100%",
+              // objectFit: 'cover',
+              position: "absolute",
+            }}
+          />
+        </div> */}
         <center>
           <br />
           <br />
@@ -133,7 +188,7 @@ function Home(props) {
       </div>
       {/* <ProctorApp TestComponent={Test} testIdentifier={testIdentifier} fullScreenMessage={fullScreenMessage} />
       <button  onClick={getStats}>Get Statistics</button> */}
-      
+
       <Footer />
     </div>
   );

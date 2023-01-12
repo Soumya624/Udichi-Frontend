@@ -156,7 +156,7 @@ function App() {
           }}
         >
           {/* {camera.previewStream && <video ref={videoRef} autoPlay muted width={200} height={200} onPlay={handleVideoOnPlay}/>} */}
-          <Liveproc camera={camera} />
+          {/* <Liveproc camera={camera} /> */}
         </div>
         <Router>
           <Routes>
