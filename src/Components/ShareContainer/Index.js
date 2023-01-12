@@ -40,6 +40,7 @@ export default function Index({
   const [previous_submission, setPreviousSubmission] = useState(null);
   const [number_of_attempts, setNumberOfAttempts] = useState(0);
   const [is_proctoring, setIsProctoring] = useState(true);
+  
   console.log("Asdnkajndkjsnk");
   const { id } = useParams();
   // const [screeShare, setScreenShare] = useState(null);
@@ -48,11 +49,12 @@ export default function Index({
 
   const [ initialise, setInitialise ] = useState(false);
 
-  useEffect(()=>{
-    if(camera.previewStream){
-      loadModels()
-    }
-  },[camera])
+  // useEffect(()=>{
+  //   console.log("Camera.....")
+  //   if(camera.previewStream){
+  //     loadModels()
+  //   }
+  // },[camera])
 
 
   const loadModels = async()=>{
@@ -325,6 +327,7 @@ export default function Index({
                     stopRecording={stopCamera}
                     isClicked={isClicked}
                     enable={cameraStatus === "acquiring_media"}
+                    loadModels = {loadModels}
                   />
                 )}
                 {is_proctoring && (

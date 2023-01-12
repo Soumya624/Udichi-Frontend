@@ -61,44 +61,12 @@ function App() {
   const [cameraShare, setCameraShare] = useState(null);
   const [initialise, setInitialise] = useState(false);
   const [multipleFace, setMultipleFace] = useState(false);
-  const videoRef = useRef();
+  const [ zipfileUploadError, setZipFileUploadError ] = useState(false)
+  const [ zipfileUploadLoader, setZipFileUploadLoader ] = useState(false)
 
   const screen = useReactMediaRecorder({ screen: true, audio: true });
 
   const camera = useReactMediaRecorder({ video: true, audio: true });
-  // useEffect(()=>{
-  //   if(camera.previewStream){
-  //     loadModels()
-  //   }
-  // },[camera])
-
-  // const loadModels = async()=>{
-  //   const MODEL_URL = process.env.PUBLIC_URL + '/models'
-  //   setInitialise(true)
-  //   Promise.all([
-  //     faceapi.nets.faceRecognitionNet.loadFromUri(MODEL_URL),
-  //     faceapi.nets.tinyFaceDetector.loadFromUri(MODEL_URL)
-  //   ])
-  //   .then(startVideo)
-  // }
-
-  // const startVideo = ()=>{
-  // 	console.log("Start Video....")
-  //   videoRef.current.srcObject = camera.previewStream
-  // }
-
-  // const handleVideoOnPlay = ()=>{
-  // 	setInterval(async()=>{
-  // 		if(initialise){
-  // 			setInitialise(false)
-  // 		}
-
-  // 		const detections = await faceapi.detectAllFaces(videoRef.current,new faceapi.TinyFaceDetectorOptions())
-  // 		console.log(detections)
-  //     setMultipleFace(detections.length() > 1)
-  // 	},500)
-  // }
-  // camera.previewStream
   useEffect(() => {
     console.log(isClicked);
     if (isClicked) {
@@ -113,6 +81,7 @@ function App() {
   }, [camera, screen, cameraShare, screeShare]);
 
   async function zipfile(cameraShare, screeShare) {
+    setZipFileUploadLoader(true)
     console.log("Stopped....");
     console.log("Stopped....");
     const zip = new JSZip();
@@ -140,9 +109,12 @@ function App() {
             localStorage.removeItem("questions_id");
             localStorage.removeItem("duration");
             window.location = "/dashboardStudent";
+            setZipFileUploadLoader(false)
           }
         })
-        .catch((err) => {});
+        .catch((err) => {
+          setZipFileUploadLoader(false)
+        });
 
       setCameraShare(null);
       setScreenShare(null);
@@ -365,6 +337,8 @@ function App() {
                     setClicked={setClicked}
                     setError={setError}
                     multipleFace={multipleFace}
+                    setZipFileUploadLoader = {setZipFileUploadLoader}
+                    zipfileUploadLoader = {zipfileUploadLoader}
                   />
                 }
                 exact
