@@ -334,9 +334,10 @@ export default function Confirmpresence({
 			setTimeRemaining(timeRemaining - 1000);
 
 			// If the time remaining has reached 0, the timer has expired
-			if (timeRemaining === 0) {
-				setIsExpired(true);
+			if (timeRemaining <= 0) {
+				setTimeRemaining(0);
 				submittedTest();
+				setIsExpired(true);	
 			}
 		}, 1000);
 
@@ -366,7 +367,7 @@ export default function Confirmpresence({
 				}}
 			>
 				<CircularProgress />
-        <p><span>Do not close the window</span></p>
+        <p><span>Do Not Close the Window</span></p>
 			</div>
 		);
 	}
@@ -545,7 +546,7 @@ export default function Confirmpresence({
 													width: "100%",
 													// border: "1px solid black",
 												}}
-												id="expired-button"
+												// id="expired-button"
 												onClick={async () => {
 													await saveAndNext();
 													handleOpen();
@@ -577,7 +578,7 @@ export default function Confirmpresence({
 											component="h2"
 										>
 											<center>
-												{attempt_id ? "CONTINUE THE TEST" : "SUBMIT THE TEST"}
+												{attempt_id ? "Continue The Test" : "Submit The Test"}
 											</center>
 										</Typography>
 										<center>
