@@ -187,6 +187,7 @@ function App() {
           }}
         >
           {error && <Alert severity="error">{error}</Alert>}
+          {multipleFace && <Alert severity="error">Multiple Face Detected</Alert>}
         </div>
         <div
           style={{
@@ -196,7 +197,7 @@ function App() {
           }}
         >
           {/* {camera.previewStream && <video ref={videoRef} autoPlay muted width={200} height={200} onPlay={handleVideoOnPlay}/>} */}
-          <Liveproc camera={camera} />
+          <Liveproc camera={camera} multipleFace={multipleFace} setMultipleFace={setMultipleFace} />
         </div>
         <Router>
           <Routes>

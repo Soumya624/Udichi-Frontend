@@ -4,9 +4,9 @@ import * as faceapi from "face-api.js";
 import { useState } from "react";
 import { useRef } from "react";
 
-export default function Liveproc({ camera }) {
+export default function Liveproc({ camera, setMultipleFace, multipleFace }) {
   const [initialise, setInitialise] = useState(false);
-  const [multipleFace, setMultipleFace] = useState(false);
+  // const [multipleFace, setMultipleFace] = useState(false);
   const videoRef = useRef();
 
   useEffect(()=>{
