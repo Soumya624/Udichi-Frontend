@@ -336,6 +336,7 @@ export default function Confirmpresence({
 			// If the time remaining has reached 0, the timer has expired
 			if (timeRemaining === 0) {
 				setIsExpired(true);
+				submittedTest();
 			}
 		}, 1000);
 
