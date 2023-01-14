@@ -24,7 +24,8 @@ export default function Index({
   isClicked,
   error,
   setError,
-  camera
+  camera,
+  loadModels
 }) {
   let token = getCookie("access_token");
   let user = JSON.parse(localStorage.getItem("user"));
@@ -40,50 +41,14 @@ export default function Index({
   const [previous_submission, setPreviousSubmission] = useState(null);
   const [number_of_attempts, setNumberOfAttempts] = useState(0);
   const [is_proctoring, setIsProctoring] = useState(true);
+  const [multipleFace, setMultipleFace] = useState(false);
+
   
   console.log("Asdnkajndkjsnk");
   const { id } = useParams();
-  // const [screeShare, setScreenShare] = useState(null);
-  // const [cameraShare, setCameraShare] = useState(null);
-  // const [isClicked, setClicked] = useState(false);
 
   const [ initialise, setInitialise ] = useState(false);
 
-  // useEffect(()=>{
-  //   console.log("Camera.....")
-  //   if(camera.previewStream){
-  //     loadModels()
-  //   }
-  // },[camera])
-
-
-  const loadModels = async()=>{
-    const MODEL_URL = process.env.PUBLIC_URL + '/models'
-    setInitialise(true)
-    Promise.all([
-      faceapi.nets.faceRecognitionNet.loadFromUri(MODEL_URL),
-      faceapi.nets.tinyFaceDetector.loadFromUri(MODEL_URL)
-    ])
-    .then(startVideo)
-  }
-
-
-  const startVideo = ()=>{
-		console.log("Start Video....")
-    videoRef.current.srcObject = camera.previewStream
-	}
-
-
-	const handleVideoOnPlay = ()=>{
-		setInterval(async()=>{
-			if(initialise){
-				setInitialise(false)
-			}
-
-			const detections = await faceapi.detectAllFaces(videoRef.current,new faceapi.TinyFaceDetectorOptions())
-			console.log(detections)
-		},500)
-	}
 
   useEffect(() => {
     axiosInstance
@@ -113,11 +78,7 @@ export default function Index({
           setError(null);
         }, 1000);
       });
-  }, [id]);
-
-  useState(()=>{
-    console.log(camera)
-  },[])
+  }, []);
 
 
   useEffect(() => {
@@ -240,9 +201,23 @@ export default function Index({
     }
   };
 
-  useState(() => {
-    console.log(is_proctoring);
-  }, [is_proctoring]);
+  const handleVideoOnPlay = () => {
+    setInterval(async () => {
+      console.log("kdfmskdfm")
+      if (initialise) {
+        setInitialise(false);
+      }
+
+      const detections = await faceapi.detectAllFaces(
+        videoRef.current,
+        new faceapi.TinyFaceDetectorOptions()
+      );
+      console.log(detections);
+      setMultipleFace(detections.length() > 1);
+    }, 500);
+  };
+
+  console.log(camera)
 
   if (alloted_test === null) {
     return <h1>Loading...</h1>;
@@ -255,9 +230,16 @@ export default function Index({
 
   return (
     <>
-      {/* <div>
-        <video ref={videoRef} autoPlay muted width={400} height={400} onPlay={handleVideoOnPlay}/>
-      </div> */}
+      {/* {camera.previewStream && (
+        <video
+          ref={videoRef}
+          autoPlay
+          muted
+          width={200}
+          height={200}
+          onPlay={handleVideoOnPlay}
+        />
+      )} */}
       <div
         style={{
           width: "100vw",
@@ -328,6 +310,7 @@ export default function Index({
                     isClicked={isClicked}
                     enable={cameraStatus === "acquiring_media"}
                     loadModels = {loadModels}
+                    camera = {camera}
                   />
                 )}
                 {is_proctoring && (

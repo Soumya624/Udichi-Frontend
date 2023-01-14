@@ -7,7 +7,8 @@ export default function Camera({
   isClicked,
   stopRecording,
   mediaBlobUrl,
-  loadModels
+  loadModels,
+  camera
 }) {
   console.log(isClicked);
   useEffect(() => {
@@ -28,9 +29,11 @@ export default function Camera({
       <div>
         <Button
           variant="contained"
-          onClick={()=>{
-            startRecording()
-            loadModels()
+          onClick={async ()=>{
+            loadModels().then(()=>{
+              startRecording()
+            })
+
           }}
           style={{
             backgroundColor: "#07a8a0",

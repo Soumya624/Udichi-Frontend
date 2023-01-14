@@ -61,24 +61,24 @@ function App() {
   const [cameraShare, setCameraShare] = useState(null);
   const [initialise, setInitialise] = useState(false);
   const [multipleFace, setMultipleFace] = useState(false);
-  const [ zipfileUploadError, setZipFileUploadError ] = useState(false)
   const [ zipfileUploadLoader, setZipFileUploadLoader ] = useState(false)
+  const videoRef = useRef()
 
   const screen = useReactMediaRecorder({ screen: true, audio: true });
 
   const camera = useReactMediaRecorder({ video: true, audio: true });
-  useEffect(() => {
-    console.log(isClicked);
-    if (isClicked) {
-      camera.stopRecording();
-      screen.stopRecording();
-      if (
-        camera.mediaBlobUrl !== undefined &&
-        screen.mediaBlobUrl !== undefined
-      )
-        zipfile(camera.mediaBlobUrl, screen.mediaBlobUrl);
-    }
-  }, [camera, screen, cameraShare, screeShare]);
+  // useEffect(() => {
+  //   console.log(isClicked);
+  //   if (isClicked) {
+  //     camera.stopRecording();
+  //     screen.stopRecording();
+  //     if (
+  //       camera.mediaBlobUrl !== undefined &&
+  //       screen.mediaBlobUrl !== undefined
+  //     )
+  //       zipfile(camera.mediaBlobUrl, screen.mediaBlobUrl);
+  //   }
+  // }, [camera, screen, cameraShare, screeShare]);
 
   async function zipfile(cameraShare, screeShare) {
     setZipFileUploadLoader(true)
@@ -120,6 +120,46 @@ function App() {
       setScreenShare(null);
     });
   }
+
+  const loadModels = async()=>{
+    const MODEL_URL = process.env.PUBLIC_URL + '/models'
+    setInitialise(true)
+    return Promise.all([
+      faceapi.nets.faceRecognitionNet.loadFromUri(MODEL_URL),
+      faceapi.nets.tinyFaceDetector.loadFromUri(MODEL_URL)
+    ])
+  }
+
+
+  const startVideo = ()=>{
+		console.log("Start Video....")
+    console.log(camera)
+    // videoRef.current.srcObject = cameraShare.previewStream
+    // navigator.mediaDevices.getUserMedia({video : true})
+    // .then((stream)=>{
+    //   videoRef.current.srcObject = stream
+    // })
+	}
+
+  console.log(camera)
+
+
+  const handleVideoOnPlay = () => {
+    setInterval(async () => {
+      console.log("kdfmskdfm")
+      if (initialise) {
+        setInitialise(false);
+      }
+
+      const detections = await faceapi.detectAllFaces(
+        videoRef.current,
+        new faceapi.TinyFaceDetectorOptions()
+      );
+      console.log(detections);
+      setMultipleFace(detections.length() > 1);
+    }, 500);
+  };
+
   const cacheProvider = {
     get: (language, key) =>
       ((JSON.parse(localStorage.getItem("translations")) || {})[key] || {})[
@@ -339,6 +379,7 @@ function App() {
                     multipleFace={multipleFace}
                     setZipFileUploadLoader = {setZipFileUploadLoader}
                     zipfileUploadLoader = {zipfileUploadLoader}
+                    zipfile = {zipfile}
                   />
                 }
                 exact
@@ -399,6 +440,7 @@ function App() {
                     isClicked={isClicked}
                     setError={setError}
                     camera={camera}
+                    loadModels={loadModels}
                   />
                 }
                 exact

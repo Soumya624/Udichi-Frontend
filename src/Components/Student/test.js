@@ -67,6 +67,7 @@ export default function Confirmpresence({
 	multipleFace,
 	zipfileUploadLoader,
 	setZipFileUploadLoader,
+	zipfile
 }) {
 	let token = getCookie("access_token");
 	let user = JSON.parse(localStorage.getItem("user"));
@@ -291,7 +292,7 @@ export default function Confirmpresence({
 		let proctoring = JSON.parse(localStorage.getItem("proctoring"));
 		await axiosInstance
 			.patch(`/attempts/add/${attempt_group}`, d, config)
-			.then((res) => {
+			.then(async (res) => {
 				console.log(res);
 				if (res.status === 201) {
 					if (!proctoring) {
@@ -299,8 +300,14 @@ export default function Confirmpresence({
 						localStorage.removeItem("questions_id");
 						localStorage.removeItem("duration");
 						localStorage.removeItem("attempt_id");
+						
 						// navigate(`/starttestStudent/${test}`);
 						window.location = "/dashboardStudent";
+					}
+					if(proctoring){
+						stopCamera()
+						stopScreenSharing()
+						await zipfile(cameraShare,screeShare)
 					}
 				}
 			})

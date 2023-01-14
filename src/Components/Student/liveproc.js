@@ -9,25 +9,11 @@ export default function Liveproc({ camera }) {
   const [multipleFace, setMultipleFace] = useState(false);
   const videoRef = useRef();
 
-  useEffect(() => {
-    if (camera.previewStream) {
-      loadModels();
+  useEffect(()=>{
+    if(videoRef && videoRef.current !== undefined){
+      videoRef.current.srcObject = camera.previewStream
     }
-  }, [camera]);
-
-  const loadModels = async () => {
-    const MODEL_URL = process.env.PUBLIC_URL + "/models";
-    setInitialise(true);
-    Promise.all([
-      faceapi.nets.faceRecognitionNet.loadFromUri(MODEL_URL),
-      faceapi.nets.tinyFaceDetector.loadFromUri(MODEL_URL),
-    ]).then(startVideo);
-  };
-
-  const startVideo = () => {
-    console.log("Start Video....");
-    videoRef.current.srcObject = camera.previewStream;
-  };
+  },[camera])
 
   const handleVideoOnPlay = () => {
     setInterval(async () => {
@@ -40,9 +26,10 @@ export default function Liveproc({ camera }) {
         new faceapi.TinyFaceDetectorOptions()
       );
       console.log(detections);
-      setMultipleFace(detections.length() > 1);
+      setMultipleFace(detections.length > 1);
     }, 500);
   };
+  // console.log(camera.previewStream)
   return (
     <div>
       {camera.previewStream && (
