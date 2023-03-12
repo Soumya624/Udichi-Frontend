@@ -29,6 +29,18 @@ import axiosInstance from "../../axiosInstance";
 import getCookie from "../../getCookie";
 import "react-responsive-modal/styles.css";
 import { Modal as Modal1 } from "react-responsive-modal";
+import { Sidebar, SidebarItem } from "react-responsive-sidebar";
+import {
+  AccessTimeOutlined,
+  CampaignOutlined,
+  HelpOutlineOutlined,
+  HomeOutlined,
+  InsertChartOutlined,
+  PersonOutlineOutlined,
+  SummarizeRounded,
+  TuneOutlined,
+} from "@mui/icons-material";
+import Clock from "react-live-clock";
 
 const style = {
   position: "absolute",
@@ -138,22 +150,98 @@ export default function Confirmpresence({ error, setError }) {
       });
   };
 
+  const items1 = [
+    <SidebarItem></SidebarItem>,
+    <SidebarItem></SidebarItem>,
+    <SidebarItem></SidebarItem>,
+    <SidebarItem>
+      <div
+        style={{
+          alignItems: "center",
+          fontWeight: "normal",
+        }}
+      >
+        <b style={{ fontSize: "12px", fontWeight: "normal" }}>March, 2023</b>
+        <br />
+        <Clock
+          format={"h:mm:ss A"}
+          ticking={true}
+          timezone={"ASIA"}
+          style={{ fontSize: "semibold" }}
+        />
+      </div>
+    </SidebarItem>,
+    <SidebarItem href="/dashboardStudent">
+      <div
+        style={{
+          display: "flex",
+          alignItems: "center",
+          fontSize: "15px",
+          fontWeight: "normal",
+        }}
+      >
+        <HomeOutlined />
+        &nbsp; Dashboard
+      </div>
+    </SidebarItem>,
+    <SidebarItem href="#">
+      <div
+        style={{
+          display: "flex",
+          alignItems: "center",
+          fontSize: "15px",
+          fontWeight: "normal",
+        }}
+      >
+        <CampaignOutlined />
+        &nbsp; Notifications
+      </div>
+    </SidebarItem>,
+    <SidebarItem href="#">
+      <div
+        style={{
+          display: "flex",
+          alignItems: "center",
+          fontSize: "15px",
+          fontWeight: "normal",
+        }}
+      >
+        <TuneOutlined />
+        &nbsp; Settings
+      </div>
+    </SidebarItem>,
+    <SidebarItem href="#">
+      <div
+        style={{
+          display: "flex",
+          alignItems: "center",
+          fontSize: "15px",
+          fontWeight: "normal",
+        }}
+      >
+        <HelpOutlineOutlined />
+        &nbsp; Help & Support
+      </div>
+    </SidebarItem>,
+  ];
+
   return (
     <div>
-      <Navbar />
-      <div style={{ padding: "2%" }}>
-        <center>
-          <Card
-            sx={{ maxWidth: 500 }}
-            style={{
-              alignItems: "center",
-              justifyContent: "center",
-              marginTop: "5rem",
-              padding: "2%",
-            }}
-          >
-            <CardContent>
-              {/* <Typography
+      <Sidebar content={items1} background="#193441">
+        <Navbar />
+        <div style={{ padding: "2%" }}>
+          <center>
+            <Card
+              sx={{ maxWidth: 500 }}
+              style={{
+                alignItems: "center",
+                justifyContent: "center",
+                marginTop: "5rem",
+                padding: "2%",
+              }}
+            >
+              <CardContent>
+                {/* <Typography
                 gutterBottom
                 variant="h5"
                 component="div"
@@ -161,86 +249,86 @@ export default function Confirmpresence({ error, setError }) {
               >
                 Test 001
               </Typography> */}
-              <br />
-              <br />
-              <TableContainer component={Paper}>
-                <Table sx={{ minWidth: 650 }} aria-label="simple table">
-                  <TableHead>
-                    <TableRow>
-                      <TableCell>
-                        <b>Student Name</b>
-                      </TableCell>
-                      <TableCell align="center">
-                        <b>Email ID</b>
-                      </TableCell>
-                      {/* <TableCell align="right">
+                <br />
+                <br />
+                <TableContainer component={Paper}>
+                  <Table sx={{ minWidth: 650 }} aria-label="simple table">
+                    <TableHead>
+                      <TableRow>
+                        <TableCell>
+                          <b>Student Name</b>
+                        </TableCell>
+                        <TableCell align="center">
+                          <b>Email ID</b>
+                        </TableCell>
+                        {/* <TableCell align="right">
                         <b>Terminate</b>
                       </TableCell> */}
-                      <TableCell align="right">
-                        <b>Screen Recording/Audio</b>
-                      </TableCell>
-                    </TableRow>
-                  </TableHead>
-                  <TableBody>
-                    {list.map((altst) => {
-                      return (
-                        <TableRow
-                          // key={row.name}
-                          sx={{
-                            "&:last-child td, &:last-child th": { border: 0 },
-                          }}
-                        >
-                          <TableCell component="th" scope="row">
-                            {altst.candidate.firstname +
-                              " " +
-                              altst.candidate.lastname}
-                          </TableCell>
-                          <TableCell align="center">
-                            {altst.candidate.email}
-                          </TableCell>
-                          {/* <TableCell
+                        <TableCell align="right">
+                          <b>Screen Recording/Audio</b>
+                        </TableCell>
+                      </TableRow>
+                    </TableHead>
+                    <TableBody>
+                      {list.map((altst) => {
+                        return (
+                          <TableRow
+                            // key={row.name}
+                            sx={{
+                              "&:last-child td, &:last-child th": { border: 0 },
+                            }}
+                          >
+                            <TableCell component="th" scope="row">
+                              {altst.candidate.firstname +
+                                " " +
+                                altst.candidate.lastname}
+                            </TableCell>
+                            <TableCell align="center">
+                              {altst.candidate.email}
+                            </TableCell>
+                            {/* <TableCell
                             align="right"
                             style={{ cursor: "pointer", color: "grey" }}
                           >
                             Yes
                           </TableCell> */}
-                          <TableCell
-                            align="right"
-                            style={{ cursor: "pointer", color: "red" }}
-                            onClick={() => {
-                              setAttemptlist(altst.attempts_submitted);
-                              handleOpen();
-                            }}
-                          >
-                            Download
-                          </TableCell>
-                        </TableRow>
-                      );
-                    })}
-                  </TableBody>
-                </Table>
-              </TableContainer>
-              <br />
-              <br />
-              <br />
-              <Typography variant="body2" color="text.secondary">
+                            <TableCell
+                              align="right"
+                              style={{ cursor: "pointer", color: "red" }}
+                              onClick={() => {
+                                setAttemptlist(altst.attempts_submitted);
+                                handleOpen();
+                              }}
+                            >
+                              Download
+                            </TableCell>
+                          </TableRow>
+                        );
+                      })}
+                    </TableBody>
+                  </Table>
+                </TableContainer>
                 <br />
-                <Button
-                  variant="contained"
-                  style={{ backgroundColor: "#193441", width: "50%" }}
-                  href="/dashboardProctorer"
-                >
-                  Close
-                </Button>
                 <br />
-              </Typography>
-            </CardContent>
-            {/* <CardActions>
+                <br />
+                <Typography variant="body2" color="text.secondary">
+                  <br />
+                  <Button
+                    variant="contained"
+                    style={{ backgroundColor: "#193441", width: "50%" }}
+                    href="/dashboardProctorer"
+                  >
+                    Close
+                  </Button>
+                  <br />
+                </Typography>
+              </CardContent>
+              {/* <CardActions>
           <Button size="small">Share</Button>
           <Button size="small">Learn More</Button>
         </CardActions> */}
-          </Card>
-          {/* <Modal
+            </Card>
+            {/* <Modal
             open={open}
             onClose={handleClose}
             aria-labelledby="modal-modal-title"
@@ -301,69 +389,70 @@ export default function Confirmpresence({ error, setError }) {
               </center>
             </Box>
           </Modal> */}
-          <Modal1 open={open} onClose={handleClose} center>
-            <Box style={{ padding: "3%" }}>
-              <center>
-                <h3>Download Files</h3>
-                <p>
-                  Get the Zip File of Different Attempts. Recent Attempts are
-                  Added in The End
-                </p>
-                <br />
-                {attemplist.map((altst) => {
-                  return (
-                    <Grid
-                      container
-                      spacing={1}
-                      style={{
-                        marginTop: "0.5%",
-                        alignItems: "center",
-                        overFlowY: "scroll",
-                      }}
-                    >
-                      <Grid item xs={6}>
-                        <p style={{textAlign:"left"}}>{altst}</p>
+            <Modal1 open={open} onClose={handleClose} center>
+              <Box style={{ padding: "3%" }}>
+                <center>
+                  <h3>Download Files</h3>
+                  <p>
+                    Get the Zip File of Different Attempts. Recent Attempts are
+                    Added in The End
+                  </p>
+                  <br />
+                  {attemplist.map((altst) => {
+                    return (
+                      <Grid
+                        container
+                        spacing={1}
+                        style={{
+                          marginTop: "0.5%",
+                          alignItems: "center",
+                          overFlowY: "scroll",
+                        }}
+                      >
+                        <Grid item xs={6}>
+                          <p style={{ textAlign: "left" }}>{altst}</p>
+                        </Grid>
+                        <Grid item xs={6}>
+                          <Button
+                            variant="contained"
+                            style={{
+                              backgroundColor: "#193441",
+                              width: "50%",
+                              display: altst !== null ? "" : "none",
+                            }}
+                            onClick={() => {
+                              console.log(altst);
+                              downloadZip(altst);
+                            }}
+                          >
+                            Download
+                          </Button>
+                        </Grid>
                       </Grid>
-                      <Grid item xs={6}>
-                        <Button
-                          variant="contained"
-                          style={{
-                            backgroundColor: "#193441",
-                            width: "50%",
-                            display: altst !== null ? "" : "none",
-                          }}
-                          onClick={() => {
-                            console.log(altst);
-                            downloadZip(altst);
-                          }}
-                        >
-                          Download
-                        </Button>
-                      </Grid>
-                    </Grid>
-                  );
-                })}
-                <br />
-                <br />
-                <br />
-                <Button
-                  variant="contained"
-                  style={{ backgroundColor: "#193441", width: "50%" }}
-                  onClick={handleClose}
-                >
-                  Close
-                </Button>
-              </center>
-            </Box>
-          </Modal1>
-        </center>
-        <br />
-        <br />
-        <br />
-        <br />
-        <br />
-      </div>
-      {/* <Footer /> */}
+                    );
+                  })}
+                  <br />
+                  <br />
+                  <br />
+                  <Button
+                    variant="contained"
+                    style={{ backgroundColor: "#193441", width: "50%" }}
+                    onClick={handleClose}
+                  >
+                    Close
+                  </Button>
+                </center>
+              </Box>
+            </Modal1>
+          </center>
+          <br />
+          <br />
+          <br />
+          <br />
+          <br />
+        </div>
+        {/* <Footer /> */}
+      </Sidebar>
     </div>
   );
 }

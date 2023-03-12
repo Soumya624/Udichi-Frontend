@@ -197,7 +197,7 @@ function App() {
           }}
         >
           {/* {camera.previewStream && <video ref={videoRef} autoPlay muted width={200} height={200} onPlay={handleVideoOnPlay}/>} */}
-          <Liveproc camera={camera} multipleFace={multipleFace} setMultipleFace={setMultipleFace} />
+          {/* <Liveproc camera={camera} multipleFace={multipleFace} setMultipleFace={setMultipleFace} /> */}
         </div>
         <Router>
           <Routes>

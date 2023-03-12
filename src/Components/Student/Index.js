@@ -9,6 +9,18 @@ import axiosInstance from "../../axiosInstance";
 import getCookie from "../../getCookie";
 import moment from "moment";
 import Modal from "@mui/material/Modal";
+import { Sidebar, SidebarItem } from "react-responsive-sidebar";
+import {
+  AccessTimeOutlined,
+  CampaignOutlined,
+  HelpOutlineOutlined,
+  HomeOutlined,
+  InsertChartOutlined,
+  PersonOutlineOutlined,
+  SummarizeRounded,
+  TuneOutlined,
+} from "@mui/icons-material";
+import Clock from "react-live-clock";
 
 const style = {
   position: "absolute",
@@ -67,130 +79,213 @@ export default function Index({ error, setError }) {
     setOpen(false);
   };
 
+  const items1 = [
+    <SidebarItem></SidebarItem>,
+    <SidebarItem></SidebarItem>,
+    <SidebarItem></SidebarItem>,
+    <SidebarItem>
+      <div
+        style={{
+          alignItems: "center",
+          fontWeight: "normal",
+        }}
+      >
+        <b style={{ fontSize: "12px", fontWeight: "normal" }}>March, 2023</b>
+        <br />
+        <Clock
+          format={"h:mm:ss A"}
+          ticking={true}
+          timezone={"ASIA"}
+          style={{ fontSize: "semibold" }}
+        />
+      </div>
+    </SidebarItem>,
+    <SidebarItem href="/dashboardStudent">
+      <div
+        style={{
+          display: "flex",
+          alignItems: "center",
+          fontSize: "15px",
+          fontWeight: "normal",
+        }}
+      >
+        <HomeOutlined />
+        &nbsp; Dashboard
+      </div>
+    </SidebarItem>,
+    <SidebarItem href="#">
+      <div
+        style={{
+          display: "flex",
+          alignItems: "center",
+          fontSize: "15px",
+          fontWeight: "normal",
+        }}
+      >
+        <CampaignOutlined />
+        &nbsp; Notifications
+      </div>
+    </SidebarItem>,
+    <SidebarItem href="#">
+      <div
+        style={{
+          display: "flex",
+          alignItems: "center",
+          fontSize: "15px",
+          fontWeight: "normal",
+        }}
+      >
+        <TuneOutlined />
+        &nbsp; Settings
+      </div>
+    </SidebarItem>,
+    <SidebarItem href="#">
+      <div
+        style={{
+          display: "flex",
+          alignItems: "center",
+          fontSize: "15px",
+          fontWeight: "normal",
+        }}
+      >
+        <HelpOutlineOutlined />
+        &nbsp; Help & Support
+      </div>
+    </SidebarItem>,
+  ];
+
   return (
     <div>
-      <Navbar />
-      <div style={{ padding: "5%" }}>
-        <br />
-        <br />
-        <br />
-        <h4 style={{ textAlign: "left", fontSize: "28px", lineHeight: "1px" }}>
-          Welcome!
-        </h4>
-        <p style={{ lineHeight: "1px" }}>
-          Check Out{" "}
-          <a
-            onClick={handleOpen}
-            style={{
-              textDecoration: "none",
-              cursor: "pointer",
-              color: "#193441",
-            }}
+      <Sidebar content={items1} background="#193441">
+        <Navbar />
+        <div style={{ padding: "5%" }}>
+          <br />
+          <br />
+          <br />
+          <h4
+            style={{ textAlign: "left", fontSize: "22px", lineHeight: "1px" }}
           >
-            Your Account
-          </a>
-        </p>
-        <br />
-        <br />
-        <br />
-        {alloted_tests.map((altst) => {
-          let momentDate = moment
-            .utc(altst.starting_date)
-            .format("MM/DD/YY, h:mm:ss a");
-          return (
-            <Box
-              display="grid"
-              gridTemplateColumns="repeat(12, 1fr)"
-              gap={2}
+            Dashboard
+          </h4>
+          <p style={{ lineHeight: "1px" }}>
+            Welcome to Udichi{" "}
+            {/* <a
+              onClick={handleOpen}
               style={{
-                alignItems: "center",
-                justifyContent: "center",
-                margin: "10px 0",
+                textDecoration: "none",
+                cursor: "pointer",
+                color: "#193441",
               }}
             >
-              <Box gridColumn="span 12">
-                <Item
-                  style={{ padding: "1.5%", borderLeft: "2rem solid #193441" }}
-                >
-                  <h3 style={{ textAlign: "left" }}>{altst.title}</h3>
-                  <Box
-                    display="grid"
-                    gridTemplateColumns="repeat(12, 1fr)"
-                    gap={1}
-                    style={{ alignItems: "center", justifyContent: "center" }}
+              Your Account
+            </a> */}
+          </p>
+          <br />
+          <br />
+          <br />
+          {alloted_tests.map((altst) => {
+            let momentDate = moment
+              .utc(altst.starting_date)
+              .format("MM/DD/YY, h:mm:ss a");
+            return (
+              <Box
+                display="grid"
+                gridTemplateColumns="repeat(12, 1fr)"
+                gap={2}
+                style={{
+                  alignItems: "center",
+                  justifyContent: "center",
+                  margin: "10px 0",
+                }}
+              >
+                <Box gridColumn="span 12">
+                  <Item
+                    style={{
+                      padding: "1.5%",
+                      borderLeft: "2rem solid #193441",
+                    }}
                   >
-                    <Box gridColumn="span 3" style={{ textAlign: "left" }}>
-                      Duration: {altst.available_window} mins.
-                    </Box>
-                    <Box gridColumn="span 3">{momentDate}</Box>
+                    <h3 style={{ textAlign: "left" }}>{altst.title}</h3>
                     <Box
-                      gridColumn="span 3"
-                      style={{ color: "grey", cursor: "pointer" }}
-                      onClick={() => {
-                        alert("Please Contact Admin");
-                      }}
+                      display="grid"
+                      gridTemplateColumns="repeat(12, 1fr)"
+                      gap={1}
+                      style={{ alignItems: "center", justifyContent: "center" }}
                     >
-                      View Results
-                    </Box>
-                    <Box
-                      gridColumn="span 3"
-                      style={{
-                        textAlign: "right",
-                        color: "#193441",
-                        cursor: "pointer",
-                        display: altst.type_of_test === "written" ? "" : "none",
-                      }}
-                    >
-                      <a
-                        href={`/starttestStudent/${altst._id}`}
-                        style={{ textDecoration: "none" }}
+                      <Box gridColumn="span 3" style={{ textAlign: "left" }}>
+                        Duration: {altst.available_window} mins.
+                      </Box>
+                      <Box gridColumn="span 3">{momentDate}</Box>
+                      <Box
+                        gridColumn="span 3"
+                        style={{ color: "grey", cursor: "pointer" }}
+                        onClick={() => {
+                          alert("Please Contact Admin");
+                        }}
                       >
-                        Attempt Now
-                      </a>
+                        View Results
+                      </Box>
+                      <Box
+                        gridColumn="span 3"
+                        style={{
+                          textAlign: "right",
+                          color: "#193441",
+                          cursor: "pointer",
+                          display:
+                            altst.type_of_test === "written" ? "" : "none",
+                        }}
+                      >
+                        <a
+                          href={`/starttestStudent/${altst._id}`}
+                          style={{ textDecoration: "none" }}
+                        >
+                          Attempt Now
+                        </a>
+                      </Box>
                     </Box>
-                  </Box>
-                </Item>
+                  </Item>
+                </Box>
               </Box>
-            </Box>
-          );
-        })}
-      </div>
-      <br />
-      <br />
-      <br />
-      <br />
-      <br />
-      {/* <Footer /> */}
-      <Modal
-        open={open}
-        onClose={handleClose}
-        aria-labelledby="modal-modal-title"
-        aria-describedby="modal-modal-description"
-      >
-        <Box sx={style}>
-          <center>
-            <img
-              src="https://media.istockphoto.com/id/1300845620/vector/user-icon-flat-isolated-on-white-background-user-symbol-vector-illustration.jpg?b=1&s=170667a&w=0&k=20&c=Z5bM_O61NdvOVMAV91l_K_xVAsgPxayDrlVxvi19jqE="
-              style={{ width: "60%" }}
-            />
-          </center>
-          <p>
-            <b>First Name:</b> {user.firstname}
-          </p>
-          <p>
-            <b>Last Name:</b> {user.lastname}
-          </p>
-          <p>
-            <b>Email ID:</b> {user.email}
-          </p>
-          <p>
-            <b>Mobile No:</b> {user.mobile}
-          </p>
-          <p>
-            <b>Username:</b> {user.username}
-          </p>
-        </Box>
-      </Modal>
+            );
+          })}
+        </div>
+        <br />
+        <br />
+        <br />
+        <br />
+        <br />
+        {/* <Footer /> */}
+        <Modal
+          open={open}
+          onClose={handleClose}
+          aria-labelledby="modal-modal-title"
+          aria-describedby="modal-modal-description"
+        >
+          <Box sx={style}>
+            <center>
+              <img
+                src="https://media.istockphoto.com/id/1300845620/vector/user-icon-flat-isolated-on-white-background-user-symbol-vector-illustration.jpg?b=1&s=170667a&w=0&k=20&c=Z5bM_O61NdvOVMAV91l_K_xVAsgPxayDrlVxvi19jqE="
+                style={{ width: "60%" }}
+              />
+            </center>
+            <p>
+              <b>First Name:</b> {user.firstname}
+            </p>
+            <p>
+              <b>Last Name:</b> {user.lastname}
+            </p>
+            <p>
+              <b>Email ID:</b> {user.email}
+            </p>
+            <p>
+              <b>Mobile No:</b> {user.mobile}
+            </p>
+            <p>
+              <b>Username:</b> {user.username}
+            </p>
+          </Box>
+        </Modal>
+      </Sidebar>
     </div>
   );
 }

@@ -23,6 +23,18 @@ import axiosInstance from "../../axiosInstance";
 import moment from "moment";
 import Modal from "@mui/material/Modal";
 import { Modal as Modal1 } from "react-responsive-modal";
+import { Sidebar, SidebarItem } from "react-responsive-sidebar";
+import {
+  AccessTimeOutlined,
+  CampaignOutlined,
+  HelpOutlineOutlined,
+  HomeOutlined,
+  InsertChartOutlined,
+  PersonOutlineOutlined,
+  SummarizeRounded,
+  TuneOutlined,
+} from "@mui/icons-material";
+import Clock from "react-live-clock";
 
 const style = {
   position: "absolute",
@@ -112,81 +124,335 @@ export default function Index({ error, setError }) {
     setDownloadLink(window.URL.createObjectURL(data));
   };
 
+  const items1 = [
+    <SidebarItem></SidebarItem>,
+    <SidebarItem></SidebarItem>,
+    <SidebarItem></SidebarItem>,
+    <SidebarItem>
+      <div
+        style={{
+          alignItems: "center",
+          fontWeight: "normal",
+        }}
+      >
+        <b style={{ fontSize: "12px", fontWeight: "normal" }}>March, 2023</b>
+        <br />
+        <Clock
+          format={"h:mm:ss A"}
+          ticking={true}
+          timezone={"ASIA"}
+          style={{ fontSize: "semibold" }}
+        />
+      </div>
+    </SidebarItem>,
+    <SidebarItem href="/dashboardStudent">
+      <div
+        style={{
+          display: "flex",
+          alignItems: "center",
+          fontSize: "15px",
+          fontWeight: "normal",
+        }}
+      >
+        <HomeOutlined />
+        &nbsp; Dashboard
+      </div>
+    </SidebarItem>,
+    <SidebarItem href="#">
+      <div
+        style={{
+          display: "flex",
+          alignItems: "center",
+          fontSize: "15px",
+          fontWeight: "normal",
+        }}
+      >
+        <CampaignOutlined />
+        &nbsp; Notifications
+      </div>
+    </SidebarItem>,
+    <SidebarItem href="#">
+      <div
+        style={{
+          display: "flex",
+          alignItems: "center",
+          fontSize: "15px",
+          fontWeight: "normal",
+        }}
+      >
+        <TuneOutlined />
+        &nbsp; Settings
+      </div>
+    </SidebarItem>,
+    <SidebarItem href="#">
+      <div
+        style={{
+          display: "flex",
+          alignItems: "center",
+          fontSize: "15px",
+          fontWeight: "normal",
+        }}
+      >
+        <HelpOutlineOutlined />
+        &nbsp; Help & Support
+      </div>
+    </SidebarItem>,
+  ];
+
   return (
     <div>
-      <Navbar />
-      <div style={{ padding: "5%" }}>
-        <br />
-        <br />
-        <br />
-        <h4 style={{ textAlign: "left", fontSize: "28px", lineHeight: "1px" }}>
-          Welcome!
-        </h4>
-        <p style={{ lineHeight: "1px" }}>
-          Check Out{" "}
-          <a
-            onClick={handleOpen}
-            style={{
-              textDecoration: "none",
-              cursor: "pointer",
-              color: "#193441",
-            }}
+      <Sidebar content={items1} background="#193441">
+        <Navbar />
+        <div style={{ padding: "5%" }}>
+          <br />
+          <br />
+          <br />
+          <h4
+            style={{ textAlign: "left", fontSize: "28px", lineHeight: "1px" }}
           >
-            Your Account
-          </a>
-        </p>
+            Welcome!
+          </h4>
+          <p style={{ lineHeight: "1px" }}>
+            Check Out{" "}
+            <a
+              onClick={handleOpen}
+              style={{
+                textDecoration: "none",
+                cursor: "pointer",
+                color: "#193441",
+              }}
+            >
+              Your Account
+            </a>
+          </p>
+          <br />
+          <br />
+          <br />
+          {alltest.map((altst) => {
+            let momentDate = moment
+              .utc(altst.starting_date)
+              .format("MM/DD/YY, h:mm:ss a");
+            return (
+              <div>
+                <Box
+                  display="grid"
+                  gridTemplateColumns="repeat(12, 1fr)"
+                  gap={2}
+                  style={{ alignItems: "center", justifyContent: "center" }}
+                >
+                  <Box gridColumn="span 12">
+                    <Item
+                      style={{
+                        padding: "1.5%",
+                        borderLeft: "2rem solid #193441",
+                      }}
+                    >
+                      <h3 style={{ textAlign: "left" }}>{altst.title}</h3>
+                      <Box
+                        display="grid"
+                        gridTemplateColumns="repeat(12, 1fr)"
+                        gap={1}
+                        style={{
+                          alignItems: "center",
+                          justifyContent: "center",
+                        }}
+                      >
+                        <Box gridColumn="span 3" style={{ textAlign: "left" }}>
+                          Duration: {altst.available_window} mins.
+                        </Box>
+                        <Box gridColumn="span 3">{momentDate}</Box>
+                        <Box
+                          gridColumn="span 3"
+                          style={{
+                            color: "grey",
+                            cursor: "pointer",
+                            display:
+                              altst.type_of_test === "written" ? "" : "none",
+                          }}
+                          onClick={() => {
+                            handleOpen1();
+                            axiosInstance
+                              .get(
+                                `/attempts/attempts_group/${altst._id}`,
+                                config
+                              )
+                              .then((res) => {
+                                if (res.status === 200) {
+                                  console.log(res);
+                                  setDemodata(res.data);
+                                }
+                              })
+                              .catch((err) => {
+                                console.log(err);
+                              });
+                          }}
+                        >
+                          View Results
+                        </Box>
+
+                        <Box
+                          gridColumn="span 3"
+                          style={{
+                            color: "#193441",
+                            cursor: "pointer",
+                            display:
+                              altst.type_of_test === "written" ? "none" : "",
+                          }}
+                        >
+                          <a
+                            onClick={(e) => {
+                              alert(
+                                "Please Download the Mail List. To Send the Meet Link"
+                              );
+                              exportarray = [];
+                              let x = altst.candidates_groups;
+                              {
+                                x.map((val) => {
+                                  let y = val.candidates;
+                                  {
+                                    y.map((key) => {
+                                      console.log(key.email);
+                                      let z = key.email;
+                                      exportarray.push(z);
+                                    });
+                                  }
+                                });
+                              }
+                              console.log(exportarray);
+                              makeTextFile(exportarray);
+                            }}
+                            style={{ textDecoration: "none" }}
+                          >
+                            Start Viva
+                          </a>
+                        </Box>
+                        <Box
+                          gridColumn="span 3"
+                          style={{
+                            color: "red",
+                            cursor: "pointer",
+                            textAlign: "right",
+                            display:
+                              altst.type_of_test === "written" ? "none" : "",
+                          }}
+                        >
+                          <a
+                            download="Viva_Student_Mailing_List.txt"
+                            href={downloadLink}
+                            style={{ textDecoration: "none", color: "red" }}
+                          >
+                            Download Mail List
+                          </a>
+                        </Box>
+                      </Box>
+                    </Item>
+                  </Box>
+                </Box>
+                <br />
+              </div>
+            );
+          })}
+        </div>
+
         <br />
         <br />
         <br />
-        {alltest.map((altst) => {
-          let momentDate = moment
-            .utc(altst.starting_date)
-            .format("MM/DD/YY, h:mm:ss a");
-          return (
-            <div>
-              <Box
-                display="grid"
-                gridTemplateColumns="repeat(12, 1fr)"
-                gap={2}
-                style={{ alignItems: "center", justifyContent: "center" }}
+        <br />
+        <br />
+        {/* <Footer /> */}
+        <Modal
+          open={open}
+          onClose={handleClose}
+          aria-labelledby="modal-modal-title"
+          aria-describedby="modal-modal-description"
+        >
+          <Box sx={style} style={{ margin: "2%" }}>
+            <center>
+              <img
+                src="https://media.istockphoto.com/id/1300845620/vector/user-icon-flat-isolated-on-white-background-user-symbol-vector-illustration.jpg?b=1&s=170667a&w=0&k=20&c=Z5bM_O61NdvOVMAV91l_K_xVAsgPxayDrlVxvi19jqE="
+                style={{ width: "60%" }}
+              />
+            </center>
+            <p>
+              <b>First Name:</b> {user.firstname}
+            </p>
+            <p>
+              <b>Last Name:</b> {user.lastname}
+            </p>
+            <p>
+              <b>Email ID:</b> {user.email}
+            </p>
+            <p>
+              <b>Mobile No:</b> {user.mobile}
+            </p>
+            <p>
+              <b>Username:</b> {user.username}
+            </p>
+          </Box>
+        </Modal>
+        <Modal1 open={open1} onClose={handleClose1} center>
+          <Box style={{ padding: "3%" }}>
+            <center>
+              <h3>View Results</h3>
+              <p style={{ padding: "0 5%" }}>
+                Click On The Link Below to Get The Attempts of The Students Who
+                Have Submitted The Exam
+              </p>
+              <br />
+              <Grid
+                container
+                spacing={1}
+                style={{
+                  marginTop: "0.5%",
+                  alignItems: "center",
+                  overFlowY: "scroll",
+                }}
               >
-                <Box gridColumn="span 12">
-                  <Item
+                <Grid item xs={6}>
+                  <p style={{ textAlign: "left", fontWeight: "bold" }}>Name</p>
+                </Grid>
+                <Grid item xs={6}>
+                  <p style={{ textAlign: "right", fontWeight: "bold" }}>
+                    View Attempts
+                  </p>
+                </Grid>
+              </Grid>
+              {demodata.map((altst) => {
+                return (
+                  <Grid
+                    container
+                    spacing={0}
                     style={{
-                      padding: "1.5%",
-                      borderLeft: "2rem solid #193441",
+                      marginTop: "0.1%",
+                      alignItems: "center",
+                      overFlowY: "scroll",
                     }}
                   >
-                    <h3 style={{ textAlign: "left" }}>{altst.title}</h3>
-                    <Box
-                      display="grid"
-                      gridTemplateColumns="repeat(12, 1fr)"
-                      gap={1}
-                      style={{ alignItems: "center", justifyContent: "center" }}
-                    >
-                      <Box gridColumn="span 3" style={{ textAlign: "left" }}>
-                        Duration: {altst.available_window} mins.
-                      </Box>
-                      <Box gridColumn="span 3">{momentDate}</Box>
-                      <Box
-                        gridColumn="span 3"
+                    <Grid item xs={6}>
+                      <p style={{ textAlign: "left" }}>
+                        {altst.candidate.firstname} {altst.candidate.lastname}
+                      </p>
+                    </Grid>
+                    <Grid item xs={6}>
+                      <p
                         style={{
-                          color: "grey",
+                          textAlign: "right",
+                          color: "red",
                           cursor: "pointer",
-                          display:
-                            altst.type_of_test === "written" ? "" : "none",
                         }}
                         onClick={() => {
-                          handleOpen1();
+                          handleOpen2();
                           axiosInstance
                             .get(
-                              `/attempts/attempts_group/${altst._id}`,
+                              `/attempts/attempts_groups/${altst._id}`,
                               config
                             )
                             .then((res) => {
                               if (res.status === 200) {
                                 console.log(res);
-                                setDemodata(res.data);
+                                setAllexamcandidates(
+                                  res.data.attempts_submitted
+                                );
                               }
                             })
                             .catch((err) => {
@@ -194,116 +460,34 @@ export default function Index({ error, setError }) {
                             });
                         }}
                       >
-                        View Results
-                      </Box>
-
-                      <Box
-                        gridColumn="span 3"
-                        style={{
-                          color: "#193441",
-                          cursor: "pointer",
-                          display:
-                            altst.type_of_test === "written" ? "none" : "",
-                        }}
-                      >
-                        <a
-                          onClick={(e) => {
-                            alert(
-                              "Please Download the Mail List. To Send the Meet Link"
-                            );
-                            exportarray = [];
-                            let x = altst.candidates_groups;
-                            {
-                              x.map((val) => {
-                                let y = val.candidates;
-                                {
-                                  y.map((key) => {
-                                    console.log(key.email);
-                                    let z = key.email;
-                                    exportarray.push(z);
-                                  });
-                                }
-                              });
-                            }
-                            console.log(exportarray);
-                            makeTextFile(exportarray);
-                          }}
-                          style={{ textDecoration: "none" }}
-                        >
-                          Start Viva
-                        </a>
-                      </Box>
-                      <Box
-                        gridColumn="span 3"
-                        style={{
-                          color: "red",
-                          cursor: "pointer",
-                          textAlign: "right",
-                          display:
-                            altst.type_of_test === "written" ? "none" : "",
-                        }}
-                      >
-                        <a
-                          download="Viva_Student_Mailing_List.txt"
-                          href={downloadLink}
-                          style={{ textDecoration: "none", color: "red" }}
-                        >
-                          Download Mail List
-                        </a>
-                      </Box>
-                    </Box>
-                  </Item>
-                </Box>
-              </Box>
+                        View
+                      </p>
+                    </Grid>
+                  </Grid>
+                );
+              })}
               <br />
-            </div>
-          );
-        })}
-      </div>
-
-      <br />
-      <br />
-      <br />
-      <br />
-      <br />
-      {/* <Footer /> */}
-      <Modal
-        open={open}
-        onClose={handleClose}
-        aria-labelledby="modal-modal-title"
-        aria-describedby="modal-modal-description"
-      >
-        <Box sx={style} style={{ margin: "2%" }}>
+              <br />
+              <br />
+              <Button
+                variant="contained"
+                style={{
+                  backgroundColor: "#193441",
+                  width: "50%",
+                }}
+                onClick={handleClose1}
+              >
+                Close
+              </Button>
+            </center>
+          </Box>
+        </Modal1>
+        <Modal1 open={open2} onClose={handleClose2} center>
           <center>
-            <img
-              src="https://media.istockphoto.com/id/1300845620/vector/user-icon-flat-isolated-on-white-background-user-symbol-vector-illustration.jpg?b=1&s=170667a&w=0&k=20&c=Z5bM_O61NdvOVMAV91l_K_xVAsgPxayDrlVxvi19jqE="
-              style={{ width: "60%" }}
-            />
-          </center>
-          <p>
-            <b>First Name:</b> {user.firstname}
-          </p>
-          <p>
-            <b>Last Name:</b> {user.lastname}
-          </p>
-          <p>
-            <b>Email ID:</b> {user.email}
-          </p>
-          <p>
-            <b>Mobile No:</b> {user.mobile}
-          </p>
-          <p>
-            <b>Username:</b> {user.username}
-          </p>
-        </Box>
-      </Modal>
-      <Modal1 open={open1} onClose={handleClose1} center>
-        <Box style={{ padding: "3%" }}>
-          <center>
-            <h3>View Results</h3>
-            <p style={{ padding: "0 5%" }}>
-              Click On The Link Below to Get The Attempts of The Students Who
-              Have Submitted The Exam
+            <h3>View Attempts</h3>
+            <p style={{ padding: "0 8%" }}>
+              Click On The Link Below to Check The Answer Script. And to Update
+              The Marks
             </p>
             <br />
             <Grid
@@ -316,15 +500,20 @@ export default function Index({ error, setError }) {
               }}
             >
               <Grid item xs={6}>
-                <p style={{ textAlign: "left", fontWeight: "bold" }}>Name</p>
+                <p style={{ textAlign: "left", fontWeight: "bold" }}>
+                  Attempt Id
+                </p>
               </Grid>
-              <Grid item xs={6}>
+              <Grid item xs={2}>
+                <p style={{ textAlign: "center", fontWeight: "bold" }}>Marks</p>
+              </Grid>
+              <Grid item xs={4}>
                 <p style={{ textAlign: "right", fontWeight: "bold" }}>
-                  View Attempts
+                  Edit Marks
                 </p>
               </Grid>
             </Grid>
-            {demodata.map((altst) => {
+            {allexamcandidates.map((altst) => {
               return (
                 <Grid
                   container
@@ -336,11 +525,14 @@ export default function Index({ error, setError }) {
                   }}
                 >
                   <Grid item xs={6}>
-                    <p style={{ textAlign: "left" }}>
-                      {altst.candidate.firstname} {altst.candidate.lastname}
+                    <p style={{ textAlign: "left" }}>{altst._id}</p>
+                  </Grid>
+                  <Grid item xs={2}>
+                    <p style={{ textAlign: "center" }}>
+                      {altst.marks_obtained}
                     </p>
                   </Grid>
-                  <Grid item xs={6}>
+                  <Grid item xs={4}>
                     <p
                       style={{
                         textAlign: "right",
@@ -348,21 +540,19 @@ export default function Index({ error, setError }) {
                         cursor: "pointer",
                       }}
                       onClick={() => {
-                        handleOpen2();
-                        axiosInstance
-                          .get(`/attempts/attempts_groups/${altst._id}`, config)
-                          .then((res) => {
-                            if (res.status === 200) {
-                              console.log(res);
-                              setAllexamcandidates(res.data.attempts_submitted);
-                            }
-                          })
-                          .catch((err) => {
-                            console.log(err);
-                          });
+                        localStorage.setItem(
+                          "total_marks_obtained",
+                          JSON.stringify(altst.marks_obtained)
+                        );
+                        localStorage.setItem(
+                          "question_submitted",
+                          JSON.stringify(altst.questions_submitted)
+                        );
+
+                        window.location.href = `/testMarks/${altst._id}/${altst.questions_submitted[0]}`;
                       }}
                     >
-                      View
+                      Edit
                     </p>
                   </Grid>
                 </Grid>
@@ -377,102 +567,13 @@ export default function Index({ error, setError }) {
                 backgroundColor: "#193441",
                 width: "50%",
               }}
-              onClick={handleClose1}
+              onClick={handleClose2}
             >
               Close
             </Button>
           </center>
-        </Box>
-      </Modal1>
-      <Modal1 open={open2} onClose={handleClose2} center>
-        <center>
-          <h3>View Attempts</h3>
-          <p style={{ padding: "0 8%" }}>
-            Click On The Link Below to Check The Answer Script. And to Update
-            The Marks
-          </p>
-          <br />
-          <Grid
-            container
-            spacing={1}
-            style={{
-              marginTop: "0.5%",
-              alignItems: "center",
-              overFlowY: "scroll",
-            }}
-          >
-            <Grid item xs={6}>
-              <p style={{ textAlign: "left", fontWeight: "bold" }}>
-                Attempt Id
-              </p>
-            </Grid>
-            <Grid item xs={2}>
-              <p style={{ textAlign: "center", fontWeight: "bold" }}>Marks</p>
-            </Grid>
-            <Grid item xs={4}>
-              <p style={{ textAlign: "right", fontWeight: "bold" }}>
-                Edit Marks
-              </p>
-            </Grid>
-          </Grid>
-          {allexamcandidates.map((altst) => {
-            return (
-              <Grid
-                container
-                spacing={0}
-                style={{
-                  marginTop: "0.1%",
-                  alignItems: "center",
-                  overFlowY: "scroll",
-                }}
-              >
-                <Grid item xs={6}>
-                  <p style={{ textAlign: "left" }}>{altst._id}</p>
-                </Grid>
-                <Grid item xs={2}>
-                  <p style={{ textAlign: "center" }}>{altst.marks_obtained}</p>
-                </Grid>
-                <Grid item xs={4}>
-                  <p
-                    style={{
-                      textAlign: "right",
-                      color: "red",
-                      cursor: "pointer",
-                    }}
-                    onClick={() => {
-                      localStorage.setItem(
-                        "total_marks_obtained",
-                        JSON.stringify(altst.marks_obtained)
-                      );
-                      localStorage.setItem(
-                        "question_submitted",
-                        JSON.stringify(altst.questions_submitted)
-                      );
-
-                      window.location.href = `/testMarks/${altst._id}/${altst.questions_submitted[0]}`;
-                    }}
-                  >
-                    Edit
-                  </p>
-                </Grid>
-              </Grid>
-            );
-          })}
-          <br />
-          <br />
-          <br />
-          <Button
-            variant="contained"
-            style={{
-              backgroundColor: "#193441",
-              width: "50%",
-            }}
-            onClick={handleClose2}
-          >
-            Close
-          </Button>
-        </center>
-      </Modal1>
+        </Modal1>
+      </Sidebar>
     </div>
   );
 }

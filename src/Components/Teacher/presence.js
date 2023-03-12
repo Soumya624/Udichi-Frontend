@@ -12,80 +12,169 @@ import FormGroup from "@mui/material/FormGroup";
 import FormControlLabel from "@mui/material/FormControlLabel";
 import Checkbox from "@mui/material/Checkbox";
 import Footer from "../../Common/Footer";
+import { Sidebar, SidebarItem } from "react-responsive-sidebar";
+import {
+  AccessTimeOutlined,
+  CampaignOutlined,
+  HelpOutlineOutlined,
+  HomeOutlined,
+  InsertChartOutlined,
+  PersonOutlineOutlined,
+  SummarizeRounded,
+  TuneOutlined,
+} from "@mui/icons-material";
+import Clock from "react-live-clock";
 
 export default function Confirmpresence() {
+  const items1 = [
+    <SidebarItem></SidebarItem>,
+    <SidebarItem></SidebarItem>,
+    <SidebarItem></SidebarItem>,
+    <SidebarItem>
+      <div
+        style={{
+          alignItems: "center",
+          fontWeight: "normal",
+        }}
+      >
+        <b style={{ fontSize: "12px", fontWeight: "normal" }}>March, 2023</b>
+        <br />
+        <Clock
+          format={"h:mm:ss A"}
+          ticking={true}
+          timezone={"ASIA"}
+          style={{ fontSize: "semibold" }}
+        />
+      </div>
+    </SidebarItem>,
+    <SidebarItem href="/dashboardStudent">
+      <div
+        style={{
+          display: "flex",
+          alignItems: "center",
+          fontSize: "15px",
+          fontWeight: "normal",
+        }}
+      >
+        <HomeOutlined />
+        &nbsp; Dashboard
+      </div>
+    </SidebarItem>,
+    <SidebarItem href="#">
+      <div
+        style={{
+          display: "flex",
+          alignItems: "center",
+          fontSize: "15px",
+          fontWeight: "normal",
+        }}
+      >
+        <CampaignOutlined />
+        &nbsp; Notifications
+      </div>
+    </SidebarItem>,
+    <SidebarItem href="#">
+      <div
+        style={{
+          display: "flex",
+          alignItems: "center",
+          fontSize: "15px",
+          fontWeight: "normal",
+        }}
+      >
+        <TuneOutlined />
+        &nbsp; Settings
+      </div>
+    </SidebarItem>,
+    <SidebarItem href="#">
+      <div
+        style={{
+          display: "flex",
+          alignItems: "center",
+          fontSize: "15px",
+          fontWeight: "normal",
+        }}
+      >
+        <HelpOutlineOutlined />
+        &nbsp; Help & Support
+      </div>
+    </SidebarItem>,
+  ];
+
   return (
     <div>
-      <Navbar />
-      <div style={{ padding: "2%" }}>
-        <center>
-          <Card
-            sx={{ maxWidth: 500 }}
-            style={{
-              alignItems: "center",
-              justifyContent: "center",
-              marginTop: "5rem",
-              padding: "2%",
-            }}
-          >
-            <CardContent>
-              <Typography
-                gutterBottom
-                variant="h5"
-                component="div"
-                style={{ marginBottom: "0", fontWeight: "bold" }}
-              >
-                Test 001
-              </Typography>
-              <br/>
-              <p style={{ marginTop: "0", textAlign:"justify"}}>
-                Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
-                eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut
-                enim ad minim veniam, quis nostrud exercitation ullamco laboris
-                nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor
-                in reprehenderit in voluptate velit esse cillum dolore eu fugiat
-                nulla pariatur
-              </p>
-              <br />
-              <Typography variant="body2" color="text.secondary">
-                <Grid container spacing={1} style={{ marginTop: "0.5%" }}>
-                  <Grid item xs={12}>
-                    <center>
-                      <TextField
-                        id="outlined-basic"
-                        label="Upload Supporting Documents"
-                        variant="outlined"
-                        size="small"
-                        style={{ width: "98.5%" }}
-                      />
-                    </center>
-                  </Grid>
-                </Grid>
-                <br />
-                <br />
-                <Button
-                  variant="contained"
-                  style={{ backgroundColor: "#193441", width: "50%" }}
-                  href="/dashboardAssessor"
+      <Sidebar content={items1} background="#193441">
+        <Navbar />
+        <div style={{ padding: "2%" }}>
+          <center>
+            <Card
+              sx={{ maxWidth: 500 }}
+              style={{
+                alignItems: "center",
+                justifyContent: "center",
+                marginTop: "5rem",
+                padding: "2%",
+              }}
+            >
+              <CardContent>
+                <Typography
+                  gutterBottom
+                  variant="h5"
+                  component="div"
+                  style={{ marginBottom: "0", fontWeight: "bold" }}
                 >
-                  Continue
-                </Button>
+                  Test 001
+                </Typography>
                 <br />
-              </Typography>
-            </CardContent>
-            {/* <CardActions>
+                <p style={{ marginTop: "0", textAlign: "justify" }}>
+                  Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed
+                  do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+                  Ut enim ad minim veniam, quis nostrud exercitation ullamco
+                  laboris nisi ut aliquip ex ea commodo consequat. Duis aute
+                  irure dolor in reprehenderit in voluptate velit esse cillum
+                  dolore eu fugiat nulla pariatur
+                </p>
+                <br />
+                <Typography variant="body2" color="text.secondary">
+                  <Grid container spacing={1} style={{ marginTop: "0.5%" }}>
+                    <Grid item xs={12}>
+                      <center>
+                        <TextField
+                          id="outlined-basic"
+                          label="Upload Supporting Documents"
+                          variant="outlined"
+                          size="small"
+                          style={{ width: "98.5%" }}
+                        />
+                      </center>
+                    </Grid>
+                  </Grid>
+                  <br />
+                  <br />
+                  <Button
+                    variant="contained"
+                    style={{ backgroundColor: "#193441", width: "50%" }}
+                    href="/dashboardAssessor"
+                  >
+                    Continue
+                  </Button>
+                  <br />
+                </Typography>
+              </CardContent>
+              {/* <CardActions>
           <Button size="small">Share</Button>
           <Button size="small">Learn More</Button>
         </CardActions> */}
-          </Card>
-        </center>
-        <br />
-        <br />
-        <br />
-        <br />
-        <br />
-      </div>
-      {/* <Footer /> */}
+            </Card>
+          </center>
+          <br />
+          <br />
+          <br />
+          <br />
+          <br />
+        </div>
+        {/* <Footer /> */}
+      </Sidebar>
     </div>
   );
 }

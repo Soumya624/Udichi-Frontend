@@ -7,8 +7,20 @@ import axiosInstance from "../../axiosInstance";
 import getCookie from "../../getCookie";
 import Navbar from "./../../Common/Navbar_Student";
 import Footer from "./../../Common/Footer";
-import * as faceapi from 'face-api.js';
+import * as faceapi from "face-api.js";
 import { useRef } from "react";
+import { Sidebar, SidebarItem } from "react-responsive-sidebar";
+import {
+  AccessTimeOutlined,
+  CampaignOutlined,
+  HelpOutlineOutlined,
+  HomeOutlined,
+  InsertChartOutlined,
+  PersonOutlineOutlined,
+  SummarizeRounded,
+  TuneOutlined,
+} from "@mui/icons-material";
+import Clock from "react-live-clock";
 
 export default function Index({
   startScreenRecording,
@@ -25,11 +37,11 @@ export default function Index({
   error,
   setError,
   camera,
-  loadModels
+  loadModels,
 }) {
   let token = getCookie("access_token");
   let user = JSON.parse(localStorage.getItem("user"));
-	const videoRef = useRef()
+  const videoRef = useRef();
 
   const config = {
     headers: { Authorization: `Bearer ${token}`, "user-type": user.usertype },
@@ -43,12 +55,10 @@ export default function Index({
   const [is_proctoring, setIsProctoring] = useState(true);
   const [multipleFace, setMultipleFace] = useState(false);
 
-  
   console.log("Asdnkajndkjsnk");
   const { id } = useParams();
 
-  const [ initialise, setInitialise ] = useState(false);
-
+  const [initialise, setInitialise] = useState(false);
 
   useEffect(() => {
     axiosInstance
@@ -79,7 +89,6 @@ export default function Index({
         }, 1000);
       });
   }, []);
-
 
   useEffect(() => {
     let user = JSON.parse(localStorage.getItem("user_id"));
@@ -203,7 +212,7 @@ export default function Index({
 
   const handleVideoOnPlay = () => {
     setInterval(async () => {
-      console.log("kdfmskdfm")
+      console.log("kdfmskdfm");
       if (initialise) {
         setInitialise(false);
       }
@@ -217,7 +226,7 @@ export default function Index({
     }, 500);
   };
 
-  console.log(camera)
+  console.log(camera);
 
   if (alloted_test === null) {
     return <h1>Loading...</h1>;
@@ -227,6 +236,81 @@ export default function Index({
   if (left_attempts <= 0) {
     window.location = "/dashboardStudent";
   }
+
+  const items1 = [
+    <SidebarItem></SidebarItem>,
+    <SidebarItem></SidebarItem>,
+    <SidebarItem></SidebarItem>,
+    <SidebarItem>
+      <div
+        style={{
+          alignItems: "center",
+          fontWeight: "normal",
+        }}
+      >
+        <b style={{ fontSize: "12px", fontWeight: "normal" }}>March, 2023</b>
+        <br />
+        <Clock
+          format={"h:mm:ss A"}
+          ticking={true}
+          timezone={"ASIA"}
+          style={{ fontSize: "semibold" }}
+        />
+      </div>
+    </SidebarItem>,
+    <SidebarItem href="/dashboardStudent">
+      <div
+        style={{
+          display: "flex",
+          alignItems: "center",
+          fontSize: "15px",
+          fontWeight: "normal",
+        }}
+      >
+        <HomeOutlined />
+        &nbsp; Dashboard
+      </div>
+    </SidebarItem>,
+    <SidebarItem href="#">
+      <div
+        style={{
+          display: "flex",
+          alignItems: "center",
+          fontSize: "15px",
+          fontWeight: "normal",
+        }}
+      >
+        <CampaignOutlined />
+        &nbsp; Notifications
+      </div>
+    </SidebarItem>,
+    <SidebarItem href="#">
+      <div
+        style={{
+          display: "flex",
+          alignItems: "center",
+          fontSize: "15px",
+          fontWeight: "normal",
+        }}
+      >
+        <TuneOutlined />
+        &nbsp; Settings
+      </div>
+    </SidebarItem>,
+    <SidebarItem href="#">
+      <div
+        style={{
+          display: "flex",
+          alignItems: "center",
+          fontSize: "15px",
+          fontWeight: "normal",
+        }}
+      >
+        <HelpOutlineOutlined />
+        &nbsp; Help & Support
+      </div>
+    </SidebarItem>,
+  ];
 
   return (
     <>
@@ -240,57 +324,57 @@ export default function Index({
           onPlay={handleVideoOnPlay}
         />
       )} */}
-      <div
-        style={{
-          width: "100vw",
-          height: "100vh",
-          display: "flex",
-          justifyContent: "center",
-          alignItems: "center",
-        }}
-      >
-        {" "}
-        <Navbar />
-        <Card
-          sx={{ maxWidth: 500 }}
+      <Sidebar content={items1} background="#193441">
+        <div
           style={{
-            alignItems: "center",
+            display: "flex",
             justifyContent: "center",
-            marginTop: "5rem",
-            padding: "2%",
+            alignItems: "center",
           }}
         >
-          <CardContent>
-            <Typography
-              gutterBottom
-              variant="h5"
-              component="div"
-              style={{ marginBottom: "0", fontWeight: "bold" }}
-            >
-              <center>Share Access</center>
-            </Typography>
-            <br />
-            <ul style={{ textAlign: "justify" }}>
-              <li style={{ textAlign: "justify" }}>
-                {" "}
-                Students are requested to share the screen and the camera,
-                before starting the exam (if requested)
-              </li>
+          {" "}
+          <Navbar />
+          <Card
+            sx={{ maxWidth: 500 }}
+            style={{
+              alignItems: "center",
+              justifyContent: "center",
+              marginTop: "15rem",
+              padding: "2%",
+            }}
+          >
+            <CardContent>
+              <Typography
+                gutterBottom
+                variant="h5"
+                component="div"
+                style={{ marginBottom: "0", fontWeight: "bold" }}
+              >
+                <center>Share Access</center>
+              </Typography>
               <br />
-              <li style={{ textAlign: "justify" }}>
-                {" "}
-                If any student faces any network issue during this time, he/she
-                can call the pre-announced phone number, to get the assistance
-              </li>
-            </ul>
-            <br />
-            <br />
-            <br />
-            <div
-              style={{
-                display: "flex",
-              }}
-            >
+              <ul style={{ textAlign: "justify" }}>
+                <li style={{ textAlign: "justify" }}>
+                  {" "}
+                  Students are requested to share the screen and the camera,
+                  before starting the exam (if requested)
+                </li>
+                <br />
+                <li style={{ textAlign: "justify" }}>
+                  {" "}
+                  If any student faces any network issue during this time,
+                  he/she can call the pre-announced phone number, to get the
+                  assistance
+                </li>
+              </ul>
+              <br />
+              <br />
+              <br />
+              <div
+                style={{
+                  display: "flex",
+                }}
+              >
                 {is_proctoring && (
                   <Screen
                     startRecording={startScreenRecording}
@@ -309,8 +393,8 @@ export default function Index({
                     stopRecording={stopCamera}
                     isClicked={isClicked}
                     enable={cameraStatus === "acquiring_media"}
-                    loadModels = {loadModels}
-                    camera = {camera}
+                    loadModels={loadModels}
+                    camera={camera}
                   />
                 )}
                 {is_proctoring && (
@@ -369,15 +453,16 @@ export default function Index({
                     Continue Exam
                   </Button>
                 )}
-            </div>
-          </CardContent>
-          {/* <CardActions>
-<Button size="small">Share</Button>
-<Button size="small">Learn More</Button>
-</CardActions> */}
-        </Card>
-      </div>
-      {/* <Footer /> */}
+              </div>
+            </CardContent>
+            {/* <CardActions>
+                <Button size="small">Share</Button>
+                <Button size="small">Learn More</Button>
+                </CardActions> */}
+          </Card>
+        </div>
+        {/* <Footer /> */}
+      </Sidebar>
     </>
   );
 }

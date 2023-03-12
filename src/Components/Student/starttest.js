@@ -12,6 +12,18 @@ import axios from "axios";
 import axiosInstance from "../../axiosInstance";
 import getCookie from "../../getCookie";
 import Countdown from "react-countdown";
+import { Sidebar, SidebarItem } from "react-responsive-sidebar";
+import {
+  AccessTimeOutlined,
+  CampaignOutlined,
+  HelpOutlineOutlined,
+  HomeOutlined,
+  InsertChartOutlined,
+  PersonOutlineOutlined,
+  SummarizeRounded,
+  TuneOutlined,
+} from "@mui/icons-material";
+import Clock from "react-live-clock";
 
 export default function Confirmpresence({ error, setError }) {
   let token = getCookie("access_token");
@@ -42,8 +54,11 @@ export default function Confirmpresence({ error, setError }) {
           }
           localStorage.setItem("questions", JSON.stringify(questions));
           localStorage.setItem("test_id", JSON.stringify(id));
-          localStorage.setItem("duration", JSON.stringify(duration*60*1000));
-          localStorage.setItem("proctoring",JSON.stringify(data.proctoring))
+          localStorage.setItem(
+            "duration",
+            JSON.stringify(duration * 60 * 1000)
+          );
+          localStorage.setItem("proctoring", JSON.stringify(data.proctoring));
           setAllotedTest(res.data);
         }
       })
@@ -124,81 +139,157 @@ export default function Confirmpresence({ error, setError }) {
   let left_attempts = alloted_test.number_of_attempts - number_of_attempts;
   const Completionist = () => <span>Number of Attempts: {left_attempts}</span>;
 
+  const items1 = [
+    <SidebarItem></SidebarItem>,
+    <SidebarItem></SidebarItem>,
+    <SidebarItem></SidebarItem>,
+    <SidebarItem>
+      <div
+        style={{
+          alignItems: "center",
+          fontWeight: "normal",
+        }}
+      >
+        <b style={{ fontSize: "12px", fontWeight: "normal" }}>March, 2023</b>
+        <br />
+        <Clock
+          format={"h:mm:ss A"}
+          ticking={true}
+          timezone={"ASIA"}
+          style={{ fontSize: "semibold" }}
+        />
+      </div>
+    </SidebarItem>,
+    <SidebarItem href="/dashboardStudent">
+      <div
+        style={{
+          display: "flex",
+          alignItems: "center",
+          fontSize: "15px",
+          fontWeight: "normal",
+        }}
+      >
+        <HomeOutlined />
+        &nbsp; Dashboard
+      </div>
+    </SidebarItem>,
+    <SidebarItem href="#">
+      <div
+        style={{
+          display: "flex",
+          alignItems: "center",
+          fontSize: "15px",
+          fontWeight: "normal",
+        }}
+      >
+        <CampaignOutlined />
+        &nbsp; Notifications
+      </div>
+    </SidebarItem>,
+    <SidebarItem href="#">
+      <div
+        style={{
+          display: "flex",
+          alignItems: "center",
+          fontSize: "15px",
+          fontWeight: "normal",
+        }}
+      >
+        <TuneOutlined />
+        &nbsp; Settings
+      </div>
+    </SidebarItem>,
+    <SidebarItem href="#">
+      <div
+        style={{
+          display: "flex",
+          alignItems: "center",
+          fontSize: "15px",
+          fontWeight: "normal",
+        }}
+      >
+        <HelpOutlineOutlined />
+        &nbsp; Help & Support
+      </div>
+    </SidebarItem>,
+  ];
+
   return (
     <div>
-      <Navbar />
-      <div style={{ padding: "2%" }}>
-        <center>
-          <Card
-            sx={{ maxWidth: 500 }}
-            style={{
-              alignItems: "center",
-              justifyContent: "center",
-              marginTop: "5rem",
-              padding: "2%",
-            }}
-          >
-            <CardContent>
-              <Typography
-                gutterBottom
-                variant="h5"
-                component="div"
-                style={{ marginBottom: "0", fontWeight: "bold" }}
-              >
-                {alloted_test.title}
-              </Typography>
-              <br />
-              <ul style={{ textAlign: "justify" }}>
-                <li style={{ textAlign: "justify" }}>
-                  {" "}
-                  The examination does not require any paper, pen, pencil and
-                  calculator
-                </li>
+      <Sidebar content={items1} background="#193441">
+        <Navbar />
+        <div style={{ padding: "2%" }}>
+          <center>
+            <Card
+              sx={{ maxWidth: 500 }}
+              style={{
+                alignItems: "center",
+                justifyContent: "center",
+                marginTop: "5rem",
+                padding: "2%",
+              }}
+            >
+              <CardContent>
+                <Typography
+                  gutterBottom
+                  variant="h5"
+                  component="div"
+                  style={{ marginBottom: "0", fontWeight: "bold" }}
+                >
+                  {alloted_test.title}
+                </Typography>
                 <br />
-                <li style={{ textAlign: "justify" }}>
-                  {" "}
-                  Any student can take the examination on a Laptop/Desktop/Smart
-                  Phone
-                </li>
+                <ul style={{ textAlign: "justify" }}>
+                  <li style={{ textAlign: "justify" }}>
+                    {" "}
+                    The examination does not require any paper, pen, pencil and
+                    calculator
+                  </li>
+                  <br />
+                  <li style={{ textAlign: "justify" }}>
+                    {" "}
+                    Any student can take the examination on a
+                    Laptop/Desktop/Smart Phone
+                  </li>
+                  <br />
+                  <li style={{ textAlign: "justify" }}>
+                    {" "}
+                    The answers can be changed at any time during the test and
+                    are saved automatically
+                  </li>
+                  <br />
+                  <li style={{ textAlign: "justify" }}>
+                    {" "}
+                    The system automatically shuts down when the time limit is
+                    over. Alternatively if examinee finishes the exam before
+                    time he can quit by pressing the 'Submit' button
+                  </li>
+                </ul>
                 <br />
-                <li style={{ textAlign: "justify" }}>
-                  {" "}
-                  The answers can be changed at any time during the test and are
-                  saved automatically
-                </li>
                 <br />
-                <li style={{ textAlign: "justify" }}>
-                  {" "}
-                  The system automatically shuts down when the time limit is
-                  over. Alternatively if examinee finishes the exam before time
-                  he can quit by pressing the 'Submit' button
-                </li>
-              </ul>
-              <br />
-              <br />
-              <br />
+                <br />
 
-              <Typography variant="body2" color="text.secondary">
-                {isLoading ? (
-                  <div>Loading...</div>
-                ) : (
-                  <div>
-                    {/* {isError && <p>Error</p>} */}
-                    <div ref={ref} />
-                    {image && (
-                      <img
-                        style={{ width: "30em" }}
-                        src={image}
-                        alt={"Screenshot"}
-                      />
-                    )}
-                    <b>
-                      {/* <Countdown date={Date.now() + 35000}> */}
+                <Typography variant="body2" color="text.secondary">
+                  {isLoading ? (
+                    <div>Loading...</div>
+                  ) : (
+                    <div>
+                      {/* {isError && <p>Error</p>} */}
+                      <div ref={ref} />
+                      {image && (
+                        <img
+                          style={{ width: "30em" }}
+                          src={image}
+                          alt={"Screenshot"}
+                        />
+                      )}
+                      <b>
+                        {/* <Countdown date={Date.now() + 35000}> */}
                         <div>
                           <Completionist />
                           <br />
                           Slow Server: Please Wait 1-2 Minutes Before Any Action
-                          <br/>
+                          <br />
                           <Button
                             variant="contained"
                             style={{
@@ -214,9 +305,9 @@ export default function Confirmpresence({ error, setError }) {
                             Start Exam
                           </Button>
                         </div>
-                      {/* </Countdown> */}
-                    </b>
-                    {/* <Button
+                        {/* </Countdown> */}
+                      </b>
+                      {/* <Button
 											variant="contained"
 											style={{ backgroundColor: "#193441", margin: "1em" }}
 											onClick={() => {
@@ -225,30 +316,31 @@ export default function Confirmpresence({ error, setError }) {
 										>
 											Download Image
 										</Button> */}
-                  </div>
-                )}
-                <br />
-                <div>
-                  {/* <p>{status}</p> */}
-                  {/* <button onClick={startRecording}>Start Recording</button> */}
-                  {/* <button onClick={stopRecording}>Stop Recording</button>
+                    </div>
+                  )}
+                  <br />
+                  <div>
+                    {/* <p>{status}</p> */}
+                    {/* <button onClick={startRecording}>Start Recording</button> */}
+                    {/* <button onClick={stopRecording}>Stop Recording</button>
 									<video style={{width : "30em"}} src={mediaBlobUrl} controls autoPlay loop /> */}
-                </div>
-              </Typography>
-            </CardContent>
-            {/* <CardActions>
+                  </div>
+                </Typography>
+              </CardContent>
+              {/* <CardActions>
           <Button size="small">Share</Button>
           <Button size="small">Learn More</Button>
         </CardActions> */}
-          </Card>
-        </center>
-        <br />
-        <br />
-        <br />
-        <br />
-        <br />
-      </div>
-      {/* <Footer /> */}
+            </Card>
+          </center>
+          <br />
+          <br />
+          <br />
+          <br />
+          <br />
+        </div>
+        {/* <Footer /> */}
+      </Sidebar>
     </div>
   );
 }
