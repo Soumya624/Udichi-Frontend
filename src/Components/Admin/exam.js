@@ -39,6 +39,7 @@ import {
   HelpOutlineOutlined,
   HomeOutlined,
   InsertChartOutlined,
+  ListAltOutlined,
   PersonOutlineOutlined,
   PlusOneOutlined,
   SummarizeRounded,
@@ -71,6 +72,7 @@ export default function BasicTable({ error, setError }) {
   const [open2, setOpen2] = useState(false);
   const [allexamcandidates, setAllexamcandidates] = useState([]);
   const [demodata, setDemodata] = useState([]);
+  var questionnum = 0;
 
   useEffect(() => {
     getExams();
@@ -98,6 +100,7 @@ export default function BasicTable({ error, setError }) {
       .then((res) => {
         setLoading(false);
         if (res.status === 200) {
+          console.log(res.data);
           setExamgroup(res.data);
         }
       })
@@ -269,7 +272,7 @@ export default function BasicTable({ error, setError }) {
                 Exams
               </h4>
             </Grid>
-            <Grid item xs={6} style={{textAlign:"right"}}>
+            <Grid item xs={6} style={{ textAlign: "right" }}>
               <Button variant="contained" color="success" href="/addexamAdmin">
                 <AddOutlined />
                 Create
@@ -301,10 +304,10 @@ export default function BasicTable({ error, setError }) {
                       <b>Start Date/Time</b>
                     </TableCell>
                     <TableCell align="right">
-                      <b>Full Marks</b>
+                      <b>Duration</b>
                     </TableCell>
                     <TableCell align="right">
-                      <b>Question Groups</b>
+                      <b>Questions</b>
                     </TableCell>
                     <TableCell align="right">
                       <b>Action</b>
@@ -329,6 +332,7 @@ export default function BasicTable({ error, setError }) {
                     </TableRow>
                   ))} */}
                   {examgroup.map((key) => {
+                    questionnum = 0;
                     let momentDate = moment
                       .utc(key.starting_date)
                       .format("MM/DD/YY, h:mm:ss a");
@@ -343,10 +347,13 @@ export default function BasicTable({ error, setError }) {
                           {key.title}
                         </TableCell>
                         <TableCell align="right">{momentDate}</TableCell>
-                        <TableCell align="right">{key.total_number}</TableCell>
+                        <TableCell align="right">
+                          {key.available_window} mins.
+                        </TableCell>
                         <TableCell align="right">
                           {key.question_groups.map((x) => {
-                            return x.title + " ";
+                            questionnum = questionnum + x.questions.length;
+                            return questionnum;
                           })}
                         </TableCell>
                         <TableCell
@@ -370,7 +377,7 @@ export default function BasicTable({ error, setError }) {
                               });
                           }}
                         >
-                          View Results
+                          <ListAltOutlined />
                         </TableCell>
                       </TableRow>
                     );
@@ -379,9 +386,6 @@ export default function BasicTable({ error, setError }) {
               </Table>
             </TableContainer>
           )}
-
-          <br />
-          <br />
         </div>
         <Modal1 open={open1} onClose={handleClose1} center>
           <Box style={{ padding: "3%" }}>
@@ -563,6 +567,10 @@ export default function BasicTable({ error, setError }) {
             </Button>
           </center>
         </Modal1>
+        <marquee width="100%" direction="right" height="30%">
+          Live monitoring is enabled. Please upgrade your server to view the
+          real time check
+        </marquee>
       </Sidebar>
     </div>
   );
