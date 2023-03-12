@@ -17,20 +17,21 @@ import { CircularProgress } from "@mui/material";
 import Translator from "react-auto-translate/lib/commonjs/translator";
 import { Translate } from "@mui/icons-material";
 import Speech from "react-speech";
+import logo from "./../../../Assets/Index.png";
 
 const style = {
   play: {
     button: {
-      width: '28',
-      height: '28',
-      cursor: 'pointer',
-      pointerEvents: 'none',
-      outline: 'none',
-      backgroundColor: 'yellow',
-      border: 'solid 1px rgba(255,255,255,1)',
-      borderRadius: 6
+      width: "28",
+      height: "28",
+      cursor: "pointer",
+      pointerEvents: "none",
+      outline: "none",
+      backgroundColor: "yellow",
+      border: "solid 1px rgba(255,255,255,1)",
+      borderRadius: 6,
     },
-  }
+  },
 };
 
 export default function LoginAdmin({ error, setError }) {
@@ -91,87 +92,103 @@ export default function LoginAdmin({ error, setError }) {
 
   return (
     <div>
-      <Navbar />
-      <div style={{ padding: "2%" }}>
-        <center>
-          <Card
-            sx={{ maxWidth: 500 }}
+      {/* <Navbar /> */}
+      <center>
+        <div
+          style={{
+            padding: "7% 2%",
+            alignContent: "center",
+            justifyContent: "center",
+          }}
+        >
+          <div
             style={{
+              display: "flex",
               alignItems: "center",
               justifyContent: "center",
-              marginTop: "5rem",
-              padding: "2%",
+              textAlign: "center",
             }}
           >
-            <CardContent>
-              <Typography
-                gutterBottom
-                variant="h5"
-                component="div"
-                style={{ marginBottom: "0", fontWeight: "bold" }}
-              >
-                Login Admin
-              </Typography>
-              <p style={{ marginTop: "0" }}>
-                Please Fill The Requirements Below to
-                <br />
-                Get Connected
-              </p>
+            <img src={logo} style={{ width: "4%" }} />
+            <h3 style={{ margin: "0 0 0 10px" }}>
+              Udichi Online Assessment Portal
+            </h3>
+          </div>
+          <br />
+          <Card
+            sx={{
+              maxWidth: 500,
+              boxShadow:
+                "0px 0px 10px rgba(0, 0, 0, 0.25), 0px 4px 4px rgba(0, 0, 0, 0.25)",
+            }}
+          >
+            <h4
+              style={{
+                fontWeight: "normal",
+                textAlign: "center",
+                backgroundColor: "#f0f0f0",
+                padding: "3%",
+                margin: "0",
+                color: "#b0b1ab",
+              }}
+            >
+              Administrative Signin
+            </h4>
+            <CardContent style={{ padding: "4%" }}>
               <br />
               <form onSubmit={submit}>
                 <Typography variant="body2" color="text.secondary">
                   <Grid container spacing={1} style={{ marginTop: "0.5%" }}>
                     <Grid item xs={12}>
-                      <center>
-                        <TextField
-                          required
-                          id="outlined-basic"
-                          label="Username"
-                          variant="outlined"
-                          size="small"
-                          style={{ width: "98.5%" }}
-                          onChange={(e) => {
-                            e.preventDefault();
-                            setUsername(e.target.value);
-                          }}
-                        />
-                      </center>
+                      <label style={{ display: "block", textAlign: "left" }}>
+                        Username / Email
+                      </label>
+                      <TextField
+                        required
+                        id="outlined-basic"
+                        placeholder="Enter Email"
+                        variant="outlined"
+                        size="small"
+                        style={{ width: "100%" }}
+                        onChange={(e) => {
+                          e.preventDefault();
+                          setUsername(e.target.value);
+                        }}
+                      />
                     </Grid>
                   </Grid>
+
+                  <br />
                   <Grid container spacing={1} style={{ marginTop: "0.5%" }}>
                     <Grid item xs={12}>
-                      <center>
-                        <TextField
-                          required
-                          id="outlined-basic"
-                          label="Password"
-                          variant="outlined"
-                          type="password"
-                          size="small"
-                          style={{ width: "98.5%" }}
-                          onChange={(e) => {
-                            e.preventDefault();
-                            setPassword(e.target.value);
-                          }}
-                        />
-                      </center>
+                      <label style={{ display: "block", textAlign: "left" }}>
+                        Password
+                      </label>
+                      <TextField
+                        required
+                        id="outlined-basic"
+                        placeholder="Enter Password"
+                        variant="outlined"
+                        type="password"
+                        size="small"
+                        style={{ width: "100%" }}
+                        onChange={(e) => {
+                          e.preventDefault();
+                          setPassword(e.target.value);
+                        }}
+                      />
                     </Grid>
                   </Grid>
-                  <br />
-                  <FormControlLabel
-                    control={<Checkbox />}
-                    label="Remember Me"
-                  />
                   <br />
                   <br />
                   <Button
                     type="submit"
                     variant="contained"
-                    style={{ backgroundColor: "#07a8a0", width: "50%" }}
+                    style={{ backgroundColor: "#4ba4d2", width: "100%" }}
                     // onClick={submit}
                   >
                     {loading && <CircularProgress color="inherit" />}
-                    {!loading && `Continue`}
+                    {!loading && `SIGN IN`}
                   </Button>
                   <br />
                   {/* <p style={{ marginTop: "1%" }}>
@@ -182,6 +199,9 @@ export default function LoginAdmin({ error, setError }) {
 									</p> */}
                 </Typography>
               </form>
+              <p style={{ fontSize: "12px", textAlign: "center" }}>
+                Please contact udichiportal@gmail.com in case of any query
+              </p>
             </CardContent>
             {/* <CardActions>
                   <Button size="small">Share</Button>
@@ -189,14 +209,9 @@ export default function LoginAdmin({ error, setError }) {
                 </CardActions> 
             */}
           </Card>
-        </center>
-        <br />
-        <br />
-        <br />
-        <br />
-        <br />
-      </div>
-      <Footer />
+        </div>
+      </center>
+      {/* <Footer /> */}
     </div>
   );
 }

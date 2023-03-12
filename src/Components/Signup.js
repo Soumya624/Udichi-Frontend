@@ -351,7 +351,7 @@ export default function Signup() {
 									<Button
 										type="submit"
 										variant="contained"
-										style={{ backgroundColor: "#07a8a0", width: "50%" }}
+										style={{ backgroundColor: "#193441", width: "50%" }}
 										// onClick={register_user}
 									>
 										Continue
@@ -371,7 +371,7 @@ export default function Signup() {
 				<br />
 				<br />
 			</div>
-			<Footer />
+			{/* <Footer /> */}
 		</div>
 	);
 }

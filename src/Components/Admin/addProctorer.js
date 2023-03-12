@@ -14,6 +14,18 @@ import axios from "axios";
 import axiosInstance from "../../axiosInstance";
 import getCookie from "../../getCookie";
 import emailjs from "@emailjs/browser";
+import { Sidebar, SidebarItem } from "react-responsive-sidebar";
+import {
+  AccessTimeOutlined,
+  CampaignOutlined,
+  HelpOutlineOutlined,
+  HomeOutlined,
+  InsertChartOutlined,
+  PersonOutlineOutlined,
+  SummarizeRounded,
+  TuneOutlined,
+} from "@mui/icons-material";
+import Clock from "react-live-clock";
 
 export default function Signup() {
   let token = getCookie("access_token");
@@ -87,8 +99,136 @@ export default function Signup() {
       });
   }
 
+  const items1 = [
+    <SidebarItem></SidebarItem>,
+    <SidebarItem></SidebarItem>,
+    <SidebarItem></SidebarItem>,
+    <SidebarItem>
+      <div
+        style={{
+          alignItems: "center",
+          fontWeight: "normal",
+        }}
+      >
+        <b style={{ fontSize: "12px", fontWeight: "normal" }}>March, 2023</b>
+        <br />
+        <Clock
+          format={"h:mm:ss A"}
+          ticking={true}
+          timezone={"ASIA"}
+          style={{ fontSize: "semibold" }}
+        />
+      </div>
+    </SidebarItem>,
+    <SidebarItem href="/dashboardAdmin">
+      <div
+        style={{
+          display: "flex",
+          alignItems: "center",
+          fontSize: "15px",
+          fontWeight: "normal",
+        }}
+      >
+        <HomeOutlined />
+        &nbsp; Dashboard
+      </div>
+    </SidebarItem>,
+    <SidebarItem href="/examAdmin">
+      <div
+        style={{
+          display: "flex",
+          alignItems: "center",
+          fontSize: "15px",
+          fontWeight: "normal",
+        }}
+      >
+        <AccessTimeOutlined />
+        &nbsp; Exams
+      </div>
+    </SidebarItem>,
+    <SidebarItem href="/candidateAdmin">
+      <div
+        style={{
+          display: "flex",
+          alignItems: "center",
+          fontSize: "15px",
+          fontWeight: "normal",
+        }}
+      >
+        <PersonOutlineOutlined />
+        &nbsp; Candidates
+      </div>
+    </SidebarItem>,
+    <SidebarItem href="/questionAdmin">
+      <div
+        style={{
+          display: "flex",
+          alignItems: "center",
+          fontSize: "15px",
+          fontWeight: "normal",
+        }}
+      >
+        <SummarizeRounded />
+        &nbsp; Questions
+      </div>
+    </SidebarItem>,
+    <SidebarItem href="#">
+      <div
+        style={{
+          display: "flex",
+          alignItems: "center",
+          fontSize: "15px",
+          fontWeight: "normal",
+        }}
+      >
+        <InsertChartOutlined />
+        &nbsp; Statistics
+      </div>
+    </SidebarItem>,
+    <SidebarItem href="#">
+      <div
+        style={{
+          display: "flex",
+          alignItems: "center",
+          fontSize: "15px",
+          fontWeight: "normal",
+        }}
+      >
+        <CampaignOutlined />
+        &nbsp; Notifications
+      </div>
+    </SidebarItem>,
+    <SidebarItem href="#">
+      <div
+        style={{
+          display: "flex",
+          alignItems: "center",
+          fontSize: "15px",
+          fontWeight: "normal",
+        }}
+      >
+        <TuneOutlined />
+        &nbsp; Settings
+      </div>
+    </SidebarItem>,
+    <SidebarItem href="#">
+      <div
+        style={{
+          display: "flex",
+          alignItems: "center",
+          fontSize: "15px",
+          fontWeight: "normal",
+        }}
+      >
+        <HelpOutlineOutlined />
+        &nbsp; Help & Support
+      </div>
+    </SidebarItem>,
+  ];
+
   return (
     <div>
+      <Sidebar content={items1} background="#193441">
       <Navbar />
       <div style={{ padding: "2%" }}>
         <center>
@@ -370,7 +510,7 @@ export default function Signup() {
                   <Button
                     type="submit"
                     variant="contained"
-                    style={{ backgroundColor: "#07a8a0", width: "50%" }}
+                    style={{ backgroundColor: "#193441", width: "50%" }}
                     // onClick={register_user}
                   >
                     Continue
@@ -390,7 +530,7 @@ export default function Signup() {
         <br />
         <br />
       </div>
-      <Footer />
+      </Sidebar>
     </div>
   );
 }

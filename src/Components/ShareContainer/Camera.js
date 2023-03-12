@@ -36,7 +36,7 @@ export default function Camera({
 
           }}
           style={{
-            backgroundColor: "#07a8a0",
+            backgroundColor: "#193441",
             margin: "2px",
           }}
         >

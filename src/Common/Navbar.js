@@ -88,7 +88,7 @@ function DrawerAppBar(props) {
 
   return (
     <Box sx={{ display: "flex" }}>
-      <AppBar component="nav" style={{ backgroundColor: "#07a8a0" }}>
+      <AppBar component="nav" style={{ backgroundColor: "#3e606f" }}>
         <Toolbar>
           <IconButton
             color="inherit"
@@ -105,7 +105,7 @@ function DrawerAppBar(props) {
             sx={{ flexGrow: 1, display: { xs: "none", sm: "block" } }}
           >
             <div style={{ display: "flex", alignItems: "center" }}>
-              <img src={Logo_PC} style={{ width: "5%", marginTop: "5px" }} />
+              {/* <img src={Logo_PC} style={{ width: "5%", marginTop: "5px" }} /> */}
               <a
                 href="/"
                 style={{

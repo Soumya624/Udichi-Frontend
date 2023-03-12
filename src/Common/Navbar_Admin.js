@@ -16,6 +16,15 @@ import Button from "@mui/material/Button";
 import deleteAllCookies from "../deleteAllCookies";
 import Logo from "../Assets/Logo.png";
 import Logo_PC from "../Assets/Logo_PC.png";
+import {
+  Person2Outlined,
+  Person3Outlined,
+  Person4Outlined,
+  SettingsOutlined,
+} from "@mui/icons-material";
+import "react-responsive-modal/styles.css";
+import { Modal } from "react-responsive-modal";
+import { Link } from "react-router-dom";
 
 const drawerWidth = 240;
 const navItems = [
@@ -119,9 +128,14 @@ function DrawerAppBar(props) {
   const container =
     window !== undefined ? () => window().document.body : undefined;
 
+  const [open, setOpen] = React.useState(false);
+
+  const onOpenModal = () => setOpen(true);
+  const onCloseModal = () => setOpen(false);
+
   return (
     <Box sx={{ display: "flex" }}>
-      <AppBar component="nav" style={{ backgroundColor: "#07a8a0" }}>
+      <AppBar component="nav" style={{ backgroundColor: "#3e606f" }}>
         <Toolbar>
           <IconButton
             color="inherit"
@@ -138,7 +152,7 @@ function DrawerAppBar(props) {
             sx={{ flexGrow: 1, display: { xs: "none", sm: "block" } }}
           >
             <div style={{ display: "flex", alignItems: "center" }}>
-              <img src={Logo_PC} style={{ width: "5%", marginTop: "5px" }} />
+              {/* <img src={Logo_PC} style={{ width: "5%", marginTop: "5px" }} /> */}
               <a
                 href="/dashboardAdmin"
                 style={{
@@ -158,7 +172,7 @@ function DrawerAppBar(props) {
                 {item}
               </Button>
             ))} */}
-            <Button sx={{ color: "#fff" }} href="/dashboardAdmin">
+            {/* <Button sx={{ color: "#fff" }} href="/dashboardAdmin">
               Dashboard
             </Button>
             <Button sx={{ color: "#fff" }} href="/examAdmin">
@@ -176,12 +190,12 @@ function DrawerAppBar(props) {
             <Button sx={{ color: "#fff" }} href="/proctorerAdmin">
               Proctorers
             </Button>
-            {/* <Button sx={{ color: "#fff" }} href="/statisticsAdmin">
+            <Button sx={{ color: "#fff" }} href="/statisticsAdmin">
               Statistics
             </Button>
             <Button sx={{ color: "#fff" }} href="/dashboardAdmin">
               Notifications
-            </Button> */}
+            </Button>
             <Button
               sx={{ color: "#fff" }}
               onClick={() => {
@@ -190,6 +204,13 @@ function DrawerAppBar(props) {
               }}
             >
               Logout
+            </Button> */}
+            <Button
+              sx={{ color: "#fff" }}
+              onClick={onOpenModal}
+              endIcon={<SettingsOutlined />}
+            >
+              Administrator
             </Button>
           </Box>
         </Toolbar>
@@ -214,6 +235,101 @@ function DrawerAppBar(props) {
           {drawer}
         </Drawer>
       </Box>
+      <Modal
+        open={open}
+        onClose={onCloseModal}
+        center
+        styles={{
+          modal: {
+            alignItems: "flex-start",
+            justifyContent: "left",
+            marginTop: "70px",
+            width: "150px",
+            position: "absolute",
+            right: "0",
+            backgroundColor: "#f5f5f5",
+          },
+        }}
+      >
+        <div>
+          <h4>Udichi</h4>
+          <p
+            style={{
+              color: "grey",
+              fontSize: "13px",
+              margin: "1px",
+              padding: "1px",
+            }}
+          >
+            Account ID: Not Specific
+          </p>
+        </div>
+        <br />
+        <div style={{ padding: "10px" }}>
+          <Link to="#" style={{ textDecoration: "none", color: "black" }}>
+            <div
+              style={{
+                display: "flex",
+                alignItems: "center",
+                fontSize: "12px",
+                cursor: "pointer",
+              }}
+            >
+              <Person2Outlined />
+              &nbsp; My Profile
+            </div>
+          </Link>
+          <br />
+          <Link
+            to="/assessorAdmin"
+            style={{ textDecoration: "none", color: "black" }}
+          >
+            <div
+              style={{
+                display: "flex",
+                alignItems: "center",
+                fontSize: "12px",
+                cursor: "pointer",
+              }}
+            >
+              <Person3Outlined />
+              &nbsp; Assessor
+            </div>
+          </Link>
+          <br />
+          <Link
+            to="/proctorerAdmin"
+            style={{ textDecoration: "none", color: "black" }}
+          >
+            <div
+              style={{
+                display: "flex",
+                alignItems: "center",
+                fontSize: "12px",
+                cursor: "pointer",
+              }}
+            >
+              <Person4Outlined />
+              &nbsp; Proctorer
+            </div>
+          </Link>
+          <center>
+            <br />
+            <br />
+            <Button
+              sx={{ color: "#fff" }}
+              variant="contained"
+              color="primary"
+              onClick={() => {
+                deleteAllCookies();
+                window.location.href = "/";
+              }}
+            >
+              Sign Out
+            </Button>
+          </center>
+        </div>
+      </Modal>
     </Box>
   );
 }

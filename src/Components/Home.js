@@ -88,7 +88,7 @@ function Home(props) {
             }}
           >
             <Grid item sm={6}>
-              <h1 style={{ color: "#07a8a0", fontWeight: "normal" }}>
+              <h1 style={{ color: "#193441", fontWeight: "normal" }}>
                 Welcome to The Exam Portal
               </h1>
               <br />
@@ -104,7 +104,7 @@ function Home(props) {
                 commitments. Overall, I would highly recommend this portal to
                 anyone looking to take an online exam"
                 <br />
-                <p style={{ color: "#07a8a0", fontSize: "20px" }}>
+                <p style={{ color: "#193441", fontSize: "20px" }}>
                   - Testimonial By a Student
                 </p>
               </div>
@@ -120,7 +120,7 @@ function Home(props) {
                 the exam. Overall, I have had a great experience using this
                 portal and would definitely recommend it to other students"
                 <br />
-                <p style={{ color: "#07a8a0", fontSize: "20px" }}>
+                <p style={{ color: "#193441", fontSize: "20px" }}>
                   - Testimonial By a Student
                 </p>
               </div> */}
@@ -134,7 +134,7 @@ function Home(props) {
       {/* <ProctorApp TestComponent={Test} testIdentifier={testIdentifier} fullScreenMessage={fullScreenMessage} />
       <button  onClick={getStats}>Get Statistics</button> */}
       
-      <Footer />
+      {/* <Footer /> */}
     </div>
   );
 }

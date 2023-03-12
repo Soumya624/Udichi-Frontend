@@ -203,7 +203,7 @@ function App() {
           <Routes>
             <Route path="/testing-page" element={<Test />} exact />
             {/* <Route path="/" element={<Signup setError={setError} />} exact /> */}
-            <Route path="/" element={<Home setError={setError} />} exact />
+            <Route path="/" element={<LoginAdmin setError={setError} />} exact />
             <Route
               path="/loginAdmin"
               element={<LoginAdmin setError={setError} />}

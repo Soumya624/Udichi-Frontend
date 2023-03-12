@@ -21,7 +21,7 @@ export default function Footer() {
         container
         spacing={2}
         style={{
-          backgroundColor: "#07a8a0",
+          backgroundColor: "#193441",
           color: "white",
           padding: window.innerWidth < 968 ? "5%" : "2%",
           position: "relative",

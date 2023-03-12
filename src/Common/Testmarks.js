@@ -315,7 +315,7 @@ export default function Confirmpresence({}) {
         <br />
         <br />
       </div>
-      <Footer />
+      {/* <Footer /> */}
     </div>
   );
 }

@@ -112,7 +112,7 @@ export default function BasicTable() {
         <br />
         <br />
       </div>
-      <Footer />
+      {/* <Footer /> */}
     </div>
   );
 }

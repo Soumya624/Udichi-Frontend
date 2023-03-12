@@ -129,7 +129,7 @@ export default function Index({ error, setError }) {
             style={{
               textDecoration: "none",
               cursor: "pointer",
-              color: "#07a8a0",
+              color: "#193441",
             }}
           >
             Your Account
@@ -154,7 +154,7 @@ export default function Index({ error, setError }) {
                   <Item
                     style={{
                       padding: "1.5%",
-                      borderLeft: "2rem solid #07a8a0",
+                      borderLeft: "2rem solid #193441",
                     }}
                   >
                     <h3 style={{ textAlign: "left" }}>{altst.title}</h3>
@@ -200,7 +200,7 @@ export default function Index({ error, setError }) {
                       <Box
                         gridColumn="span 3"
                         style={{
-                          color: "#07a8a0",
+                          color: "#193441",
                           cursor: "pointer",
                           display:
                             altst.type_of_test === "written" ? "none" : "",
@@ -266,7 +266,7 @@ export default function Index({ error, setError }) {
       <br />
       <br />
       <br />
-      <Footer />
+      {/* <Footer /> */}
       <Modal
         open={open}
         onClose={handleClose}
@@ -374,7 +374,7 @@ export default function Index({ error, setError }) {
             <Button
               variant="contained"
               style={{
-                backgroundColor: "#07a8a0",
+                backgroundColor: "#193441",
                 width: "50%",
               }}
               onClick={handleClose1}
@@ -464,7 +464,7 @@ export default function Index({ error, setError }) {
           <Button
             variant="contained"
             style={{
-              backgroundColor: "#07a8a0",
+              backgroundColor: "#193441",
               width: "50%",
             }}
             onClick={handleClose2}

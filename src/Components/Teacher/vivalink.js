@@ -102,7 +102,7 @@ export default function Confirmpresence() {
                 <br />
                 <Button
                   variant="contained"
-                  style={{ backgroundColor: "#07a8a0", width: "50%" }}
+                  style={{ backgroundColor: "#193441", width: "50%" }}
                   href="/dashboardAssessor"
                 >
                   Close
@@ -122,7 +122,7 @@ export default function Confirmpresence() {
         <br />
         <br />
       </div>
-      <Footer />
+      {/* <Footer /> */}
     </div>
   );
 }

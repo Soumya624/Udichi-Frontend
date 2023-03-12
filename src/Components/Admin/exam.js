@@ -30,6 +30,18 @@ import getCookie from "../../getCookie";
 import { Box, Button, CircularProgress, Grid } from "@mui/material";
 import moment from "moment";
 import { Modal as Modal1 } from "react-responsive-modal";
+import { Sidebar, SidebarItem } from "react-responsive-sidebar";
+import {
+  AccessTimeOutlined,
+  CampaignOutlined,
+  HelpOutlineOutlined,
+  HomeOutlined,
+  InsertChartOutlined,
+  PersonOutlineOutlined,
+  SummarizeRounded,
+  TuneOutlined,
+} from "@mui/icons-material";
+import Clock from "react-live-clock";
 
 function createData(name, candidates, duration, questions, action) {
   return { name, candidates, duration, questions, action };
@@ -96,9 +108,137 @@ export default function BasicTable({ error, setError }) {
       });
   }
 
+  const items1 = [
+    <SidebarItem></SidebarItem>,
+    <SidebarItem></SidebarItem>,
+    <SidebarItem></SidebarItem>,
+    <SidebarItem>
+      <div
+        style={{
+          alignItems: "center",
+          fontWeight: "normal",
+        }}
+      >
+        <b style={{ fontSize: "12px", fontWeight: "normal" }}>March, 2023</b>
+        <br />
+        <Clock
+          format={"h:mm:ss A"}
+          ticking={true}
+          timezone={"ASIA"}
+          style={{ fontSize: "semibold" }}
+        />
+      </div>
+    </SidebarItem>,
+    <SidebarItem href="/dashboardAdmin">
+      <div
+        style={{
+          display: "flex",
+          alignItems: "center",
+          fontSize: "15px",
+          fontWeight: "normal",
+        }}
+      >
+        <HomeOutlined />
+        &nbsp; Dashboard
+      </div>
+    </SidebarItem>,
+    <SidebarItem href="/examAdmin">
+      <div
+        style={{
+          display: "flex",
+          alignItems: "center",
+          fontSize: "15px",
+          fontWeight: "normal",
+        }}
+      >
+        <AccessTimeOutlined />
+        &nbsp; Exams
+      </div>
+    </SidebarItem>,
+    <SidebarItem href="/candidateAdmin">
+      <div
+        style={{
+          display: "flex",
+          alignItems: "center",
+          fontSize: "15px",
+          fontWeight: "normal",
+        }}
+      >
+        <PersonOutlineOutlined />
+        &nbsp; Candidates
+      </div>
+    </SidebarItem>,
+    <SidebarItem href="/questionAdmin">
+      <div
+        style={{
+          display: "flex",
+          alignItems: "center",
+          fontSize: "15px",
+          fontWeight: "normal",
+        }}
+      >
+        <SummarizeRounded />
+        &nbsp; Questions
+      </div>
+    </SidebarItem>,
+    <SidebarItem href="#">
+      <div
+        style={{
+          display: "flex",
+          alignItems: "center",
+          fontSize: "15px",
+          fontWeight: "normal",
+        }}
+      >
+        <InsertChartOutlined />
+        &nbsp; Statistics
+      </div>
+    </SidebarItem>,
+    <SidebarItem href="#">
+      <div
+        style={{
+          display: "flex",
+          alignItems: "center",
+          fontSize: "15px",
+          fontWeight: "normal",
+        }}
+      >
+        <CampaignOutlined />
+        &nbsp; Notifications
+      </div>
+    </SidebarItem>,
+    <SidebarItem href="#">
+      <div
+        style={{
+          display: "flex",
+          alignItems: "center",
+          fontSize: "15px",
+          fontWeight: "normal",
+        }}
+      >
+        <TuneOutlined />
+        &nbsp; Settings
+      </div>
+    </SidebarItem>,
+    <SidebarItem href="#">
+      <div
+        style={{
+          display: "flex",
+          alignItems: "center",
+          fontSize: "15px",
+          fontWeight: "normal",
+        }}
+      >
+        <HelpOutlineOutlined />
+        &nbsp; Help & Support
+      </div>
+    </SidebarItem>,
+  ];
+  
   console.log(allexamcandidates);
   return (
     <div>
+      <Sidebar content={items1} background="#193441">
       <Navbar />
       <div style={{ margin: "5%" }}>
         <br />
@@ -111,7 +251,7 @@ export default function BasicTable({ error, setError }) {
           Manually Create an{" "}
           <a
             href="/addexamAdmin"
-            style={{ textDecoration: "none", color: "#07a8a0" }}
+            style={{ textDecoration: "none", color: "#193441" }}
           >
             Exam
           </a>
@@ -219,7 +359,6 @@ export default function BasicTable({ error, setError }) {
         <br />
         <br />
       </div>
-      <Footer />
       <Modal1 open={open1} onClose={handleClose1} center>
         <Box style={{ padding: "3%" }}>
           <center>
@@ -297,7 +436,7 @@ export default function BasicTable({ error, setError }) {
             <Button
               variant="contained"
               style={{
-                backgroundColor: "#07a8a0",
+                backgroundColor: "#193441",
                 width: "50%",
               }}
               onClick={handleClose1}
@@ -386,7 +525,7 @@ export default function BasicTable({ error, setError }) {
           <Button
             variant="contained"
             style={{
-              backgroundColor: "#07a8a0",
+              backgroundColor: "#193441",
               width: "50%",
             }}
             onClick={handleClose2}
@@ -395,6 +534,7 @@ export default function BasicTable({ error, setError }) {
           </Button>
         </center>
       </Modal1>
+      </Sidebar>
     </div>
   );
 }

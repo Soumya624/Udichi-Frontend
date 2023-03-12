@@ -509,7 +509,7 @@ export default function Confirmpresence({
 										{/* <Grid item sm={3}>
                       <Button
 												style={{
-													backgroundColor: "#07a8a0",
+													backgroundColor: "#193441",
 													color: "white",
 													boxShadow: "none",
 													fontSize: "10px",
@@ -633,7 +633,7 @@ export default function Confirmpresence({
 				<br />
 				<br />
 			</div>
-			<Footer />
+			{/* <Footer /> */}
 		</div>
 	);
 }

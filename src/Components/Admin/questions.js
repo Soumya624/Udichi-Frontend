@@ -34,6 +34,18 @@ import Typography from "@mui/material/Typography";
 import TextField from "@mui/material/TextField";
 import { CircularProgress } from "@mui/material";
 import question_demo_file from "./../../Common/Question_Udichi.xlsx";
+import { Sidebar, SidebarItem } from "react-responsive-sidebar";
+import {
+  AccessTimeOutlined,
+  CampaignOutlined,
+  HelpOutlineOutlined,
+  HomeOutlined,
+  InsertChartOutlined,
+  PersonOutlineOutlined,
+  SummarizeRounded,
+  TuneOutlined,
+} from "@mui/icons-material";
+import Clock from "react-live-clock";
 
 const style = {
   position: "absolute",
@@ -155,8 +167,136 @@ export default function BasicTable({ error, setError }) {
       });
   }
 
+  const items1 = [
+    <SidebarItem></SidebarItem>,
+    <SidebarItem></SidebarItem>,
+    <SidebarItem></SidebarItem>,
+    <SidebarItem>
+      <div
+        style={{
+          alignItems: "center",
+          fontWeight: "normal",
+        }}
+      >
+        <b style={{ fontSize: "12px", fontWeight: "normal" }}>March, 2023</b>
+        <br />
+        <Clock
+          format={"h:mm:ss A"}
+          ticking={true}
+          timezone={"ASIA"}
+          style={{ fontSize: "semibold" }}
+        />
+      </div>
+    </SidebarItem>,
+    <SidebarItem href="/dashboardAdmin">
+      <div
+        style={{
+          display: "flex",
+          alignItems: "center",
+          fontSize: "15px",
+          fontWeight: "normal",
+        }}
+      >
+        <HomeOutlined />
+        &nbsp; Dashboard
+      </div>
+    </SidebarItem>,
+    <SidebarItem href="/examAdmin">
+      <div
+        style={{
+          display: "flex",
+          alignItems: "center",
+          fontSize: "15px",
+          fontWeight: "normal",
+        }}
+      >
+        <AccessTimeOutlined />
+        &nbsp; Exams
+      </div>
+    </SidebarItem>,
+    <SidebarItem href="/candidateAdmin">
+      <div
+        style={{
+          display: "flex",
+          alignItems: "center",
+          fontSize: "15px",
+          fontWeight: "normal",
+        }}
+      >
+        <PersonOutlineOutlined />
+        &nbsp; Candidates
+      </div>
+    </SidebarItem>,
+    <SidebarItem href="/questionAdmin">
+      <div
+        style={{
+          display: "flex",
+          alignItems: "center",
+          fontSize: "15px",
+          fontWeight: "normal",
+        }}
+      >
+        <SummarizeRounded />
+        &nbsp; Questions
+      </div>
+    </SidebarItem>,
+    <SidebarItem href="#">
+      <div
+        style={{
+          display: "flex",
+          alignItems: "center",
+          fontSize: "15px",
+          fontWeight: "normal",
+        }}
+      >
+        <InsertChartOutlined />
+        &nbsp; Statistics
+      </div>
+    </SidebarItem>,
+    <SidebarItem href="#">
+      <div
+        style={{
+          display: "flex",
+          alignItems: "center",
+          fontSize: "15px",
+          fontWeight: "normal",
+        }}
+      >
+        <CampaignOutlined />
+        &nbsp; Notifications
+      </div>
+    </SidebarItem>,
+    <SidebarItem href="#">
+      <div
+        style={{
+          display: "flex",
+          alignItems: "center",
+          fontSize: "15px",
+          fontWeight: "normal",
+        }}
+      >
+        <TuneOutlined />
+        &nbsp; Settings
+      </div>
+    </SidebarItem>,
+    <SidebarItem href="#">
+      <div
+        style={{
+          display: "flex",
+          alignItems: "center",
+          fontSize: "15px",
+          fontWeight: "normal",
+        }}
+      >
+        <HelpOutlineOutlined />
+        &nbsp; Help & Support
+      </div>
+    </SidebarItem>,
+  ];
+
   return (
     <div>
+      <Sidebar content={items1} background="#193441">
       <Navbar />
       <div style={{ margin: "5%" }}>
         <br />
@@ -169,7 +309,7 @@ export default function BasicTable({ error, setError }) {
           Manually Add a{" "}
           <a
             href="/addquestionAdmin"
-            style={{ textDecoration: "none", color: "#07a8a0" }}
+            style={{ textDecoration: "none", color: "#193441" }}
           >
             Question
           </a>
@@ -179,7 +319,7 @@ export default function BasicTable({ error, setError }) {
             style={{
               textDecoration: "none",
               cursor: "pointer",
-              color: "#07a8a0",
+              color: "#193441",
             }}
           >
             Upload File
@@ -256,7 +396,6 @@ export default function BasicTable({ error, setError }) {
         <br />
         <br />
       </div>
-      <Footer />
       <Modal
         open={open}
         onClose={handleClose}
@@ -291,7 +430,7 @@ export default function BasicTable({ error, setError }) {
           <center>
             <Button
               variant="contained"
-              style={{ backgroundColor: "#07a8a0", width: "50%" }}
+              style={{ backgroundColor: "#193441", width: "50%" }}
               onClick={handleSubmit1}
             >
               Continue
@@ -300,7 +439,7 @@ export default function BasicTable({ error, setError }) {
             <a
               style={{
                 textDecoration: "none",
-                color: "#07a8a0",
+                color: "#193441",
                 fontSize: "10px",
                 cursor: "pointer",
               }}
@@ -312,6 +451,7 @@ export default function BasicTable({ error, setError }) {
           </center>
         </Box>
       </Modal>
+      </Sidebar>
     </div>
   );
 }

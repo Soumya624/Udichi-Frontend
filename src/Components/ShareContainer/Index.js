@@ -337,7 +337,7 @@ export default function Index({
                         cameraStatus === "recording"
                       )
                         ? "#aaaaaa"
-                        : "#07a8a0",
+                        : "#193441",
                       margin: "2px",
                     }}
                     // enabled={
@@ -359,7 +359,7 @@ export default function Index({
                         cameraStatus === "recording"
                       )
                         ? "#aaaaaa"
-                        : "#07a8a0",
+                        : "#193441",
                       margin: "2px",
                     }}
                     // enabled={
@@ -377,7 +377,7 @@ export default function Index({
 </CardActions> */}
         </Card>
       </div>
-      <Footer />
+      {/* <Footer /> */}
     </>
   );
 }
