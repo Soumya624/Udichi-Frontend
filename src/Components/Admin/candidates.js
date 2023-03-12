@@ -38,6 +38,7 @@ import candidate_demo_file from "./../../Common/Candidate_Udichi.xlsx";
 import { Sidebar, SidebarItem } from "react-responsive-sidebar";
 import {
   AccessTimeOutlined,
+  AddOutlined,
   CampaignOutlined,
   HelpOutlineOutlined,
   HomeOutlined,
@@ -295,12 +296,12 @@ export default function BasicTable({ error, setError }) {
   return (
     <div>
       <Sidebar content={items1} background="#193441">
-      <Navbar />
-      <div style={{ margin: "5%" }}>
-        <br />
-        <br />
-        <br />
-        <h4 style={{ textAlign: "left", fontSize: "28px", lineHeight: "1px" }}>
+        <Navbar />
+        <div style={{ margin: "5%" }}>
+          <br />
+          <br />
+          <br />
+          {/* <h4 style={{ textAlign: "left", fontSize: "28px", lineHeight: "1px" }}>
           Total Candidates
         </h4>
         <p style={{ lineHeight: "1px" }}>
@@ -322,201 +323,234 @@ export default function BasicTable({ error, setError }) {
           >
             Upload File
           </a>
-        </p>
-        <br />
-        <br />
-        {!candigroup && (
-          <div
-            style={{
-              display: "flex",
-              alignItems: "center",
-              justifyContent: "center",
-            }}
-          >
-            <CircularProgress />
-          </div>
-        )}
-        {candigroup &&
-          candigroup.map((key) => {
-            return (
-              // <List
-              //   sx={{ width: "100%", bgcolor: "background.paper" }}
-              //   component="nav"
-              //   aria-labelledby="nested-list-subheader"
-              // >
-              //   <ListItemButton onClick={handleClick}>
-              //     <ListItemIcon>
-              //       <InboxIcon />
-              //     </ListItemIcon>
-              //     <ListItemText primary={key.title} />
-              //     {open ? <ExpandLess /> : <ExpandMore />}
-              //   </ListItemButton>
-              //   <Collapse in={open} timeout="auto" unmountOnExit>
-              //     <TableContainer component={Paper}>
-              //       <Table sx={{ minWidth: 650 }} aria-label="simple table">
-              //         <TableHead>
-              //           <TableRow>
-              //             <TableCell>
-              //               <b>Candidate Name</b>
-              //             </TableCell>
-              //             <TableCell align="right">
-              //               <b>ID of Candidates</b>
-              //             </TableCell>
+        </p> */}
+          <Grid container spacing={1} style={{ alignItems: "center" }}>
+            <Grid item xs={6}>
+              <h4
+                style={{
+                  textAlign: "left",
+                  fontSize: "28px",
+                  margin: "5px 0",
+                }}
+              >
+                Candidates
+              </h4>
+              <a
+                onClick={handleOpen}
+                style={{
+                  textDecoration: "none",
+                  cursor: "pointer",
+                  color: "#193441",
+                }}
+              >
+                Upload an Excel File
+              </a>
+            </Grid>
+            <Grid item xs={6} style={{ textAlign: "right" }}>
+              <Button
+                variant="contained"
+                color="success"
+                href="/addcandidateAdmin"
+              >
+                <AddOutlined />
+                Add
+              </Button>
+            </Grid>
+          </Grid>
+          <br />
+          <br />
+          {!candigroup && (
+            <div
+              style={{
+                display: "flex",
+                alignItems: "center",
+                justifyContent: "center",
+              }}
+            >
+              <CircularProgress />
+            </div>
+          )}
+          {candigroup &&
+            candigroup.map((key) => {
+              return (
+                // <List
+                //   sx={{ width: "100%", bgcolor: "background.paper" }}
+                //   component="nav"
+                //   aria-labelledby="nested-list-subheader"
+                // >
+                //   <ListItemButton onClick={handleClick}>
+                //     <ListItemIcon>
+                //       <InboxIcon />
+                //     </ListItemIcon>
+                //     <ListItemText primary={key.title} />
+                //     {open ? <ExpandLess /> : <ExpandMore />}
+                //   </ListItemButton>
+                //   <Collapse in={open} timeout="auto" unmountOnExit>
+                //     <TableContainer component={Paper}>
+                //       <Table sx={{ minWidth: 650 }} aria-label="simple table">
+                //         <TableHead>
+                //           <TableRow>
+                //             <TableCell>
+                //               <b>Candidate Name</b>
+                //             </TableCell>
+                //             <TableCell align="right">
+                //               <b>ID of Candidates</b>
+                //             </TableCell>
 
-              //             <TableCell align="right">
-              //               <b>Username</b>
-              //             </TableCell>
-              //             <TableCell align="right">
-              //               <b>Action</b>
-              //             </TableCell>
-              //           </TableRow>
-              //         </TableHead>
-              //         <TableBody>
-              //           {rows.map((row) => (
-              //             <TableRow
-              //               key={row.name}
-              //               sx={{
-              //                 "&:last-child td, &:last-child th": { border: 0 },
-              //               }}
-              //             >
-              //               <TableCell component="th" scope="row">
-              //                 {row.name}
-              //               </TableCell>
-              //               <TableCell align="right">{row.candidates}</TableCell>
+                //             <TableCell align="right">
+                //               <b>Username</b>
+                //             </TableCell>
+                //             <TableCell align="right">
+                //               <b>Action</b>
+                //             </TableCell>
+                //           </TableRow>
+                //         </TableHead>
+                //         <TableBody>
+                //           {rows.map((row) => (
+                //             <TableRow
+                //               key={row.name}
+                //               sx={{
+                //                 "&:last-child td, &:last-child th": { border: 0 },
+                //               }}
+                //             >
+                //               <TableCell component="th" scope="row">
+                //                 {row.name}
+                //               </TableCell>
+                //               <TableCell align="right">{row.candidates}</TableCell>
 
-              //               <TableCell align="right">{row.username}</TableCell>
-              //               <TableCell
-              //                 align="right"
-              //                 style={{ cursor: "pointer" }}
-              //               >
-              //                 {row.action}
-              //               </TableCell>
-              //             </TableRow>
-              //           ))}
-              //         </TableBody>
-              //       </Table>
-              //     </TableContainer>
-              //   </Collapse>
-              // </List>
-              <Collapsible trigger={key.title} style={{ padding: "2px" }}>
-                <TableContainer component={Paper}>
-                  <Table sx={{ minWidth: 650 }} aria-label="simple table">
-                    <TableHead>
-                      <TableRow>
-                        <TableCell>
-                          <b>Candidate Name</b>
-                        </TableCell>
-                        <TableCell align="right">
-                          <b>ID of Candidate</b>
-                        </TableCell>
-
-                        <TableCell align="right">
-                          <b>Username</b>
-                        </TableCell>
-                        <TableCell align="right">
-                          <b>Action</b>
-                        </TableCell>
-                      </TableRow>
-                    </TableHead>
-                    <TableBody>
-                      {key.candidates.map((x) => (
-                        <TableRow
-                          key={x._id}
-                          sx={{
-                            "&:last-child td, &:last-child th": { border: 0 },
-                          }}
-                        >
-                          <TableCell component="th" scope="row">
-                            {x.firstname + x.lastname}
+                //               <TableCell align="right">{row.username}</TableCell>
+                //               <TableCell
+                //                 align="right"
+                //                 style={{ cursor: "pointer" }}
+                //               >
+                //                 {row.action}
+                //               </TableCell>
+                //             </TableRow>
+                //           ))}
+                //         </TableBody>
+                //       </Table>
+                //     </TableContainer>
+                //   </Collapse>
+                // </List>
+                <Collapsible trigger={key.title} style={{ padding: "2px" }}>
+                  <TableContainer component={Paper}>
+                    <Table sx={{ minWidth: 650 }} aria-label="simple table">
+                      <TableHead>
+                        <TableRow>
+                          <TableCell>
+                            <b>Candidate Name</b>
                           </TableCell>
-                          <TableCell align="right">{x._id}</TableCell>
+                          <TableCell align="right">
+                            <b>ID of Candidate</b>
+                          </TableCell>
 
-                          <TableCell align="right">{x.username}</TableCell>
-                          <TableCell
-                            align="right"
-                            style={{ cursor: "pointer", color: "grey" }}
-                          >
-                            Delete
+                          <TableCell align="right">
+                            <b>Username</b>
+                          </TableCell>
+                          <TableCell align="right">
+                            <b>Action</b>
                           </TableCell>
                         </TableRow>
-                      ))}
-                    </TableBody>
-                  </Table>
-                </TableContainer>
-              </Collapsible>
-            );
-          })}
+                      </TableHead>
+                      <TableBody>
+                        {key.candidates.map((x) => (
+                          <TableRow
+                            key={x._id}
+                            sx={{
+                              "&:last-child td, &:last-child th": { border: 0 },
+                            }}
+                          >
+                            <TableCell component="th" scope="row">
+                              {x.firstname + x.lastname}
+                            </TableCell>
+                            <TableCell align="right">{x._id}</TableCell>
 
-        <br />
-        <br />
-      </div>
-      <Modal
-        open={open}
-        onClose={handleClose}
-        aria-labelledby="modal-modal-title"
-        aria-describedby="modal-modal-description"
-      >
-        <Box sx={style}>
-          <center>
-            <Grid container spacing={1} style={{ marginTop: "0.5%" }}>
-              <center>
-                <h4>General Guidelines</h4>
-                <ul>
-                  <li style={{ textAlign: "justify" }}>
-                    The File Must Contain Unique Candidates
-                  </li>
-                  <li style={{ textAlign: "justify" }}>
-                    Any Two Files Shouln't Contain Exactly Same Candidate(s)
-                  </li>
-                </ul>
-                <br />
-              </center>
-              <Grid item xs={12}>
-                <TextField
-                  id="outlined-basic"
-                  label="Specify Candidate Group"
-                  variant="outlined"
-                  size="small"
-                  style={{ width: "98.5%" }}
-                  onChange={(e) => {
-                    e.preventDefault();
-                    setName(e.target.value);
-                  }}
-                />
+                            <TableCell align="right">{x.username}</TableCell>
+                            <TableCell
+                              align="right"
+                              style={{ cursor: "pointer", color: "grey" }}
+                            >
+                              Delete
+                            </TableCell>
+                          </TableRow>
+                        ))}
+                      </TableBody>
+                    </Table>
+                  </TableContainer>
+                </Collapsible>
+              );
+            })}
+
+          <br />
+          <br />
+        </div>
+        <Modal
+          open={open}
+          onClose={handleClose}
+          aria-labelledby="modal-modal-title"
+          aria-describedby="modal-modal-description"
+        >
+          <Box sx={style}>
+            <center>
+              <Grid container spacing={1} style={{ marginTop: "0.5%" }}>
+                <center>
+                  <h4>General Guidelines</h4>
+                  <ul>
+                    <li style={{ textAlign: "justify" }}>
+                      The File Must Contain Unique Candidates
+                    </li>
+                    <li style={{ textAlign: "justify" }}>
+                      Any Two Files Shouln't Contain Exactly Same Candidate(s)
+                    </li>
+                  </ul>
+                  <br />
+                </center>
+                <Grid item xs={12}>
+                  <TextField
+                    id="outlined-basic"
+                    label="Specify Candidate Group"
+                    variant="outlined"
+                    size="small"
+                    style={{ width: "98.5%" }}
+                    onChange={(e) => {
+                      e.preventDefault();
+                      setName(e.target.value);
+                    }}
+                  />
+                </Grid>
               </Grid>
-            </Grid>
-          </center>
-          <input
-            type="file"
-            onChange={(e) => setFile(e.target.files[0])}
-            style={{ margin: "3%" }}
-          />
-          <br />
-          <br />
-          <center>
-            <Button
-              variant="contained"
-              style={{ backgroundColor: "#193441", width: "50%" }}
-              onClick={handleSubmit1}
-            >
-              Continue
-            </Button>
+            </center>
+            <input
+              type="file"
+              onChange={(e) => setFile(e.target.files[0])}
+              style={{ margin: "3%" }}
+            />
             <br />
-            <a
-              style={{
-                textDecoration: "none",
-                color: "#193441",
-                fontSize: "10px",
-                cursor: "pointer",
-              }}
-              href={candidate_demo_file}
-              download
-            >
-              Click Here to Download Sample Excel File
-            </a>
-          </center>
-        </Box>
-      </Modal>
+            <br />
+            <center>
+              <Button
+                variant="contained"
+                style={{ backgroundColor: "#193441", width: "50%" }}
+                onClick={handleSubmit1}
+              >
+                Continue
+              </Button>
+              <br />
+              <a
+                style={{
+                  textDecoration: "none",
+                  color: "#193441",
+                  fontSize: "10px",
+                  cursor: "pointer",
+                }}
+                href={candidate_demo_file}
+                download
+              >
+                Click Here to Download Sample Excel File
+              </a>
+            </center>
+          </Box>
+        </Modal>
       </Sidebar>
     </div>
   );

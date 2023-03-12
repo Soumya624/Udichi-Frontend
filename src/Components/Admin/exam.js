@@ -33,11 +33,14 @@ import { Modal as Modal1 } from "react-responsive-modal";
 import { Sidebar, SidebarItem } from "react-responsive-sidebar";
 import {
   AccessTimeOutlined,
+  AddOutlined,
   CampaignOutlined,
+  HdrPlusOutlined,
   HelpOutlineOutlined,
   HomeOutlined,
   InsertChartOutlined,
   PersonOutlineOutlined,
+  PlusOneOutlined,
   SummarizeRounded,
   TuneOutlined,
 } from "@mui/icons-material";
@@ -234,66 +237,82 @@ export default function BasicTable({ error, setError }) {
       </div>
     </SidebarItem>,
   ];
-  
+
   console.log(allexamcandidates);
   return (
     <div>
       <Sidebar content={items1} background="#193441">
-      <Navbar />
-      <div style={{ margin: "5%" }}>
-        <br />
-        <br />
-        <br />
-        <h4 style={{ textAlign: "left", fontSize: "28px", lineHeight: "1px" }}>
-          Upcoming Exams
-        </h4>
-        <p style={{ lineHeight: "1px" }}>
-          Manually Create an{" "}
-          <a
-            href="/addexamAdmin"
-            style={{ textDecoration: "none", color: "#193441" }}
-          >
-            Exam
-          </a>
-          {/* &nbsp;Or <input type="file" /> */}
-        </p>
-        <br />
-        <br />
-        {!examgroup && (
-          <div
-            style={{
-              display: "flex",
-              alignItems: "center",
-              justifyContent: "center",
-            }}
-          >
-            <CircularProgress />
-          </div>
-        )}
-        {examgroup && (
-          <TableContainer component={Paper}>
-            <Table sx={{ minWidth: 650 }} aria-label="simple table">
-              <TableHead>
-                <TableRow>
-                  <TableCell>
-                    <b>Exam Name</b>
-                  </TableCell>
-                  <TableCell align="right">
-                    <b>Start Date/Time</b>
-                  </TableCell>
-                  <TableCell align="right">
-                    <b>Full Marks</b>
-                  </TableCell>
-                  <TableCell align="right">
-                    <b>Question Groups</b>
-                  </TableCell>
-                  <TableCell align="right">
-                    <b>Action</b>
-                  </TableCell>
-                </TableRow>
-              </TableHead>
-              <TableBody>
-                {/* {rows.map((row) => (
+        <Navbar />
+        <div style={{ margin: "5%" }}>
+          <br />
+          <br />
+          <br />
+          {/* <div>
+            <h4
+              style={{ textAlign: "left", fontSize: "28px", lineHeight: "1px" }}
+            >
+              Exams
+            </h4>
+            <Button variant="contained" color="success" href="/addexamAdmin">
+              <AddOutlined />
+              Create
+            </Button>
+          </div> */}
+          <Grid container spacing={1} style={{ alignItems: "center" }}>
+            <Grid item xs={6}>
+              <h4
+                style={{
+                  textAlign: "left",
+                  fontSize: "28px",
+                }}
+              >
+                Exams
+              </h4>
+            </Grid>
+            <Grid item xs={6} style={{textAlign:"right"}}>
+              <Button variant="contained" color="success" href="/addexamAdmin">
+                <AddOutlined />
+                Create
+              </Button>
+            </Grid>
+          </Grid>
+          <br />
+          <br />
+          {!examgroup && (
+            <div
+              style={{
+                display: "flex",
+                alignItems: "center",
+                justifyContent: "center",
+              }}
+            >
+              <CircularProgress />
+            </div>
+          )}
+          {examgroup && (
+            <TableContainer component={Paper}>
+              <Table sx={{ minWidth: 650 }} aria-label="simple table">
+                <TableHead>
+                  <TableRow>
+                    <TableCell>
+                      <b>Exam Name</b>
+                    </TableCell>
+                    <TableCell align="right">
+                      <b>Start Date/Time</b>
+                    </TableCell>
+                    <TableCell align="right">
+                      <b>Full Marks</b>
+                    </TableCell>
+                    <TableCell align="right">
+                      <b>Question Groups</b>
+                    </TableCell>
+                    <TableCell align="right">
+                      <b>Action</b>
+                    </TableCell>
+                  </TableRow>
+                </TableHead>
+                <TableBody>
+                  {/* {rows.map((row) => (
                     <TableRow
                       key={row.name}
                       sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
@@ -309,36 +328,124 @@ export default function BasicTable({ error, setError }) {
                       </TableCell>
                     </TableRow>
                   ))} */}
-                {examgroup.map((key) => {
-                  let momentDate = moment
-                    .utc(key.starting_date)
-                    .format("MM/DD/YY, h:mm:ss a");
-                  return (
-                    <TableRow
-                      key={key._id}
-                      sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
-                    >
-                      <TableCell component="th" scope="row">
-                        {key.title}
-                      </TableCell>
-                      <TableCell align="right">{momentDate}</TableCell>
-                      <TableCell align="right">{key.total_number}</TableCell>
-                      <TableCell align="right">
-                        {key.question_groups.map((x) => {
-                          return x.title + " ";
-                        })}
-                      </TableCell>
-                      <TableCell
-                        align="right"
-                        style={{ cursor: "pointer", color: "grey" }}
+                  {examgroup.map((key) => {
+                    let momentDate = moment
+                      .utc(key.starting_date)
+                      .format("MM/DD/YY, h:mm:ss a");
+                    return (
+                      <TableRow
+                        key={key._id}
+                        sx={{
+                          "&:last-child td, &:last-child th": { border: 0 },
+                        }}
+                      >
+                        <TableCell component="th" scope="row">
+                          {key.title}
+                        </TableCell>
+                        <TableCell align="right">{momentDate}</TableCell>
+                        <TableCell align="right">{key.total_number}</TableCell>
+                        <TableCell align="right">
+                          {key.question_groups.map((x) => {
+                            return x.title + " ";
+                          })}
+                        </TableCell>
+                        <TableCell
+                          align="right"
+                          style={{ cursor: "pointer", color: "grey" }}
+                          onClick={() => {
+                            handleOpen1();
+                            axiosInstance
+                              .get(
+                                `/attempts/attempts_group/${key._id}`,
+                                config
+                              )
+                              .then((res) => {
+                                if (res.status === 200) {
+                                  console.log(res);
+                                  setDemodata(res.data);
+                                }
+                              })
+                              .catch((err) => {
+                                console.log(err);
+                              });
+                          }}
+                        >
+                          View Results
+                        </TableCell>
+                      </TableRow>
+                    );
+                  })}
+                </TableBody>
+              </Table>
+            </TableContainer>
+          )}
+
+          <br />
+          <br />
+        </div>
+        <Modal1 open={open1} onClose={handleClose1} center>
+          <Box style={{ padding: "3%" }}>
+            <center>
+              <h3>View Results</h3>
+              <p style={{ padding: "0 5%" }}>
+                Click On The Link Below to Get The Attempts of The Students Who
+                Have Submitted The Exam
+              </p>
+              <br />
+              <Grid
+                container
+                spacing={1}
+                style={{
+                  marginTop: "0.5%",
+                  alignItems: "center",
+                  overFlowY: "scroll",
+                }}
+              >
+                <Grid item xs={6}>
+                  <p style={{ textAlign: "left", fontWeight: "bold" }}>Name</p>
+                </Grid>
+                <Grid item xs={6}>
+                  <p style={{ textAlign: "right", fontWeight: "bold" }}>
+                    View Attempts
+                  </p>
+                </Grid>
+              </Grid>
+              {demodata.map((altst) => {
+                return (
+                  <Grid
+                    container
+                    spacing={0}
+                    style={{
+                      marginTop: "0.1%",
+                      alignItems: "center",
+                      overFlowY: "scroll",
+                    }}
+                  >
+                    <Grid item xs={6}>
+                      <p style={{ textAlign: "left" }}>
+                        {altst.candidate.firstname} {altst.candidate.lastname}
+                      </p>
+                    </Grid>
+                    <Grid item xs={6}>
+                      <p
+                        style={{
+                          textAlign: "right",
+                          color: "red",
+                          cursor: "pointer",
+                        }}
                         onClick={() => {
-                          handleOpen1();
+                          handleOpen2();
                           axiosInstance
-                            .get(`/attempts/attempts_group/${key._id}`, config)
+                            .get(
+                              `/attempts/attempts_groups/${altst._id}`,
+                              config
+                            )
                             .then((res) => {
                               if (res.status === 200) {
                                 console.log(res);
-                                setDemodata(res.data);
+                                setAllexamcandidates(
+                                  res.data.attempts_submitted
+                                );
                               }
                             })
                             .catch((err) => {
@@ -346,26 +453,34 @@ export default function BasicTable({ error, setError }) {
                             });
                         }}
                       >
-                        View Results
-                      </TableCell>
-                    </TableRow>
-                  );
-                })}
-              </TableBody>
-            </Table>
-          </TableContainer>
-        )}
-
-        <br />
-        <br />
-      </div>
-      <Modal1 open={open1} onClose={handleClose1} center>
-        <Box style={{ padding: "3%" }}>
+                        View
+                      </p>
+                    </Grid>
+                  </Grid>
+                );
+              })}
+              <br />
+              <br />
+              <br />
+              <Button
+                variant="contained"
+                style={{
+                  backgroundColor: "#193441",
+                  width: "50%",
+                }}
+                onClick={handleClose1}
+              >
+                Close
+              </Button>
+            </center>
+          </Box>
+        </Modal1>
+        <Modal1 open={open2} onClose={handleClose2} center>
           <center>
-            <h3>View Results</h3>
-            <p style={{ padding: "0 5%" }}>
-              Click On The Link Below to Get The Attempts of The Students Who
-              Have Submitted The Exam
+            <h3>View Attempts</h3>
+            <p style={{ padding: "0 8%" }}>
+              Click On The Link Below to Check The Answer Script. And to Update
+              The Marks
             </p>
             <br />
             <Grid
@@ -378,15 +493,20 @@ export default function BasicTable({ error, setError }) {
               }}
             >
               <Grid item xs={6}>
-                <p style={{ textAlign: "left", fontWeight: "bold" }}>Name</p>
-              </Grid>
-              <Grid item xs={6}>
-                <p style={{ textAlign: "right", fontWeight: "bold" }}>
-                  View Attempts
+                <p style={{ textAlign: "left", fontWeight: "bold" }}>
+                  Attempt Id
                 </p>
               </Grid>
+              <Grid item xs={6}>
+                <p style={{ textAlign: "right", fontWeight: "bold" }}>Marks</p>
+              </Grid>
+              {/* <Grid item xs={4}>
+              <p style={{ textAlign: "right", fontWeight: "bold" }}>
+                Edit Marks
+              </p>
+            </Grid> */}
             </Grid>
-            {demodata.map((altst) => {
+            {allexamcandidates.map((altst) => {
               return (
                 <Grid
                   container
@@ -398,103 +518,12 @@ export default function BasicTable({ error, setError }) {
                   }}
                 >
                   <Grid item xs={6}>
-                    <p style={{ textAlign: "left" }}>
-                      {altst.candidate.firstname} {altst.candidate.lastname}
-                    </p>
+                    <p style={{ textAlign: "left" }}>{altst._id}</p>
                   </Grid>
                   <Grid item xs={6}>
-                    <p
-                      style={{
-                        textAlign: "right",
-                        color: "red",
-                        cursor: "pointer",
-                      }}
-                      onClick={() => {
-                        handleOpen2();
-                        axiosInstance
-                          .get(`/attempts/attempts_groups/${altst._id}`, config)
-                          .then((res) => {
-                            if (res.status === 200) {
-                              console.log(res);
-                              setAllexamcandidates(res.data.attempts_submitted);
-                            }
-                          })
-                          .catch((err) => {
-                            console.log(err);
-                          });
-                      }}
-                    >
-                      View
-                    </p>
+                    <p style={{ textAlign: "right" }}>{altst.marks_obtained}</p>
                   </Grid>
-                </Grid>
-              );
-            })}
-            <br />
-            <br />
-            <br />
-            <Button
-              variant="contained"
-              style={{
-                backgroundColor: "#193441",
-                width: "50%",
-              }}
-              onClick={handleClose1}
-            >
-              Close
-            </Button>
-          </center>
-        </Box>
-      </Modal1>
-      <Modal1 open={open2} onClose={handleClose2} center>
-        <center>
-          <h3>View Attempts</h3>
-          <p style={{ padding: "0 8%" }}>
-            Click On The Link Below to Check The Answer Script. And to Update
-            The Marks
-          </p>
-          <br />
-          <Grid
-            container
-            spacing={1}
-            style={{
-              marginTop: "0.5%",
-              alignItems: "center",
-              overFlowY: "scroll",
-            }}
-          >
-            <Grid item xs={6}>
-              <p style={{ textAlign: "left", fontWeight: "bold" }}>
-                Attempt Id
-              </p>
-            </Grid>
-            <Grid item xs={6}>
-              <p style={{ textAlign: "right", fontWeight: "bold" }}>Marks</p>
-            </Grid>
-            {/* <Grid item xs={4}>
-              <p style={{ textAlign: "right", fontWeight: "bold" }}>
-                Edit Marks
-              </p>
-            </Grid> */}
-          </Grid>
-          {allexamcandidates.map((altst) => {
-            return (
-              <Grid
-                container
-                spacing={0}
-                style={{
-                  marginTop: "0.1%",
-                  alignItems: "center",
-                  overFlowY: "scroll",
-                }}
-              >
-                <Grid item xs={6}>
-                  <p style={{ textAlign: "left" }}>{altst._id}</p>
-                </Grid>
-                <Grid item xs={6}>
-                  <p style={{ textAlign: "right" }}>{altst.marks_obtained}</p>
-                </Grid>
-                {/* <Grid item xs={4}>
+                  {/* <Grid item xs={4}>
                   <p
                     style={{
                       textAlign: "right",
@@ -516,24 +545,24 @@ export default function BasicTable({ error, setError }) {
                     Edit
                   </p>
                 </Grid> */}
-              </Grid>
-            );
-          })}
-          <br />
-          <br />
-          <br />
-          <Button
-            variant="contained"
-            style={{
-              backgroundColor: "#193441",
-              width: "50%",
-            }}
-            onClick={handleClose2}
-          >
-            Close
-          </Button>
-        </center>
-      </Modal1>
+                </Grid>
+              );
+            })}
+            <br />
+            <br />
+            <br />
+            <Button
+              variant="contained"
+              style={{
+                backgroundColor: "#193441",
+                width: "50%",
+              }}
+              onClick={handleClose2}
+            >
+              Close
+            </Button>
+          </center>
+        </Modal1>
       </Sidebar>
     </div>
   );

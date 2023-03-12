@@ -37,6 +37,7 @@ import question_demo_file from "./../../Common/Question_Udichi.xlsx";
 import { Sidebar, SidebarItem } from "react-responsive-sidebar";
 import {
   AccessTimeOutlined,
+  AddOutlined,
   CampaignOutlined,
   HelpOutlineOutlined,
   HomeOutlined,
@@ -297,12 +298,12 @@ export default function BasicTable({ error, setError }) {
   return (
     <div>
       <Sidebar content={items1} background="#193441">
-      <Navbar />
-      <div style={{ margin: "5%" }}>
-        <br />
-        <br />
-        <br />
-        <h4 style={{ textAlign: "left", fontSize: "28px", lineHeight: "1px" }}>
+        <Navbar />
+        <div style={{ margin: "5%" }}>
+          <br />
+          <br />
+          <br />
+          {/* <h4 style={{ textAlign: "left", fontSize: "28px", lineHeight: "1px" }}>
           Total Questions
         </h4>
         <p style={{ lineHeight: "1px" }}>
@@ -324,133 +325,166 @@ export default function BasicTable({ error, setError }) {
           >
             Upload File
           </a>
-        </p>
-        <br />
-        <br />
-        {!quesgroup && (
-          <div
-            style={{
-              display: "flex",
-              alignItems: "center",
-              justifyContent: "center",
-            }}
-          >
-            <CircularProgress />
-          </div>
-        )}
-        {quesgroup &&
-          quesgroup.map((key) => {
-            return (
-              <Collapsible trigger={key.title} style={{ padding: "2px" }}>
-                <TableContainer component={Paper}>
-                  <Table sx={{ minWidth: 650 }} aria-label="simple table">
-                    <TableHead>
-                      <TableRow>
-                        <TableCell>
-                          <b>Title</b>
-                        </TableCell>
-                        <TableCell align="right">
-                          <b>ID of Question</b>
-                        </TableCell>
-
-                        <TableCell align="right">
-                          <b>Type</b>
-                        </TableCell>
-                        <TableCell align="right">
-                          <b>Action</b>
-                        </TableCell>
-                      </TableRow>
-                    </TableHead>
-                    <TableBody>
-                      {key.questions.map((x) => (
-                        <TableRow
-                          key={x._id}
-                          sx={{
-                            "&:last-child td, &:last-child th": { border: 0 },
-                          }}
-                        >
-                          <TableCell component="th" scope="row">
-                            {x.title}
+        </p> */}
+          <Grid container spacing={1} style={{ alignItems: "center" }}>
+            <Grid item xs={6}>
+              <h4
+                style={{
+                  textAlign: "left",
+                  fontSize: "28px",
+                  margin: "5px 0",
+                }}
+              >
+                Questions
+              </h4>
+              <a
+                onClick={handleOpen}
+                style={{
+                  textDecoration: "none",
+                  cursor: "pointer",
+                  color: "#193441",
+                }}
+              >
+                Upload an Excel File
+              </a>
+            </Grid>
+            <Grid item xs={6} style={{ textAlign: "right" }}>
+              <Button
+                variant="contained"
+                color="success"
+                href="/addquestionAdmin"
+              >
+                <AddOutlined />
+                Add
+              </Button>
+            </Grid>
+          </Grid>
+          <br />
+          <br />
+          {!quesgroup && (
+            <div
+              style={{
+                display: "flex",
+                alignItems: "center",
+                justifyContent: "center",
+              }}
+            >
+              <CircularProgress />
+            </div>
+          )}
+          {quesgroup &&
+            quesgroup.map((key) => {
+              return (
+                <Collapsible trigger={key.title} style={{ padding: "2px" }}>
+                  <TableContainer component={Paper}>
+                    <Table sx={{ minWidth: 650 }} aria-label="simple table">
+                      <TableHead>
+                        <TableRow>
+                          <TableCell>
+                            <b>Title</b>
                           </TableCell>
-                          <TableCell align="right">{x._id}</TableCell>
+                          <TableCell align="right">
+                            <b>ID of Question</b>
+                          </TableCell>
 
                           <TableCell align="right">
-                            {x.is_objective === false
-                              ? "Fill in the Blanks"
-                              : "MCQ"}
+                            <b>Type</b>
                           </TableCell>
-                          <TableCell
-                            align="right"
-                            style={{ cursor: "pointer", color: "grey" }}
-                          >
-                            Delete
+                          <TableCell align="right">
+                            <b>Action</b>
                           </TableCell>
                         </TableRow>
-                      ))}
-                    </TableBody>
-                  </Table>
-                </TableContainer>
-              </Collapsible>
-            );
-          })}
-        <br />
-        <br />
-      </div>
-      <Modal
-        open={open}
-        onClose={handleClose}
-        aria-labelledby="modal-modal-title"
-        aria-describedby="modal-modal-description"
-      >
-        <Box sx={style}>
-          <center>
-            <Grid container spacing={1} style={{ marginTop: "0.5%" }}>
-              <Grid item xs={12}>
-                <TextField
-                  id="outlined-basic"
-                  label="Specify Question Group"
-                  variant="outlined"
-                  size="small"
-                  style={{ width: "98.5%" }}
-                  onChange={(e) => {
-                    e.preventDefault();
-                    setName(e.target.value);
-                  }}
-                />
+                      </TableHead>
+                      <TableBody>
+                        {key.questions.map((x) => (
+                          <TableRow
+                            key={x._id}
+                            sx={{
+                              "&:last-child td, &:last-child th": { border: 0 },
+                            }}
+                          >
+                            <TableCell component="th" scope="row">
+                              {x.title}
+                            </TableCell>
+                            <TableCell align="right">{x._id}</TableCell>
+
+                            <TableCell align="right">
+                              {x.is_objective === false
+                                ? "Fill in the Blanks"
+                                : "MCQ"}
+                            </TableCell>
+                            <TableCell
+                              align="right"
+                              style={{ cursor: "pointer", color: "grey" }}
+                            >
+                              Delete
+                            </TableCell>
+                          </TableRow>
+                        ))}
+                      </TableBody>
+                    </Table>
+                  </TableContainer>
+                </Collapsible>
+              );
+            })}
+          <br />
+          <br />
+        </div>
+        <Modal
+          open={open}
+          onClose={handleClose}
+          aria-labelledby="modal-modal-title"
+          aria-describedby="modal-modal-description"
+        >
+          <Box sx={style}>
+            <center>
+              <Grid container spacing={1} style={{ marginTop: "0.5%" }}>
+                <Grid item xs={12}>
+                  <TextField
+                    id="outlined-basic"
+                    label="Specify Question Group"
+                    variant="outlined"
+                    size="small"
+                    style={{ width: "98.5%" }}
+                    onChange={(e) => {
+                      e.preventDefault();
+                      setName(e.target.value);
+                    }}
+                  />
+                </Grid>
               </Grid>
-            </Grid>
-          </center>
-          <input
-            type="file"
-            onChange={(e) => setFile(e.target.files[0])}
-            style={{ margin: "3%" }}
-          />
-          <br />
-          <br />
-          <center>
-            <Button
-              variant="contained"
-              style={{ backgroundColor: "#193441", width: "50%" }}
-              onClick={handleSubmit1}
-            >
-              Continue
-            </Button>
+            </center>
+            <input
+              type="file"
+              onChange={(e) => setFile(e.target.files[0])}
+              style={{ margin: "3%" }}
+            />
             <br />
-            <a
-              style={{
-                textDecoration: "none",
-                color: "#193441",
-                fontSize: "10px",
-                cursor: "pointer",
-              }}
-              href={question_demo_file}
-              download
-            >
-              Click Here to Download Sample Excel File
-            </a>
-          </center>
-        </Box>
-      </Modal>
+            <br />
+            <center>
+              <Button
+                variant="contained"
+                style={{ backgroundColor: "#193441", width: "50%" }}
+                onClick={handleSubmit1}
+              >
+                Continue
+              </Button>
+              <br />
+              <a
+                style={{
+                  textDecoration: "none",
+                  color: "#193441",
+                  fontSize: "10px",
+                  cursor: "pointer",
+                }}
+                href={question_demo_file}
+                download
+              >
+                Click Here to Download Sample Excel File
+              </a>
+            </center>
+          </Box>
+        </Modal>
       </Sidebar>
     </div>
   );

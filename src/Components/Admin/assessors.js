@@ -37,6 +37,7 @@ import { CircularProgress } from "@mui/material";
 import { Sidebar, SidebarItem } from "react-responsive-sidebar";
 import {
   AccessTimeOutlined,
+  AddOutlined,
   CampaignOutlined,
   HelpOutlineOutlined,
   HomeOutlined,
@@ -290,12 +291,12 @@ export default function BasicTable({ error, setError }) {
   return (
     <div>
       <Sidebar content={items1} background="#193441">
-      <Navbar />
-      <div style={{ margin: "5%" }}>
-        <br />
-        <br />
-        <br />
-        <h4 style={{ textAlign: "left", fontSize: "28px", lineHeight: "1px" }}>
+        <Navbar />
+        <div style={{ margin: "5%" }}>
+          <br />
+          <br />
+          <br />
+          {/* <h4 style={{ textAlign: "left", fontSize: "28px", lineHeight: "1px" }}>
           Total Assessor
         </h4>
         <p style={{ lineHeight: "1px" }}>
@@ -306,71 +307,94 @@ export default function BasicTable({ error, setError }) {
           >
             Assessor
           </a>
-        </p>
-        <br />
-        <br />
-        {!candigroup && (
-          <div
-            style={{
-              display: "flex",
-              alignItems: "center",
-              justifyContent: "center",
-            }}
-          >
-            <CircularProgress />
-          </div>
-        )}
-        <TableContainer component={Paper}>
-          <Table sx={{ minWidth: 650 }} aria-label="simple table">
-            <TableHead>
-              <TableRow>
-                <TableCell>
-                  <b>Assessor Name</b>
-                </TableCell>
-                <TableCell align="right">
-                  <b>ID of Assessor</b>
-                </TableCell>
+        </p> */}
+          <Grid container spacing={1} style={{ alignItems: "center" }}>
+            <Grid item xs={6}>
+              <h4
+                style={{
+                  textAlign: "left",
+                  fontSize: "28px",
+                  margin: "5px 0",
+                }}
+              >
+                Assessors
+              </h4>
+            </Grid>
+            <Grid item xs={6} style={{ textAlign: "right" }}>
+              <Button
+                variant="contained"
+                color="success"
+                href="/addassessorAdmin"
+              >
+                <AddOutlined />
+                Add
+              </Button>
+            </Grid>
+          </Grid>
+          <br />
+          <br />
+          {!candigroup && (
+            <div
+              style={{
+                display: "flex",
+                alignItems: "center",
+                justifyContent: "center",
+              }}
+            >
+              <CircularProgress />
+            </div>
+          )}
+          <TableContainer component={Paper}>
+            <Table sx={{ minWidth: 650 }} aria-label="simple table">
+              <TableHead>
+                <TableRow>
+                  <TableCell>
+                    <b>Assessor Name</b>
+                  </TableCell>
+                  <TableCell align="right">
+                    <b>ID of Assessor</b>
+                  </TableCell>
 
-                <TableCell align="right">
-                  <b>Username</b>
-                </TableCell>
-                <TableCell align="right">
-                  <b>Action</b>
-                </TableCell>
-              </TableRow>
-            </TableHead>
-            <TableBody>
-              {candigroup &&
-                candigroup.map((x) => {
-                  return (
-                    <TableRow
-                      key={x._id}
-                      sx={{
-                        "&:last-child td, &:last-child th": { border: 0 },
-                      }}
-                    >
-                      <TableCell component="th" scope="row">
-                        {x.firstname + x.lastname}
-                      </TableCell>
-                      <TableCell align="right">{x._id}</TableCell>
-
-                      <TableCell align="right">{x.username}</TableCell>
-                      <TableCell
-                        align="right"
-                        style={{ cursor: "pointer", color: "grey" }}
+                  <TableCell align="right">
+                    <b>Username</b>
+                  </TableCell>
+                  <TableCell align="right">
+                    <b>Action</b>
+                  </TableCell>
+                </TableRow>
+              </TableHead>
+              <TableBody>
+                {candigroup &&
+                  candigroup.map((x) => {
+                    return (
+                      <TableRow
+                        key={x._id}
+                        sx={{
+                          "&:last-child td, &:last-child th": { border: 0 },
+                        }}
                       >
-                        Delete
-                      </TableCell>
-                    </TableRow>
-                  );
-                })}
-            </TableBody>
-          </Table>
-        </TableContainer>
+                        <TableCell component="th" scope="row">
+                          {x.firstname + x.lastname}
+                        </TableCell>
+                        <TableCell align="right">{x._id}</TableCell>
 
-        <br />
-        <br />
-      </div>
+                        <TableCell align="right">{x.username}</TableCell>
+                        <TableCell
+                          align="right"
+                          style={{ cursor: "pointer", color: "grey" }}
+                        >
+                          Delete
+                        </TableCell>
+                      </TableRow>
+                    );
+                  })}
+              </TableBody>
+            </Table>
+          </TableContainer>
+
+          <br />
+          <br />
+        </div>
       </Sidebar>
     </div>
   );
