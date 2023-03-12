@@ -38,11 +38,13 @@ import { Sidebar, SidebarItem } from "react-responsive-sidebar";
 import {
   AccessTimeOutlined,
   AddOutlined,
+  ArrowDropDownOutlined,
   CampaignOutlined,
   HelpOutlineOutlined,
   HomeOutlined,
   InsertChartOutlined,
   PersonOutlineOutlined,
+  SettingsOutlined,
   SummarizeRounded,
   TuneOutlined,
 } from "@mui/icons-material";
@@ -383,7 +385,8 @@ export default function BasicTable({ error, setError }) {
                           align="right"
                           style={{ cursor: "pointer", color: "grey" }}
                         >
-                          Delete
+                          <SettingsOutlined/>
+                          <ArrowDropDownOutlined/>
                         </TableCell>
                       </TableRow>
                     );

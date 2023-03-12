@@ -579,7 +579,7 @@ export default function AddCandidate({ error, setError }) {
                       <center>
                         <FormControl required fullWidth>
                           <InputLabel id="demo-simple-select-label">
-                            Question Group
+                            Question Section
                           </InputLabel>
                           <center>
                             <Select
@@ -587,7 +587,7 @@ export default function AddCandidate({ error, setError }) {
                               labelId="demo-simple-select-label"
                               id="demo-simple-select"
                               value={group}
-                              label="Question Group"
+                              label="Question Section"
                               onChange={handleChange2}
                               size="small"
                               style={{ paddingBottom: "2%" }}
@@ -674,7 +674,7 @@ export default function AddCandidate({ error, setError }) {
                       onClick={create_group}
                       style={{ textDecoration: "none", cursor: "pointer" }}
                     >
-                      Question Group
+                      Section
                     </a>
                   </p>
                 </form>
@@ -755,7 +755,7 @@ export default function AddCandidate({ error, setError }) {
                   <Grid item xs={12}>
                     <TextField
                       id="outlined-basic"
-                      label="Question Group Name"
+                      label="Section Name"
                       variant="outlined"
                       size="small"
                       style={{ width: "98.5%" }}

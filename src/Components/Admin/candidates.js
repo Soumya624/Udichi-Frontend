@@ -39,11 +39,13 @@ import { Sidebar, SidebarItem } from "react-responsive-sidebar";
 import {
   AccessTimeOutlined,
   AddOutlined,
+  ArrowDropDownOutlined,
   CampaignOutlined,
   HelpOutlineOutlined,
   HomeOutlined,
   InsertChartOutlined,
   PersonOutlineOutlined,
+  SettingsOutlined,
   SummarizeRounded,
   TuneOutlined,
 } from "@mui/icons-material";
@@ -370,117 +372,163 @@ export default function BasicTable({ error, setError }) {
               <CircularProgress />
             </div>
           )}
-          {candigroup &&
-            candigroup.map((key) => {
-              return (
-                // <List
-                //   sx={{ width: "100%", bgcolor: "background.paper" }}
-                //   component="nav"
-                //   aria-labelledby="nested-list-subheader"
-                // >
-                //   <ListItemButton onClick={handleClick}>
-                //     <ListItemIcon>
-                //       <InboxIcon />
-                //     </ListItemIcon>
-                //     <ListItemText primary={key.title} />
-                //     {open ? <ExpandLess /> : <ExpandMore />}
-                //   </ListItemButton>
-                //   <Collapse in={open} timeout="auto" unmountOnExit>
-                //     <TableContainer component={Paper}>
-                //       <Table sx={{ minWidth: 650 }} aria-label="simple table">
-                //         <TableHead>
-                //           <TableRow>
-                //             <TableCell>
-                //               <b>Candidate Name</b>
-                //             </TableCell>
-                //             <TableCell align="right">
-                //               <b>ID of Candidates</b>
-                //             </TableCell>
+          <TableContainer component={Paper}>
+            <Table sx={{ minWidth: 650 }} aria-label="simple table">
+              <TableHead>
+                <TableRow>
+                  <TableCell>
+                    <b>Candidate Name</b>
+                  </TableCell>
+                  <TableCell align="right">
+                    <b>Group</b>
+                  </TableCell>
 
-                //             <TableCell align="right">
-                //               <b>Username</b>
-                //             </TableCell>
-                //             <TableCell align="right">
-                //               <b>Action</b>
-                //             </TableCell>
-                //           </TableRow>
-                //         </TableHead>
-                //         <TableBody>
-                //           {rows.map((row) => (
-                //             <TableRow
-                //               key={row.name}
-                //               sx={{
-                //                 "&:last-child td, &:last-child th": { border: 0 },
-                //               }}
-                //             >
-                //               <TableCell component="th" scope="row">
-                //                 {row.name}
-                //               </TableCell>
-                //               <TableCell align="right">{row.candidates}</TableCell>
+                  <TableCell align="right">
+                    <b>Username</b>
+                  </TableCell>
+                  <TableCell align="right">
+                    <b>Action</b>
+                  </TableCell>
+                </TableRow>
+              </TableHead>
+              {candigroup &&
+                candigroup.map((key) => {
+                  return (
+                    // <List
+                    //   sx={{ width: "100%", bgcolor: "background.paper" }}
+                    //   component="nav"
+                    //   aria-labelledby="nested-list-subheader"
+                    // >
+                    //   <ListItemButton onClick={handleClick}>
+                    //     <ListItemIcon>
+                    //       <InboxIcon />
+                    //     </ListItemIcon>
+                    //     <ListItemText primary={key.title} />
+                    //     {open ? <ExpandLess /> : <ExpandMore />}
+                    //   </ListItemButton>
+                    //   <Collapse in={open} timeout="auto" unmountOnExit>
+                    //     <TableContainer component={Paper}>
+                    //       <Table sx={{ minWidth: 650 }} aria-label="simple table">
+                    //         <TableHead>
+                    //           <TableRow>
+                    //             <TableCell>
+                    //               <b>Candidate Name</b>
+                    //             </TableCell>
+                    //             <TableCell align="right">
+                    //               <b>ID of Candidates</b>
+                    //             </TableCell>
 
-                //               <TableCell align="right">{row.username}</TableCell>
-                //               <TableCell
-                //                 align="right"
-                //                 style={{ cursor: "pointer" }}
-                //               >
-                //                 {row.action}
-                //               </TableCell>
-                //             </TableRow>
-                //           ))}
-                //         </TableBody>
-                //       </Table>
-                //     </TableContainer>
-                //   </Collapse>
-                // </List>
-                <Collapsible trigger={key.title} style={{ padding: "2px" }}>
-                  <TableContainer component={Paper}>
-                    <Table sx={{ minWidth: 650 }} aria-label="simple table">
-                      <TableHead>
-                        <TableRow>
-                          <TableCell>
-                            <b>Candidate Name</b>
-                          </TableCell>
-                          <TableCell align="right">
-                            <b>ID of Candidate</b>
-                          </TableCell>
+                    //             <TableCell align="right">
+                    //               <b>Username</b>
+                    //             </TableCell>
+                    //             <TableCell align="right">
+                    //               <b>Action</b>
+                    //             </TableCell>
+                    //           </TableRow>
+                    //         </TableHead>
+                    //         <TableBody>
+                    //           {rows.map((row) => (
+                    //             <TableRow
+                    //               key={row.name}
+                    //               sx={{
+                    //                 "&:last-child td, &:last-child th": { border: 0 },
+                    //               }}
+                    //             >
+                    //               <TableCell component="th" scope="row">
+                    //                 {row.name}
+                    //               </TableCell>
+                    //               <TableCell align="right">{row.candidates}</TableCell>
 
-                          <TableCell align="right">
-                            <b>Username</b>
+                    //               <TableCell align="right">{row.username}</TableCell>
+                    //               <TableCell
+                    //                 align="right"
+                    //                 style={{ cursor: "pointer" }}
+                    //               >
+                    //                 {row.action}
+                    //               </TableCell>
+                    //             </TableRow>
+                    //           ))}
+                    //         </TableBody>
+                    //       </Table>
+                    //     </TableContainer>
+                    //   </Collapse>
+                    // </List>
+                    // <Collapsible trigger={key.title} style={{ padding: "2px" }}>
+                    //   <TableContainer component={Paper}>
+                    //     <Table sx={{ minWidth: 650 }} aria-label="simple table">
+                    //       <TableHead>
+                    //         <TableRow>
+                    //           <TableCell>
+                    //             <b>Candidate Name</b>
+                    //           </TableCell>
+                    //           <TableCell align="right">
+                    //             <b>ID of Candidate</b>
+                    //           </TableCell>
+
+                    //           <TableCell align="right">
+                    //             <b>Username</b>
+                    //           </TableCell>
+                    //           <TableCell align="right">
+                    //             <b>Action</b>
+                    //           </TableCell>
+                    //         </TableRow>
+                    //       </TableHead>
+                    //       <TableBody>
+                    //         {key.candidates.map((x) => (
+                    //           <TableRow
+                    //             key={x._id}
+                    //             sx={{
+                    //               "&:last-child td, &:last-child th": { border: 0 },
+                    //             }}
+                    //           >
+                    //             <TableCell component="th" scope="row">
+                    //               {x.firstname + x.lastname}
+                    //             </TableCell>
+                    //             <TableCell align="right">{x._id}</TableCell>
+
+                    //             <TableCell align="right">{x.username}</TableCell>
+                    //             <TableCell
+                    //               align="right"
+                    //               style={{ cursor: "pointer", color: "grey" }}
+                    //             >
+                    //               <SettingsOutlined/>
+                    //               <ArrowDropDownOutlined/>
+                    //             </TableCell>
+                    //           </TableRow>
+                    //         ))}
+                    //       </TableBody>
+                    //     </Table>
+                    //   </TableContainer>
+                    // </Collapsible>
+
+                    <TableBody>
+                      {key.candidates.map((x) => (
+                        <TableRow
+                          key={x._id}
+                          sx={{
+                            "&:last-child td, &:last-child th": { border: 0 },
+                          }}
+                        >
+                          <TableCell component="th" scope="row">
+                            {x.firstname + x.lastname}
                           </TableCell>
-                          <TableCell align="right">
-                            <b>Action</b>
+                          <TableCell align="right">{key.title}</TableCell>
+
+                          <TableCell align="right">{x.username}</TableCell>
+                          <TableCell
+                            align="right"
+                            style={{ cursor: "pointer", color: "grey" }}
+                          >
+                            <SettingsOutlined />
+                            <ArrowDropDownOutlined />
                           </TableCell>
                         </TableRow>
-                      </TableHead>
-                      <TableBody>
-                        {key.candidates.map((x) => (
-                          <TableRow
-                            key={x._id}
-                            sx={{
-                              "&:last-child td, &:last-child th": { border: 0 },
-                            }}
-                          >
-                            <TableCell component="th" scope="row">
-                              {x.firstname + x.lastname}
-                            </TableCell>
-                            <TableCell align="right">{x._id}</TableCell>
-
-                            <TableCell align="right">{x.username}</TableCell>
-                            <TableCell
-                              align="right"
-                              style={{ cursor: "pointer", color: "grey" }}
-                            >
-                              Delete
-                            </TableCell>
-                          </TableRow>
-                        ))}
-                      </TableBody>
-                    </Table>
-                  </TableContainer>
-                </Collapsible>
-              );
-            })}
-
+                      ))}
+                    </TableBody>
+                  );
+                })}
+            </Table>
+          </TableContainer>
           <br />
           <br />
         </div>

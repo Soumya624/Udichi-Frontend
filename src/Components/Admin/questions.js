@@ -38,11 +38,13 @@ import { Sidebar, SidebarItem } from "react-responsive-sidebar";
 import {
   AccessTimeOutlined,
   AddOutlined,
+  ArrowDropDownOutlined,
   CampaignOutlined,
   HelpOutlineOutlined,
   HomeOutlined,
   InsertChartOutlined,
   PersonOutlineOutlined,
+  SettingsOutlined,
   SummarizeRounded,
   TuneOutlined,
 } from "@mui/icons-material";
@@ -372,61 +374,102 @@ export default function BasicTable({ error, setError }) {
               <CircularProgress />
             </div>
           )}
-          {quesgroup &&
-            quesgroup.map((key) => {
-              return (
-                <Collapsible trigger={key.title} style={{ padding: "2px" }}>
-                  <TableContainer component={Paper}>
-                    <Table sx={{ minWidth: 650 }} aria-label="simple table">
-                      <TableHead>
-                        <TableRow>
-                          <TableCell>
-                            <b>Title</b>
-                          </TableCell>
-                          <TableCell align="right">
-                            <b>ID of Question</b>
-                          </TableCell>
+          <TableContainer component={Paper}>
+            <Table sx={{ minWidth: 650 }} aria-label="simple table">
+              <TableHead>
+                <TableRow>
+                  <TableCell>
+                    <b>Section</b>
+                  </TableCell>
+                  <TableCell align="left">
+                    <b>Question Text</b>
+                  </TableCell>
+                  <TableCell align="right">
+                    <b>Action</b>
+                  </TableCell>
+                </TableRow>
+              </TableHead>
+              {quesgroup &&
+                quesgroup.map((key) => {
+                  return (
+                    // <Collapsible trigger={key.title} style={{ padding: "2px" }}>
+                    //   <TableContainer component={Paper}>
+                    //     <Table sx={{ minWidth: 650 }} aria-label="simple table">
+                    //       <TableHead>
+                    //         <TableRow>
+                    //           <TableCell>
+                    //             <b>Title</b>
+                    //           </TableCell>
+                    //           <TableCell align="right">
+                    //             <b>ID of Question</b>
+                    //           </TableCell>
 
-                          <TableCell align="right">
-                            <b>Type</b>
+                    //           <TableCell align="right">
+                    //             <b>Type</b>
+                    //           </TableCell>
+                    //           <TableCell align="right">
+                    //             <b>Action</b>
+                    //           </TableCell>
+                    //         </TableRow>
+                    //       </TableHead>
+                    //       <TableBody>
+                    //         {key.questions.map((x) => (
+                    //           <TableRow
+                    //             key={x._id}
+                    //             sx={{
+                    //               "&:last-child td, &:last-child th": { border: 0 },
+                    //             }}
+                    //           >
+                    //             <TableCell component="th" scope="row">
+                    //               {x.title}
+                    //             </TableCell>
+                    //             <TableCell align="right">{x._id}</TableCell>
+
+                    //             <TableCell align="right">
+                    //               {x.is_objective === false
+                    //                 ? "Fill in the Blanks"
+                    //                 : "MCQ"}
+                    //             </TableCell>
+                    //             <TableCell
+                    //               align="right"
+                    //               style={{ cursor: "pointer", color: "grey" }}
+                    //             >
+                    //               <SettingsOutlined/>
+                    //               <ArrowDropDownOutlined/>
+                    //             </TableCell>
+                    //           </TableRow>
+                    //         ))}
+                    //       </TableBody>
+                    //     </Table>
+                    //   </TableContainer>
+                    // </Collapsible>
+
+                    <TableBody>
+                      {key.questions.map((x) => (
+                        <TableRow
+                          key={x._id}
+                          sx={{
+                            "&:last-child td, &:last-child th": { border: 0 },
+                          }}
+                        >
+                          <TableCell component="th" scope="row">
+                            {key.title}
                           </TableCell>
-                          <TableCell align="right">
-                            <b>Action</b>
+                          <TableCell align="left">{x.title}</TableCell>
+                          <TableCell
+                            align="right"
+                            style={{ cursor: "pointer", color: "grey" }}
+                          >
+                            <SettingsOutlined />
+                            <ArrowDropDownOutlined />
                           </TableCell>
                         </TableRow>
-                      </TableHead>
-                      <TableBody>
-                        {key.questions.map((x) => (
-                          <TableRow
-                            key={x._id}
-                            sx={{
-                              "&:last-child td, &:last-child th": { border: 0 },
-                            }}
-                          >
-                            <TableCell component="th" scope="row">
-                              {x.title}
-                            </TableCell>
-                            <TableCell align="right">{x._id}</TableCell>
-
-                            <TableCell align="right">
-                              {x.is_objective === false
-                                ? "Fill in the Blanks"
-                                : "MCQ"}
-                            </TableCell>
-                            <TableCell
-                              align="right"
-                              style={{ cursor: "pointer", color: "grey" }}
-                            >
-                              Delete
-                            </TableCell>
-                          </TableRow>
-                        ))}
-                      </TableBody>
-                    </Table>
-                  </TableContainer>
-                </Collapsible>
-              );
-            })}
+                      ))}
+                    </TableBody>
+                  );
+                })}
+            </Table>
+          </TableContainer>
           <br />
           <br />
         </div>
@@ -442,7 +485,7 @@ export default function BasicTable({ error, setError }) {
                 <Grid item xs={12}>
                   <TextField
                     id="outlined-basic"
-                    label="Specify Question Group"
+                    label="Specify Question Section"
                     variant="outlined"
                     size="small"
                     style={{ width: "98.5%" }}
