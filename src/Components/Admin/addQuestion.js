@@ -34,17 +34,6 @@ import {
 } from "@mui/icons-material";
 import Clock from "react-live-clock";
 
-// let token = getCookie("access_token")
-// // let user = JSON.parse(localStorage.getItem("user"))
-
-// let user = {
-//   usertype : "teacher"
-// }
-
-// const config = {
-// 	headers: { Authorization: `Bearer ${token}`, "user-type" : user.usertype },
-// };
-
 const style = {
   position: "absolute",
   top: "50%",
@@ -100,15 +89,6 @@ const Input = ({
           }}
         />
       </Grid>
-      {/* <Grid item xs={3}>
-				<Button
-					variant="contained"
-					style={{ backgroundColor: "#193441", width: "50%" }}
-					onClick={add_option}
-				>
-					Add
-				</Button>
-			</Grid> */}
     </Grid>
   );
 };
@@ -179,57 +159,10 @@ export default function AddCandidate({ error, setError }) {
   const handleChange = (event) => {
     setType(event.target.value);
   };
-  // const handleChange1 = (event) => {
-  // 	setSection(event.target.value);
-  // };
 
   const handleChange2 = (event) => {
     setGroup(event.target.value);
   };
-
-  // async function create_ques(e) {
-  // 	e.preventDefault();
-  // 	if (type === "Des") {
-  // 		let data = {
-  // 			title: title,
-  // 			is_objective: false,
-  // 			positive_marks: positive,
-  // 			negative_marks: negetive,
-  // 		};
-  // 		axiosInstance
-  // 			.post("/questions/", data)
-  // 			.then((res) => {
-  // 				console.log(res);
-  // 				if (res.status === 200) {
-  // 					handleOpen();
-  // 					setQuestionid(res.data.data._id);
-  // 				}
-  // 			})
-  // 			.catch((err) => {
-  // 				console.log(err);
-  // 			});
-  // 	} else {
-  // 		let data = {
-  // 			title: title,
-  // 			is_objective: true,
-  // 			positive_marks: positive,
-  // 			negative_marks: negetive,
-  // 			options: arrayOption,
-  // 		};
-  // 		axiosInstance
-  // 			.post("/questions/", data)
-  // 			.then((res) => {
-  // 				console.log(res);
-  // 				if (res.status === 200) {
-  // 					handleOpen();
-  // 					setQuestionid(res.data.data._id);
-  // 				}
-  // 			})
-  // 			.catch((err) => {
-  // 				console.log(err);
-  // 			});
-  // 	}
-  // }
 
   async function create_questiongroup(e) {
     e.preventDefault();
@@ -249,7 +182,7 @@ export default function AddCandidate({ error, setError }) {
       })
       .catch((err) => {
         console.log(err);
-        setError("Error occurred! Please Try Again.....");
+        setError("Error occurred. Please try again!");
         setTimeout(() => {
           setError(null);
         }, 1000);
@@ -282,7 +215,7 @@ export default function AddCandidate({ error, setError }) {
       })
       .catch((err) => {
         console.log(err);
-        setError("Error occurred! Please Try Again.....");
+        setError("Error occurred. Please try again!");
         setTimeout(() => {
           setError(null);
         }, 1000);
@@ -292,11 +225,10 @@ export default function AddCandidate({ error, setError }) {
   async function assign_questiongroup(e) {
     e.preventDefault();
     console.log(type);
-    if(type === "Obj")
-    {
+    if (type === "Obj") {
       console.log("MCQ");
-      boltype=true;
-      strtype="Multiple Correct";
+      boltype = true;
+      strtype = "Multiple Correct";
     }
     console.log(boltype);
     let q_data = {
@@ -305,7 +237,7 @@ export default function AddCandidate({ error, setError }) {
       positive_marks: positive,
       negative_marks: negetive,
       options: option_list,
-      type_question: strtype
+      type_question: strtype,
     };
     let data = {
       question: q_data,
@@ -322,8 +254,8 @@ export default function AddCandidate({ error, setError }) {
           setNegetive("");
           setType("");
           setGroup("");
-          boltype=false;
-          strtype="Fill in the Blank";
+          boltype = false;
+          strtype = "Fill in the Blank";
           setOptionList([]);
           setInputList([]);
           handleClose();
@@ -331,7 +263,7 @@ export default function AddCandidate({ error, setError }) {
       })
       .catch((err) => {
         console.log(err);
-        setError("Error occurred! Please Try Again.....");
+        setError("Error occurred. Please try again!");
         setTimeout(() => {
           setError(null);
         }, 1000);
@@ -349,7 +281,7 @@ export default function AddCandidate({ error, setError }) {
           fontWeight: "normal",
         }}
       >
-        <b style={{ fontSize: "12px", fontWeight: "normal" }}>March, 2023</b>
+        <b style={{ fontSize: "12px", fontWeight: "normal" }}>March, 2024</b>
         <br />
         <Clock
           format={"h:mm:ss A"}
@@ -468,319 +400,219 @@ export default function AddCandidate({ error, setError }) {
   return (
     <div>
       <Sidebar content={items1} background="#193441">
-      <Navbar />
-      <div style={{ padding: "2%" }}>
-        <center>
-          <Card
-            sx={{ maxWidth: 500 }}
-            style={{
-              alignItems: "center",
-              justifyContent: "center",
-              marginTop: "5rem",
-              padding: "2%",
-            }}
-          >
-            <CardContent>
-              <Typography
-                gutterBottom
-                variant="h5"
-                component="div"
-                style={{ marginBottom: "0", fontWeight: "bold" }}
-              >
-                Add Question
-              </Typography>
-              <br />
-              <Typography variant="body2" color="text.secondary">
-                <form>
-                  <Grid container spacing={1} style={{ marginTop: "0.5%" }}>
-                    <Grid item xs={12}>
-                      <TextField
-                        fullWidth
-                        required
-                        value={title}
-                        id="outlined-basic"
-                        label="Type Your Question"
-                        variant="outlined"
-                        size="small"
-                        onChange={(e) => {
-                          e.preventDefault();
-                          setTitle(e.target.value);
-                        }}
-                      />
+        <Navbar />
+        <div style={{ padding: "2%" }}>
+          <center>
+            <Card
+              sx={{ maxWidth: 500 }}
+              style={{
+                alignItems: "center",
+                justifyContent: "center",
+                marginTop: "5rem",
+                padding: "2%",
+              }}
+            >
+              <CardContent>
+                <Typography
+                  gutterBottom
+                  variant="h5"
+                  component="div"
+                  style={{ marginBottom: "0", fontWeight: "bold" }}
+                >
+                  Add Question
+                </Typography>
+                <br />
+                <Typography variant="body2" color="text.secondary">
+                  <form>
+                    <Grid container spacing={1} style={{ marginTop: "0.5%" }}>
+                      <Grid item xs={12}>
+                        <TextField
+                          fullWidth
+                          required
+                          value={title}
+                          id="outlined-basic"
+                          label="Type Your Question"
+                          variant="outlined"
+                          size="small"
+                          onChange={(e) => {
+                            e.preventDefault();
+                            setTitle(e.target.value);
+                          }}
+                        />
+                      </Grid>
                     </Grid>
-                  </Grid>
-                  <Grid container spacing={1} style={{ marginTop: "0.5%" }}>
-                    <Grid item xs={6}>
-                      <TextField
-                        fullWidth
-                        required
-                        value={positive}
-                        id="outlined-basic"
-                        label="Positive Marks"
-                        variant="outlined"
-                        size="small"
-                        onChange={(e) => {
-                          e.preventDefault();
-                          setPositive(e.target.value);
-                        }}
-                      />
+                    <Grid container spacing={1} style={{ marginTop: "0.5%" }}>
+                      <Grid item xs={6}>
+                        <TextField
+                          fullWidth
+                          required
+                          value={positive}
+                          id="outlined-basic"
+                          label="Positive Marks"
+                          variant="outlined"
+                          size="small"
+                          onChange={(e) => {
+                            e.preventDefault();
+                            setPositive(e.target.value);
+                          }}
+                        />
+                      </Grid>
+                      <Grid item xs={6}>
+                        <TextField
+                          fullWidth
+                          required
+                          value={negetive}
+                          id="outlined-basic"
+                          label="Negetive Marks"
+                          variant="outlined"
+                          size="small"
+                          onChange={(e) => {
+                            e.preventDefault();
+                            setNegetive(e.target.value);
+                          }}
+                        />
+                      </Grid>
                     </Grid>
-                    <Grid item xs={6}>
-                      <TextField
-                        fullWidth
-                        required
-                        value={negetive}
-                        id="outlined-basic"
-                        label="Negetive Marks"
-                        variant="outlined"
-                        size="small"
-                        onChange={(e) => {
-                          e.preventDefault();
-                          setNegetive(e.target.value);
-                        }}
-                      />
-                    </Grid>
-                  </Grid>
-                  <Grid container spacing={1} style={{ marginTop: "0.5%" }}>
-                    <Grid item xs={12}>
-                      <center>
+                    <Grid container spacing={1} style={{ marginTop: "0.5%" }}>
+                      <Grid item xs={12}>
                         <FormControl required fullWidth>
-                          <InputLabel
-                            id="demo-simple-select-label"
-                            // style={{ marginBottom: "10%" }}
-                          >
+                          <InputLabel id="demo-simple-select-label">
                             Question Type
                           </InputLabel>
-                          <center>
-                            <Select
-                              fullWidth
-                              labelId="demo-simple-select-label"
-                              id="demo-simple-select"
-                              value={type}
-                              label="Question Type"
-                              onChange={handleChange}
-                              size="small"
-                              style={{ paddingBottom: "2%" }}
-                            >
-                              <MenuItem value={"Obj"}>
-                                Single/Miltiple Correct
-                              </MenuItem>
-                              <MenuItem value={"Des"}>
-                                Fill in The Blanks
-                              </MenuItem>
-                            </Select>
-                          </center>
+                          <Select
+                            fullWidth
+                            labelId="demo-simple-select-label"
+                            id="demo-simple-select"
+                            value={type}
+                            label="Question Type"
+                            onChange={handleChange}
+                          >
+                            <MenuItem value={"Obj"}>
+                              Single/Miltiple Correct
+                            </MenuItem>
+                            <MenuItem value={"Des"}>
+                              Fill in The Blanks
+                            </MenuItem>
+                          </Select>
                         </FormControl>
-                      </center>
+                      </Grid>
                     </Grid>
-                  </Grid>
-                  <Grid container spacing={1} style={{ marginTop: "0.5%" }}>
-                    <Grid item xs={12}>
-                      <center>
+                    <Grid container spacing={1} style={{ marginTop: "0.5%" }}>
+                      <Grid item xs={12}>
                         <FormControl required fullWidth>
                           <InputLabel id="demo-simple-select-label">
                             Question Section
                           </InputLabel>
-                          <center>
-                            <Select
-                              fullWidth
-                              labelId="demo-simple-select-label"
-                              id="demo-simple-select"
-                              value={group}
-                              label="Question Section"
-                              onChange={handleChange2}
-                              size="small"
-                              style={{ paddingBottom: "2%" }}
-                            >
-                              {quesgroup.map((key) => {
-                                return (
-                                  <MenuItem value={key._id}>
-                                    {key.title}
-                                  </MenuItem>
-                                );
-                              })}
-                            </Select>
-                          </center>
-                        </FormControl>
-                      </center>
-                    </Grid>
-                  </Grid>
-                  {/* <Grid item xs={6}>
-                    <center>
-                      <FormControl fullWidth>
-                        <InputLabel
-                          id="demo-simple-select-label"
-                          style={{ marginBottom: "15%" }}
-                        >
-                          Select Section
-                        </InputLabel>
-                        <center>
                           <Select
+                            fullWidth
                             labelId="demo-simple-select-label"
                             id="demo-simple-select"
-                            value={section}
-                            label="Candidate Group"
-                            onChange={handleChange1}
-                            size="small"
-                            style={{ width: "98.5%", padding: "2.5%" }}
-                          ></Select>
-                        </center>
-                      </FormControl>
-                    </center>
-                  </Grid> */}
-
-                  {/* <Grid container spacing={1} style={{ marginTop: "0.5%" }}>
-                  <Grid item xs={12}>
-                    <TextField
-                      id="outlined-basic"
-                      label="Add Explanation"
-                      variant="outlined"
-                      size="small"
-                      style={{ width: "98.5%" }}
-                    />
-                  </Grid>
-                </Grid> */}
-                  <br />
-                  {type === "Obj" ? (
-                    <Grid container spacing={1} style={{ marginLeft: "1%" }}>
-                      <Button
-                        variant="contained"
-                        style={{ backgroundColor: "#193441", margin: "1%" }}
-                        onClick={onAddBtnClick}
-                      >
-                        Add Option
-                      </Button>
+                            value={group}
+                            label="Question Section"
+                            onChange={handleChange2}
+                          >
+                            {quesgroup.map((key) => {
+                              return (
+                                <MenuItem value={key._id}>{key.title}</MenuItem>
+                              );
+                            })}
+                          </Select>
+                        </FormControl>
+                      </Grid>
                     </Grid>
-                  ) : (
-                    <center></center>
-                  )}
-                  <br />
-                  <div>{inputList}</div>
+                    <br />
+                    {type === "Obj" ? (
+                      <Grid container spacing={1} style={{ marginLeft: "0%" }}>
+                        <Button
+                          variant="contained"
+                          style={{
+                            backgroundColor: "#193441",
+                            margin: "2% 0%",
+                          }}
+                          onClick={onAddBtnClick}
+                        >
+                          Add Option
+                        </Button>
+                      </Grid>
+                    ) : (
+                      <center></center>
+                    )}
+                    <br />
+                    <div>{inputList}</div>
+                    <br />
+                    <Button
+                      variant="contained"
+                      style={{ backgroundColor: "#193441", width: "50%" }}
+                      onClick={assign_questiongroup}
+                    >
+                      Continue
+                    </Button>
+                    <br />
+                    <p>
+                      Click
+                      <a
+                        onClick={create_group}
+                        style={{
+                          textDecoration: "none",
+                          cursor: "pointer",
+                          color: "#193441",
+                        }}
+                      >
+                        &nbsp;here&nbsp;
+                      </a>
+                      to create a Section
+                    </p>
+                  </form>
+                </Typography>
+              </CardContent>
+            </Card>
+          </center>
+          <br />
+          <br />
+          <br />
+          <br />
+          <br />
+        </div>
+        <Modal
+          open={open}
+          onClose={handleClose}
+          aria-labelledby="modal-modal-title"
+          aria-describedby="modal-modal-description"
+        >
+          <Box sx={style}>
+            <center>
+              {true ? (
+                <div>
+                  <Grid container spacing={1} style={{ marginTop: "0.5%" }}>
+                    <Grid item xs={12}>
+                      <TextField
+                        id="outlined-basic"
+                        label="Enter Section Name"
+                        variant="outlined"
+                        size="small"
+                        fullWidth
+                        onChange={(e) => {
+                          e.preventDefault();
+                          setGrptitle(e.target.value);
+                        }}
+                      />
+                    </Grid>
+                  </Grid>
                   <br />
                   <Button
                     variant="contained"
                     style={{ backgroundColor: "#193441", width: "50%" }}
-                    onClick={assign_questiongroup}
+                    onClick={create_questiongroup}
                   >
                     Continue
                   </Button>
-                  {/* <p>
-                    <Button onClick={create_group}>Create Group</Button>
-                  </p> */}
-                  <br />
-                  <p>
-                    Create a{" "}
-                    <a
-                      onClick={create_group}
-                      style={{ textDecoration: "none", cursor: "pointer" }}
-                    >
-                      Section
-                    </a>
-                  </p>
-                </form>
-              </Typography>
-            </CardContent>
-            {/* <CardActions>
-          <Button size="small">Share</Button>
-          <Button size="small">Learn More</Button>
-        </CardActions> */}
-          </Card>
-        </center>
-        <br />
-        <br />
-        <br />
-        <br />
-        <br />
-      </div>
-      <Modal
-        open={open}
-        onClose={handleClose}
-        aria-labelledby="modal-modal-title"
-        aria-describedby="modal-modal-description"
-      >
-        <Box sx={style}>
-          <center>
-            {/* <p>
-							<a
-								onClick={create_group}
-								style={{
-									textDecoration: "none",
-									color: "blue",
-									cursor: "pointer",
-								}}
-							>
-								Create New
-							</a>{" "}
-							Group
-						</p> */}
-            {/* {assign === true ? (
-							<div>
-								<Grid container spacing={1} style={{ marginTop: "0.5%" }}>
-									<Grid item xs={12}>
-										<FormControl fullWidth style={{ width: "98.5%" }}>
-											<InputLabel id="demo-simple-select-label">
-												Question Group
-											</InputLabel>
-											<Select
-												labelId="demo-simple-select-label"
-												id="demo-simple-select"
-												value={group}
-												label="Question Group"
-												onChange={handleChange2}
-											>
-												{quesgroup.map((key) => {
-													return (
-														<MenuItem value={key._id}>{key.title}</MenuItem>
-													);
-												})}
-											</Select>
-										</FormControl>
-									</Grid>
-								</Grid>
-								<br />
-								<Button
-									variant="contained"
-									style={{ backgroundColor: "#193441", width: "50%" }}
-									onClick={assign_questiongroup}
-								>
-									Continues
-								</Button>{" "}
-							</div>
-						) : (
-							<center></center>
-						)} */}
-            {true ? (
-              <div>
-                <Grid container spacing={1} style={{ marginTop: "0.5%" }}>
-                  <Grid item xs={12}>
-                    <TextField
-                      id="outlined-basic"
-                      label="Section Name"
-                      variant="outlined"
-                      size="small"
-                      style={{ width: "98.5%" }}
-                      onChange={(e) => {
-                        e.preventDefault();
-                        setGrptitle(e.target.value);
-                      }}
-                    />
-                  </Grid>
-                </Grid>
-                <br />
-                <Button
-                  variant="contained"
-                  style={{ backgroundColor: "#193441", width: "50%" }}
-                  onClick={create_questiongroup}
-                >
-                  Continue
-                </Button>
-              </div>
-            ) : (
-              <center></center>
-            )}
-          </center>
-        </Box>
-      </Modal>
+                </div>
+              ) : (
+                <center></center>
+              )}
+            </center>
+          </Box>
+        </Modal>
       </Sidebar>
     </div>
   );

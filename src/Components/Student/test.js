@@ -106,10 +106,12 @@ export default function Confirmpresence({
   const [timer, setTimer] = useState(null);
 
   let attempt_id = JSON.parse(localStorage.getItem("attempt_id"));
+
   // if(attempt_id===null)
   // {
   // 	window.location.reload();
   // }
+
   useEffect(() => {
     let questions = JSON.parse(localStorage.getItem("questions"));
     setQuestion(questions);
@@ -129,7 +131,6 @@ export default function Confirmpresence({
     // let questions = JSON.parse(localStorage.getItem("questions"));
     let qId = parseInt(id);
     const question_data = questions[qId - 1];
-    // /check/:test/:question/:candidate
     axiosInstance
       .get(
         `/question_submission/check/${test}/${question_data._id}/${user}/${attempt_id}`,
@@ -145,50 +146,16 @@ export default function Confirmpresence({
       })
       .catch((err) => {
         console.log(err);
-        // if (err.response.status !== 404) setError("Error occurred! Please Try Again.....");
         setTimeout(() => {
           setError(null);
         }, 1000);
       });
   }, [id]);
-  // timer=durations;
   console.log(timer);
-  // setTimer(durations);
-  // let time = timer;
-  // console.log(time);
-  // setTimeout(() => {
-  //   localStorage.setItem("duration", JSON.stringify(timer - 1));
-  // }, 1000);
-
-  // console.log(questions)
-
-  // const { isLoading, image, takeScreenshot, clear } = useScreenshot();
-  // const { status, startRecording, stopRecording, mediaBlobUrl } =
-  // 	useReactMediaRecorder({ screen: true });
-  // const ref = useRef(null);
-
-  // const getImage = () => {
-  // 	clear();
-  // 	takeScreenshot("jpg", {
-  // 		backgroundColor: "white",
-  // 	});
-  // };
-
-  // const downloadImage = () => {
-  // 	let a = document.createElement("a");
-  // 	a.href = image;
-  // 	a.download = "Screenshot.png";
-  // 	a.click();
-  // };
-  // useEffect(()=>{
-  // 	console.log("akjfbdfk",submitted_options)
-  // },[submitted_options])
 
   let qId = parseInt(id);
   console.log(qId);
-  // if (!questions) return <h1>Loading..</h1>;
   const question_data = questions[qId - 1];
-  // console.log(question_data);
 
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
@@ -259,7 +226,7 @@ export default function Confirmpresence({
           }
         })
         .catch((err) => {
-          setError("Error occurred! Please Try Again.....");
+          setError("Error occurred. Please try again!");
           setTimeout(() => {
             setError(null);
           }, 1000);
@@ -290,7 +257,7 @@ export default function Confirmpresence({
         }
       })
       .catch((err) => {
-        setError("Error occurred! Please Try Again.....");
+        setError("Error occurred. Please try again!");
         setTimeout(() => {
           setError(null);
         }, 1000);
@@ -325,27 +292,21 @@ export default function Confirmpresence({
       })
       .catch((err) => {
         console.log(err);
-        setError("Error occurred! Please Try Again.....");
+        setError("Error occurred. Please try again!");
         setTimeout(() => {
           setError(null);
         }, 1000);
       });
   };
 
-  // Get the duration from local storage
   const duration = localStorage.getItem("duration");
-
-  // Initialize state variables to keep track of the time remaining
-  // and whether the timer has expired
   const [timeRemaining, setTimeRemaining] = useState(duration);
   const [isExpired, setIsExpired] = useState(false);
 
-  // Update the time remaining every 1000ms (1 second)
   useEffect(() => {
     const interval = setInterval(() => {
       setTimeRemaining(timeRemaining - 1000);
 
-      // If the time remaining has reached 0, the timer has expired
       if (timeRemaining <= 0) {
         setTimeRemaining(0);
         submittedTest();
@@ -380,7 +341,7 @@ export default function Confirmpresence({
       >
         <CircularProgress />
         <p>
-          <span>Do Not Close the Window</span>
+          <span>Don't Close the Window</span>
         </p>
       </div>
     );
@@ -397,7 +358,7 @@ export default function Confirmpresence({
           fontWeight: "normal",
         }}
       >
-        <b style={{ fontSize: "12px", fontWeight: "normal" }}>March, 2023</b>
+        <b style={{ fontSize: "12px", fontWeight: "normal" }}>March, 2024</b>
         <br />
         <Clock
           format={"h:mm:ss A"}
@@ -485,30 +446,8 @@ export default function Confirmpresence({
                         : "Multiple Correct Questions"}
                     </p>
                   </Grid>
-                  {/* <Countdown
-                    date={Date.now() + timer}
-                    onTick={(e) => {
-                      localStorage.setItem("duration", JSON.stringify(timer-1));
-                    }}
-                  >
-                    <p>End Now</p>
-                    
-                  </Countdown> */}
-
                   <Grid item xs={4}>
-                    {/* <Countdown
-                    date={Date.now() + timer}
-                    onTick={(e) => {
-                      localStorage.setItem(
-                        "duration",
-                        JSON.stringify(timer - 1)
-                      );
-                    }}
-                  >
-                    <p>End Now</p>
-                  </Countdown> */}
                     <div>
-                      {/* Display the time remaining */}
                       <p>{`${Math.floor(
                         timeRemaining / 1000 / 3600
                       )}:${Math.floor(
@@ -516,11 +455,8 @@ export default function Confirmpresence({
                       )}:${Math.floor(
                         ((timeRemaining / 1000) % 3600) % 60
                       )}`}</p>
-
-                      {/* If the timer has expired, show a message */}
                       {isExpired && <p style={{ color: "red" }}>Time's Up</p>}
                     </div>
-                    {/* <p>Remaining Time: {timer / 60 / 1000} mins.</p> */}
                   </Grid>
                   <Grid item xs={4} style={{ textAlign: "right" }}>
                     <p>
@@ -534,7 +470,6 @@ export default function Confirmpresence({
                     <h4 style={{ textAlign: "center" }}>Question {qId}</h4>
                     <p style={{ textAlign: "justify", alignItems: "center" }}>
                       {question_data.title}{" "}
-                      {/* <Speech styles={textstyle} text={question_data.title} /> */}
                     </p>
 
                     {question_data.is_objective ? (
@@ -593,7 +528,6 @@ export default function Confirmpresence({
                             boxShadow: "none",
                             fontSize: "10px",
                             width: "100%",
-                            // border: "1px solid black",
                           }}
                           onClick={saveAndNext}
                         >
@@ -608,20 +542,11 @@ export default function Confirmpresence({
                             boxShadow: "none",
                             fontSize: "10px",
                             width: "100%",
-                            // border: "1px solid black",
                           }}
-                          // id="expired-button"
                           onClick={async () => {
                             await saveAndNext();
                             handleOpen();
-                            // await submittedTest();
                           }}
-                          // onClick={() => {
-                          //   image && downloadImage();
-                          // }}
-                          // onClick={stopRecording}
-                          // href={mediaBlobUrl}
-                          // download
                           target="_blank"
                         >
                           Submit
@@ -642,12 +567,12 @@ export default function Confirmpresence({
                         component="h2"
                       >
                         <center>
-                          {attempt_id ? "Continue The Test" : "Submit The Test"}
+                          {attempt_id ? "Continue Test" : "Submit Test"}
                         </center>
                       </Typography>
                       <center>
                         <Typography id="modal-modal-description" sx={{ mt: 2 }}>
-                          Do You Want to Submit the Test?
+                          Do you want to submit the Test?
                         </Typography>
                       </center>
                       <br />
@@ -681,14 +606,16 @@ export default function Confirmpresence({
                         </Grid>
                       ))}
                     </Grid>
-                    {/* <video style={{width : "30em"}} src={mediaBlobUrl} controls autoPlay loop /> */}
+                    {/* <video
+                      style={{ width: "30em" }}
+                      src={mediaBlobUrl}
+                      controls
+                      autoPlay
+                      loop
+                    /> */}
                   </Grid>
                 </Grid>
               </CardContent>
-              {/* <CardActions>
-					<Button size="small">Share</Button>
-					<Button size="small">Learn More</Button>
-					</CardActions> */}
             </Card>
           </center>
           <br />
@@ -697,7 +624,6 @@ export default function Confirmpresence({
           <br />
           <br />
         </div>
-        {/* <Footer /> */}
       </Sidebar>
     </div>
   );

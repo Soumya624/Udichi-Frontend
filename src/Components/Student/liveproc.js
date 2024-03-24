@@ -18,14 +18,13 @@ import Clock from "react-live-clock";
 
 export default function Liveproc({ camera, setMultipleFace, multipleFace }) {
   const [initialise, setInitialise] = useState(false);
-  // const [multipleFace, setMultipleFace] = useState(false);
   const videoRef = useRef();
 
-  useEffect(()=>{
-    if(videoRef && videoRef.current !== undefined){
-      videoRef.current.srcObject = camera.previewStream
+  useEffect(() => {
+    if (videoRef && videoRef.current !== undefined) {
+      videoRef.current.srcObject = camera.previewStream;
     }
-  },[camera])
+  }, [camera]);
 
   const handleVideoOnPlay = () => {
     setInterval(async () => {
@@ -117,8 +116,6 @@ export default function Liveproc({ camera, setMultipleFace, multipleFace }) {
     </SidebarItem>,
   ];
 
-  // console.log(camera.previewStream)
-  
   return (
     <div>
       {camera.previewStream && (

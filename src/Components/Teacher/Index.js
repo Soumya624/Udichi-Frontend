@@ -81,7 +81,7 @@ export default function Index({ error, setError }) {
       })
       .catch((err) => {
         console.log(err);
-        setError("Error occurred! Please Try Again.....");
+        setError("Error occurred. Please try again!");
         setTimeout(() => {
           setError(null);
         }, 1000);
@@ -135,7 +135,7 @@ export default function Index({ error, setError }) {
           fontWeight: "normal",
         }}
       >
-        <b style={{ fontSize: "12px", fontWeight: "normal" }}>March, 2023</b>
+        <b style={{ fontSize: "12px", fontWeight: "normal" }}>March, 2024</b>
         <br />
         <Clock
           format={"h:mm:ss A"}
@@ -359,7 +359,6 @@ export default function Index({ error, setError }) {
         <br />
         <br />
         <br />
-        {/* <Footer /> */}
         <Modal
           open={open}
           onClose={handleClose}
@@ -395,8 +394,8 @@ export default function Index({ error, setError }) {
             <center>
               <h3>View Results</h3>
               <p style={{ padding: "0 5%" }}>
-                Click On The Link Below to Get The Attempts of The Students Who
-                Have Submitted The Exam
+                Click on the link below to get the attempts of the students who
+                have submitted the Exam
               </p>
               <br />
               <Grid
@@ -486,8 +485,8 @@ export default function Index({ error, setError }) {
           <center>
             <h3>View Attempts</h3>
             <p style={{ padding: "0 8%" }}>
-              Click On The Link Below to Check The Answer Script. And to Update
-              The Marks
+              Click on the link below to check the Answer Scripts and to update
+              the Marks
             </p>
             <br />
             <Grid

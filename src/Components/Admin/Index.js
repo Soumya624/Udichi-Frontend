@@ -55,13 +55,6 @@ const Item = styled(Paper)(({ theme }) => ({
   color: theme.palette.text.secondary,
 }));
 
-// export const data = [
-//   ["Month", "Exams"],
-//   ["January", 3000],
-//   ["May", 1370],
-//   ["September", 570],
-// ];
-
 export const options = {
   curveType: "function",
   legend: { position: "top" },
@@ -145,7 +138,7 @@ export default function Index({ error, setError }) {
       })
       .catch((err) => {
         console.log(err);
-        setError("Error occurred! Please Try Again.....");
+        setError("Error occurred. Please try again!");
         setTimeout(() => {
           setError(null);
         }, 1000);
@@ -162,7 +155,7 @@ export default function Index({ error, setError }) {
       })
       .catch((err) => {
         console.log(err);
-        setError("Error occurred! Please Try Again.....");
+        setError("Error occurred. Please try again!");
         setTimeout(() => {
           setError(null);
         }, 1000);
@@ -179,7 +172,7 @@ export default function Index({ error, setError }) {
       })
       .catch((err) => {
         console.log(err);
-        setError("Error occurred! Please Try Again.....");
+        setError("Error occurred. Please try again!");
         setTimeout(() => {
           setError(null);
         }, 1000);
@@ -203,7 +196,7 @@ export default function Index({ error, setError }) {
       })
       .catch((err) => {
         console.log(err);
-        setError("Error occurred! Please Try Again.....");
+        setError("Error occurred. Please try again!");
         setTimeout(() => {
           setError(null);
         }, 1000);
@@ -227,7 +220,7 @@ export default function Index({ error, setError }) {
       })
       .catch((err) => {
         console.log(err);
-        setError("Error occurred! Please Try Again.....");
+        setError("Error occurred. Please try again!");
         setTimeout(() => {
           setError(null);
         }, 1000);
@@ -254,18 +247,6 @@ export default function Index({ error, setError }) {
       dateobj[momentDate]++;
     }
     console.log(dateobj);
-    // data[1][1] = dateobj[1];
-    // data[2][1] = dateobj[2];
-    // data[3][1] = dateobj[3];
-    // data[4][1] = dateobj[4];
-    // data[5][1] = dateobj[5];
-    // data[6][1] = dateobj[6];
-    // data[7][1] = dateobj[7];
-    // data[8][1] = dateobj[8];
-    // data[9][1] = dateobj[9];
-    // data[10][1] = dateobj[10];
-    // data[11][1] = dateobj[11];
-    // data[12][1] = dateobj[12];
     let data1 = [
       ["Month", "Exams"],
       ["Jan", dateobj[1]],
@@ -296,7 +277,7 @@ export default function Index({ error, setError }) {
           fontWeight: "normal",
         }}
       >
-        <b style={{ fontSize: "12px", fontWeight: "normal" }}>March, 2023</b>
+        <b style={{ fontSize: "12px", fontWeight: "normal" }}>March, 2024</b>
         <br />
         <Clock
           format={"h:mm:ss A"}
@@ -412,8 +393,6 @@ export default function Index({ error, setError }) {
     </SidebarItem>,
   ];
 
-  // console.log(data[1][1]);
-
   return (
     <div>
       <Sidebar content={items1} background="#193441">
@@ -427,165 +406,7 @@ export default function Index({ error, setError }) {
           >
             Dashboard
           </h4>
-          <p style={{ lineHeight: "1px" }}>
-            Welcome to Udichi{" "}
-            {/* <a
-              onClick={handleOpen}
-              style={{
-                textDecoration: "none",
-                cursor: "pointer",
-                color: "#27a5f9",
-              }}
-            >
-              Your Account
-            </a> */}
-          </p>
-          {/* {window.innerWidth < 968 ? (
-          <Box
-            display="grid"
-            gridTemplateColumns="repeat(12, 1fr)"
-            gap={2}
-            style={{ alignItems: "center", justifyContent: "center" }}
-          >
-            <Box gridColumn="span 12">
-              <Item>
-                <Chart />
-              </Item>
-            </Box>
-            <Box gridColumn="span 12">
-              <Box display="grid" gridTemplateColumns="repeat(12, 1fr)" gap={2}>
-                <Box gridColumn="span 6">
-                  <Item>
-                    <p>
-                      <b>68</b>
-                      <br />
-                      Exams
-                    </p>
-                  </Item>
-                </Box>
-                <Box gridColumn="span 6">
-                  <Item>
-                    <p>
-                      <b>0</b>
-                      <br />
-                      Notifications
-                    </p>
-                  </Item>
-                </Box>
-                <Box gridColumn="span 6">
-                  <Item>
-                    <p>
-                      <b>68</b>
-                      <br />
-                      Groups
-                    </p>
-                  </Item>
-                </Box>
-                <Box gridColumn="span 6">
-                  <Item>
-                    <p>
-                      <b>68</b>
-                      <br />
-                      Candidates
-                    </p>
-                  </Item>
-                </Box>
-                <Box gridColumn="span 6">
-                  <Item>
-                    <p>
-                      <b>68</b>
-                      <br />
-                      Sections
-                    </p>
-                  </Item>
-                </Box>
-                <Box gridColumn="span 6">
-                  <Item>
-                    <p>
-                      <b>68</b>
-                      <br />
-                      Questions
-                    </p>
-                  </Item>
-                </Box>
-              </Box>
-            </Box>
-          </Box>
-        ) : (
-          <Box
-            display="grid"
-            gridTemplateColumns="repeat(12, 1fr)"
-            gap={2}
-            style={{ alignItems: "center", justifyContent: "center" }}
-          >
-            <Box gridColumn="span 8">
-              <Item>
-                <br />
-                <br />
-                <Chart />
-                <br />
-              </Item>
-            </Box>
-            <Box gridColumn="span 4">
-              <Box display="grid" gridTemplateColumns="repeat(12, 1fr)" gap={2}>
-                <Box gridColumn="span 6">
-                  <Item>
-                    <p>
-                      <b>68</b>
-                      <br />
-                      Exams
-                    </p>
-                  </Item>
-                </Box>
-                <Box gridColumn="span 6">
-                  <Item>
-                    <p>
-                      <b>0</b>
-                      <br />
-                      Notifications
-                    </p>
-                  </Item>
-                </Box>
-                <Box gridColumn="span 6">
-                  <Item>
-                    <p>
-                      <b>68</b>
-                      <br />
-                      Groups
-                    </p>
-                  </Item>
-                </Box>
-                <Box gridColumn="span 6">
-                  <Item>
-                    <p>
-                      <b>68</b>
-                      <br />
-                      Candidates
-                    </p>
-                  </Item>
-                </Box>
-                <Box gridColumn="span 6">
-                  <Item>
-                    <p>
-                      <b>68</b>
-                      <br />
-                      Sections
-                    </p>
-                  </Item>
-                </Box>
-                <Box gridColumn="span 6">
-                  <Item>
-                    <p>
-                      <b>68</b>
-                      <br />
-                      Questions
-                    </p>
-                  </Item>
-                </Box>
-              </Box>
-            </Box>
-          </Box>
-        )} */}
+          <p style={{ lineHeight: "1px" }}>Welcome to Udichi </p>
           <br />
           <br />
           <br />
@@ -620,9 +441,6 @@ export default function Index({ error, setError }) {
                     decrement of exams
                   </p>
                 </center>
-                {/* <center>
-              <Button onClick={chart_preparation}>Update Chart</Button>
-            </center> */}
               </Grid>
               <Grid item sm={6}>
                 <Grid
@@ -787,17 +605,6 @@ export default function Index({ error, setError }) {
                     />
                   </div>
                   <br />
-                  {/* <center>
-                    <p
-                      style={{
-                        color: "black",
-                        padding: window.innerWidth < 968 ? "3%" : "2% 15%",
-                      }}
-                    >
-                      The chart will be updated if there is an increment or
-                      decrement of exams
-                    </p>
-                  </center> */}
                 </Card>
               </Grid>
 
@@ -927,7 +734,6 @@ export default function Index({ error, setError }) {
           )}
         </div>
         <br />
-        {/* <Footer /> */}
         <Modal
           open={open}
           onClose={handleClose}

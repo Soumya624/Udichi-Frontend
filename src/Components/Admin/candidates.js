@@ -66,44 +66,6 @@ function createData(name, candidates, group, username, action) {
   return { name, candidates, group, username, action };
 }
 
-const rows = [
-  createData(
-    "A Bose",
-    159,
-    "JBL Tailoring@04.08.2022",
-    "user@001",
-    "View Details"
-  ),
-  createData(
-    "Sudip Nayak",
-    237,
-    "JBL Tailoring@04.08.2022",
-    "user@002",
-    "View Details"
-  ),
-  createData(
-    "B M Kumar",
-    262,
-    "JBL Tailoring@04.08.2022",
-    "user@003",
-    "View Details"
-  ),
-  createData(
-    "P Chetri",
-    305,
-    "JBL Tailoring@04.08.2022",
-    "user@004",
-    "View Details"
-  ),
-  createData(
-    "P K Das",
-    356,
-    "JBL Tailoring@04.08.2022",
-    "user@005",
-    "View Details"
-  ),
-];
-
 export default function BasicTable({ error, setError }) {
   let token = getCookie("access_token");
   let user = JSON.parse(localStorage.getItem("user"));
@@ -161,7 +123,7 @@ export default function BasicTable({ error, setError }) {
       })
       .catch((err) => {
         console.log(err);
-        setError("Error occurred! Please Try Again.....");
+        setError("Error occurred. Please try again!");
         setTimeout(() => {
           setError(null);
         }, 1000);
@@ -179,7 +141,7 @@ export default function BasicTable({ error, setError }) {
           fontWeight: "normal",
         }}
       >
-        <b style={{ fontSize: "12px", fontWeight: "normal" }}>March, 2023</b>
+        <b style={{ fontSize: "12px", fontWeight: "normal" }}>March, 2024</b>
         <br />
         <Clock
           format={"h:mm:ss A"}
@@ -303,29 +265,6 @@ export default function BasicTable({ error, setError }) {
           <br />
           <br />
           <br />
-          {/* <h4 style={{ textAlign: "left", fontSize: "28px", lineHeight: "1px" }}>
-          Total Candidates
-        </h4>
-        <p style={{ lineHeight: "1px" }}>
-          Manually Add a{" "}
-          <a
-            href="/addcandidateAdmin"
-            style={{ textDecoration: "none", color: "#193441" }}
-          >
-            Candidate
-          </a>
-          &nbsp;Or{" "}
-          <a
-            onClick={handleOpen}
-            style={{
-              textDecoration: "none",
-              cursor: "pointer",
-              color: "#193441",
-            }}
-          >
-            Upload File
-          </a>
-        </p> */}
           <Grid container spacing={1} style={{ alignItems: "center" }}>
             <Grid item xs={6}>
               <h4
@@ -337,16 +276,19 @@ export default function BasicTable({ error, setError }) {
               >
                 Candidates
               </h4>
-              <a
-                onClick={handleOpen}
-                style={{
-                  textDecoration: "none",
-                  cursor: "pointer",
-                  color: "#193441",
-                }}
-              >
-                Upload an Excel File
-              </a>
+              <p style={{ margin: "0", padding: "0" }}>
+                <a
+                  onClick={handleOpen}
+                  style={{
+                    textDecoration: "none",
+                    cursor: "pointer",
+                    color: "#193441",
+                  }}
+                >
+                  Upload&nbsp;
+                </a>
+                an Excel File
+              </p>
             </Grid>
             <Grid item xs={6} style={{ textAlign: "right" }}>
               <Button
@@ -382,9 +324,11 @@ export default function BasicTable({ error, setError }) {
                   <TableCell align="right">
                     <b>Group</b>
                   </TableCell>
-
                   <TableCell align="right">
-                    <b>Username</b>
+                    <b>Email</b>
+                  </TableCell>
+                  <TableCell align="right">
+                    <b>Phone No.</b>
                   </TableCell>
                   <TableCell align="right">
                     <b>Action</b>
@@ -394,113 +338,6 @@ export default function BasicTable({ error, setError }) {
               {candigroup &&
                 candigroup.map((key) => {
                   return (
-                    // <List
-                    //   sx={{ width: "100%", bgcolor: "background.paper" }}
-                    //   component="nav"
-                    //   aria-labelledby="nested-list-subheader"
-                    // >
-                    //   <ListItemButton onClick={handleClick}>
-                    //     <ListItemIcon>
-                    //       <InboxIcon />
-                    //     </ListItemIcon>
-                    //     <ListItemText primary={key.title} />
-                    //     {open ? <ExpandLess /> : <ExpandMore />}
-                    //   </ListItemButton>
-                    //   <Collapse in={open} timeout="auto" unmountOnExit>
-                    //     <TableContainer component={Paper}>
-                    //       <Table sx={{ minWidth: 650 }} aria-label="simple table">
-                    //         <TableHead>
-                    //           <TableRow>
-                    //             <TableCell>
-                    //               <b>Candidate Name</b>
-                    //             </TableCell>
-                    //             <TableCell align="right">
-                    //               <b>ID of Candidates</b>
-                    //             </TableCell>
-
-                    //             <TableCell align="right">
-                    //               <b>Username</b>
-                    //             </TableCell>
-                    //             <TableCell align="right">
-                    //               <b>Action</b>
-                    //             </TableCell>
-                    //           </TableRow>
-                    //         </TableHead>
-                    //         <TableBody>
-                    //           {rows.map((row) => (
-                    //             <TableRow
-                    //               key={row.name}
-                    //               sx={{
-                    //                 "&:last-child td, &:last-child th": { border: 0 },
-                    //               }}
-                    //             >
-                    //               <TableCell component="th" scope="row">
-                    //                 {row.name}
-                    //               </TableCell>
-                    //               <TableCell align="right">{row.candidates}</TableCell>
-
-                    //               <TableCell align="right">{row.username}</TableCell>
-                    //               <TableCell
-                    //                 align="right"
-                    //                 style={{ cursor: "pointer" }}
-                    //               >
-                    //                 {row.action}
-                    //               </TableCell>
-                    //             </TableRow>
-                    //           ))}
-                    //         </TableBody>
-                    //       </Table>
-                    //     </TableContainer>
-                    //   </Collapse>
-                    // </List>
-                    // <Collapsible trigger={key.title} style={{ padding: "2px" }}>
-                    //   <TableContainer component={Paper}>
-                    //     <Table sx={{ minWidth: 650 }} aria-label="simple table">
-                    //       <TableHead>
-                    //         <TableRow>
-                    //           <TableCell>
-                    //             <b>Candidate Name</b>
-                    //           </TableCell>
-                    //           <TableCell align="right">
-                    //             <b>ID of Candidate</b>
-                    //           </TableCell>
-
-                    //           <TableCell align="right">
-                    //             <b>Username</b>
-                    //           </TableCell>
-                    //           <TableCell align="right">
-                    //             <b>Action</b>
-                    //           </TableCell>
-                    //         </TableRow>
-                    //       </TableHead>
-                    //       <TableBody>
-                    //         {key.candidates.map((x) => (
-                    //           <TableRow
-                    //             key={x._id}
-                    //             sx={{
-                    //               "&:last-child td, &:last-child th": { border: 0 },
-                    //             }}
-                    //           >
-                    //             <TableCell component="th" scope="row">
-                    //               {x.firstname + x.lastname}
-                    //             </TableCell>
-                    //             <TableCell align="right">{x._id}</TableCell>
-
-                    //             <TableCell align="right">{x.username}</TableCell>
-                    //             <TableCell
-                    //               align="right"
-                    //               style={{ cursor: "pointer", color: "grey" }}
-                    //             >
-                    //               <SettingsOutlined/>
-                    //               <ArrowDropDownOutlined/>
-                    //             </TableCell>
-                    //           </TableRow>
-                    //         ))}
-                    //       </TableBody>
-                    //     </Table>
-                    //   </TableContainer>
-                    // </Collapsible>
-
                     <TableBody>
                       {key.candidates.map((x) => (
                         <TableRow
@@ -510,11 +347,11 @@ export default function BasicTable({ error, setError }) {
                           }}
                         >
                           <TableCell component="th" scope="row">
-                            {x.firstname + x.lastname}
+                            {x.firstname + " " + x.lastname}
                           </TableCell>
                           <TableCell align="right">{key.title}</TableCell>
-
-                          <TableCell align="right">{x.username}</TableCell>
+                          <TableCell align="right">{x.email}</TableCell>
+                          <TableCell align="right">{x.mobile}</TableCell>
                           <TableCell
                             align="right"
                             style={{ cursor: "pointer", color: "grey" }}
@@ -542,13 +379,14 @@ export default function BasicTable({ error, setError }) {
             <center>
               <Grid container spacing={1} style={{ marginTop: "0.5%" }}>
                 <center>
-                  <h4>General Guidelines</h4>
+                  <h3>General Guidelines</h3>
                   <ul>
                     <li style={{ textAlign: "justify" }}>
-                      The File Must Contain Unique Candidates
+                      The file must contain unique candidates
                     </li>
                     <li style={{ textAlign: "justify" }}>
-                      Any Two Files Shouln't Contain Exactly Same Candidate(s)
+                      Any two files shouln't contain exactly same candidate
+                      details
                     </li>
                   </ul>
                   <br />
@@ -559,7 +397,7 @@ export default function BasicTable({ error, setError }) {
                     label="Specify Candidate Group"
                     variant="outlined"
                     size="small"
-                    style={{ width: "98.5%" }}
+                    fullWidth
                     onChange={(e) => {
                       e.preventDefault();
                       setName(e.target.value);
@@ -571,7 +409,11 @@ export default function BasicTable({ error, setError }) {
             <input
               type="file"
               onChange={(e) => setFile(e.target.files[0])}
-              style={{ margin: "3%" }}
+              style={{
+                marginTop: "3%",
+                marginLeft: "21%",
+                marginBottom: "3%",
+              }}
             />
             <br />
             <br />
@@ -584,18 +426,22 @@ export default function BasicTable({ error, setError }) {
                 Continue
               </Button>
               <br />
-              <a
-                style={{
-                  textDecoration: "none",
-                  color: "#193441",
-                  fontSize: "10px",
-                  cursor: "pointer",
-                }}
-                href={candidate_demo_file}
-                download
-              >
-                Click Here to Download Sample Excel File
-              </a>
+              <p style={{ fontSize: "10px" }}>
+                Click
+                <a
+                  style={{
+                    textDecoration: "none",
+                    color: "#193441",
+                    fontSize: "10px",
+                    cursor: "pointer",
+                  }}
+                  href={candidate_demo_file}
+                  download
+                >
+                  &nbsp;here&nbsp;
+                </a>
+                to download sample file
+              </p>
             </center>
           </Box>
         </Modal>

@@ -1,10 +1,10 @@
 .Collapsible__trigger {
-    cursor: pointer;
-    border: 12px solid #ececec;
-    display: block;
-    background-color: #ececec;
+  cursor: pointer;
+  border: 12px solid #ececec;
+  display: block;
+  background-color: #ececec;
 }
 
 .Collapsible__contentOuter {
-    margin: 5px !important;
+  margin: 5px !important;
 }

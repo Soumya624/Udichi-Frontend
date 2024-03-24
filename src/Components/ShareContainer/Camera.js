@@ -8,7 +8,7 @@ export default function Camera({
   stopRecording,
   mediaBlobUrl,
   loadModels,
-  camera
+  camera,
 }) {
   console.log(isClicked);
   useEffect(() => {
@@ -20,20 +20,20 @@ export default function Camera({
 
   // const videoRef = useRef(null);
   // useEffect(() => {
-  // 	if (videoRef.current && previewStream) {
-  // 		videoRef.current.srcObject = previewStream;
-  // 	}
+  //   if (videoRef.current && previewStream) {
+  //     videoRef.current.srcObject = previewStream;
+  //   }
   // }, [previewStream]);
+
   return (
     <>
       <div>
         <Button
           variant="contained"
-          onClick={async ()=>{
-            loadModels().then(()=>{
-              startRecording()
-            })
-
+          onClick={async () => {
+            loadModels().then(() => {
+              startRecording();
+            });
           }}
           style={{
             backgroundColor: "#193441",
@@ -42,11 +42,17 @@ export default function Camera({
         >
           Share Camera
         </Button>
-        {/* <video ref={videoRef} width={500} height={500} autoPlay style={{
-          position : "absolute",
-          bottom : 0,
-          right : 0
-        }} /> */}
+        {/* <video
+          ref={videoRef}
+          width={500}
+          height={500}
+          autoPlay
+          style={{
+            position: "absolute",
+            bottom: 0,
+            right: 0,
+          }}
+        /> */}
       </div>
     </>
   );

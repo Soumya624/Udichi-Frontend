@@ -89,9 +89,6 @@ export default function AddCandidate({ error, setError }) {
   };
   const handleClose1 = () => setOpen1(false);
 
-  // var candigrp = [];
-  // var quesgrp = [];
-
   useEffect(() => {
     getCandidates();
   }, []);
@@ -138,7 +135,7 @@ export default function AddCandidate({ error, setError }) {
       })
       .catch((err) => {
         console.log(err);
-        setError("Error occurred! Please Try Again.....");
+        setError("Error occurred. Please try again!");
         setTimeout(() => {
           setError(null);
         }, 1000);
@@ -156,7 +153,7 @@ export default function AddCandidate({ error, setError }) {
       })
       .catch((err) => {
         console.log(err);
-        setError("Error occurred! Please Try Again.....");
+        setError("Error occurred. Please try again!");
         setTimeout(() => {
           setError(null);
         }, 1000);
@@ -174,7 +171,7 @@ export default function AddCandidate({ error, setError }) {
       })
       .catch((err) => {
         console.log(err);
-        setError("Error occurred! Please Try Again.....");
+        setError("Error occurred. Please try again!");
         setTimeout(() => {
           setError(null);
         }, 1000);
@@ -211,7 +208,7 @@ export default function AddCandidate({ error, setError }) {
           fontWeight: "normal",
         }}
       >
-        <b style={{ fontSize: "12px", fontWeight: "normal" }}>March, 2023</b>
+        <b style={{ fontSize: "12px", fontWeight: "normal" }}>March, 2024</b>
         <br />
         <Clock
           format={"h:mm:ss A"}
@@ -330,333 +327,326 @@ export default function AddCandidate({ error, setError }) {
   return (
     <div>
       <Sidebar content={items1} background="#193441">
-      <Navbar />
-      <div style={{ padding: "2%" }}>
-        <center>
-          <Card
-            sx={{ maxWidth: 500 }}
-            style={{
-              alignItems: "center",
-              justifyContent: "center",
-              marginTop: "5rem",
-              padding: "2%",
-            }}
-          >
-            <CardContent>
-              <Typography
-                gutterBottom
-                variant="h5"
-                component="div"
-                style={{ marginBottom: "0", fontWeight: "bold" }}
-              >
-                Add Exam
-              </Typography>
-              <br />
-
-              <Typography variant="body2" color="text.secondary">
+        <Navbar />
+        <div style={{ padding: "2%" }}>
+          <center>
+            <Card
+              sx={{ maxWidth: 500 }}
+              style={{
+                alignItems: "center",
+                justifyContent: "center",
+                marginTop: "5rem",
+                padding: "2%",
+              }}
+            >
+              <CardContent>
+                <Typography
+                  gutterBottom
+                  variant="h5"
+                  component="div"
+                  style={{ marginBottom: "0", fontWeight: "bold" }}
+                >
+                  Add Exam
+                </Typography>
                 <br />
-                <p
-                  style={{ borderBottom: "1px solid grey", textAlign: "left" }}
-                >
-                  <b>Enter Exam Information</b>
-                </p>
-                <Grid container spacing={1} style={{ marginTop: "0.5%" }}>
-                  <Grid item xs={12}>
-                    <TextField
-                      fullWidth
-                      value={title}
-                      id="outlined-basic"
-                      label="Exam Name"
-                      variant="outlined"
-                      size="small"
-                      onChange={(e) => {
-                        e.preventDefault();
-                        setTitle(e.target.value);
-                      }}
-                    />
+
+                <Typography variant="body2" color="text.secondary">
+                  <br />
+                  <p
+                    style={{
+                      borderBottom: "1px solid grey",
+                      textAlign: "left",
+                    }}
+                  >
+                    <b>Enter Exam Information</b>
+                  </p>
+                  <Grid container spacing={1} style={{ marginTop: "0.5%" }}>
+                    <Grid item xs={12}>
+                      <TextField
+                        fullWidth
+                        value={title}
+                        id="outlined-basic"
+                        label="Exam Name"
+                        variant="outlined"
+                        size="small"
+                        onChange={(e) => {
+                          e.preventDefault();
+                          setTitle(e.target.value);
+                        }}
+                      />
+                    </Grid>
                   </Grid>
-                </Grid>
-                <Grid
-                  container
-                  spacing={1}
-                  style={{ marginTop: "0.5%", display: flag ? "" : "none" }}
-                >
-                  <Grid item xs={12}>
-                    <TextField
-                      fullWidth
-                      value={startdate}
-                      id="outlined-basic"
-                      // label="Start Date & Time"
-                      variant="outlined"
-                      size="small"
-                      type="datetime-local"
-                      onChange={(e) => {
-                        e.preventDefault();
-                        setStartdate(e.target.value);
-                      }}
-                    />
+                  <Grid
+                    container
+                    spacing={1}
+                    style={{ marginTop: "0.5%", display: flag ? "" : "none" }}
+                  >
+                    <Grid item xs={12}>
+                      <TextField
+                        fullWidth
+                        value={startdate}
+                        id="outlined-basic"
+                        variant="outlined"
+                        size="small"
+                        type="datetime-local"
+                        onChange={(e) => {
+                          e.preventDefault();
+                          setStartdate(e.target.value);
+                        }}
+                      />
+                    </Grid>
                   </Grid>
-                </Grid>
-                <Grid container spacing={1} style={{ marginTop: "0.5%" }}>
-                  <Grid item xs={6}>
-                    <TextField
-                      fullWidth
-                      value={duration}
-                      id="outlined-basic"
-                      label="Duration"
-                      variant="outlined"
-                      size="small"
-                      onChange={(e) => {
-                        e.preventDefault();
-                        setDuration(e.target.value);
-                      }}
-                    />
+                  <Grid container spacing={1} style={{ marginTop: "0.5%" }}>
+                    <Grid item xs={6}>
+                      <TextField
+                        fullWidth
+                        value={duration}
+                        id="outlined-basic"
+                        label="Duration"
+                        variant="outlined"
+                        size="small"
+                        onChange={(e) => {
+                          e.preventDefault();
+                          setDuration(e.target.value);
+                        }}
+                      />
+                    </Grid>
+                    <Grid item xs={6}>
+                      <TextField
+                        fullWidth
+                        value={fullmarks}
+                        id="outlined-basic"
+                        label="Full Marks"
+                        variant="outlined"
+                        size="small"
+                        onChange={(e) => {
+                          e.preventDefault();
+                          setFullmarks(e.target.value);
+                        }}
+                      />
+                    </Grid>
                   </Grid>
-                  <Grid item xs={6}>
-                    <TextField
-                      fullWidth
-                      value={fullmarks}
-                      id="outlined-basic"
-                      label="Full Marks"
-                      variant="outlined"
-                      size="small"
-                      onChange={(e) => {
-                        e.preventDefault();
-                        setFullmarks(e.target.value);
-                      }}
-                    />
-                  </Grid>
-                </Grid>
-                <Grid container spacing={1} style={{ marginTop: "0.5%" }}>
-                  <Grid item xs={12}>
-                    <center>
+                  <Grid container spacing={1} style={{ marginTop: "0.5%" }}>
+                    <Grid item xs={12}>
                       <FormControl fullWidth>
-                        <InputLabel
-                          id="demo-simple-select-label"
-                          // style={{ marginBottom: "10%" }}
-                        >
+                        <InputLabel id="demo-simple-select-label">
                           Exam Type
                         </InputLabel>
-                        <center>
-                          <Select
-                            fullWidth
-                            labelId="demo-simple-select-label"
-                            id="demo-simple-select"
-                            value={type}
-                            label="Exam Type"
-                            onChange={handleChange}
-                            size="small"
-                            style={{ paddingBottom: "2%" }}
-                          >
-                            <MenuItem value={"written"}>Written</MenuItem>
-                            <MenuItem value={"viva"}>Viva</MenuItem>
-                          </Select>
-                        </center>
+                        <Select
+                          fullWidth
+                          labelId="demo-simple-select-label"
+                          id="demo-simple-select"
+                          value={type}
+                          label="Exam Type"
+                          onChange={handleChange}
+                        >
+                          <MenuItem value={"written"}>Written</MenuItem>
+                          <MenuItem value={"viva"}>Viva</MenuItem>
+                        </Select>
                       </FormControl>
-                    </center>
+                    </Grid>
                   </Grid>
-                </Grid>
-                {/* <br />
-                <FormControl>
-                  <RadioGroup row name="row-radio-buttons-group">
-                    <FormControlLabel
-                      value="Always Available"
-                      control={<Radio />}
-                      label="Always Available"
-                    />
-                    <FormControlLabel
-                      value="Available On Specific Time"
-                      control={<Radio/>}
-                      label="Available On Specific Time"
-                    />
-                  </RadioGroup>
-                </FormControl>
-                <br /> */}
-
-                <br />
-                <p
-                  style={{ borderBottom: "1px solid grey", textAlign: "left" }}
-                >
-                  <b>Specify Who Can Take This Exam</b>
-                </p>
-                <Grid container spacing={1} style={{ marginTop: "0.5%" }}>
-                  <Grid item xs={6}>
-                    <Button
-                      variant="contained"
-                      style={{ backgroundColor: "#193441", width: "100%" }}
-                      onClick={handleOpen}
-                    >
-                      Assign Groups
-                    </Button>
-                  </Grid>
-                  {/* <Grid item xs={6}>
-                    <Button
-                      variant="contained"
-                      style={{ backgroundColor: "#193441", width: "100%" }}
-                      href="#"
-                    >
-                      Assign Candidates
-                    </Button>
-                  </Grid> */}
-                </Grid>
-                {/* <Grid container spacing={1} style={{ marginTop: "0.5%" }}>
-                  <Grid item xs={12}>
-                    <FormControl fullWidth style={{ width: "98.5%" }}>
-                      <InputLabel id="demo-simple-select-label">
-                        Candidate Group
-                      </InputLabel>
-                      <Select
-                        labelId="demo-simple-select-label"
-                        id="demo-simple-select"
-                        value={group}
-                        label="Candidate Group"
-                        onChange={handleChange1}
+                  <br />
+                  <p
+                    style={{
+                      borderBottom: "1px solid grey",
+                      textAlign: "left",
+                    }}
+                  >
+                    <b>Specify Candidate Groups</b>
+                  </p>
+                  <Grid container spacing={1} style={{ marginTop: "0.5%" }}>
+                    <Grid item xs={6}>
+                      <Button
+                        variant="contained"
+                        style={{ backgroundColor: "#193441", width: "100%" }}
+                        onClick={handleOpen}
                       >
-                        {candigroup.map((key) => {
-                          return <MenuItem value={key._id}>{key.title}</MenuItem>;
-                        })}
-                      </Select>
-                    </FormControl>
+                        Assign Groups
+                      </Button>
+                    </Grid>
                   </Grid>
-                </Grid> */}
-                <br />
-                <p
-                  style={{ borderBottom: "1px solid grey", textAlign: "left" }}
-                >
-                  <b>Specify Number of Questions</b>
-                </p>
-                <Grid container spacing={1} style={{ marginTop: "0.5%" }}>
-                  <Grid item xs={6}>
-                    <Button
-                      variant="contained"
-                      style={{ backgroundColor: "#193441", width: "100%" }}
-                      onClick={handleOpen1}
+                  <br />
+                  <p
+                    style={{
+                      borderBottom: "1px solid grey",
+                      textAlign: "left",
+                    }}
+                  >
+                    <b>Specify Question Sections</b>
+                  </p>
+                  <Grid container spacing={1} style={{ marginTop: "0.5%" }}>
+                    <Grid item xs={6}>
+                      <Button
+                        variant="contained"
+                        style={{ backgroundColor: "#193441", width: "100%" }}
+                        onClick={handleOpen1}
+                      >
+                        Assign Sections
+                      </Button>
+                    </Grid>
+                  </Grid>
+                  <br />
+                  <p
+                    style={{
+                      borderBottom: "1px solid grey",
+                      textAlign: "left",
+                    }}
+                  >
+                    <b>Additional Informations</b>
+                  </p>
+                  <Grid container spacing={1} style={{ marginTop: "0.5%" }}>
+                    <Grid
+                      item
+                      xs={6}
+                      style={{ display: "flex", alignItems: "center" }}
                     >
-                      Specify & Add
-                    </Button>
+                      <input
+                        type="radio"
+                        value="true"
+                        name="Proctoring"
+                        onChange={(e) => {
+                          setEnableproctoring(e.target.value);
+                        }}
+                      />
+                      Enable Audio & Video Capturing
+                    </Grid>
+                    <Grid
+                      item
+                      xs={6}
+                      style={{ display: "flex", alignItems: "center" }}
+                    >
+                      <input
+                        type="radio"
+                        value="false"
+                        name="Proctoring"
+                        onChange={(e) => {
+                          setEnableproctoring(e.target.value);
+                        }}
+                      />
+                      Disable Audio & Video Capturing
+                    </Grid>
                   </Grid>
-                </Grid>
-                <br />
-                <p
-                  style={{ borderBottom: "1px solid grey", textAlign: "left" }}
-                >
-                  <b>Additional Informations</b>
-                </p>
-                <Grid container spacing={1} style={{ marginTop: "0.5%" }}>
-                  <Grid item xs={6}>
-                    <input
-                      type="radio"
-                      value="true"
-                      name="Proctoring"
-                      onChange={(e) => {
-                        setEnableproctoring(e.target.value);
-                      }}
-                    />
-                    Enable Audio & Video Capturing
+                  <br />
+                  <br />
+                  <br />
+                  <Button
+                    variant="contained"
+                    style={{ backgroundColor: "#193441", width: "50%" }}
+                    onClick={add_exam}
+                  >
+                    Continue
+                  </Button>
+                </Typography>
+              </CardContent>
+            </Card>
+          </center>
+          <br />
+          <br />
+          <br />
+          <br />
+          <br />
+        </div>
+        <Modal
+          open={open}
+          aria-labelledby="modal-modal-title"
+          aria-describedby="modal-modal-description"
+        >
+          <Box sx={style}>
+            <form>
+              {candigroup.map((key) => {
+                return (
+                  <Grid
+                    container
+                    spacing={1}
+                    style={{ margin: "1px", alignItems: "center" }}
+                  >
+                    <Grid item xs={1}>
+                      <input
+                        type="checkbox"
+                        id={key}
+                        name={key}
+                        value={key._id}
+                        onChange={(e) => {
+                          if (e.target.checked) {
+                            console.log(e.target.value);
+                            data1.push(e.target.value);
+                            setData1(data1);
+                          } else {
+                            let random1 = data1.filter((d) => {
+                              return d !== key._id;
+                            });
+                            setData1(random1);
+                          }
+                        }}
+                      />
+                    </Grid>
+                    <Grid item xs={4} style={{ alignItems: "center" }}>
+                      {key.title}
+                    </Grid>
+                    <Grid item xs={6}></Grid>
                   </Grid>
-                  <Grid item xs={6}>
-                    <input
-                      type="radio"
-                      value="false"
-                      name="Proctoring"
-                      onChange={(e) => {
-                        setEnableproctoring(e.target.value);
-                      }}
-                    />
-                    Disable Audio & Video Capturing
-                  </Grid>
-                </Grid>
-                <br />
-                <br />
-                <br />
-                {/* <br />
-                <p>
-                  (Specify Start & End Date/Time, If The Exam is Not Always
-                  Available)
-                </p> */}
+                );
+              })}
+
+              <br />
+              <br />
+              <center>
                 <Button
                   variant="contained"
                   style={{ backgroundColor: "#193441", width: "50%" }}
-                  onClick={add_exam}
+                  onClick={(e) => {
+                    submitfunction1();
+                  }}
                 >
                   Continue
                 </Button>
-              </Typography>
-            </CardContent>
-            {/* <CardActions>
-          <Button size="small">Share</Button>
-          <Button size="small">Learn More</Button>
-        </CardActions> */}
-          </Card>
-        </center>
-        <br />
-        <br />
-        <br />
-        <br />
-        <br />
-      </div>
-      <Modal
-        open={open}
-        // onClose={handleClose}
-        aria-labelledby="modal-modal-title"
-        aria-describedby="modal-modal-description"
-      >
-        <Box sx={style}>
-          {/* {candigroup.map((key) => {
-            return (
-              <Input type="checkbox" value={key._id}>
-                {key.title}
-              </Input>
-            );
-          })} */}
-          <form>
-            {candigroup.map((key) => {
-              return (
-                <Grid
-                  container
-                  spacing={1}
-                  style={{ margin: "1px", alignItems: "center" }}
-                >
-                  <Grid item xs={1}>
-                    <input
-                      type="checkbox"
-                      id={key}
-                      name={key}
-                      value={key._id}
-                      onChange={(e) => {
-                        if (e.target.checked) {
-                          console.log(e.target.value);
-                          data1.push(e.target.value);
-                          setData1(data1);
-                        } else {
-                          let random1 = data1.filter((d) => {
-                            return d !== key._id;
-                          });
-                          setData1(random1);
-                        }
-                      }}
-                    />
-                  </Grid>
-                  <Grid item xs={4} style={{ alignItems: "center" }}>
-                    {key.title}
-                  </Grid>
-                  <Grid item xs={6}>
-                    {/* <Button
-                    variant="contained"
-                    style={{ backgroundColor: "#193441", width: "30%" }}
-                    onClick={(e) => {
-                      console.log(key._id);
-                      candigrp.push(key._id);
-                      alert("Added Successfully!");
-                    }}
+              </center>
+            </form>
+          </Box>
+        </Modal>
+        <Modal
+          open={open1}
+          aria-labelledby="modal-modal-title"
+          aria-describedby="modal-modal-description"
+        >
+          <Box sx={style}>
+            <FormGroup>
+              {quesgroup.map((key) => {
+                return (
+                  <Grid
+                    container
+                    spacing={1}
+                    style={{ margin: "1px", alignItems: "center" }}
                   >
-                    Add
-                  </Button> */}
+                    <Grid item xs={1}>
+                      <input
+                        type="checkbox"
+                        id={key}
+                        name={key}
+                        value={key._id}
+                        onChange={(e) => {
+                          if (e.target.checked) {
+                            console.log(e.target.value);
+                            data2.push(e.target.value);
+                            setData2(data2);
+                          } else {
+                            let random2 = data2.filter((d) => {
+                              return d !== key._id;
+                            });
+                            setData2(random2);
+                          }
+                        }}
+                      />
+                    </Grid>
+                    <Grid item xs={4}>
+                      {key.title}
+                    </Grid>
+                    <Grid item xs={8}></Grid>
                   </Grid>
-                </Grid>
-              );
-            })}
-
+                );
+              })}
+            </FormGroup>
             <br />
             <br />
             <center>
@@ -664,93 +654,14 @@ export default function AddCandidate({ error, setError }) {
                 variant="contained"
                 style={{ backgroundColor: "#193441", width: "50%" }}
                 onClick={(e) => {
-                  submitfunction1();
+                  submitfunction2();
                 }}
               >
                 Continue
               </Button>
             </center>
-          </form>
-        </Box>
-      </Modal>
-      <Modal
-        open={open1}
-        // onClose={handleClose1}
-        aria-labelledby="modal-modal-title"
-        aria-describedby="modal-modal-description"
-      >
-        <Box sx={style}>
-          <FormGroup>
-            {/* {quesgroup.map((key) => {
-              return (
-                <FormControlLabel
-                  control={<Checkbox value={key._id} />}
-                  label={key.title}
-                />
-              );
-            })} */}
-            {quesgroup.map((key) => {
-              return (
-                <Grid
-                  container
-                  spacing={1}
-                  style={{ margin: "1px", alignItems: "center" }}
-                >
-                  <Grid item xs={1}>
-                    <input
-                      type="checkbox"
-                      id={key}
-                      name={key}
-                      value={key._id}
-                      onChange={(e) => {
-                        if (e.target.checked) {
-                          console.log(e.target.value);
-                          data2.push(e.target.value);
-                          setData2(data2);
-                        } else {
-                          let random2 = data2.filter((d) => {
-                            return d !== key._id;
-                          });
-                          setData2(random2);
-                        }
-                      }}
-                    />
-                  </Grid>
-                  <Grid item xs={4}>
-                    {key.title}
-                  </Grid>
-                  <Grid item xs={8}>
-                    {/* <Button
-                      variant="contained"
-                      style={{ backgroundColor: "#193441", width: "30%" }}
-                      onClick={(e) => {
-                        console.log(key._id);
-                        quesgrp.push(key._id);
-                        alert("Added Successfully!");
-                      }}
-                    >
-                      Add
-                    </Button> */}
-                  </Grid>
-                </Grid>
-              );
-            })}
-          </FormGroup>
-          <br />
-          <br />
-          <center>
-            <Button
-              variant="contained"
-              style={{ backgroundColor: "#193441", width: "50%" }}
-              onClick={(e) => {
-                submitfunction2();
-              }}
-            >
-              Continue
-            </Button>
-          </center>
-        </Box>
-      </Modal>
+          </Box>
+        </Modal>
       </Sidebar>
     </div>
   );

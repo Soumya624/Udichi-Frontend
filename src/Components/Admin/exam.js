@@ -51,14 +51,6 @@ function createData(name, candidates, duration, questions, action) {
   return { name, candidates, duration, questions, action };
 }
 
-const rows = [
-  createData("Mechanics of Solids", 159, 6.0, 24, "View Details"),
-  createData("Thermodynamics", 237, 9.0, 37, "View Details"),
-  createData("Structural Analysis", 262, 16.0, 24, "View Details"),
-  createData("Mathematics II", 305, 3.7, 67, "View Details"),
-  createData("Algorithms III", 356, 16.0, 49, "View Details"),
-];
-
 let token = getCookie("access_token");
 
 const config = {
@@ -107,7 +99,7 @@ export default function BasicTable({ error, setError }) {
       .catch((err) => {
         setLoading(false);
         console.log(err);
-        setError("Error occurred! Please Try Again.....");
+        setError("Error occurred. Please try again!");
         setTimeout(() => {
           setError(null);
         }, 1000);
@@ -125,7 +117,7 @@ export default function BasicTable({ error, setError }) {
           fontWeight: "normal",
         }}
       >
-        <b style={{ fontSize: "12px", fontWeight: "normal" }}>March, 2023</b>
+        <b style={{ fontSize: "12px", fontWeight: "normal" }}>March, 2024</b>
         <br />
         <Clock
           format={"h:mm:ss A"}
@@ -250,17 +242,6 @@ export default function BasicTable({ error, setError }) {
           <br />
           <br />
           <br />
-          {/* <div>
-            <h4
-              style={{ textAlign: "left", fontSize: "28px", lineHeight: "1px" }}
-            >
-              Exams
-            </h4>
-            <Button variant="contained" color="success" href="/addexamAdmin">
-              <AddOutlined />
-              Create
-            </Button>
-          </div> */}
           <Grid container spacing={1} style={{ alignItems: "center" }}>
             <Grid item xs={6}>
               <h4
@@ -315,22 +296,6 @@ export default function BasicTable({ error, setError }) {
                   </TableRow>
                 </TableHead>
                 <TableBody>
-                  {/* {rows.map((row) => (
-                    <TableRow
-                      key={row.name}
-                      sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
-                    >
-                      <TableCell component="th" scope="row">
-                        {row.name}
-                      </TableCell>
-                      <TableCell align="right">{row.candidates}</TableCell>
-                      <TableCell align="right">{row.duration}</TableCell>
-                      <TableCell align="right">{row.questions}</TableCell>
-                      <TableCell align="right" style={{ cursor: "pointer", color:"red" }}>
-                        Delete
-                      </TableCell>
-                    </TableRow>
-                  ))} */}
                   {examgroup.map((key) => {
                     questionnum = 0;
                     let momentDate = moment
@@ -359,23 +324,23 @@ export default function BasicTable({ error, setError }) {
                         <TableCell
                           align="right"
                           style={{ cursor: "pointer", color: "grey" }}
-                          onClick={() => {
-                            handleOpen1();
-                            axiosInstance
-                              .get(
-                                `/attempts/attempts_group/${key._id}`,
-                                config
-                              )
-                              .then((res) => {
-                                if (res.status === 200) {
-                                  console.log(res);
-                                  setDemodata(res.data);
-                                }
-                              })
-                              .catch((err) => {
-                                console.log(err);
-                              });
-                          }}
+                          // onClick={() => {
+                          //   handleOpen1();
+                          //   axiosInstance
+                          //     .get(
+                          //       `/attempts/attempts_group/${key._id}`,
+                          //       config
+                          //     )
+                          //     .then((res) => {
+                          //       if (res.status === 200) {
+                          //         console.log(res);
+                          //         setDemodata(res.data);
+                          //       }
+                          //     })
+                          //     .catch((err) => {
+                          //       console.log(err);
+                          //     });
+                          // }}
                         >
                           <ListAltOutlined />
                         </TableCell>
@@ -392,8 +357,8 @@ export default function BasicTable({ error, setError }) {
             <center>
               <h3>View Results</h3>
               <p style={{ padding: "0 5%" }}>
-                Click On The Link Below to Get The Attempts of The Students Who
-                Have Submitted The Exam
+                Click on the link below to get the attempts of the students who
+                have submitted the Exam
               </p>
               <br />
               <Grid
@@ -483,8 +448,8 @@ export default function BasicTable({ error, setError }) {
           <center>
             <h3>View Attempts</h3>
             <p style={{ padding: "0 8%" }}>
-              Click On The Link Below to Check The Answer Script. And to Update
-              The Marks
+              Click on the link below to check the Answer Scripts and to update
+              the Marks
             </p>
             <br />
             <Grid
@@ -504,11 +469,6 @@ export default function BasicTable({ error, setError }) {
               <Grid item xs={6}>
                 <p style={{ textAlign: "right", fontWeight: "bold" }}>Marks</p>
               </Grid>
-              {/* <Grid item xs={4}>
-              <p style={{ textAlign: "right", fontWeight: "bold" }}>
-                Edit Marks
-              </p>
-            </Grid> */}
             </Grid>
             {allexamcandidates.map((altst) => {
               return (
@@ -527,28 +487,6 @@ export default function BasicTable({ error, setError }) {
                   <Grid item xs={6}>
                     <p style={{ textAlign: "right" }}>{altst.marks_obtained}</p>
                   </Grid>
-                  {/* <Grid item xs={4}>
-                  <p
-                    style={{
-                      textAlign: "right",
-                      color: "red",
-                      cursor: "pointer",
-                    }}
-                    onClick={() => {
-                      localStorage.setItem(
-                        "total_marks_obtained",
-                        JSON.stringify(altst.marks_obtained)
-                      );
-                      localStorage.setItem(
-                        "question_submitted",
-                        JSON.stringify(altst.questions_submitted)
-                      );
-                      window.location.href = `/testMarks/${altst._id}/${altst.questions_submitted[0]}`;
-                    }}
-                  >
-                    Edit
-                  </p>
-                </Grid> */}
                 </Grid>
               );
             })}
@@ -567,9 +505,14 @@ export default function BasicTable({ error, setError }) {
             </Button>
           </center>
         </Modal1>
-        <marquee width="100%" direction="right" height="30%">
+        <marquee
+          width="100%"
+          direction="right"
+          height="30%"
+          style={{ fontSize: "10px" }}
+        >
           Live monitoring is enabled. Please upgrade your server to view the
-          real time check
+          real time check!
         </marquee>
       </Sidebar>
     </div>

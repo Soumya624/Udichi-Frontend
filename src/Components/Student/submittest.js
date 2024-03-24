@@ -147,14 +147,7 @@ export default function Confirmpresence() {
                   Test 001
                 </Typography>
                 <br />
-                <p style={{ marginTop: "0", textAlign: "justify" }}>
-                  Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed
-                  do eiusmod tempor incididunt ut labore et dolore magna aliqua.
-                  Ut enim ad minim veniam, quis nostrud exercitation ullamco
-                  laboris nisi ut aliquip ex ea commodo consequat. Duis aute
-                  irure dolor in reprehenderit in voluptate velit esse cillum
-                  dolore eu fugiat nulla pariatur
-                </p>
+                <p style={{ marginTop: "0", textAlign: "justify" }}></p>
                 <br />
                 <br />
                 <br />
@@ -166,14 +159,9 @@ export default function Confirmpresence() {
                   >
                     Submit Exam
                   </Button>
-                  {/* <video style={{width : "30em"}} src={mediaBlobUrl} controls autoPlay loop /> */}
                   <br />
                 </Typography>
               </CardContent>
-              {/* <CardActions>
-          <Button size="small">Share</Button>
-          <Button size="small">Learn More</Button>
-        </CardActions> */}
             </Card>
           </center>
           <br />
@@ -182,7 +170,6 @@ export default function Confirmpresence() {
           <br />
           <br />
         </div>
-        {/* <Footer /> */}
       </Sidebar>
     </div>
   );

@@ -54,18 +54,6 @@ const style = {
   overFlowY: "scroll",
 };
 
-// function createData(name, candidates, terminate, action) {
-//   return { name, candidates, terminate, action };
-// }
-
-// const rows = [
-//   createData("A Bose", 159, "Yes", "Download"),
-//   createData("Sudip Nayak", 237, "Yes", "Download"),
-//   createData("B M Kumar", 262, "Yes", "Download"),
-//   createData("P Chetri", 305, "Yes", "Download"),
-//   createData("P K Das", 356, "Yes", "Download"),
-// ];
-
 export default function Confirmpresence({ error, setError }) {
   let token = getCookie("access_token");
   let user = JSON.parse(localStorage.getItem("user"));
@@ -91,7 +79,7 @@ export default function Confirmpresence({ error, setError }) {
       .catch((err) => {
         console.log(err);
         if (err.response.status !== 404)
-          setError("Error occurred! Please Try Again.....");
+          setError("Error occurred. Please try again!");
 
         setTimeout(() => {
           setError(null);
@@ -143,7 +131,7 @@ export default function Confirmpresence({ error, setError }) {
         }
       })
       .catch((err) => {
-        if (err.response.status === 404) setError("File is not Present");
+        if (err.response.status === 404) setError("File isn't Present!");
         setTimeout(() => {
           setError(null);
         }, 1000);
@@ -161,7 +149,7 @@ export default function Confirmpresence({ error, setError }) {
           fontWeight: "normal",
         }}
       >
-        <b style={{ fontSize: "12px", fontWeight: "normal" }}>March, 2023</b>
+        <b style={{ fontSize: "12px", fontWeight: "normal" }}>March, 2024</b>
         <br />
         <Clock
           format={"h:mm:ss A"}
@@ -241,14 +229,6 @@ export default function Confirmpresence({ error, setError }) {
               }}
             >
               <CardContent>
-                {/* <Typography
-                gutterBottom
-                variant="h5"
-                component="div"
-                style={{ marginBottom: "0", fontWeight: "bold" }}
-              >
-                Test 001
-              </Typography> */}
                 <br />
                 <br />
                 <TableContainer component={Paper}>
@@ -261,11 +241,8 @@ export default function Confirmpresence({ error, setError }) {
                         <TableCell align="center">
                           <b>Email ID</b>
                         </TableCell>
-                        {/* <TableCell align="right">
-                        <b>Terminate</b>
-                      </TableCell> */}
                         <TableCell align="right">
-                          <b>Screen Recording/Audio</b>
+                          <b>Recorded Audio and Video</b>
                         </TableCell>
                       </TableRow>
                     </TableHead>
@@ -273,7 +250,6 @@ export default function Confirmpresence({ error, setError }) {
                       {list.map((altst) => {
                         return (
                           <TableRow
-                            // key={row.name}
                             sx={{
                               "&:last-child td, &:last-child th": { border: 0 },
                             }}
@@ -286,12 +262,6 @@ export default function Confirmpresence({ error, setError }) {
                             <TableCell align="center">
                               {altst.candidate.email}
                             </TableCell>
-                            {/* <TableCell
-                            align="right"
-                            style={{ cursor: "pointer", color: "grey" }}
-                          >
-                            Yes
-                          </TableCell> */}
                             <TableCell
                               align="right"
                               style={{ cursor: "pointer", color: "red" }}
@@ -323,79 +293,14 @@ export default function Confirmpresence({ error, setError }) {
                   <br />
                 </Typography>
               </CardContent>
-              {/* <CardActions>
-          <Button size="small">Share</Button>
-          <Button size="small">Learn More</Button>
-        </CardActions> */}
             </Card>
-            {/* <Modal
-            open={open}
-            onClose={handleClose}
-            aria-labelledby="modal-modal-title"
-            aria-describedby="modal-modal-description"
-            style={{ overFlowY: "scroll" }}
-          >
-            <Box sx={style}>
-              <center>
-                <h3>Download Files</h3>
-                <p>
-                  Get the Zip File of Different Attempts. Recent Attempts are
-                  Added in The End
-                </p>
-                <br />
-                {attemplist.map((altst) => {
-                  return (
-                    <Grid
-                      container
-                      spacing={1}
-                      style={{
-                        marginTop: "0.5%",
-                        alignItems: "center",
-                        overFlowY: "scroll",
-                      }}
-                    >
-                      <Grid item xs={6}>
-                        <p>{altst}</p>
-                      </Grid>
-                      <Grid item xs={6}>
-                        <Button
-                          variant="contained"
-                          style={{
-                            backgroundColor: "#193441",
-                            width: "50%",
-                            display: altst !== null ? "" : "none",
-                          }}
-                          onClick={() => {
-                            console.log(altst);
-                            downloadZip(altst);
-                          }}
-                        >
-                          Download
-                        </Button>
-                      </Grid>
-                    </Grid>
-                  );
-                })}
-                <br />
-                <br />
-                <br />
-                <Button
-                  variant="contained"
-                  style={{ backgroundColor: "#193441", width: "50%" }}
-                  onClick={handleClose}
-                >
-                  Close
-                </Button>
-              </center>
-            </Box>
-          </Modal> */}
             <Modal1 open={open} onClose={handleClose} center>
               <Box style={{ padding: "3%" }}>
                 <center>
                   <h3>Download Files</h3>
                   <p>
-                    Get the Zip File of Different Attempts. Recent Attempts are
-                    Added in The End
+                    Get the .zip file of different attempts listed with ID's.
+                    Recent attempts are added at the end!
                   </p>
                   <br />
                   {attemplist.map((altst) => {
@@ -405,12 +310,14 @@ export default function Confirmpresence({ error, setError }) {
                         spacing={1}
                         style={{
                           marginTop: "0.5%",
+                          display: "flex",
                           alignItems: "center",
+                          justifyContent: "space-between",
                           overFlowY: "scroll",
                         }}
                       >
                         <Grid item xs={6}>
-                          <p style={{ textAlign: "left" }}>{altst}</p>
+                          <p style={{ fontSize: "14px" }}>⦿ &nbsp;{altst}</p>
                         </Grid>
                         <Grid item xs={6}>
                           <Button
@@ -419,6 +326,7 @@ export default function Confirmpresence({ error, setError }) {
                               backgroundColor: "#193441",
                               width: "50%",
                               display: altst !== null ? "" : "none",
+                              fontSize: "14px",
                             }}
                             onClick={() => {
                               console.log(altst);
@@ -451,7 +359,6 @@ export default function Confirmpresence({ error, setError }) {
           <br />
           <br />
         </div>
-        {/* <Footer /> */}
       </Sidebar>
     </div>
   );

@@ -45,7 +45,7 @@ export default function BasicTable() {
           fontWeight: "normal",
         }}
       >
-        <b style={{ fontSize: "12px", fontWeight: "normal" }}>March, 2023</b>
+        <b style={{ fontSize: "12px", fontWeight: "normal" }}>March, 2024</b>
         <br />
         <Clock
           format={"h:mm:ss A"}
@@ -174,7 +174,6 @@ export default function BasicTable() {
           <br />
           <br />
         </div>
-        {/* <Footer /> */}
       </Sidebar>
     </div>
   );

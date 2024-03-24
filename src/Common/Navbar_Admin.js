@@ -167,44 +167,6 @@ function DrawerAppBar(props) {
             </div>
           </Typography>
           <Box sx={{ display: { xs: "none", sm: "block" } }}>
-            {/* {navItems.map((item) => (
-              <Button key={item} sx={{ color: '#fff' }}>
-                {item}
-              </Button>
-            ))} */}
-            {/* <Button sx={{ color: "#fff" }} href="/dashboardAdmin">
-              Dashboard
-            </Button>
-            <Button sx={{ color: "#fff" }} href="/examAdmin">
-              Exams
-            </Button>
-            <Button sx={{ color: "#fff" }} href="/questionAdmin">
-              Questions
-            </Button>
-            <Button sx={{ color: "#fff" }} href="/candidateAdmin">
-              Candidates
-            </Button>
-            <Button sx={{ color: "#fff" }} href="/assessorAdmin">
-              Assessors
-            </Button>
-            <Button sx={{ color: "#fff" }} href="/proctorerAdmin">
-              Proctorers
-            </Button>
-            <Button sx={{ color: "#fff" }} href="/statisticsAdmin">
-              Statistics
-            </Button>
-            <Button sx={{ color: "#fff" }} href="/dashboardAdmin">
-              Notifications
-            </Button>
-            <Button
-              sx={{ color: "#fff" }}
-              onClick={() => {
-                deleteAllCookies();
-                window.location.href = "/";
-              }}
-            >
-              Logout
-            </Button> */}
             <Button
               sx={{ color: "#fff" }}
               onClick={onOpenModal}
@@ -222,7 +184,7 @@ function DrawerAppBar(props) {
           open={mobileOpen}
           onClose={handleDrawerToggle}
           ModalProps={{
-            keepMounted: true, // Better open performance on mobile.
+            keepMounted: true,
           }}
           sx={{
             display: { xs: "block", sm: "none" },

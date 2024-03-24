@@ -36,7 +36,6 @@ import { useReactMediaRecorder } from "react-media-recorder";
 import { useEffect, useState } from "react";
 import JSZip from "jszip";
 import Alert from "@mui/material/Alert";
-// import FileSaver from "file-saver";
 import axiosInstance from "./axiosInstance";
 import getCookie from "./getCookie";
 import ProtectedRoute from "./ProtectedRoute";
@@ -61,8 +60,8 @@ function App() {
   const [cameraShare, setCameraShare] = useState(null);
   const [initialise, setInitialise] = useState(false);
   const [multipleFace, setMultipleFace] = useState(false);
-  const [ zipfileUploadLoader, setZipFileUploadLoader ] = useState(false)
-  const videoRef = useRef()
+  const [zipfileUploadLoader, setZipFileUploadLoader] = useState(false);
+  const videoRef = useRef();
 
   const screen = useReactMediaRecorder({ screen: true, audio: true });
 
@@ -81,7 +80,7 @@ function App() {
   // }, [camera, screen, cameraShare, screeShare]);
 
   async function zipfile(cameraShare, screeShare) {
-    setZipFileUploadLoader(true)
+    setZipFileUploadLoader(true);
     console.log("Stopped....");
     console.log("Stopped....");
     const zip = new JSZip();
@@ -96,9 +95,8 @@ function App() {
       const file = new File([content], "upload_zip.zip");
       let form = new FormData();
       form.append("zip_files", file);
-      // blob to file with extension zip
       let attempt_id = JSON.parse(localStorage.getItem("attempt_id"));
-      console.log("Submitting the file....");
+      console.log("Submitting....");
       await axiosInstance
         .patch(`/attempts/${attempt_id}`, form, config)
         .then((res) => {
@@ -109,11 +107,11 @@ function App() {
             localStorage.removeItem("questions_id");
             localStorage.removeItem("duration");
             window.location = "/dashboardStudent";
-            setZipFileUploadLoader(false)
+            setZipFileUploadLoader(false);
           }
         })
         .catch((err) => {
-          setZipFileUploadLoader(false)
+          setZipFileUploadLoader(false);
         });
 
       setCameraShare(null);
@@ -121,32 +119,29 @@ function App() {
     });
   }
 
-  const loadModels = async()=>{
-    const MODEL_URL = process.env.PUBLIC_URL + '/models'
-    setInitialise(true)
+  const loadModels = async () => {
+    const MODEL_URL = process.env.PUBLIC_URL + "/models";
+    setInitialise(true);
     return Promise.all([
       faceapi.nets.faceRecognitionNet.loadFromUri(MODEL_URL),
-      faceapi.nets.tinyFaceDetector.loadFromUri(MODEL_URL)
-    ])
-  }
+      faceapi.nets.tinyFaceDetector.loadFromUri(MODEL_URL),
+    ]);
+  };
 
-
-  const startVideo = ()=>{
-		console.log("Start Video....")
-    console.log(camera)
+  const startVideo = () => {
+    console.log("Start Video!");
+    console.log(camera);
     // videoRef.current.srcObject = cameraShare.previewStream
     // navigator.mediaDevices.getUserMedia({video : true})
     // .then((stream)=>{
     //   videoRef.current.srcObject = stream
     // })
-	}
+  };
 
-  console.log(camera)
-
+  console.log(camera);
 
   const handleVideoOnPlay = () => {
     setInterval(async () => {
-      console.log("kdfmskdfm")
       if (initialise) {
         setInitialise(false);
       }
@@ -187,7 +182,9 @@ function App() {
           }}
         >
           {error && <Alert severity="error">{error}</Alert>}
-          {multipleFace && <Alert severity="error">Multiple Face Detected</Alert>}
+          {multipleFace && (
+            <Alert severity="error">Multiple Face Detected</Alert>
+          )}
         </div>
         <div
           style={{
@@ -202,8 +199,16 @@ function App() {
         <Router>
           <Routes>
             <Route path="/testing-page" element={<Test />} exact />
-            {/* <Route path="/" element={<Signup setError={setError} />} exact /> */}
-            <Route path="/" element={<LoginAdmin setError={setError} />} exact />
+            {/* <Route
+              path="/signup"
+              element={<Signup setError={setError} />}
+              exact
+            /> */}
+            <Route
+              path="/"
+              element={<LoginAdmin setError={setError} />}
+              exact
+            />
             <Route
               path="/loginAdmin"
               element={<LoginAdmin setError={setError} />}
@@ -378,9 +383,9 @@ function App() {
                     setClicked={setClicked}
                     setError={setError}
                     multipleFace={multipleFace}
-                    setZipFileUploadLoader = {setZipFileUploadLoader}
-                    zipfileUploadLoader = {zipfileUploadLoader}
-                    zipfile = {zipfile}
+                    setZipFileUploadLoader={setZipFileUploadLoader}
+                    zipfileUploadLoader={zipfileUploadLoader}
+                    zipfile={zipfile}
                   />
                 }
                 exact

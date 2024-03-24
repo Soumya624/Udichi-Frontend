@@ -93,7 +93,6 @@ function DrawerAppBar(props) {
             sx={{ flexGrow: 1, display: { xs: "none", sm: "block" } }}
           >
             <div style={{ display: "flex", alignItems: "center" }}>
-              {/* <img src={Logo_PC} style={{ width: "5%", marginTop: "5px" }} /> */}
               <a
                 href="/dashboardProctorer"
                 style={{
@@ -108,18 +107,6 @@ function DrawerAppBar(props) {
             </div>
           </Typography>
           <Box sx={{ display: { xs: "none", sm: "block" } }}>
-            {/* {navItems.map((item) => (
-              <Button
-                key={item}
-                sx={{ color: "#fff" }}
-                onClick={() => {
-                  deleteAllCookies();
-                  window.location.href = "/";
-                }}
-              >
-                {item}
-              </Button>
-            ))} */}
             <Button
               sx={{ color: "#fff" }}
               onClick={onOpenModal}
@@ -137,7 +124,7 @@ function DrawerAppBar(props) {
           open={mobileOpen}
           onClose={handleDrawerToggle}
           ModalProps={{
-            keepMounted: true, // Better open performance on mobile.
+            keepMounted: true,
           }}
           sx={{
             display: { xs: "block", sm: "none" },

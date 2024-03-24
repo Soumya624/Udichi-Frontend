@@ -83,7 +83,7 @@ export default function Index({
       .catch((err) => {
         console.log(err);
         if (err.response.status !== 404)
-          setError("Error occurred! Please Try Again.....");
+          setError("Error occurred. Please try again!");
         setTimeout(() => {
           setError(null);
         }, 1000);
@@ -106,7 +106,7 @@ export default function Index({
       .catch((err) => {
         console.log(err);
         if (err.response.status !== 404)
-          setError("Error occurred! Please Try Again.....");
+          setError("Error occurred. Please try again!");
         setTimeout(() => {
           setError(null);
         }, 1000);
@@ -119,10 +119,6 @@ export default function Index({
       candidate: JSON.parse(localStorage.getItem("user_id")),
       number_of_attempts_left: alloted_test.number_of_attempts,
     };
-
-    // console.log(previous_submission._id)
-
-    // check whether there is any
     if (is_attempted) {
       await axiosInstance
         .patch(`/attempts/groups/${previous_submission._id}`, data, config)
@@ -136,14 +132,12 @@ export default function Index({
             setTimeout(() => {
               navigate("/testStudent/1");
             }, 10);
-            // navigate("/testStudent/1");
-            // window.location = "/testStudent/1";
           }
         })
         .catch((err) => {
           console.log(err);
           if (err.response.status !== 404)
-            setError("Error occurred! Please Try Again.....");
+            setError("Error occurred. Please try again!");
           setTimeout(() => {
             setError(null);
           }, 1000);
@@ -166,7 +160,7 @@ export default function Index({
         .catch((err) => {
           console.log(err);
           if (err.response.status !== 404)
-            setError("Error occurred! Please Try Again.....");
+            setError("Error occurred. Please try again!");
           setTimeout(() => {
             setError(null);
           }, 1000);
@@ -199,7 +193,7 @@ export default function Index({
         .catch((err) => {
           console.log(err);
           if (err.response.status !== 404)
-            setError("Error occurred! Please Try Again.....");
+            setError("Error occurred. Please try again!");
           setTimeout(() => {
             setError(null);
           }, 1000);
@@ -248,7 +242,7 @@ export default function Index({
           fontWeight: "normal",
         }}
       >
-        <b style={{ fontSize: "12px", fontWeight: "normal" }}>March, 2023</b>
+        <b style={{ fontSize: "12px", fontWeight: "normal" }}>March, 2024</b>
         <br />
         <Clock
           format={"h:mm:ss A"}
@@ -356,15 +350,15 @@ export default function Index({
               <ul style={{ textAlign: "justify" }}>
                 <li style={{ textAlign: "justify" }}>
                   {" "}
-                  Students are requested to share the screen and the camera,
-                  before starting the exam (if requested)
+                  If requested, students should share their Screen and Camera,
+                  before starting the exam.
                 </li>
                 <br />
                 <li style={{ textAlign: "justify" }}>
                   {" "}
-                  If any student faces any network issue during this time,
-                  he/she can call the pre-announced phone number, to get the
-                  assistance
+                  If any student faces any network issue during this time, he or
+                  she can call the pre-announced phone number, to get the
+                  assistance.
                 </li>
               </ul>
               <br />
@@ -425,7 +419,8 @@ export default function Index({
                       margin: "2px",
                     }}
                     // enabled={
-                    // 	screeStatus !== "recording" && cameraStatus !== "recording"
+                    //   screeStatus !== "recording" &&
+                    //   cameraStatus !== "recording"
                     // }
                   >
                     Continue Exam
@@ -447,7 +442,8 @@ export default function Index({
                       margin: "2px",
                     }}
                     // enabled={
-                    // 	screeStatus !== "recording" && cameraStatus !== "recording"
+                    //   screeStatus !== "recording" &&
+                    //   cameraStatus !== "recording"
                     // }
                   >
                     Continue Exam
@@ -455,13 +451,8 @@ export default function Index({
                 )}
               </div>
             </CardContent>
-            {/* <CardActions>
-                <Button size="small">Share</Button>
-                <Button size="small">Learn More</Button>
-                </CardActions> */}
           </Card>
         </div>
-        {/* <Footer /> */}
       </Sidebar>
     </>
   );

@@ -264,7 +264,6 @@ export default function Confirmpresence({}) {
                     <h4 style={{ textAlign: "center" }}>
                       {submitted_ans.question.title}
                     </h4>
-                    {/* <p style={{ textAlign: "justify" }}>Title</p> */}
                     {submitted_ans.question.is_objective ? (
                       <div>
                         {submitted_ans.question.options.map((op) => (
@@ -303,24 +302,6 @@ export default function Confirmpresence({}) {
                       }}
                       style={{ width: "30%" }}
                     />
-                    {/* <Grid
-                    container
-                    spacing={1}
-                    style={{ padding: "1%", display: "flex" }}
-                  >
-                    <Grid item sm={3}></Grid>
-                    <Grid item sm={3}>
-                      Obtained Marks
-                    </Grid>
-                    <Grid item sm={3}>
-                      <TextField
-                        id="standard-basic"
-                        variant="standard"
-                        style={{ width: "30%" }}
-                      />
-                    </Grid>
-                    <Grid item sm={3}></Grid>
-                  </Grid> */}
                     <br />
                     <br />
                     <br />
@@ -339,7 +320,6 @@ export default function Confirmpresence({}) {
                             boxShadow: "none",
                             fontSize: "10px",
                             width: "100%",
-                            // border: "1px solid black",
                           }}
                         >
                           Save & Next
@@ -355,7 +335,6 @@ export default function Confirmpresence({}) {
                             boxShadow: "none",
                             fontSize: "10px",
                             width: "100%",
-                            // border: "1px solid black",
                           }}
                           target="_blank"
                         >
@@ -403,7 +382,6 @@ export default function Confirmpresence({}) {
           <br />
           <br />
         </div>
-        {/* <Footer /> */}
       </Sidebar>
     </div>
   );

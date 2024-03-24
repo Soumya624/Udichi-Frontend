@@ -65,55 +65,6 @@ function createData(name, identity, section, type, action) {
   return { name, identity, section, type, action };
 }
 
-const rows = [
-  createData(
-    "What is Solid Mechanics?",
-    159,
-    "Mechatronics",
-    "MCQ (Radio)",
-    "View Details"
-  ),
-  createData(
-    "What is Soft Computing?",
-    237,
-    "Mechatronics",
-    "MCQ (Radio)",
-    "View Details"
-  ),
-  createData(
-    "What is OS?",
-    262,
-    "Operating System",
-    "MCQ (Radio)",
-    "View Details"
-  ),
-  createData(
-    "What is the decimal of 100?",
-    305,
-    "Operating System",
-    "MCQ (Radio)",
-    "View Details"
-  ),
-  createData(
-    "What is Octave Band?",
-    356,
-    "Sound and Vibration",
-    "MCQ (Radio)",
-    "View Details"
-  ),
-];
-
-// let token = getCookie("access_token")
-// // let user = JSON.parse(localStorage.getItem("user"))
-
-// let user = {
-//   usertype : "teacher"
-// }
-
-// const config = {
-// 	headers: { Authorization: `Bearer ${token}`, "user-type" : user.usertype },
-// };
-
 export default function BasicTable({ error, setError }) {
   let token = getCookie("access_token");
   let user = JSON.parse(localStorage.getItem("user"));
@@ -163,7 +114,7 @@ export default function BasicTable({ error, setError }) {
       })
       .catch((err) => {
         console.log(err);
-        setError("Error occurred! Please Try Again.....");
+        setError("Error occurred. Please try again!");
         setTimeout(() => {
           setError(null);
         }, 1000);
@@ -305,29 +256,6 @@ export default function BasicTable({ error, setError }) {
           <br />
           <br />
           <br />
-          {/* <h4 style={{ textAlign: "left", fontSize: "28px", lineHeight: "1px" }}>
-          Total Questions
-        </h4>
-        <p style={{ lineHeight: "1px" }}>
-          Manually Add a{" "}
-          <a
-            href="/addquestionAdmin"
-            style={{ textDecoration: "none", color: "#193441" }}
-          >
-            Question
-          </a>
-          &nbsp;Or{" "}
-          <a
-            onClick={handleOpen}
-            style={{
-              textDecoration: "none",
-              cursor: "pointer",
-              color: "#193441",
-            }}
-          >
-            Upload File
-          </a>
-        </p> */}
           <Grid container spacing={1} style={{ alignItems: "center" }}>
             <Grid item xs={6}>
               <h4
@@ -339,16 +267,19 @@ export default function BasicTable({ error, setError }) {
               >
                 Questions
               </h4>
-              <a
-                onClick={handleOpen}
-                style={{
-                  textDecoration: "none",
-                  cursor: "pointer",
-                  color: "#193441",
-                }}
-              >
-                Upload an Excel File
-              </a>
+              <p style={{ margin: "0", padding: "0" }}>
+                <a
+                  onClick={handleOpen}
+                  style={{
+                    textDecoration: "none",
+                    cursor: "pointer",
+                    color: "#193441",
+                  }}
+                >
+                  Upload&nbsp;
+                </a>
+                an Excel File
+              </p>
             </Grid>
             <Grid item xs={6} style={{ textAlign: "right" }}>
               <Button
@@ -384,6 +315,9 @@ export default function BasicTable({ error, setError }) {
                   <TableCell align="left">
                     <b>Question Text</b>
                   </TableCell>
+                  <TableCell align="left">
+                    <b>Type</b>
+                  </TableCell>
                   <TableCell align="right">
                     <b>Action</b>
                   </TableCell>
@@ -392,58 +326,6 @@ export default function BasicTable({ error, setError }) {
               {quesgroup &&
                 quesgroup.map((key) => {
                   return (
-                    // <Collapsible trigger={key.title} style={{ padding: "2px" }}>
-                    //   <TableContainer component={Paper}>
-                    //     <Table sx={{ minWidth: 650 }} aria-label="simple table">
-                    //       <TableHead>
-                    //         <TableRow>
-                    //           <TableCell>
-                    //             <b>Title</b>
-                    //           </TableCell>
-                    //           <TableCell align="right">
-                    //             <b>ID of Question</b>
-                    //           </TableCell>
-
-                    //           <TableCell align="right">
-                    //             <b>Type</b>
-                    //           </TableCell>
-                    //           <TableCell align="right">
-                    //             <b>Action</b>
-                    //           </TableCell>
-                    //         </TableRow>
-                    //       </TableHead>
-                    //       <TableBody>
-                    //         {key.questions.map((x) => (
-                    //           <TableRow
-                    //             key={x._id}
-                    //             sx={{
-                    //               "&:last-child td, &:last-child th": { border: 0 },
-                    //             }}
-                    //           >
-                    //             <TableCell component="th" scope="row">
-                    //               {x.title}
-                    //             </TableCell>
-                    //             <TableCell align="right">{x._id}</TableCell>
-
-                    //             <TableCell align="right">
-                    //               {x.is_objective === false
-                    //                 ? "Fill in the Blanks"
-                    //                 : "MCQ"}
-                    //             </TableCell>
-                    //             <TableCell
-                    //               align="right"
-                    //               style={{ cursor: "pointer", color: "grey" }}
-                    //             >
-                    //               <SettingsOutlined/>
-                    //               <ArrowDropDownOutlined/>
-                    //             </TableCell>
-                    //           </TableRow>
-                    //         ))}
-                    //       </TableBody>
-                    //     </Table>
-                    //   </TableContainer>
-                    // </Collapsible>
-
                     <TableBody>
                       {key.questions.map((x) => (
                         <TableRow
@@ -456,6 +338,7 @@ export default function BasicTable({ error, setError }) {
                             {key.title}
                           </TableCell>
                           <TableCell align="left">{x.title}</TableCell>
+                          <TableCell align="left">{x.type_question}</TableCell>
                           <TableCell
                             align="right"
                             style={{ cursor: "pointer", color: "grey" }}
@@ -488,7 +371,7 @@ export default function BasicTable({ error, setError }) {
                     label="Specify Question Section"
                     variant="outlined"
                     size="small"
-                    style={{ width: "98.5%" }}
+                    fullWidth
                     onChange={(e) => {
                       e.preventDefault();
                       setName(e.target.value);
@@ -500,7 +383,7 @@ export default function BasicTable({ error, setError }) {
             <input
               type="file"
               onChange={(e) => setFile(e.target.files[0])}
-              style={{ margin: "3%" }}
+              style={{ marginTop: "3%", marginBottom: "3%", marginLeft: "21%" }}
             />
             <br />
             <br />
@@ -513,18 +396,22 @@ export default function BasicTable({ error, setError }) {
                 Continue
               </Button>
               <br />
-              <a
-                style={{
-                  textDecoration: "none",
-                  color: "#193441",
-                  fontSize: "10px",
-                  cursor: "pointer",
-                }}
-                href={question_demo_file}
-                download
-              >
-                Click Here to Download Sample Excel File
-              </a>
+              <p style={{ fontSize: "10px" }}>
+                Click
+                <a
+                  style={{
+                    textDecoration: "none",
+                    color: "#193441",
+                    fontSize: "10px",
+                    cursor: "pointer",
+                  }}
+                  href={question_demo_file}
+                  download
+                >
+                  &nbsp;here&nbsp;
+                </a>
+                to download sample file
+              </p>
             </center>
           </Box>
         </Modal>

@@ -64,7 +64,7 @@ export default function Confirmpresence({ error, setError }) {
       })
       .catch((err) => {
         console.log(err);
-        setError("Error occurred! Please Try Again.....");
+        setError("Error occurred. Please try again!");
         setTimeout(() => {
           setError(null);
         }, 1000);
@@ -85,7 +85,7 @@ export default function Confirmpresence({ error, setError }) {
       })
       .catch((err) => {
         if (err.response.status !== 404)
-          setError("Error occurred! Please Try Again.....");
+          setError("Error occurred. Please try again!");
         setTimeout(() => {
           setError(null);
         }, 1000);
@@ -103,7 +103,7 @@ export default function Confirmpresence({ error, setError }) {
         })
         .catch((err) => {
           console.log(err);
-          setError("Error occurred! Please Try Again.....");
+          setError("Error occurred. Please try again!");
           setTimeout(() => {
             setError(null);
           }, 1000);
@@ -150,7 +150,7 @@ export default function Confirmpresence({ error, setError }) {
           fontWeight: "normal",
         }}
       >
-        <b style={{ fontSize: "12px", fontWeight: "normal" }}>March, 2023</b>
+        <b style={{ fontSize: "12px", fontWeight: "normal" }}>March, 2024</b>
         <br />
         <Clock
           format={"h:mm:ss A"}
@@ -240,29 +240,28 @@ export default function Confirmpresence({ error, setError }) {
                 </Typography>
                 <br />
                 <ul style={{ textAlign: "justify" }}>
-                  <li style={{ textAlign: "justify" }}>
-                    {" "}
-                    The examination does not require any paper, pen, pencil and
-                    calculator
-                  </li>
                   <br />
                   <li style={{ textAlign: "justify" }}>
                     {" "}
-                    Any student can take the examination on a
-                    Laptop/Desktop/Smart Phone
+                    You can take the examination on a Laptop or Desktop.
                   </li>
                   <br />
                   <li style={{ textAlign: "justify" }}>
                     {" "}
                     The answers can be changed at any time during the test and
-                    are saved automatically
+                    are saved automatically.
                   </li>
                   <br />
                   <li style={{ textAlign: "justify" }}>
                     {" "}
                     The system automatically shuts down when the time limit is
-                    over. Alternatively if examinee finishes the exam before
-                    time he can quit by pressing the 'Submit' button
+                    over.
+                  </li>
+                  <br />
+                  <li style={{ textAlign: "justify" }}>
+                    {" "}
+                    If you want to finish the exam before time, then you can
+                    quit by pressing the Submit button.
                   </li>
                 </ul>
                 <br />
@@ -274,7 +273,6 @@ export default function Confirmpresence({ error, setError }) {
                     <div>Loading...</div>
                   ) : (
                     <div>
-                      {/* {isError && <p>Error</p>} */}
                       <div ref={ref} />
                       {image && (
                         <img
@@ -284,11 +282,13 @@ export default function Confirmpresence({ error, setError }) {
                         />
                       )}
                       <b>
-                        {/* <Countdown date={Date.now() + 35000}> */}
                         <div>
                           <Completionist />
                           <br />
-                          Slow Server: Please Wait 1-2 Minutes Before Any Action
+                          <p style={{ fontSize: "10px" }}>
+                            Due to slow server, please wait for 2 minutes before
+                            taking any action.
+                          </p>
                           <br />
                           <Button
                             variant="contained"
@@ -297,40 +297,19 @@ export default function Confirmpresence({ error, setError }) {
                                 left_attempts <= 0 ? "#aaaaaa" : "#193441",
                               margin: "1em",
                             }}
-                            // onClick={getImage}
-                            // onClick={startRecording}
                             href={`/shareScreen/${id}`}
                             disabled={left_attempts <= 0}
                           >
                             Start Exam
                           </Button>
                         </div>
-                        {/* </Countdown> */}
                       </b>
-                      {/* <Button
-											variant="contained"
-											style={{ backgroundColor: "#193441", margin: "1em" }}
-											onClick={() => {
-												image && downloadImage();
-											}}
-										>
-											Download Image
-										</Button> */}
                     </div>
                   )}
                   <br />
-                  <div>
-                    {/* <p>{status}</p> */}
-                    {/* <button onClick={startRecording}>Start Recording</button> */}
-                    {/* <button onClick={stopRecording}>Stop Recording</button>
-									<video style={{width : "30em"}} src={mediaBlobUrl} controls autoPlay loop /> */}
-                  </div>
+                  <div></div>
                 </Typography>
               </CardContent>
-              {/* <CardActions>
-          <Button size="small">Share</Button>
-          <Button size="small">Learn More</Button>
-        </CardActions> */}
             </Card>
           </center>
           <br />
@@ -339,7 +318,6 @@ export default function Confirmpresence({ error, setError }) {
           <br />
           <br />
         </div>
-        {/* <Footer /> */}
       </Sidebar>
     </div>
   );

@@ -79,13 +79,11 @@ export default function AddCandidate({ error, setError }) {
   };
 
   async function sendEmail() {
-    // Construct the email message
     let emailMessage = {
       to: email,
       subject: `Your Udichi Username: ${email} and Password: ${password}`,
     };
 
-    // Send the email
     let result = await emailjs.send(
       "service_saoe924",
       "template_9vghbes",
@@ -121,7 +119,7 @@ export default function AddCandidate({ error, setError }) {
       })
       .catch((err) => {
         console.log(err);
-        setError("Error occurred! Please Try Again.....");
+        setError("Error occurred. Please try again!");
         setTimeout(() => {
           setError(null);
         }, 1000);
@@ -141,14 +139,13 @@ export default function AddCandidate({ error, setError }) {
       })
       .catch((err) => {
         console.log(err);
-        setError("Error occurred! Please Try Again.....");
+        setError("Error occurred. Please try again!");
         setTimeout(() => {
           setError(null);
         }, 1000);
       });
   }
 
-  // get Candidates Group
   function getCandidates() {
     axiosInstance
       .get("/candidate_group/all/", config)
@@ -160,7 +157,7 @@ export default function AddCandidate({ error, setError }) {
       })
       .catch((err) => {
         console.log(err);
-        setError("Error occurred! Please Try Again.....");
+        setError("Error occurred. Please try again!");
         setTimeout(() => {
           setError(null);
         }, 1000);
@@ -178,7 +175,7 @@ export default function AddCandidate({ error, setError }) {
           fontWeight: "normal",
         }}
       >
-        <b style={{ fontSize: "12px", fontWeight: "normal" }}>March, 2023</b>
+        <b style={{ fontSize: "12px", fontWeight: "normal" }}>March, 2024</b>
         <br />
         <Clock
           format={"h:mm:ss A"}
@@ -297,236 +294,237 @@ export default function AddCandidate({ error, setError }) {
   return (
     <div>
       <Sidebar content={items1} background="#193441">
-      <Navbar />
-      <div style={{ padding: "2%" }}>
-        <center>
-          <Card
-            sx={{ maxWidth: 500 }}
-            style={{
-              alignItems: "center",
-              justifyContent: "center",
-              marginTop: "5rem",
-              padding: "2%",
-            }}
-          >
-            <CardContent>
-              <Typography
-                gutterBottom
-                variant="h5"
-                component="div"
-                style={{ marginBottom: "0", fontWeight: "bold" }}
-              >
-                Add Candidate
-              </Typography>
-              <br />
-              <Typography variant="body2" color="text.secondary">
-                <Grid container spacing={1} style={{ marginTop: "0.5%" }}>
-                  <Grid item xs={6}>
-                    <TextField
-                      fullWidth
-                      id="outlined-basic"
-                      label="First Name"
-                      variant="outlined"
-                      size="small"
-                      onChange={(e) => {
-                        e.preventDefault();
-                        setFname(e.target.value);
-                      }}
-                    />
-                  </Grid>
-                  <Grid item xs={6}>
-                    <TextField
-                      fullWidth
-                      id="outlined-basic"
-                      label="Last Name"
-                      variant="outlined"
-                      size="small"
-                      onChange={(e) => {
-                        e.preventDefault();
-                        setLname(e.target.value);
-                      }}
-                    />
-                  </Grid>
-                </Grid>
-
-                <Grid container spacing={1} style={{ marginTop: "0.5%" }}>
-                  <Grid item xs={6}>
-                    <TextField
-                      fullWidth
-                      id="outlined-basic"
-                      label="Email"
-                      variant="outlined"
-                      size="small"
-                      onChange={(e) => {
-                        e.preventDefault();
-                        setEmail(e.target.value);
-                      }}
-                    />
-                  </Grid>
-                  <Grid item xs={6}>
-                    <TextField
-                      fullWidth
-                      id="outlined-basic"
-                      label="Username"
-                      variant="outlined"
-                      size="small"
-                      onChange={(e) => {
-                        e.preventDefault();
-                        setUsername(e.target.value);
-                      }}
-                    />
-                  </Grid>
-                </Grid>
-                <Grid container spacing={1} style={{ marginTop: "0.5%" }}>
-                  <Grid item xs={12}>
-                    <center>
+        <Navbar />
+        <div style={{ padding: "2%" }}>
+          <center>
+            <Card
+              sx={{ maxWidth: 500 }}
+              style={{
+                alignItems: "center",
+                justifyContent: "center",
+                marginTop: "5rem",
+                padding: "2%",
+              }}
+            >
+              <CardContent>
+                <Typography
+                  gutterBottom
+                  variant="h5"
+                  component="div"
+                  style={{ marginBottom: "0", fontWeight: "bold" }}
+                >
+                  Add Candidate
+                </Typography>
+                <br />
+                <Typography variant="body2" color="text.secondary">
+                  <Grid container spacing={1} style={{ marginTop: "0.5%" }}>
+                    <Grid item xs={6}>
                       <TextField
                         fullWidth
                         id="outlined-basic"
-                        label="Password"
+                        label="First Name"
                         variant="outlined"
                         size="small"
                         onChange={(e) => {
                           e.preventDefault();
-                          setPassword(e.target.value);
+                          setFname(e.target.value);
                         }}
                       />
-                    </center>
+                    </Grid>
+                    <Grid item xs={6}>
+                      <TextField
+                        fullWidth
+                        id="outlined-basic"
+                        label="Last Name"
+                        variant="outlined"
+                        size="small"
+                        onChange={(e) => {
+                          e.preventDefault();
+                          setLname(e.target.value);
+                        }}
+                      />
+                    </Grid>
                   </Grid>
-                </Grid>
-                <Grid container spacing={1} style={{ marginTop: "0.5%" }}>
-                  <Grid item xs={12}>
-                    <TextField
-                      fullWidth
-                      id="outlined-basic"
-                      label="Mobile Number"
-                      variant="outlined"
-                      size="small"
-                      onChange={(e) => {
-                        e.preventDefault();
-                        setMobile(e.target.value);
-                      }}
-                    />
-                  </Grid>
-                </Grid>
-                <Grid container spacing={1} style={{ marginTop: "0.5%" }}>
-                  <Grid item xs={6}>
-                    <TextField
-                      fullWidth
-                      id="outlined-basic"
-                      label="Aadhar Number"
-                      variant="outlined"
-                      size="small"
-                      onChange={(e) => {
-                        e.preventDefault();
-                        setAadhar(e.target.value);
-                      }}
-                    />
-                  </Grid>
-                  <Grid item xs={6}>
-                    <TextField
-                      fullWidth
-                      id="outlined-basic"
-                      label="Telephone Number"
-                      variant="outlined"
-                      size="small"
-                      onChange={(e) => {
-                        e.preventDefault();
-                        setTelephone(e.target.value);
-                      }}
-                    />
-                  </Grid>
-                </Grid>
-                <Grid container spacing={1} style={{ marginTop: "0.5%" }}>
-                  <Grid item xs={12}>
-                    <FormControl fullWidth>
-                      <InputLabel id="demo-simple-select-label">
-                        Candidate Group
-                      </InputLabel>
-                      <Select
-                        labelId="demo-simple-select-label"
-                        id="demo-simple-select"
-                        value={group}
-                        label="Candidate Group"
-                        onChange={handleChange}
-                      >
-                        {candigroup.map((key) => {
-                          return (
-                            <MenuItem value={key._id}>{key.title}</MenuItem>
-                          );
-                        })}
-                      </Select>
-                    </FormControl>
-                  </Grid>
-                </Grid>
 
-                <br />
-                <br />
-                <Button
-                  variant="contained"
-                  style={{ backgroundColor: "#193441", width: "50%" }}
-                  onClick={add_candidate}
-                >
-                  Continue
-                </Button>
-                <br />
-                <p>
-                  Create a{" "}
-                  <a
-                    onClick={handleOpen}
-                    style={{ textDecoration: "none", cursor: "pointer" }}
+                  <Grid container spacing={1} style={{ marginTop: "0.5%" }}>
+                    <Grid item xs={6}>
+                      <TextField
+                        fullWidth
+                        id="outlined-basic"
+                        label="Email"
+                        variant="outlined"
+                        size="small"
+                        onChange={(e) => {
+                          e.preventDefault();
+                          setEmail(e.target.value);
+                        }}
+                      />
+                    </Grid>
+                    <Grid item xs={6}>
+                      <TextField
+                        fullWidth
+                        id="outlined-basic"
+                        label="Username"
+                        variant="outlined"
+                        size="small"
+                        onChange={(e) => {
+                          e.preventDefault();
+                          setUsername(e.target.value);
+                        }}
+                      />
+                    </Grid>
+                  </Grid>
+                  <Grid container spacing={1} style={{ marginTop: "0.5%" }}>
+                    <Grid item xs={12}>
+                      <center>
+                        <TextField
+                          fullWidth
+                          id="outlined-basic"
+                          label="Password"
+                          variant="outlined"
+                          size="small"
+                          onChange={(e) => {
+                            e.preventDefault();
+                            setPassword(e.target.value);
+                          }}
+                        />
+                      </center>
+                    </Grid>
+                  </Grid>
+                  <Grid container spacing={1} style={{ marginTop: "0.5%" }}>
+                    <Grid item xs={12}>
+                      <TextField
+                        fullWidth
+                        id="outlined-basic"
+                        label="Mobile Number"
+                        variant="outlined"
+                        size="small"
+                        onChange={(e) => {
+                          e.preventDefault();
+                          setMobile(e.target.value);
+                        }}
+                      />
+                    </Grid>
+                  </Grid>
+                  <Grid container spacing={1} style={{ marginTop: "0.5%" }}>
+                    <Grid item xs={6}>
+                      <TextField
+                        fullWidth
+                        id="outlined-basic"
+                        label="Aadhar Number"
+                        variant="outlined"
+                        size="small"
+                        onChange={(e) => {
+                          e.preventDefault();
+                          setAadhar(e.target.value);
+                        }}
+                      />
+                    </Grid>
+                    <Grid item xs={6}>
+                      <TextField
+                        fullWidth
+                        id="outlined-basic"
+                        label="Telephone Number"
+                        variant="outlined"
+                        size="small"
+                        onChange={(e) => {
+                          e.preventDefault();
+                          setTelephone(e.target.value);
+                        }}
+                      />
+                    </Grid>
+                  </Grid>
+                  <Grid container spacing={1} style={{ marginTop: "0.5%" }}>
+                    <Grid item xs={12}>
+                      <FormControl fullWidth>
+                        <InputLabel id="demo-simple-select-label">
+                          Candidate Group
+                        </InputLabel>
+                        <Select
+                          labelId="demo-simple-select-label"
+                          id="demo-simple-select"
+                          value={group}
+                          label="Candidate Group"
+                          onChange={handleChange}
+                        >
+                          {candigroup.map((key) => {
+                            return (
+                              <MenuItem value={key._id}>{key.title}</MenuItem>
+                            );
+                          })}
+                        </Select>
+                      </FormControl>
+                    </Grid>
+                  </Grid>
+
+                  <br />
+                  <br />
+                  <Button
+                    variant="contained"
+                    style={{ backgroundColor: "#193441", width: "50%" }}
+                    onClick={add_candidate}
                   >
-                    Candidate Group
-                  </a>
-                </p>
-              </Typography>
-            </CardContent>
-            {/* <CardActions>
-          <Button size="small">Share</Button>
-          <Button size="small">Learn More</Button>
-        </CardActions> */}
-          </Card>
-        </center>
-        <br />
-        <br />
-        <br />
-        <br />
-        <br />
-      </div>
-      <Modal
-        open={open}
-        onClose={handleClose}
-        aria-labelledby="modal-modal-title"
-        aria-describedby="modal-modal-description"
-      >
-        <Box sx={style}>
-          <center>
-            <Grid container spacing={1} style={{ marginTop: "0.5%" }}>
-              <Grid item xs={12}>
-                <TextField
-                  id="outlined-basic"
-                  label="Specify Candidate Group"
-                  variant="outlined"
-                  size="small"
-                  style={{ width: "98.5%" }}
-                  onChange={(e) => {
-                    e.preventDefault();
-                    setGrptitle(e.target.value);
-                  }}
-                />
-              </Grid>
-            </Grid>
-            <br />
-            <Button
-              variant="contained"
-              style={{ backgroundColor: "#193441", width: "50%" }}
-              onClick={add_candidategroup}
-            >
-              Continue
-            </Button>
+                    Continue
+                  </Button>
+                  <br />
+                  <p>
+                    Click
+                    <a
+                      onClick={handleOpen}
+                      style={{
+                        textDecoration: "none",
+                        cursor: "pointer",
+                        color: "#193441",
+                      }}
+                    >
+                      &nbsp;here&nbsp;
+                    </a>
+                    to create a Group
+                  </p>
+                </Typography>
+              </CardContent>
+            </Card>
           </center>
-        </Box>
-      </Modal>
+          <br />
+          <br />
+          <br />
+          <br />
+          <br />
+        </div>
+        <Modal
+          open={open}
+          onClose={handleClose}
+          aria-labelledby="modal-modal-title"
+          aria-describedby="modal-modal-description"
+        >
+          <Box sx={style}>
+            <center>
+              <Grid container spacing={1} style={{ marginTop: "0.5%" }}>
+                <Grid item xs={12}>
+                  <TextField
+                    id="outlined-basic"
+                    label="Enter Candidate Group"
+                    variant="outlined"
+                    size="small"
+                    style={{ width: "98.5%" }}
+                    onChange={(e) => {
+                      e.preventDefault();
+                      setGrptitle(e.target.value);
+                    }}
+                  />
+                </Grid>
+              </Grid>
+              <br />
+              <Button
+                variant="contained"
+                style={{ backgroundColor: "#193441", width: "50%" }}
+                onClick={add_candidategroup}
+              >
+                Continue
+              </Button>
+            </center>
+          </Box>
+        </Modal>
       </Sidebar>
     </div>
   );

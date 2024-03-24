@@ -11,12 +11,12 @@ export default function Screen({
 }) {
   console.log(isClicked);
   // const {
-  // 	startRecording,
-  // 	stopRecording,
-  // 	mediaBlobUrl,
-  // 	resumeRecording,
-  // 	pauseRecording,
-  //   status
+  //   startRecording,
+  //   stopRecording,
+  //   mediaBlobUrl,
+  //   resumeRecording,
+  //   pauseRecording,
+  //   status,
   // } = useReactMediaRecorder({ screen: true, audio: true });
   useEffect(() => {
     console.log("Clicked");

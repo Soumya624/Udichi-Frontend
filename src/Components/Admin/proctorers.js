@@ -65,44 +65,6 @@ function createData(name, candidates, group, username, action) {
   return { name, candidates, group, username, action };
 }
 
-const rows = [
-  createData(
-    "A Bose",
-    159,
-    "JBL Tailoring@04.08.2022",
-    "user@001",
-    "View Details"
-  ),
-  createData(
-    "Sudip Nayak",
-    237,
-    "JBL Tailoring@04.08.2022",
-    "user@002",
-    "View Details"
-  ),
-  createData(
-    "B M Kumar",
-    262,
-    "JBL Tailoring@04.08.2022",
-    "user@003",
-    "View Details"
-  ),
-  createData(
-    "P Chetri",
-    305,
-    "JBL Tailoring@04.08.2022",
-    "user@004",
-    "View Details"
-  ),
-  createData(
-    "P K Das",
-    356,
-    "JBL Tailoring@04.08.2022",
-    "user@005",
-    "View Details"
-  ),
-];
-
 export default function BasicTable({ error, setError }) {
   let token = getCookie("access_token");
   let user = JSON.parse(localStorage.getItem("user"));
@@ -156,7 +118,7 @@ export default function BasicTable({ error, setError }) {
       })
       .catch((err) => {
         console.log(err);
-        setError("Error occurred! Please Try Again.....");
+        setError("Error occurred. Please try again!");
         setTimeout(() => {
           setError(null);
         }, 1000);
@@ -174,7 +136,7 @@ export default function BasicTable({ error, setError }) {
           fontWeight: "normal",
         }}
       >
-        <b style={{ fontSize: "12px", fontWeight: "normal" }}>March, 2023</b>
+        <b style={{ fontSize: "12px", fontWeight: "normal" }}>March, 2024</b>
         <br />
         <Clock
           format={"h:mm:ss A"}
@@ -298,18 +260,6 @@ export default function BasicTable({ error, setError }) {
           <br />
           <br />
           <br />
-          {/* <h4 style={{ textAlign: "left", fontSize: "28px", lineHeight: "1px" }}>
-          Total Proctorer
-        </h4>
-        <p style={{ lineHeight: "1px" }}>
-          Manually Add a{" "}
-          <a
-            href="/addproctorerAdmin"
-            style={{ textDecoration: "none", color: "#193441" }}
-          >
-            Proctorer
-          </a>
-        </p> */}
           <Grid container spacing={1} style={{ alignItems: "center" }}>
             <Grid item xs={6}>
               <h4
@@ -351,14 +301,16 @@ export default function BasicTable({ error, setError }) {
               <TableHead>
                 <TableRow>
                   <TableCell>
-                    <b>Proctorer Name</b>
+                    <b>Firstname</b>
                   </TableCell>
                   <TableCell align="right">
-                    <b>ID of Proctorer</b>
+                    <b>Lastname</b>
                   </TableCell>
-
                   <TableCell align="right">
-                    <b>Username</b>
+                    <b>Email</b>
+                  </TableCell>
+                  <TableCell align="right">
+                    <b>Phone No.</b>
                   </TableCell>
                   <TableCell align="right">
                     <b>Action</b>
@@ -376,17 +328,17 @@ export default function BasicTable({ error, setError }) {
                         }}
                       >
                         <TableCell component="th" scope="row">
-                          {x.firstname + x.lastname}
+                          {x.firstname}
                         </TableCell>
-                        <TableCell align="right">{x._id}</TableCell>
-
-                        <TableCell align="right">{x.username}</TableCell>
+                        <TableCell align="right">{x.lastname}</TableCell>
+                        <TableCell align="right">{x.email}</TableCell>
+                        <TableCell align="right">{x.mobile}</TableCell>
                         <TableCell
                           align="right"
                           style={{ cursor: "pointer", color: "grey" }}
                         >
-                          <SettingsOutlined/>
-                          <ArrowDropDownOutlined/>
+                          <SettingsOutlined />
+                          <ArrowDropDownOutlined />
                         </TableCell>
                       </TableRow>
                     );
@@ -394,7 +346,6 @@ export default function BasicTable({ error, setError }) {
               </TableBody>
             </Table>
           </TableContainer>
-
           <br />
           <br />
         </div>

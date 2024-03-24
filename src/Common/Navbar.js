@@ -33,15 +33,6 @@ function DrawerAppBar(props) {
         <img src={Logo} />
       </Typography>
       <Divider />
-      {/* <List>
-        {navItems.map((item) => (
-          <ListItem key={item} disablePadding>
-            <ListItemButton sx={{ textAlign: "center" }}>
-              <ListItemText primary={item} />
-            </ListItemButton>
-          </ListItem>
-        ))}
-      </List> */}
       <List>
         <ListItem disablePadding>
           <ListItemButton sx={{ textAlign: "center" }}>
@@ -105,7 +96,6 @@ function DrawerAppBar(props) {
             sx={{ flexGrow: 1, display: { xs: "none", sm: "block" } }}
           >
             <div style={{ display: "flex", alignItems: "center" }}>
-              {/* <img src={Logo_PC} style={{ width: "5%", marginTop: "5px" }} /> */}
               <a
                 href="/"
                 style={{
@@ -142,7 +132,7 @@ function DrawerAppBar(props) {
           open={mobileOpen}
           onClose={handleDrawerToggle}
           ModalProps={{
-            keepMounted: true, // Better open performance on mobile.
+            keepMounted: true,
           }}
           sx={{
             display: { xs: "block", sm: "none" },

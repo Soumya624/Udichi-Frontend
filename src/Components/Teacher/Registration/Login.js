@@ -45,12 +45,11 @@ export default function LoginAssessor({ error, setError }) {
           window.location = "/dashboardAssessor";
         }
         setLoading(false);
-        //setCookie(`refresh`, `${token.refresh}`, 1);
       })
       .catch((err) => {
         setLoading(false);
         console.log(err);
-        setError("Error occurred! Please Try Again.....");
+        setError("Error occurred. Please try again!");
         setTimeout(() => {
           setError(null);
         }, 1000);
@@ -59,7 +58,6 @@ export default function LoginAssessor({ error, setError }) {
 
   return (
     <div>
-      {/* <Navbar /> */}
       <center>
         <div
           style={{
@@ -108,7 +106,7 @@ export default function LoginAssessor({ error, setError }) {
                   <Grid container spacing={1} style={{ marginTop: "0.5%" }}>
                     <Grid item xs={12}>
                       <label style={{ display: "block", textAlign: "left" }}>
-                        Username / Email
+                        Email
                       </label>
                       <TextField
                         required
@@ -152,33 +150,20 @@ export default function LoginAssessor({ error, setError }) {
                     type="submit"
                     variant="contained"
                     style={{ backgroundColor: "#4ba4d2", width: "100%" }}
-                    // onClick={submit}
                   >
                     {loading && <CircularProgress color="inherit" />}
                     {!loading && `SIGN IN`}
                   </Button>
                   <br />
-                  {/* <p style={{ marginTop: "1%" }}>
-										Don't Have an Account?{" "}
-										<a href="/" style={{ textDecoration: "none" }}>
-											Click Here
-										</a>
-									</p> */}
                 </Typography>
               </form>
               <p style={{ fontSize: "12px", textAlign: "center" }}>
                 Please contact udichiportal@gmail.com in case of any query
               </p>
             </CardContent>
-            {/* <CardActions>
-                  <Button size="small">Share</Button>
-                  <Button size="small">Learn More</Button>
-                </CardActions> 
-            */}
           </Card>
         </div>
       </center>
-      {/* <Footer /> */}
     </div>
   );
 }

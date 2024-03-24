@@ -75,7 +75,7 @@ export default function Index({ error, setError }) {
       })
       .catch((err) => {
         console.log(err);
-        setError("Error occurred! Please Try Again.....");
+        setError("Error occurred. Please try again!");
         setTimeout(() => {
           setError(null);
         }, 1000);
@@ -96,7 +96,7 @@ export default function Index({ error, setError }) {
           fontWeight: "normal",
         }}
       >
-        <b style={{ fontSize: "12px", fontWeight: "normal" }}>March, 2023</b>
+        <b style={{ fontSize: "12px", fontWeight: "normal" }}>March, 2024</b>
         <br />
         <Clock
           format={"h:mm:ss A"}
@@ -173,19 +173,7 @@ export default function Index({ error, setError }) {
           >
             Dashboard
           </h4>
-          <p style={{ lineHeight: "1px" }}>
-            Welcome to Udichi{" "}
-            {/* <a
-              onClick={handleOpen}
-              style={{
-                textDecoration: "none",
-                cursor: "pointer",
-                color: "#193441",
-              }}
-            >
-              Your Account
-            </a> */}
-          </p>
+          <p style={{ lineHeight: "1px" }}>Welcome to Udichi </p>
           <br />
           <br />
           <br />
@@ -258,7 +246,6 @@ export default function Index({ error, setError }) {
         <br />
         <br />
         <br />
-        {/* <Footer /> */}
         <Modal
           open={open}
           onClose={handleClose}

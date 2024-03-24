@@ -19,29 +19,29 @@ import { Translate } from "@mui/icons-material";
 import Carousel from "react-multi-carousel";
 import "react-multi-carousel/lib/styles.css";
 import Home_Imgae from "./../Assets/Home.png";
-import { ProctorApp, getStatistics } from  'react_proctoring_library';
+import { ProctorApp, getStatistics } from "react_proctoring_library";
 
 const style = {
   play: {
     button: {
-      width: '28',
-      height: '28',
-      cursor: 'pointer',
-      pointerEvents: 'none',
-      outline: 'none',
-      backgroundColor: 'yellow',
-      border: 'solid 1px rgba(255,255,255,1)',
-      borderRadius: 6
+      width: "28",
+      height: "28",
+      cursor: "pointer",
+      pointerEvents: "none",
+      outline: "none",
+      backgroundColor: "yellow",
+      border: "solid 1px rgba(255,255,255,1)",
+      borderRadius: 6,
     },
-  }
+  },
 };
 
-function  Test(props) {
-	return (
-		<div>
-			<h1>Proctoring Window</h1>
-		</div>
-	);
+function Test(props) {
+  return (
+    <div>
+      <h1>Proctoring Window</h1>
+    </div>
+  );
 }
 
 function Home(props) {
@@ -49,26 +49,27 @@ function Home(props) {
     desktop: {
       breakpoint: { max: 3000, min: 1024 },
       items: 1,
-      slidesToSlide: 1, // optional, default to 1.
+      slidesToSlide: 1,
     },
     tablet: {
       breakpoint: { max: 1024, min: 464 },
       items: 1,
-      slidesToSlide: 1, // optional, default to 1.
+      slidesToSlide: 1,
     },
     mobile: {
       breakpoint: { max: 464, min: 0 },
       items: 1,
-      slidesToSlide: 4, // optional, default to 1.
+      slidesToSlide: 4,
     },
   };
 
-  const testIdentifier = 'unique-proctoring-identifier';
-	const fullScreenMessage = 'This test can only be completed in Full Screen Mode, do you want to start this test?';
-	const  getStats = e  => {
-		e.preventDefault();
-		console.log(getStatistics(testIdentifier));
-	};
+  const testIdentifier = "unique-proctoring-identifier";
+  const fullScreenMessage =
+    "This test can only be completed in Full Screen Mode, do you want to start this test?";
+  const getStats = (e) => {
+    e.preventDefault();
+    console.log(getStatistics(testIdentifier));
+  };
 
   return (
     <div>
@@ -108,22 +109,6 @@ function Home(props) {
                   - Testimonial By a Student
                 </p>
               </div>
-              {/* <div
-                style={{ color: "black", padding: "0 12%", fontSize: "15px" }}
-              >
-                "I have used this exam portal several times now and I am always
-                impressed with the level of security and professionalism. The
-                proctor was able to monitor me during the exam to ensure that I
-                wasn't cheating and the authentication process was thorough and
-                secure. The portal itself was easy to use and navigate and the
-                scheduling feature allowed me to find a convenient time to take
-                the exam. Overall, I have had a great experience using this
-                portal and would definitely recommend it to other students"
-                <br />
-                <p style={{ color: "#193441", fontSize: "20px" }}>
-                  - Testimonial By a Student
-                </p>
-              </div> */}
             </Grid>
             <Grid item sm={6}>
               <img src={Home_Imgae} style={{ width: "100%" }} />
@@ -131,10 +116,6 @@ function Home(props) {
           </Grid>
         </center>
       </div>
-      {/* <ProctorApp TestComponent={Test} testIdentifier={testIdentifier} fullScreenMessage={fullScreenMessage} />
-      <button  onClick={getStats}>Get Statistics</button> */}
-      
-      {/* <Footer /> */}
     </div>
   );
 }

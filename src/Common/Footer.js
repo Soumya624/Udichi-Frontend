@@ -49,13 +49,6 @@ export default function Footer() {
             &nbsp;info@udichi.co.in
           </div>
         </Grid>
-        {/* <Grid item sm={12} >
-          <center>
-            <p style={{borderTop:"1px solid white", paddingTop:"2%"}}>
-              © Copyright Udichi | All Rights Reserved
-            </p>
-          </center>
-        </Grid> */}
       </Grid>
     </div>
   );

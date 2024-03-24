@@ -56,7 +56,7 @@ export default function Confirmpresence() {
           fontWeight: "normal",
         }}
       >
-        <b style={{ fontSize: "12px", fontWeight: "normal" }}>March, 2023</b>
+        <b style={{ fontSize: "12px", fontWeight: "normal" }}>March, 2024</b>
         <br />
         <Clock
           format={"h:mm:ss A"}
@@ -203,10 +203,6 @@ export default function Confirmpresence() {
                   <br />
                 </Typography>
               </CardContent>
-              {/* <CardActions>
-          <Button size="small">Share</Button>
-          <Button size="small">Learn More</Button>
-        </CardActions> */}
             </Card>
           </center>
           <br />
@@ -215,7 +211,6 @@ export default function Confirmpresence() {
           <br />
           <br />
         </div>
-        {/* <Footer /> */}
       </Sidebar>
     </div>
   );
